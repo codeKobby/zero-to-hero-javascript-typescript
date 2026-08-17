@@ -6,6 +6,18 @@
 
 ---
 
+## 🌐 This Lesson Runs in the Browser
+
+DOM APIs (`document`, `window`) only exist in browsers. **Use Live Server:**
+
+1. Right-click `24_day_dom_selection/starter/index.html`
+2. Select **Open with Live Server**
+3. Browser opens at `http://localhost:5500` — auto-reloads on save!
+
+> **Need Live Server?** See [`VS_CODE_SETUP.md`](../VS_CODE_SETUP.md) for one-click install.
+
+---
+
 ## What You'll Learn
 
 - Find elements with `getElementById`, `querySelector`, `querySelectorAll`
@@ -40,6 +52,10 @@ header?.classList.add('active')
 ### Level 3
 
 1. Create a `waitForElement(selector)` that polls until found.
+
+---
+
+**Stuck?** Check [`TROUBLESHOOTING.md`](../TROUBLESHOOTING.md)
 
 [<< Day 23](../23_day_web_storage/23_day_web_storage.md) | [Day 25 >>](../25_day_dom_manipulation/25_day_dom_manipulation.md)
 

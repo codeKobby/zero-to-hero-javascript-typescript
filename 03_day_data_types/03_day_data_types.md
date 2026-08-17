@@ -82,6 +82,22 @@ console.log(count ?? 10)   // 0  — ?? only replaces null/undefined
 
 ---
 
+## ▶ Run This Lesson
+
+**TypeScript:**
+```bash
+npm run day3
+```
+
+**JavaScript:**
+```bash
+npm run day3:js
+```
+
+**Or click ▶ in VS Code** on `03_day_data_types/starter/ts/main.ts`
+
+---
+
 ## Exercises
 
 ### Level 1

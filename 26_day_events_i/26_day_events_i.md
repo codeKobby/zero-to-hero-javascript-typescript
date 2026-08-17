@@ -6,6 +6,17 @@
 
 ---
 
+## 🌐 This Lesson Runs in the Browser
+
+**Use Live Server:**
+1. Right-click `26_day_events_i/starter/index.html`
+2. Select **Open with Live Server**
+3. Browser opens at `http://localhost:5500` — auto-reloads on save!
+
+> **Need Live Server?** See [`VS_CODE_SETUP.md`](../VS_CODE_SETUP.md)
+
+---
+
 ## What You'll Learn
 
 - Attach event listeners to elements
@@ -221,6 +232,8 @@ class EventBus<Events extends Record<string, unknown>> {
 </details>
 
 ---
+
+**Stuck?** Check [`TROUBLESHOOTING.md`](../TROUBLESHOOTING.md)
 
 [<< Day 25](../25_day_dom_manipulation/25_day_dom_manipulation.md) | [Day 27 >>](27_day_events_ii/27_day_events_ii.md)
 

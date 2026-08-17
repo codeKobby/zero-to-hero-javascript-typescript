@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 30: Weather Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem; }
+    .app { max-width: 600px; margin: 0 auto; }
+    header { text-align: center; color: white; margin-bottom: 2rem; }
+    h1 { font-size: 2rem; }
+    .search-box { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    input { flex: 1; padding: 1rem; border: none; border-radius: 12px; font-size: 1rem; }
+    button { padding: 1rem 1.5rem; background: white; color: #667eea; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+    .card { background: rgba(255,255,255,0.15); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 16px; padding: 1.5rem; text-align: center; color: white; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-4px); }
+    .icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .city { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .temp { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .details { display: flex; justify-content: center; gap: 1rem; font-size: 0.85rem; opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header><h1>Weather Dashboard</h1></header>
+    <div class="search-box">
+      <label for="search" style="position: absolute; width: 1px; height: 1px; overflow: hidden;">Search cities</label>
+      <input type="text" id="search" placeholder="Search cities...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div class="grid" id="weatherGrid"></div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

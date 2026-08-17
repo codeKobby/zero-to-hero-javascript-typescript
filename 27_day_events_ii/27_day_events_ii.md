@@ -6,6 +6,17 @@
 
 ---
 
+## 🌐 This Lesson Runs in the Browser
+
+**Use Live Server:**
+1. Right-click `27_day_events_ii/starter/index.html`
+2. Select **Open with Live Server**
+3. Browser opens at `http://localhost:5500` — auto-reloads on save!
+
+> **Need Live Server?** See [`VS_CODE_SETUP.md`](../VS_CODE_SETUP.md)
+
+---
+
 ## What You'll Learn
 
 - Event delegation for dynamic lists
@@ -59,6 +70,10 @@ el.dispatchEvent(new CustomEvent('item-added', { detail: { id: 1 }, bubbles: tru
 ### Level 3
 
 1. Create a typed `EventEmitter<Events>`.
+
+---
+
+**Stuck?** Check [`TROUBLESHOOTING.md`](../TROUBLESHOOTING.md)
 
 [<< Day 26](../26_day_events_i/26_day_events_i.md) | [Day 28 >>](../28_day_functional_programming/28_day_functional_programming.md)
 

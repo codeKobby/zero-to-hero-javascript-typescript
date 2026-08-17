@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 27: Events II</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui; padding: 2rem; background: #f5f5f5; }
+    form { background: white; padding: 1.5rem; border-radius: 8px; max-width: 400px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+    input, select { width: 100%; padding: 0.5rem; font-size: 1rem; border: 1px solid #ddd; border-radius: 4px; }
+    button { padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; background: #333; color: white; border: none; border-radius: 4px; }
+    .log { margin-top: 1rem; padding: 1rem; background: #1e1e1e; color: #0f0; font-family: monospace; white-space: pre-wrap; max-height: 200px; overflow: auto; }
+    .hint { color: #666; font-size: 0.9rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Events II — Delegation, Forms, Keyboard</h1>
+  
+  <form id="demoForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select id="role" name="role">
+        <option value="developer">Developer</option>
+        <option value="designer">Designer</option>
+        <option value="manager">Manager</option>
+      </select>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="hint">
+    Press <kbd>Ctrl/Cmd</kbd>+<kbd>S</kbd> to test keyboard shortcut, <kbd>Escape</kbd> for cancel
+  </div>
+  <div id="log" class="log">Open DevTools console too...</div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

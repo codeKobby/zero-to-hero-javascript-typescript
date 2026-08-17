@@ -80,6 +80,22 @@ let age = 25              // TypeScript infers: number
 
 ---
 
+## ▶ Run This Lesson
+
+**TypeScript:**
+```bash
+npm run day2
+```
+
+**JavaScript:**
+```bash
+npm run day2:js
+```
+
+**Or click ▶ in VS Code** on `02_day_variables/starter/ts/main.ts`
+
+---
+
 ## Exercises
 
 ### Level 1

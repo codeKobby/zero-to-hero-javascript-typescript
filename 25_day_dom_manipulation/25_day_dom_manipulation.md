@@ -6,6 +6,17 @@
 
 ---
 
+## 🌐 This Lesson Runs in the Browser
+
+**Use Live Server:**
+1. Right-click `25_day_dom_manipulation/starter/index.html`
+2. Select **Open with Live Server**
+3. Browser opens at `http://localhost:5500` — auto-reloads on save!
+
+> **Need Live Server?** See [`VS_CODE_SETUP.md`](../VS_CODE_SETUP.md)
+
+---
+
 ## What You'll Learn
 
 - Create, append, and remove elements
@@ -41,6 +52,10 @@ div.remove()  // remove from DOM
 ### Level 3
 
 1. Create a `DOMBuilder` class with a fluent API.
+
+---
+
+**Stuck?** Check [`TROUBLESHOOTING.md`](../TROUBLESHOOTING.md)
 
 [<< Day 24](../24_day_dom_selection/24_day_dom_selection.md) | [Day 26 >>](../26_day_events_i/26_day_events_i.md)
 

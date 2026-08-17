@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 43: E-commerce</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui; background: #fafafa; min-height: 100vh; padding: 2rem; }
+    .app { max-width: 1000px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    h1 { font-size: 2rem; color: #333; }
+    .cart-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    .cart-btn .count { background: #e00; color: white; border-radius: 999px; padding: 0.15rem 0.5rem; font-size: 0.8rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .filter-group { display: flex; align-items: center; gap: 0.5rem; }
+    .filter-group label { font-weight: 500; font-size: 0.9rem; }
+    .filter-group input, .filter-group select { padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; background: #eee; }
+    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .card .category { font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
+    .rating { color: #f90; font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .price { font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
+    .stock { font-size: 0.85rem; margin-bottom: 1rem; }
+    .stock.in-stock { color: #080; }
+    .stock.out-stock { color: #c00; }
+    .card button { padding: 0.75rem; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    .card button:disabled { background: #ccc; cursor: not-allowed; }
+    .cart-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .cart-modal.open { opacity: 1; pointer-events: auto; }
+    .cart-content { background: white; padding: 2rem; border-radius: 16px; width: 90%; max-width: 500px; max-height: 80vh; overflow: auto; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #eee; }
+    .cart-item-info h4 { font-size: 0.95rem; }
+    .cart-item-info .price { color: #666; font-size: 0.9rem; }
+    .qty { display: flex; align-items: center; gap: 0.5rem; }
+    .qty button { width: 30px; height: 30px; border: 1px solid #ddd; background: white; border-radius: 4px; cursor: pointer; }
+    .cart-total { text-align: right; margin-top: 1.5rem; font-size: 1.25rem; font-weight: 700; }
+    .cart-close { margin-top: 1.5rem; width: 100%; padding: 1rem; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🛍️ E-commerce Store</h1>
+      <button class="cart-btn" id="cartBtn">
+        Cart <span class="count" id="cartCount">0</span>
+      </button>
+    </header>
+    
+    <div class="filters">
+      <div class="filter-group">
+        <label for="search">Search</label>
+        <input type="text" id="search" placeholder="Product name...">
+      </div>
+      <div class="filter-group">
+        <label for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="ratingFilter">Min Rating</label>
+        <select id="ratingFilter">
+          <option value="0">Any</option>
+          <option value="4">4+</option>
+          <option value="3">3+</option>
+          <option value="2">2+</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="inStockOnly">
+          <input type="checkbox" id="inStockOnly"> In stock only
+        </label>
+      </div>
+    </div>
+    
+    <div class="grid" id="productGrid"></div>
+  </div>
+
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <h2>🛒 Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total">Total: $<span id="cartTotal">0</span></div>
+      <button class="cart-close" id="closeCart">Close</button>
+    </div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
