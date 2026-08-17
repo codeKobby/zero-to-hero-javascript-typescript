@@ -8,11 +8,9 @@
 
 ## What You'll Learn Today
 
-- How to install Node.js and TypeScript
-- How to run JavaScript files with Node.js
-- How to compile and run TypeScript files
-- The difference between `.js` and `.ts` files
-- How to set up `tsconfig.json`
+- Install Node.js (the JavaScript runtime)
+- Run your first JavaScript and TypeScript code
+- **One command to run any day's code** — no configuration needed
 
 ---
 
@@ -22,128 +20,217 @@ JavaScript is a programming language that runs in web browsers and on servers (v
 
 ## What Is TypeScript?
 
-TypeScript is JavaScript with **extra features** that help you catch mistakes before running your code. TypeScript files use the `.ts` extension and must be converted to `.js` before running.
+TypeScript is JavaScript with **extra features** that help you catch mistakes before running your code. TypeScript files use the `.ts` extension.
 
 > **Think of it this way:** JavaScript is the language the computer understands. TypeScript is a tool that helps you write better JavaScript by catching errors early.
 
 ---
 
-## Setting Up
+## Step-by-Step Setup (Do This Once)
 
-### Step 1: Install Node.js
+### 1. Install Node.js
 
-Download from [nodejs.org](https://nodejs.org) (LTS version). Then check it worked:
+Go to **[nodejs.org](https://nodejs.org)** → Download the **LTS** version → Install it (keep all defaults).
 
+Verify it works:
 ```bash
-node --version    # Should show something like v18.0.0
-npm --version     # Should show something like 9.0.0
+node --version
+# Should show something like v20.0.0
 ```
 
-### Step 2: Install TypeScript
+### 2. Open This Folder in VS Code
+
+1. Open VS Code
+2. `File` → `Open Folder` → Select this `zero-to-hero-javascript-typescript` folder
+3. VS Code will prompt: "Do you trust the authors?" → Click **Yes, I trust the authors**
+
+### 3. Install Project Dependencies (One Click)
+
+Open the terminal in VS Code (`Terminal` → `New Terminal` or `Ctrl+\``) and run:
 
 ```bash
-npm install -g typescript
-tsc --version     # Should show the version
+npm install
 ```
 
-### Step 3: Run Your First File
+This installs TypeScript and `tsx` (a tool that runs TypeScript instantly) **inside this project only** — no global installs needed.
 
-Open `starter/js/main.js` and run it:
+> On Windows, if PowerShell says `npm.ps1 cannot be loaded`, run `npm.cmd install` instead, or switch the VS Code terminal to Command Prompt/Git Bash.
 
+---
+
+## Run Your First Code
+
+### Option A: Terminal (Copy-Paste These)
+
+**JavaScript:**
 ```bash
-node starter/js/main.js
+npm run day1:js
 ```
 
-Now try the TypeScript file:
-
+**TypeScript:**
 ```bash
-tsc starter/ts/main.ts
-node starter/ts/main.js
+npm run day1
 ```
+
+You'll see:
+```
+TypeScript says: Hello, World!
+User: Alice, Age: 25, Active: true
+```
+
+### Option B: VS Code Button (Easiest!)
+
+1. Open a Node-based lesson `.ts` file (e.g., `01_day_setup/starter/ts/main.ts`)
+2. Click the **▶ Run** button in the top-right corner of the editor
+3. Output appears in the terminal below
+
+> The project is already configured so the ▶ button runs the local `tsx` tool automatically. If you do not see the button, install the **Code Runner** extension from VS Code's recommendations.
+
+---
+
+## How to Run Any Day
+
+| Day | Command |
+|-----|---------|
+| Day 1 | `npm run day1` |
+| Day 2 | `npm run day2` |
+| Day 3 | `npm run day3` |
+| ... | ... |
+| Day 45 | `npm run day45` |
+
+**Or click ▶ on any Node-based lesson `.ts` file.** Browser/DOM lessons use Live Server with `index.html`.
 
 ---
 
 ## JavaScript vs TypeScript — Side by Side
 
-**JavaScript** (`starter/js/main.js`):
+**JavaScript** (`01_day_setup/starter/js/main.js`):
 ```js
 console.log('JavaScript says: Hello, World!')
 let age = 25
 let userName = 'Alice'
 ```
 
-**TypeScript** (`starter/ts/main.ts`):
+**TypeScript** (`01_day_setup/starter/ts/main.ts`):
 ```ts
 console.log('TypeScript says: Hello, World!')
-let age: number = 25        // Add the type after the variable name
-let userName: string = 'Alice'
+let age: number = 25        // Type annotation: this must be a number
+let userName: string = 'Alice'  // Type annotation: this must be text
 ```
 
-> The `: number` and `: string` are called **type annotations**. They tell TypeScript what type each variable should be. If you accidentally try to put text in `age`, TypeScript will warn you before you run the code.
-
----
-
-## Your tsconfig.json
-
-This file tells TypeScript how to compile. It's already set up for you:
-
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "target": "ES2022",
-    "module": "ESNext"
-  }
-}
-```
+> The `: number` and `: string` are **type annotations**. They tell TypeScript what type each variable should be. If you accidentally try to put text in `age`, TypeScript warns you **before** you run the code.
 
 ---
 
 ## Exercises
 
-### Level 1
+### Level 1 — Run It
 
-1. Install Node.js and TypeScript. Run `node --version` and `tsc --version`.
-2. Open `starter/js/main.js` and change the message to your own name.
-3. Run `node starter/js/main.js` and verify the output.
+1. Run `npm run day1` and verify you see "Hello, World!"
+2. Open `01_day_setup/starter/ts/main.ts`
+3. Change `'Alice'` to your name
+4. Click ▶ or run `npm run day1` again
 
-### Level 2
+### Level 2 — Break It (See TypeScript Catch Errors)
 
-1. Open `starter/ts/main.ts` and add a new variable with a type annotation.
-2. Try removing a type annotation — does it still work? (Yes — TypeScript can guess types.)
-3. Try assigning a number to a string variable. What happens?
+1. In `main.ts`, change `let age: number = 25` to `let age: number = 'twenty-five'`
+2. Click ▶ — you'll see a red error **before** the code runs!
+3. Fix it back to `25`
 
-### Level 3
+### Level 3 — Write Your Own
 
-1. Create a new `.ts` file with variables of every primitive type: `string`, `number`, `boolean`, `bigint`, `symbol`.
-2. Run `tsc` on your file and fix any errors.
+1. Create a new file: `my-first-ts.ts` in the `01_day_setup/starter/ts/` folder
+2. Add this code:
+```ts
+const myName: string = 'Your Name'
+const myAge: number = 25
+const isLearning: boolean = true
 
-<details>
-<summary>🔍 View Solutions</summary>
+console.log(`${myName} is ${myAge} and learning: ${isLearning}`)
+```
+3. Click ▶ on your new file
 
-**Level 1 — verify installation:**
+---
+
+## What Just Happened?
+
+- `npm install` → downloaded TypeScript + `tsx` into this project's `node_modules/`
+- `npm run day1` → runs `tsx 01_day_setup/starter/ts/main.ts`
+- `tsx` → runs TypeScript **instantly** without a separate compile step
+- The ▶ button in VS Code → uses Code Runner plus `.vscode/settings.json` to run the same local TypeScript tool
+
+**No global installs. No config files to edit. Just code and run.**
+
+---
+
+## 🔧 Under the Hood: How `npm run day1` Works (Optional Deep Dive)
+
+> **This section is optional!** Read it when you're curious about what's happening behind the scenes.
+
+### The `package.json` File
+
+Open `package.json` in the project root. You'll see a `"scripts"` section:
+
+```json
+{
+  "scripts": {
+    "day1": "tsx 01_day_setup/starter/ts/main.ts",
+    "day2": "tsx 02_day_variables/starter/ts/main.ts"
+    // ... up to day45
+  }
+}
+```
+
+When you run `npm run day1`, npm:
+1. Looks in `package.json` under `"scripts"`
+2. Finds `"day1": "tsx 01_day_setup/starter/ts/main.ts"`
+3. Runs that exact command in the terminal
+
+### What Is `tsx`?
+
+`tsx` (TypeScript Execute) is a tool that:
+1. Reads your `.ts` file
+2. Compiles it to JavaScript **in memory** (using esbuild — extremely fast)
+3. Runs the resulting JavaScript with Node.js
+4. Shows you the output
+
+All in one step — no separate `tsc` compile command needed!
+
+### Where Are These Tools Installed?
+
+Run this to see:
 ```bash
-node --version
-tsc --version
+ls node_modules/.bin/
 ```
 
-**Level 2 — type error example:**
-```ts
-let age: number = 'twenty'  // ❌ Error: Type 'string' is not assignable to type 'number'
+You'll see `tsx`, `tsc`, and other tools. They're **local to this project** (in `node_modules/`), not installed globally on your computer.
+
+### The ▶ Button in VS Code
+
+The ▶ button comes from the **Code Runner** extension. This repository's `.vscode/settings.json` tells Code Runner how to run TypeScript files. When you click ▶ on a Node-based lesson `.ts` file, it essentially runs:
+```bash
+node ./node_modules/tsx/dist/cli.mjs path/to/your/file.ts
 ```
 
-**Level 3 — all primitive types:**
-```ts
-const myString: string = 'hello'
-const myNumber: number = 42
-const myBoolean: boolean = true
-const myBigInt: bigint = 100n
-const mySymbol: symbol = Symbol('id')
-```
-</details>
+That command uses the `tsx` package installed by `npm install`. It does not require a global `ts-node` or `tsx` install.
+
+### Why Not Global Installs?
+
+- **Project-specific versions** — each project can use different TypeScript versions
+- **No conflicts** — one project's tools don't affect another's
+- **Reproducible** — anyone cloning this repo gets the exact same tools via `npm install`
+
+---
+
+## 📚 Helpful References
+
+| File | What's Inside |
+|------|---------------|
+| [`VS_CODE_SETUP.md`](../VS_CODE_SETUP.md) | One-click extension installs, settings.json config, how to run each day |
+| [`TROUBLESHOOTING.md`](../TROUBLESHOOTING.md) | Common errors and fixes, quick command reference |
 
 ---
 
 [<< readMe](../readMe.md) | [Day 2 >>](../02_day_variables/02_day_variables.md)
 
-🌕 **Day 1 Complete!** You've set up your environment for both JavaScript and TypeScript.
+🌕 **Day 1 Complete!** You're set up and running TypeScript code.

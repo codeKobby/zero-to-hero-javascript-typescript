@@ -1,0 +1,15 @@
+{
+  "code-runner.executorMap": {
+    "typescript": "node ./node_modules/tsx/dist/cli.mjs",
+    "javascript": "node"
+  },
+  "code-runner.executorMapByFileExtension": {
+    ".ts": "node ./node_modules/tsx/dist/cli.mjs",
+    ".js": "node"
+  },
+  "code-runner.cwd": "$workspaceRoot",
+  "code-runner.fileDirectoryAsCwd": false,
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "liveServer.settings.port": 5501
+}
