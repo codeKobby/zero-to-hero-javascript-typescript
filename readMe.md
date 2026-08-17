@@ -1,106 +1,98 @@
 <div align="center">
-  <h1> 45 Days Of JavaScript & TypeScript</h1>
-  <a class="header-badge" target="_blank" href="https://www.linkedin.com/in/asabeneh/">
-  <img src="https://img.shields.io/badge/style--5eba00.svg?label=LinkedIn&logo=linkedin&style=social">
-  </a>
-  <a class="header-badge" target="_blank" href="https://twitter.com/Asabeneh">
-  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/asabeneh?style=social">
-  </a>
+  <h1> Zero to Hero: JavaScript & TypeScript</h1>
+  <p><em>45 days from beginner to confident developer</em></p>
 </div>
 
-<sub>Author:
-<a href="https://www.linkedin.com/in/asabeneh/" target="_blank">Asabeneh Yetayeh</a><br>
-<small> Updated: August 2026</small>
-</sub>
+---
+
+## Zero to Hero: JavaScript & TypeScript
+
+A complete curriculum teaching **modern JavaScript and TypeScript side by side**. Every lesson covers both languages, showing you the differences, the benefits of TypeScript, and how to build real applications.
+
+### What's included
+
+- 45 lessons with JavaScript + TypeScript content in every day
+- Modern ES2022+ features (optional chaining, nullish coalescing, private fields, etc.)
+- Advanced array methods (`every`, `find`, `findIndex`, `some`, `sort`, `includes`)
+- Getters/setters, async/await, and async patterns
+- 6 capstone projects that integrate previous concepts
+- Exercises that build on earlier days
+- All TypeScript starters compile with zero errors
 
 ---
 
-## 📔 45 Days Of JavaScript & TypeScript
-
-This curriculum has been completely redesigned to teach **JavaScript and TypeScript simultaneously**. Every lesson covers both languages side-by-side, showing you the differences, the benefits of TypeScript, and how to migrate from JS to TS.
-
-The curriculum has been expanded from 30 days to 45 days to include:
-- Modern ES2020+ features (optional chaining, nullish coalescing, etc.)
-- Comprehensive TypeScript integration in every lesson
-- Advanced array methods that were missing (`every`, `find`, `findIndex`, `some`)
-- More capstone projects that build on previous concepts
-- Exercises that chain knowledge from earlier days
-
----
-
-### 🎯 Who is this for?
+### Who is this for?
 
 This curriculum is for developers who want to become **solid in both JavaScript and TypeScript**. You'll learn modern JavaScript first, then see how TypeScript adds safety and tooling on top of the same concepts.
 
-### 📚 How to use this curriculum
+### How to use this curriculum
 
 Each day has:
 1. A **lesson markdown file** (`/XX_day_title/XX_day_title.md`) — teaches both JS and TS
 2. **Starter code** in `/XX_day_title/starter/js/` and `/XX_day_title/starter/ts/`
 3. **Exercises** that build on previous days and introduce new concepts
-4. A **solution guide** reference
 
 ---
 
-## Curriculum Table
+## Curriculum
 
 | Day | Topic | Key Concepts |
 |-----|-------|-------------|
 | **Phase 1: Foundations** |
 | Day 1 | Setup & Tooling | Node.js, TypeScript, tsconfig, VS Code |
-| Day 2 | Variables & Constants | `let`, `const`, type annotations, `noImplicitAny` |
+| Day 2 | Variables & Constants | `let`, `const`, type annotations, when to use which |
 | Day 3 | Data Types | Primitives, objects, typeof, type guards |
-| Day 4 | Operators & Type Coercion | `== vs ===`, nullish coalescing, type assertions |
-| Day 5 | Control Flow | if/else, switch, ternary, nullish coalescing |
-| Day 6 | Loops & Iteration | for, while, for...of, for...in, break/continue |
-| Day 7 | Functions I | Declarations, expressions, arrows, TS function types |
-| Day 8 | Functions II | Params, defaults, rest, callbacks |
-| Day 9 | Objects & Interfaces | Literals, methods, TS interfaces & type aliases |
-| Day 10 | Arrays & Generics | Arrays, tuples, TS array types, generics |
-| **Phase 2: Core Concepts Deep Dive** |
+| Day 4 | Operators & Type Coercion | `== vs ===`, nullish coalescing, optional chaining |
+| Day 5 | Control Flow | if/else, switch, ternary, discriminated unions |
+| Day 6 | Loops & Iteration | for, while, for...of, map, filter, reduce |
+| Day 7 | Functions I | Declarations, expressions, arrows, `this` binding |
+| Day 8 | Functions II | Rest, spread, closures, callbacks |
+| Day 9 | Objects & Interfaces | Literals, getters/setters, TS interfaces |
+| Day 10 | Arrays & Generics | Arrays, tuples, TS array types, generic functions |
+| **Phase 2: Core Concepts** |
 | Day 11 | Destructuring & Spread | Destructuring, spread, rest, optional chaining |
-| Day 12 | Higher-Order Functions I | map, filter, reduce, forEach, find, findIndex |
-| Day 13 | Higher-Order Functions II | every, some, sort, includes, indexOf, findLast |
+| Day 12 | Higher-Order Functions I | map, filter, reduce, forEach |
+| Day 13 | Higher-Order Functions II | every, some, find, findIndex, sort, includes |
 | Day 14 | Strings | Template literals, methods, TS string types |
-| Day 15 | Numbers & Math | parseInt, parseFloat, Math, Number methods |
-| Day 16 | Dates & Time | Date object, formatting, timezone, TS Date |
-| Day 17 | Regular Expressions | Patterns, methods, groups, validation |
-| Day 18 | Error Handling | try/catch, throw, custom errors, TS error types |
-| Day 19 | Classes & OOP I | Classes, constructors, methods, inheritance |
-| Day 20 | Classes & OOP II | Accessors, static, private, TS class features |
-| **Phase 3: Modules, Storage & DOM** |
-| Day 21 | Modules | import/export, namespaces, TS modules |
-| Day 22 | JSON & APIs | JSON.parse, JSON.stringify, API patterns, TS with JSON |
-| Day 23 | Web Storage | localStorage, sessionStorage, TS storage patterns |
+| Day 15 | Numbers & Math | Parsing, formatting, Math methods |
+| Day 16 | Dates & Time | Date object, Intl formatting, calculations |
+| Day 17 | Regular Expressions | Patterns, named groups, validation |
+| Day 18 | Error Handling | try/catch, custom errors, TS error types |
+| Day 19 | Classes & OOP I | Classes, constructors, inheritance, static |
+| Day 20 | Classes & OOP II | Private fields, getters/setters, abstract classes |
+| **Phase 3: DOM & Storage** |
+| Day 21 | Modules | import/export, dynamic imports |
+| Day 22 | JSON | Parse, stringify, type-safe JSON |
+| Day 23 | Web Storage | localStorage, sessionStorage, typed storage |
 | Day 24 | DOM Selection | querySelector, getElementById, TS DOM types |
-| Day 25 | DOM Manipulation | createElement, append, remove, TS DOM manipulation |
-| Day 26 | Events I | addEventListener, event types, TS event handling |
-| Day 27 | Events II | Event delegation, keyboard, forms, preventDefault |
-| Day 28 | Functional Programming | Pure functions, immutability, composition, currying |
-| Day 29 | Project: Todo App | Build a Todo app integrating Days 1-28 |
-| Day 30 | Project: Weather Dashboard | Async + APIs + TypeScript integration |
+| Day 25 | DOM Manipulation | createElement, append, remove, templates |
+| Day 26 | Events I | addEventListener, event types, propagation |
+| Day 27 | Events II | Delegation, forms, keyboard, custom events |
+| Day 28 | Functional Programming | Pure functions, immutability, pipe, curry |
+| Day 29 | Project: Todo App | Full CRUD with localStorage |
+| Day 30 | Project: Weather Dashboard | Async patterns + local data |
 | **Phase 4: Async Programming** |
-| Day 31 | Promises I | Promise states, creating promises, chaining |
-| Day 32 | Promises II | Promise.all, Promise.race, error handling |
-| Day 33 | Async/Await | async/await syntax, error handling, TS async |
-| Day 34 | Fetch API | fetch(), status, headers, body, TS fetch |
-| Day 35 | API Integration | REST APIs, authentication, rate limiting |
+| Day 31 | Promises I | Creating, chaining, error handling |
+| Day 32 | Promises II | Promise.all, Promise.race, AbortController |
+| Day 33 | Async/Await | async/await, try/catch, parallel execution |
+| Day 34 | Fetch API | HTTP requests, headers, bodies, TypeScript |
+| Day 35 | API Integration | REST patterns, typed API client |
 | **Phase 5: TypeScript Deep Dive** |
-| Day 36 | TS Types & Interfaces | Type annotations, interfaces, type aliases |
+| Day 36 | TS Types & Interfaces | Unions, intersections, discriminated unions |
 | Day 37 | TS Generics | Generic functions, classes, constraints |
-| Day 38 | TS Utility Types | Partial, Pick, Omit, Record, Readonly, keyof |
-| Day 39 | TS Advanced Types | Conditional types, mapped types, template literals |
-| Day 40 | TS Best Practices | Project structure, tsconfig, debugging, testing |
+| Day 38 | TS Utility Types | Partial, Pick, Omit, Record, Readonly |
+| Day 39 | TS Advanced Types | Conditional, mapped, template literal types |
+| Day 40 | TS Best Practices | Project structure, debugging, patterns |
 | **Phase 6: Capstone Projects** |
-| Day 41 | Project: Recipe Book | Full CRUD with localStorage + TypeScript |
-| Day 42 | Project: Discussion Forum | DOM, events, state management, TypeScript |
-| Day 43 | Project: E-commerce List | Filtering, sorting, TypeScript generics |
-| Day 44 | Project: Country Explorer | API integration, data visualization, TS types |
+| Day 41 | Project: Recipe Book | CRUD + localStorage + TypeScript |
+| Day 42 | Project: Discussion Forum | State management + TypeScript |
+| Day 43 | Project: E-commerce List | Filtering, sorting, generics |
+| Day 44 | Project: Country Explorer | Data processing + TypeScript |
 | Day 45 | Capstone: Your Choice | Build any app combining all concepts |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - A browser (Chrome, Firefox, Edge, Safari)
@@ -110,70 +102,58 @@ Each day has:
 ### Setup
 
 ```bash
-# Clone or download this repo
-git clone https://github.com/Asabeneh/30-Days-Of-JavaScript.git
-cd 30-Days-Of-JavaScript
+git clone <your-repo-url>
+cd zero-to-hero-javascript-typescript
 
-# Install TypeScript globally
+# Install TypeScript
 npm install -g typescript
 
-# Or install locally
+# Install dependencies
 npm install
+
+# Verify TypeScript compiles
+npm run check
 ```
 
 ### Running the code
-
-Each day has starter code in both JavaScript and TypeScript:
 
 ```bash
 # JavaScript
 node 01_day_setup/starter/js/main.js
 
-# TypeScript (compile first)
-tsc 01_day_setup/starter/ts/main.ts
+# TypeScript (after npm install)
+npx tsc 01_day_setup/starter/ts/main.ts
 node 01_day_setup/starter/ts/main.js
 ```
 
 ---
 
-## 🎓 Learning Path
+## Learning Path
 
-This curriculum is designed so that:
 - **Every lesson** teaches the same concept in both JavaScript and TypeScript
 - **Exercises build on previous days** — you'll reuse earlier concepts in new ways
 - **Projects integrate multiple concepts** — by Day 29 you're building real apps
 - **TypeScript is introduced gradually** — you won't be overwhelmed
 
----
+## Milestones
 
-## 🏆 Certificates
-
-Earned after completing specific milestones:
-- 🟢 **JavaScript Foundations** — Complete Days 1-10
-- 🟡 **JavaScript Core** — Complete Days 11-20
-- 🔵 **Full-Stack Ready** — Complete Days 21-30
-- 🟣 **TypeScript Master** — Complete Days 31-40
-- 🏅 **Capstone Graduate** — Complete Days 41-45
+- Days 1-10: JavaScript Foundations
+- Days 11-20: JavaScript Core
+- Days 21-30: DOM, Events & Projects
+- Days 31-40: Async & TypeScript Mastery
+- Days 41-45: Capstone Projects
 
 ---
 
-## 📖 Additional Resources
+## Resources
 
-- [JavaScript MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [MDN JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [TypeScript Playground](https://www.typescriptlang.org/play)
 
 ---
 
 🎉 **CONGRATULATIONS!** — You've reached the end. Keep learning, keep building!
-
----
-
-<a href="01_day_setup/01_day_setup.md">
-<img src="images/day1.jpg" alt="Day 1">
-</a>
-<a href="01_day_setup/01_day_setup.md">
-</a>
 
 | [Day 1](01_day_setup/01_day_setup.md) | [Day 2](02_day_variables/02_day_variables.md) | [Day 3](03_day_data_types/03_day_data_types.md) | [Day 4](04_day_operators/04_day_operators.md) | [Day 5](05_day_control_flow/05_day_control_flow.md) |
 |---|---|---|---|---|
