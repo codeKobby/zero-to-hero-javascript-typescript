@@ -161,6 +161,8 @@ For each snippet, write down the exact result before running.
 4. Which guarantees exist only in the editor, and which only at runtime?
 5. Run `npm.cmd run day38:js` and `npm.cmd run day38`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 347 Top K Frequent Elements — https://leetcode.com/problems/top-k-frequent-elements/ (hint: https://neetcode.io/problems/top-k-elements-in-list/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Create a typed update function that accepts `Partial<User>`.

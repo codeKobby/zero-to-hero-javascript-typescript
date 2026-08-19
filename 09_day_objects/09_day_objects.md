@@ -365,6 +365,8 @@ For each snippet, write down the exact output before running.
 9. What does `book.description` produce when `description` is a getter, and why is there no `()`?
 10. Run `npm.cmd run day9:js` and `npm.cmd run day9`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 242 Valid Anagram — https://leetcode.com/problems/valid-anagram/ (hint: https://neetcode.io/problems/is-anagram/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Create a `movie` object with `title`, `director`, and `year`.

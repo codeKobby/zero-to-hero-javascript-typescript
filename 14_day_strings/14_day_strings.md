@@ -273,6 +273,8 @@ For each snippet, write down the exact output before running.
 9. `''.at(0)` — what is the result?
 10. Run `npm.cmd run day14:js` and `npm.cmd run day14`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 125 Valid Palindrome — https://leetcode.com/problems/valid-palindrome/ (hint: https://neetcode.io/problems/is-palindrome/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `initials(fullName)` that receives a name such as `'Ada Lovelace'` and returns `'AL'`. Assume exactly two names for this first version.

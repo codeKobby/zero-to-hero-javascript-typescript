@@ -164,6 +164,8 @@ For each snippet, write down the exact result before running.
 4. Why can type-level route safety not prove what a server returned?
 5. Run `npm.cmd run day39:js` and `npm.cmd run day39`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 981 Time Based Key-Value Store — https://leetcode.com/problems/time-based-key-value-store/ (hint: https://neetcode.io/problems/time-based-key-value-store/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Create an exhaustive shape-area function over a discriminated union.

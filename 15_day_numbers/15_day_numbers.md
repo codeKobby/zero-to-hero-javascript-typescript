@@ -306,6 +306,8 @@ For each snippet, write down the exact output before running.
 9. `Number.isFinite(Number('42'))` versus `Number.isFinite(Number('3.5px'))` — two results.
 10. Run `npm.cmd run day15:js` and `npm.cmd run day15`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 202 Happy Number — https://leetcode.com/problems/happy-number/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `readPercentage(text)` that returns a number from `0` through `100`, or `null` for an empty, non-numeric, or out-of-range input.

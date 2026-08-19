@@ -214,6 +214,8 @@ For each snippet, write down the exact result before running.
 4. Why does `Promise.all` still matter inside async functions?
 5. Run `npm.cmd run day33:js` and `npm.cmd run day33`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2637 Promise Time Limit — https://leetcode.com/problems/promise-time-limit/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Convert a Promise chain to `async`/`await`.

@@ -213,6 +213,8 @@ For each snippet, write down the exact result before running.
 4. Why does a TypeScript assertion not validate network data?
 5. Run `npm.cmd run day34:js` and `npm.cmd run day34`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2715 Timeout Cancellation — https://leetcode.com/problems/timeout-cancellation/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `getJson(url)` that checks `response.ok` and returns parsed `unknown` data.

@@ -342,6 +342,8 @@ For each snippet, write down the exact output before running.
 9. `[].some(x => x > 0)` versus `[].every(x => x > 0)` — why do they differ?
 10. Run `npm.cmd run day13:js` and `npm.cmd run day13`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 56 Merge Intervals — https://leetcode.com/problems/merge-intervals/ (hint: https://neetcode.io/problems/merge-intervals/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Check whether `['red', 'green', 'blue']` contains `'green'` with `includes`.

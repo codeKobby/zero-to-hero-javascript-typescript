@@ -173,6 +173,8 @@ For each snippet, write down the exact result before running.
 4. Why is `as User` an assertion, not validation?
 5. Run `npm.cmd run day36:js` and `npm.cmd run day36`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 271 Encode and Decode Strings — https://leetcode.com/problems/encode-and-decode-strings/ (hint: https://neetcode.io/problems/string-encode-and-decode/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Create a `Book` model with id, title, author, and optional `publishedAt`.

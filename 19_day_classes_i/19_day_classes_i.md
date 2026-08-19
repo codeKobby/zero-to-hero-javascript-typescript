@@ -211,6 +211,8 @@ For each snippet, write down the exact result before running.
 6. `new ReadingProgress('X')` — what is `completedLessons` in this case (JavaScript)?
 7. Run `npm.cmd run day19:js` and `npm.cmd run day19`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2695 Array Wrapper — https://leetcode.com/problems/array-wrapper/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Create a `Timer` class with a `label` and `elapsedSeconds`. Add `tick` and `reset` methods.

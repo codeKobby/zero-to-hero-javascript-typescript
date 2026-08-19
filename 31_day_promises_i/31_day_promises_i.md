@@ -206,6 +206,8 @@ For each snippet, write down the exact result before running.
 5. Why can a settled promise not change outcome?
 6. Run `npm.cmd run day31:js` and `npm.cmd run day31`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2723 Add Two Promises — https://leetcode.com/problems/add-two-promises/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `delay(ms)` that resolves after `ms` milliseconds.

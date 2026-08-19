@@ -272,6 +272,8 @@ For each snippet, write down the exact result before running.
 9. `'C++'.includes('+')` — what does this avoid needing?
 10. Run `npm.cmd run day17:js` and `npm.cmd run day17`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 520 Detect Capital — https://leetcode.com/problems/detect-capital/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `isCourseCode(value)` for exactly two uppercase letters, a hyphen, and three digits. Confirm it rejects lowercase, a short code, and a prefixed code.

@@ -382,6 +382,8 @@ For each snippet, write down the exact output before running.
 9. What does `scores.filter(score => score >= 50)` return for `[42, 78, 91, 49, 65]`, and why does `49` not appear?
 10. Run `npm.cmd run day12:js` and `npm.cmd run day12`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2626 Array Reduce Transformation — https://leetcode.com/problems/array-reduce-transformation/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Convert `[1, 2, 3]` into `[10, 20, 30]` with `map`.

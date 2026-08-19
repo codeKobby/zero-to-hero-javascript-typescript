@@ -230,6 +230,8 @@ For each snippet, write down the exact result before running.
 5. Why is a callback that mutates state harder to predict?
 6. Run `npm.cmd run day28:js` and `npm.cmd run day28`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2635 Apply Transform Over Each Element in Array — https://leetcode.com/problems/apply-transform-over-each-element-in-array/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write a pure function that returns a new list with one item removed.

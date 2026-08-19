@@ -372,6 +372,8 @@ For each snippet, write down the value each variable receives, before running.
 9. For `function area(w, h) { return w * h }`, which parameter receives which value in `area(3, 4)`?
 10. Run `npm.cmd run day7:js` and `npm.cmd run day7`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 9 Palindrome Number — https://leetcode.com/problems/palindrome-number/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `square(number)` that returns the number squared. Test `square(4)`; expected 16.

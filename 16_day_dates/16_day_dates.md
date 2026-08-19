@@ -257,6 +257,8 @@ For each snippet, write down the exact output before running.
 7. `parseInstant('2025-01-15T09:30:00Z')` returns what type of value on success?
 8. Run `npm.cmd run day16:js` and `npm.cmd run day16`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 1185 Day of the Week — https://leetcode.com/problems/day-of-the-week/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `isValidInstant(text)` that returns `true` only when `new Date(text)` has a valid timestamp.

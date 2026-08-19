@@ -254,6 +254,8 @@ For each snippet, write down the exact result before running.
 6. `account.withdraw(2_000)` with a balance of 1_250 — what is thrown?
 7. Run `npm.cmd run day20:js` and `npm.cmd run day20`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 155 Min Stack — https://leetcode.com/problems/min-stack/ (hint: https://neetcode.io/problems/minimum-stack/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Add `withdraw(cents)` to `BankAccount`. Reject zero, negative, non-integer, and over-balance withdrawals.

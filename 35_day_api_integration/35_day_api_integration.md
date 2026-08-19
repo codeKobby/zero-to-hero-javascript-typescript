@@ -182,6 +182,8 @@ For each snippet, write down the exact result before running.
 4. Why should API credentials never be committed to a frontend repository?
 5. Run `npm.cmd run day35:js` and `npm.cmd run day35`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2621 Sleep — https://leetcode.com/problems/sleep/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Add a cache `Map` keyed by endpoint.

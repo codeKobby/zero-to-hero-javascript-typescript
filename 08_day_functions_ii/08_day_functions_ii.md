@@ -357,6 +357,8 @@ For each snippet, write down the exact output before running.
 9. For `runTask(task)` where `task` is a no-return function: what does `task()` put in `result`?
 10. Run `npm.cmd run day8:js` and `npm.cmd run day8`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2629 Function Composition — https://leetcode.com/problems/function-composition/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `runTwice(action)` that calls `action` two times. Test with a function that prints `'ping'`.

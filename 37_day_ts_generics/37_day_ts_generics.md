@@ -176,6 +176,8 @@ For each snippet, write down the exact result before running.
 4. When would a generic be less clear than a plain annotation?
 5. Run `npm.cmd run day37:js` and `npm.cmd run day37`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 238 Product of Array Except Self — https://leetcode.com/problems/product-of-array-except-self/ (hint: https://neetcode.io/problems/products-of-array-discluding-self/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Implement `first<T>` that returns `T | undefined`.

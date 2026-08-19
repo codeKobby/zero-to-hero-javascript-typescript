@@ -213,6 +213,8 @@ For each snippet, write down the exact result before running.
 4. What happens when `Promise.any` has no fulfillment?
 5. Run `npm.cmd run day32:js` and `npm.cmd run day32`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2636 Promise Pool — https://leetcode.com/problems/promise-pool/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Run two delayed operations with `Promise.all` and inspect their ordered result.

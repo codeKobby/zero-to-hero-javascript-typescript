@@ -295,6 +295,8 @@ For each snippet, write down the exact output before running.
 9. What do `colors.at(0)` and `colors.at(-1)` produce?
 10. Run `npm.cmd run day10:js` and `npm.cmd run day10`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 217 Contains Duplicate — https://leetcode.com/problems/contains-duplicate/ (hint: https://neetcode.io/problems/duplicate-integer/question)
+
 ### Level 2 — Applied mini-projects
 
 1. Create an array of three books and log the first title and the last title.

@@ -272,6 +272,8 @@ For each snippet, write down the exact result before running.
 7. Why is an empty optional search result not an error?
 8. Run `npm.cmd run day18:js` and `npm.cmd run day18`; then `npm.cmd run check` and confirm it passes.
 
+**LeetCode:** 2704 To Be Or Not To Be — https://leetcode.com/problems/to-be-or-not-to-be/ (hint: NeetCode roadmap)
+
 ### Level 2 — Applied mini-projects
 
 1. Write `tryParseNumber(text)` that returns an object with `ok` and `value` fields. Reject empty and non-finite input.
