@@ -1,128 +1,120 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Document Object Model:30 Days Of JavaScript</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300, 400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero to Junior — 45-Day JavaScript &amp; TypeScript Course</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+            padding: 2rem 1rem;
+        }
+        @media (prefers-color-scheme: dark) {
+            body { color: #e5e5e5; background: #161616; }
+            a { color: #7db9ff; }
+            .card { background: #1f1f1f; border-color: #333; }
+        }
+        main { max-width: 760px; margin: 0 auto; }
+        h1 { font-size: 1.9rem; margin: 0 0 .25rem; }
+        .subtitle { margin: 0 0 1.5rem; opacity: .8; }
+        .links { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 2rem; }
+        .links a {
+            padding: .35rem .8rem;
+            border-radius: 999px;
+            border: 1px solid currentColor;
+            text-decoration: none;
+            font-size: .9rem;
+        }
+        ol { padding-left: 0; list-style: none; margin: 0; }
+        li { margin: .25rem 0; }
+        .card {
+            display: block;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: .6rem .9rem;
+            text-decoration: none;
+            color: inherit;
+            background: #fff;
+        }
+        .card:hover { border-color: currentColor; }
+        .card .n { font-variant-numeric: tabular-nums; font-weight: 700; }
+        .card .t { opacity: .75; }
+    </style>
 </head>
-
 <body>
+<main>
+    <h1>Zero to Junior</h1>
+    <p class="subtitle">A 45-day, practice-first JavaScript &amp; TypeScript course. Read <a href="readMe.md">readMe.md</a> first.</p>
 
-    <div class="wrapper">
-        <h1>Asabeneh Yetayeh challenges in <span>2020</span></h1>
-        <h2>30DaysOfJavaScript Challenge</h2>
-        <p></p>
-        <ul>
-            <li>30DaysOfPython Challenge Done</li>
-            <li>30DaysOfJavaScript Challenge Ongoing</li>
-            <li>30DaysOfReact Challenge Coming</li>
-            <li>30DaysOfReactNative Challenge Coming</li>
-            <li>30DaysOfFullStack Challenge Coming</li>
-            <li>30DaysOfDataAnalysis Challenge Coming</li>
-            <li>30DaysOfMachineLearning Challenge Coming</li>
-        </ul>
+    <div class="links">
+        <a href="readMe.md">Course overview</a>
+        <a href="VS_CODE_SETUP.md">VS Code setup</a>
+        <a href="TROUBLESHOOTING.md">Troubleshooting</a>
+        <a href="PORTFOLIO_TRACK.md">Portfolio track</a>
+        <a href="LEETCODE_GUIDE.md">LeetCode guide</a>
     </div>
 
-    <script>
-        const hexaColor = () => {
-            const str = '0123456789abcdef'
-            let hexa = '#'
-            let index
-            for (let i = 0; i < 6; i++) {
-                index = Math.floor(Math.random() * str.length)
-                hexa += str[index]
-            }
-            return hexa
-        }
+    <ol>
+        <li><a class="card" href="01_day_setup/01_day_setup.md"><span class="n">01</span> · <span class="t">How Programs Run — the Machine Model, Node, and Your First Code</span></a></li>
+        <li><a class="card" href="02_day_variables/02_day_variables.md"><span class="n">02</span> · <span class="t">Variables — Names, Values, and the Rules of Change</span></a></li>
+        <li><a class="card" href="03_day_data_types/03_day_data_types.md"><span class="n">03</span> · <span class="t">Data Types — What a Value Is, and How to Ask</span></a></li>
+        <li><a class="card" href="04_day_operators/04_day_operators.md"><span class="n">04</span> · <span class="t">Operators — Math, Truth, and Comparison</span></a></li>
+        <li><a class="card" href="05_day_control_flow/05_day_control_flow.md"><span class="n">05</span> · <span class="t">Control Flow — Making Decisions with if, else, and switch</span></a></li>
+        <li><a class="card" href="06_day_loops/06_day_loops.md"><span class="n">06</span> · <span class="t">Loops — Repeating Work with for and while</span></a></li>
+        <li><a class="card" href="07_day_functions_i/07_day_functions_i.md"><span class="n">07</span> · <span class="t">Functions I — Inputs, Work, and Results</span></a></li>
+        <li><a class="card" href="08_day_functions_ii/08_day_functions_ii.md"><span class="n">08</span> · <span class="t">Functions II — Function Values, Callbacks, and Closures</span></a></li>
+        <li><a class="card" href="09_day_objects/09_day_objects.md"><span class="n">09</span> · <span class="t">Objects — Related Data and Methods</span></a></li>
+        <li><a class="card" href="10_day_arrays/10_day_arrays.md"><span class="n">10</span> · <span class="t">Arrays — Ordered Collections and Array Methods</span></a></li>
+        <li><a class="card" href="11_day_destructuring/11_day_destructuring.md"><span class="n">11</span> · <span class="t">Destructuring — Extracting Values Cleanly</span></a></li>
+        <li><a class="card" href="12_day_hof_i/12_day_hof_i.md"><span class="n">12</span> · <span class="t">Higher-Order Functions I — map, filter, reduce, and forEach</span></a></li>
+        <li><a class="card" href="13_day_hof_ii/13_day_hof_ii.md"><span class="n">13</span> · <span class="t">Higher-Order Functions II — Array Questions and Safe Sorting</span></a></li>
+        <li><a class="card" href="14_day_strings/14_day_strings.md"><span class="n">14</span> · <span class="t">Strings — Text as a Value</span></a></li>
+        <li><a class="card" href="15_day_numbers/15_day_numbers.md"><span class="n">15</span> · <span class="t">Numbers and Math — Parsing, Precision, and Calculation</span></a></li>
+        <li><a class="card" href="16_day_dates/16_day_dates.md"><span class="n">16</span> · <span class="t">Dates and Time — Moments and Durations</span></a></li>
+        <li><a class="card" href="17_day_regex/17_day_regex.md"><span class="n">17</span> · <span class="t">Regular Expressions — Patterns as Tools</span></a></li>
+        <li><a class="card" href="18_day_error_handling/18_day_error_handling.md"><span class="n">18</span> · <span class="t">Errors and Recovery — Failing on Purpose</span></a></li>
+        <li><a class="card" href="19_day_classes_i/19_day_classes_i.md"><span class="n">19</span> · <span class="t">Classes and Instances — Blueprints and Objects</span></a></li>
+        <li><a class="card" href="20_day_classes_ii/20_day_classes_ii.md"><span class="n">20</span> · <span class="t">Designing Classes — Contracts and Data Hiding</span></a></li>
+        <li><a class="card" href="21_day_modules/21_day_modules.md"><span class="n">21</span> · <span class="t">Modules — Imports and Exports</span></a></li>
+        <li><a class="card" href="22_day_json/22_day_json.md"><span class="n">22</span> · <span class="t">JSON and External Data — Shaping Untrusted Input</span></a></li>
+        <li><a class="card" href="23_day_web_storage/23_day_web_storage.md"><span class="n">23</span> · <span class="t">Web Storage — Keeping Data Between Visits</span></a></li>
+        <li><a class="card" href="24_day_dom_selection/24_day_dom_selection.md"><span class="n">24</span> · <span class="t">Selecting DOM Elements — Querying the Page</span></a></li>
+        <li><a class="card" href="25_day_dom_manipulation/25_day_dom_manipulation.md"><span class="n">25</span> · <span class="t">Changing DOM Elements — Updating the Page</span></a></li>
+        <li><a class="card" href="26_day_events_i/26_day_events_i.md"><span class="n">26</span> · <span class="t">Events — Responding to the User</span></a></li>
+        <li><a class="card" href="27_day_events_ii/27_day_events_ii.md"><span class="n">27</span> · <span class="t">Event Delegation and Forms — One Listener, Many Elements</span></a></li>
+        <li><a class="card" href="28_day_functional_programming/28_day_functional_programming.md"><span class="n">28</span> · <span class="t">Functional Programming — Composing Small Pure Functions</span></a></li>
+        <li><a class="card" href="29_day_project_todo/29_day_project_todo.md"><span class="n">29</span> · <span class="t">The Todo Project — Bringing It Together</span></a></li>
+        <li><a class="card" href="30_day_project_weather/30_day_project_weather.md"><span class="n">30</span> · <span class="t">The Weather Project — Fetching and Rendering</span></a></li>
+        <li><a class="card" href="31_day_promises_i/31_day_promises_i.md"><span class="n">31</span> · <span class="t">Promises — One Future Result</span></a></li>
+        <li><a class="card" href="32_day_promises_ii/32_day_promises_ii.md"><span class="n">32</span> · <span class="t">Coordinating Promises — Waiting for Many Results</span></a></li>
+        <li><a class="card" href="33_day_async_await/33_day_async_await.md"><span class="n">33</span> · <span class="t">Async and Await — Promise Syntax That Reads Sequentially</span></a></li>
+        <li><a class="card" href="34_day_fetch_api/34_day_fetch_api.md"><span class="n">34</span> · <span class="t">Fetch — Talking to a Server</span></a></li>
+        <li><a class="card" href="35_day_api_integration/35_day_api_integration.md"><span class="n">35</span> · <span class="t">API Integration — One Boundary Owns HTTP Details</span></a></li>
+        <li><a class="card" href="36_day_ts_types/36_day_ts_types.md"><span class="n">36</span> · <span class="t">TypeScript Types and Interfaces — Designing the Data Contract</span></a></li>
+        <li><a class="card" href="37_day_ts_generics/37_day_ts_generics.md"><span class="n">37</span> · <span class="t">TypeScript Generics — One Function, Many Types</span></a></li>
+        <li><a class="card" href="38_day_ts_utility_types/38_day_ts_utility_types.md"><span class="n">38</span> · <span class="t">TypeScript Utility Types — Transforming Shapes Without Rewriting Them</span></a></li>
+        <li><a class="card" href="39_day_ts_advanced_types/39_day_ts_advanced_types.md"><span class="n">39</span> · <span class="t">TypeScript Advanced Types — Conditional and Mapped Types</span></a></li>
+        <li><a class="card" href="40_day_ts_best_practices/40_day_ts_best_practices.md"><span class="n">40</span> · <span class="t">TypeScript in a Maintainable Project — Safety in the Real World</span></a></li>
+        <li><a class="card" href="41_day_project_recipe/41_day_project_recipe.md"><span class="n">41</span> · <span class="t">Project — Recipe Book</span></a></li>
+        <li><a class="card" href="42_day_project_forum/42_day_project_forum.md"><span class="n">42</span> · <span class="t">Project — Discussion Forum</span></a></li>
+        <li><a class="card" href="43_day_project_ecommerce/43_day_project_ecommerce.md"><span class="n">43</span> · <span class="t">Project — E-commerce Product List</span></a></li>
+        <li><a class="card" href="44_day_project_countries/44_day_project_countries.md"><span class="n">44</span> · <span class="t">Project — Country Explorer</span></a></li>
+        <li><a class="card" href="45_day_capstone/45_day_capstone.md"><span class="n">45</span> · <span class="t">Capstone — Build and Defend Your Own Application</span></a></li>
+    </ol>
 
-        const showDateTime = () => {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-                'October', 'November', 'December'
-            ]
-            const now = new Date()
-            const year = now.getFullYear()
-            const month = months[now.getMonth()]
-            const date = now.getDate()
-            let hours = now.getHours()
-            let minutes = now.getMinutes()
-            let seconds = now.getSeconds()
-            if (hours < 10) {
-                hours = '0' + hours
-            }
-            if (minutes < 10) {
-                minutes = '0' + minutes
-            }
-            if (seconds < 10) {
-                seconds = '0' + seconds
-            }
-
-            const dateMonthYear = `${month} ${date}, ${year}`
-
-            const time = hours + ':' + minutes
-            const fullTime = dateMonthYear + ' ' + time
-            return fullTime + `:${seconds}`
-        }
-
-        const wrapper = document.querySelector('.wrapper')
-        const year = document.querySelector('span')
-        const time = document.querySelector('p')
-        wrapper.style.width = '50%'
-        wrapper.style.margin = 'auto'
-        const title = document.querySelector('h1')
-        const subTitle = document.querySelector('h2')
-        title.style.textAlign = 'center'
-        title.style.fontFamily = 'Montserrat'
-        title.style.fontWeight = 500
-
-        subTitle.style.textAlign = 'center'
-        subTitle.style.fontFamily = 'Montserrat'
-        subTitle.style.fontWeight = 300
-        subTitle.style.textDecoration = 'underline'
-
-
-        time.style.textAlign = 'center'
-        time.style.fontFamily = 'Montserrat'
-        time.style.fontWeight = 400
-
-        setInterval(() => {
-            year.style.color = hexaColor()
-            year.style.fontSize = '96px'
-            year.style.fontWeight = 700;
-            time.textContent = showDateTime()
-            time.style.background = hexaColor()
-            time.style.width = "25%"
-            time.style.margin = 'auto'
-            time.style.padding = '10px'
-
-        }, 1000)
-
-
-
-        const ul = document.querySelector('ul')
-        const lists = document.querySelectorAll('li')
-        for (const list of lists) {
-            list.style.listStyle = 'none'
-            list.style.padding = '25px'
-            list.style.margin = '3px'
-            list.style.fontFamily = 'Montserrat'
-            list.style.fontWeight = 300;
-            list.style.letterSpacing = '0.0625em'
-
-            if (list.textContent.includes('Done')) {
-                list.style.background = '#21bf73'
-            } else if (list.textContent.includes('Ongoing')) {
-                list.style.background = '#fddb3a'
-
-
-
-            } else {
-                list.style.background = '#fd5e53'
-
-            }
-
-        }
-    </script>
+    <p style="margin-top:2rem; opacity:.7; font-size:.85rem;">
+        Bonus: <a href="00_config_deep_dive/CONFIG_DEEP_DIVE.md">Configuration Files Deep Dive</a> ·
+        <a href="CURRICULUM_GUIDE.md">Curriculum guide</a> ·
+        <a href="COURSE_QUALITY_STANDARD.md">Quality standard</a>
+    </p>
+</main>
 </body>
-
 </html>

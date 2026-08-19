@@ -18,5 +18,5 @@
     "allowImportingTsExtensions": true
   },
   "include": ["*/starter/ts/**/*.ts"],
-  "exclude": ["node_modules", "dist", "data", "Azerbaijani", "French", "Italian", "Korean", "Polish", "Portuguese", "RU", "Spanish", "Turkish", "Vietnamese"]
+  "exclude": ["node_modules", "dist"]
 }
