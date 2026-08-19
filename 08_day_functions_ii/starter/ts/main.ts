@@ -1,36 +1,33 @@
 export {}
 
-// Day 8: Rest, Spread, Callbacks, Closures
+type NumberOperation = (number: number) => number
 
-// Rest parameters
-function sumAll(...nums: number[]): number {
-  return nums.reduce((a, b) => a + b, 0)
-}
-console.log(sumAll(1, 2, 3, 4, 5))
-
-// Spread syntax
-const firstHalf: number[] = [1, 2, 3]
-const secondHalf: number[] = [4, 5, 6]
-const combined: number[] = [...firstHalf, ...secondHalf]
-console.log(combined)
-
-// Typed callbacks
-function processItems<T>(items: T[], callback: (item: T, index: number) => void): void {
-  items.forEach((item, index) => callback(item, index))
+function applyToNumber(number: number, operation: NumberOperation): number {
+  return operation(number)
 }
 
-processItems(['a', 'b', 'c'], (letter, i) => console.log(`${i}: ${letter}`))
+function double(number: number): number {
+  return number * 2
+}
 
-// Closure
-function createCounter(start: number = 0) {
-  let count = start
-  return {
-    increment: () => ++count,
-    decrement: () => --count,
-    getValue: () => count
+function createCounter(): () => number {
+  let count: number = 0
+
+  return function(): number {
+    count = count + 1
+    return count
   }
 }
 
-const counter = createCounter(10)
-console.log(counter.increment())  // 11
-console.log(counter.getValue())   // 11
+console.log('Double 5: ' + applyToNumber(5, double))
+console.log('Square 5: ' + applyToNumber(5, number => number * number))
+
+const nextCount: () => number = createCounter()
+console.log('Counter: ' + nextCount())
+console.log('Counter: ' + nextCount())
+
+const anotherCounter: () => number = createCounter()
+console.log('Another counter: ' + anotherCounter())
+
+// Try this, read the error, then restore the comment:
+// applyToNumber(5, 'double')

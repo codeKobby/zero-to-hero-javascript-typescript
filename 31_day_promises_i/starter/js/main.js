@@ -1,33 +1,16 @@
-// Day 31 — Promises I — Starter
-
-// Create a Promise
-var myPromise = new Promise(function (resolve, reject) {
-  var success = true
-  if (success) {
-    resolve('Data loaded!')
-  } else {
-    reject(new Error('Failed to load'))
-  }
-})
-
-myPromise
-  .then(function (data) { console.log(data) })
-  .catch(function (err) { console.error(err) })
-  .finally(function () { console.log('Done') })
-
-// Chaining
-function getUser(id) {
-  return new Promise(function (resolve) {
-    setTimeout(function () { resolve({ id: id, name: 'Alice' }) }, 500)
-  })
+// Day 31 - JavaScript: one future result
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+function getUser(id) {
+  return delay(10).then(() => ({ id, name: 'User ' + id }))
+}
+
+console.log('A')
 getUser(1)
-  .then(function (user) {
-    console.log('User:', user.name)
-    return getUser(2)
-  })
-  .then(function (user2) {
-    console.log('User 2:', user2.name)
-  })
-  .catch(function (err) { console.error(err) })
+  .then((user) => getUser(user.id + 1))
+  .then((user) => console.log('Next user:', user.name))
+  .catch((error) => console.error('Failed:', error))
+  .finally(() => console.log('Done'))
+console.log('B')

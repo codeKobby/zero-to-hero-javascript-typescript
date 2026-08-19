@@ -1,61 +1,83 @@
-<div align="center">
-  <h1>Bonus: Configuration Files Deep Dive</h1>
-  <p><em>Understanding package.json, tsconfig.json, and how your code runs</em></p>
-</div>
+# Bonus: Configuration Files Deep Dive
 
 [<< Day 1](../01_day_setup/01_day_setup.md) | [Day 2 >>](../02_day_variables/02_day_variables.md)
 
 ---
 
-## Why This Exists
+## Why this exists
 
-You've been running `npm run day1`, clicking ▶, and using Live Server. This lesson explains **what's happening under the hood**. Read this when you're curious — not required to continue!
+You have already been running `npm run day1`, clicking the play button, and opening browser lessons through the local server. This guide explains what those commands are actually doing.
 
----
+Read it when you want the course tools to make sense, not just work by luck.
 
-## `package.json` — Project Settings
+## What you should be able to explain
 
-Open `package.json` in the root folder:
+By the end of this guide, you should be able to explain:
+
+- why `package.json` exists;
+- how `npm run` finds the local tools in this project;
+- what `tsconfig.json` changes for TypeScript;
+- why browser lessons load JavaScript pages instead of opening `.ts` files directly; and
+- why configuration helps the course run consistently on another machine.
+
+## The problem first
+
+When a learner clones this repository, three questions matter immediately:
+
+1. What command should I run?
+2. Which tools does that command use?
+3. How does TypeScript get checked before code reaches the browser or Node.js?
+
+The configuration files answer those questions.
+
+## `package.json` is the project map
+
+Open the root `package.json` file. The important pieces are:
 
 ```json
 {
-  "name": "zero-to-hero-js-ts",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "npm": ">=10"
+  },
   "scripts": {
     "day1": "tsx 01_day_setup/starter/ts/main.ts",
     "day1:js": "node 01_day_setup/starter/js/main.js",
+    "day24": "echo 'Day 24 is DOM-based - open 24_day_dom_selection/starter/index.html in browser'",
+    "dev": "vite",
     "check": "tsc --noEmit"
   },
   "devDependencies": {
     "tsx": "^4.23.12",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vite": "^8.2.1"
   }
 }
 ```
 
-| Field | What It Does |
-|-------|--------------|
-| `"type": "module"` | Use modern `import`/`export` (not old `require`) |
-| `"scripts"` | Shortcuts — `npm run day1` runs the command |
-| `"devDependencies"` | Tools only needed while coding (not in production) |
+What each part means:
 
-### What `npm install` Did
+- `type: module` tells Node to use modern ESM `import` and `export`.
+- `engines` records the supported Node and npm versions.
+- `scripts` are reusable commands you run with `npm run ...`.
+- `devDependencies` are tools the course needs while developing, not libraries the lessons ship to users.
 
-```
-node_modules/
-├── .bin/
-│   ├── tsx      → runs TypeScript directly
-│   ├── tsc      → TypeScript compiler
-│   └── ...
-├── tsx/
-└── typescript/
-```
+### Why `npm run day1` works
 
-**No global installs** — everything lives in `node_modules/.bin/`
+Trace it step by step:
 
----
+1. `npm run day1` reads the `scripts.day1` entry.
+2. npm looks for the local `tsx` binary in `node_modules/.bin`.
+3. `tsx` reads `01_day_setup/starter/ts/main.ts`.
+4. TypeScript syntax is transformed in memory.
+5. Node runs the resulting JavaScript and prints the output.
 
-## `tsconfig.json` — TypeScript Rules
+The key idea is that the command uses project-local tools, not global installs.
+
+## `tsconfig.json` is the TypeScript rulebook
+
+Open `tsconfig.json` next:
 
 ```json
 {
@@ -63,114 +85,96 @@ node_modules/
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "isolatedModules": true,
     "noEmit": true,
-    "isolatedModules": true
+    "allowImportingTsExtensions": true
   },
   "include": ["*/starter/ts/**/*.ts"]
 }
 ```
 
-| Option | Meaning |
-|--------|---------|
-| `"strict": true` | Catch ALL type errors (recommended!) |
-| `"target": "ES2022"` | Output modern JS features |
-| `"noEmit": true` | Only type-check, don't create `.js` files |
-| `"isolatedModules": true` | Each file stands alone (needed for `tsx`) |
+What matters most for this course:
 
-Run `npm run check` to type-check everything without running.
+- `strict: true` turns on the strongest beginner-friendly checks.
+- `noUncheckedIndexedAccess: true` reminds you that array lookups can miss.
+- `isolatedModules: true` keeps each file compatible with single-file transforms such as `tsx`.
+- `noEmit: true` means `tsc` checks types but does not write output files.
+- `allowImportingTsExtensions: true` lets the TypeScript starters import files in the way this repo expects.
 
----
+### What `npm run check` really does
 
-## How `npm run day1` Works
+Trace it like this:
 
-```
-npm run day1
-     │
-     ▼
-Reads package.json "scripts" → finds "day1": "tsx 01_day_setup/starter/ts/main.ts"
-     │
-     ▼
-Runs: npx tsx 01_day_setup/starter/ts/main.ts
-     │
-     ▼
-tsx (in node_modules/.bin/) reads your .ts file
-     │
-     ▼
-Compiles to JS in memory (using esbuild - super fast)
-     │
-     ▼
-Runs with Node.js → shows output
-```
+1. `npm run check` reads the `scripts.check` entry.
+2. npm runs `tsc --noEmit`.
+3. TypeScript reads `tsconfig.json`.
+4. TypeScript checks the included `.ts` starter files.
+5. If a type error exists, the command fails before the lesson is treated as ready.
 
----
+Important: `tsconfig.json` does not validate runtime data. It checks code shape at compile time only.
 
-## The ▶ Button in VS Code
+## Browser lessons need JavaScript
 
-When you click ▶ on a `.ts` file:
+DOM, storage, and project lessons run in a browser, but browsers do not execute TypeScript directly.
 
-1. VS Code reads `package.json` scripts
-2. Runs: `npx tsx path/to/your/file.ts`
-3. Output appears in terminal
+That is why the lesson folders use two entry pages:
 
-**Why `npx`?** Means "use the `tsx` from THIS project's `node_modules/.bin/`"
+- `index.html` loads the JavaScript starter.
+- `index.ts.html` loads the TypeScript starter through Vite.
 
----
+The browser workflow looks like this:
 
-## Browser Days (24-27, 29-30, 41-44)
+1. You run `npm run dev`.
+2. Vite starts a local server.
+3. The browser opens the lesson page from that server.
+4. The JavaScript page loads `js/main.js` directly.
+5. The TypeScript page imports `ts/main.ts`, and Vite transforms it for the browser.
+6. The browser receives JavaScript either way.
 
-HTML files use `<script type="module" src="js/main.js">`
+Do not open browser lesson HTML files directly from disk. The server path is part of the lesson.
 
-**Why `.js` not `.ts`?** Browsers don't understand TypeScript!
+## Why not global installs?
 
-The JS files are pre-written for you. In real projects, you'd:
-1. Write TypeScript
-2. Run `tsc` to compile to `.js`
-3. Browser loads the `.js`
+Global installs create avoidable drift:
 
----
+- one machine gets a newer tool version than another;
+- one lesson works on one machine and fails on another; and
+- a learner has to guess which tool came from where.
 
-## Why Not Global Installs?
+Project-local tools keep the course reproducible.
 
-| Problem with Global | Project-Local Fix |
-|---------------------|-------------------|
-| Version conflicts between projects | Each project has its own `node_modules/` |
-| "Works on my machine" | `npm install` gives everyone exact same tools |
-| Hard to update one project | Update `package.json`, run `npm install` |
+## Common mistakes
 
----
+- Running a browser lesson with `node` instead of using the browser and Vite.
+- Installing `tsx`, `typescript`, or `vite` globally instead of using the project copy.
+- Treating `noEmit` as if it disables checking. It does not.
+- Assuming TypeScript can prove external JSON, storage, or form input is valid without a runtime guard.
+- Opening a browser lesson directly from disk instead of through the local server.
 
-## Quick Commands Reference
+## Practice before you move on
 
-```bash
-# Install deps (run once after clone)
-npm install
+Try these in your own words first:
 
-# Run any day
-npm run day1
-npm run day2
-# ...
+1. Trace what happens when you run `npm run day1`.
+2. Explain why browser lessons use `index.ts.html` instead of loading `.ts` directly.
+3. Name one `tsconfig.json` option that improves safety and say what it protects.
+4. Explain why `npm run check` is useful even when the lesson already runs.
 
-# Run JavaScript version
-npm run day1:js
+- [Hints](practice/hints.md)
+- [Worked solutions](practice/solutions.md)
 
-# Type-check everything
-npm run check
+## Check yourself
 
-# Browser days: open index.html → Click "Go Live" in status bar
-```
+You should be able to explain:
 
----
-
-## When to Come Back Here
-
-- You want to add a new npm package
-- You're getting weird TypeScript errors
-- You're setting up your own project
-- You're curious how it all fits together
-
----
+1. What `package.json` tells npm to do.
+2. Why `tsconfig.json` affects checking but not runtime values.
+3. Why browser lessons use Vite instead of opening files directly.
+4. Why local tooling is more reliable than global installs in a shared course.
 
 [<< Day 1](../01_day_setup/01_day_setup.md) | [Day 2 >>](../02_day_variables/02_day_variables.md)
 
-🔧 **Configuration Deep Dive Complete!** Now you know what's happening behind the scenes.
+Configuration files do not run your code. They tell the tools how to run, check, and serve it.

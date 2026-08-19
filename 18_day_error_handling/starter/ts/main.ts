@@ -1,51 +1,45 @@
 export {}
 
-// Day 18: Error Handling & Custom Errors
-class ValidationError extends Error {
-  constructor(
-    message: string,
-    public readonly field: string
-  ) {
-    super(message)
-    this.name = 'ValidationError'
+// Day 18 - TypeScript: expected failures and recovery
+type ParseResult = {
+  ok: boolean
+  value: unknown | null
+}
+
+function tryParseJson(text: string): ParseResult {
+  try {
+    return { ok: true, value: JSON.parse(text) }
+  } catch {
+    return { ok: false, value: null }
   }
 }
 
-function validateAge(age: unknown): number {
-  if (typeof age !== 'number') {
-    throw new ValidationError('Age must be a number', 'age')
+function divide(total: number, people: number): number {
+  if (!Number.isInteger(people) || people <= 0) {
+    throw new Error('people must be a positive whole number')
   }
-  if (age < 0 || age > 150) {
-    throw new ValidationError('Age must be between 0 and 150', 'age')
-  }
-  return age
+
+  return total / people
 }
+
+console.log('Valid JSON:', tryParseJson('{"theme":"dark"}'))
+console.log('Invalid JSON:', tryParseJson('{not valid json}'))
 
 try {
-  const validAge = validateAge(25)
-  console.log(`Valid age: ${validAge}`)
+  console.log('Each person receives:', divide(12, 3))
+  divide(12, 0)
 } catch (error) {
-  if (error instanceof ValidationError) {
-    console.log(`Error on "${error.field}": ${error.message}`)
+  console.log('Could not split the total safely.')
+  if (error instanceof Error) {
+    console.log('Developer detail:', error.message)
+  } else {
+    console.log('Developer detail: non-Error value thrown')
   }
 }
 
-// Safe JSON parse
-function safeParse<T>(json: string): T | null {
-  try {
-    return JSON.parse(json) as T
-  } catch {
-    return null
-  }
-}
-
-interface Config {
-  port: number
-  host: string
-}
-
-const config = safeParse<Config>('{"port":3000,"host":"localhost"}')
-console.log('Config:', config)
-
-const bad = safeParse<Config>('invalid json')
-console.log('Bad parse:', bad)
+// Try this, read the error, then restore the comment:
+// try {
+//   JSON.parse('{bad}')
+// } catch (error) {
+//   console.log(error.message)
+// }

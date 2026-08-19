@@ -1,12 +1,22 @@
-// Day 2 — JavaScript Starter: Variables & Constants
-const PI = 3.14159
-const greeting = 'Hello, JavaScript!'
+// Day 2 - Predict each value before running this file.
 
-let counter = 0
-let temperature = 22.5
+const courseName = 'JavaScript foundations'
+let completedLessons = 1
 
-counter = 1
-temperature = 25.0
+console.log('Course:', courseName)
+console.log('Completed lessons:', completedLessons)
 
-console.log(greeting)
-console.log('PI:', PI, '| Counter:', counter, '| Temp:', temperature)
+completedLessons = completedLessons + 1
+console.log('Completed lessons after study:', completedLessons)
+
+let futureGoal
+console.log('Before assignment:', futureGoal)
+futureGoal = 'Build a useful app'
+console.log('After assignment:', futureGoal)
+
+// This demonstrates var's early-access behavior. Do not copy this style.
+console.log('var before assignment:', oldCounter)
+var oldCounter = 3
+console.log('var after assignment:', oldCounter)
+
+// console.log(d)

@@ -1,17 +1,51 @@
 export {}
 
 // Day 23: Web Storage
+// localStorage only exists in browsers. This in-memory fallback lets this
+// learning example run in Node.js too.
+class MemoryStorage implements Storage {
+  private data = new Map<string, string>()
+
+  getItem(key: string): string | null {
+    return this.data.get(key) ?? null
+  }
+
+  setItem(key: string, value: string): void {
+    this.data.set(key, value)
+  }
+
+  removeItem(key: string): void {
+    this.data.delete(key)
+  }
+
+  clear(): void {
+    this.data.clear()
+  }
+
+  key(index: number): string | null {
+    return Array.from(this.data.keys())[index] ?? null
+  }
+
+  get length(): number {
+    return this.data.size
+  }
+}
+
+const safeStorage: Storage = typeof localStorage !== 'undefined'
+  ? localStorage
+  : new MemoryStorage()
+
 class TypedStorage<T> {
   constructor(
     private key: string,
-    private storage: Storage = localStorage
+    private storage: Storage = safeStorage
   ) {}
 
   save(data: T): void {
     try {
       this.storage.setItem(this.key, JSON.stringify(data))
-    } catch (e) {
-      console.error('Storage error:', e)
+    } catch (error: unknown) {
+      console.error('Storage error:', error)
     }
   }
 
@@ -29,33 +63,47 @@ class TypedStorage<T> {
   }
 }
 
-// Usage
 interface Preferences {
   theme: string
   language: string
 }
 
-const prefs = new TypedStorage<Preferences>('app-preferences')
-prefs.save({ theme: 'dark', language: 'en' })
-const loaded = prefs.load({ theme: 'light', language: 'en' })
-console.log('Loaded preferences:', loaded)
+const preferences = new TypedStorage<Preferences>('app-preferences')
+preferences.save({ theme: 'dark', language: 'en' })
+const loadedPreferences = preferences.load({ theme: 'light', language: 'en' })
+console.log('Loaded preferences:', loadedPreferences)
 
-// TTL storage
 function setWithExpiry(key: string, value: unknown, ttlMs: number): void {
   const item = {
     value,
     expiry: Date.now() + ttlMs
   }
-  localStorage.setItem(key, JSON.stringify(item))
+
+  safeStorage.setItem(key, JSON.stringify(item))
 }
 
 function getWithExpiry<T>(key: string): T | null {
-  const raw = localStorage.getItem(key)
+  const raw = safeStorage.getItem(key)
   if (!raw) return null
-  const item = JSON.parse(raw)
-  if (Date.now() > item.expiry) {
-    localStorage.removeItem(key)
+
+  try {
+    const item = JSON.parse(raw) as { value: T; expiry: number }
+
+    if (Date.now() > item.expiry) {
+      safeStorage.removeItem(key)
+      return null
+    }
+
+    return item.value
+  } catch {
     return null
   }
-  return item.value as T
 }
+
+setWithExpiry('temp', { data: 'expires soon' }, 1000)
+const temporaryValue = getWithExpiry<{ data: string }>('temp')
+console.log('TTL storage:', temporaryValue)
+
+// Try this, read the error, then restore the comment:
+// const restored = getWithExpiry<{ data: string }>('temp')
+// console.log(restored.data)

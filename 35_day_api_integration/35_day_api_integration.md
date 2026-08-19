@@ -1,133 +1,223 @@
-<div align="center">
-  <h1>Day 35: API Integration — REST Patterns</h1>
-</div>
+# Day 35: API Integration — One Boundary Owns HTTP Details
 
-[<< Day 34](../34_day_fetch_api/34_day_fetch_api.md) | [Day 36 >>](36_day_ts_types/36_day_ts_types.md)
+[Day 34 <<](../34_day_fetch_api/34_day_fetch_api.md) | [Day 36 >>](../36_day_ts_types/36_day_ts_types.md)
 
----
+## Table of Contents
 
-## 🎯 Learning Objectives
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [One boundary should own HTTP details](#one-boundary-should-own-http-details)
+  - [The client returns unknown at the trust boundary](#the-client-returns-unknown-at-the-trust-boundary)
+  - [Loading, success, and error are state](#loading-success-and-error-are-state)
+  - [Cache only with a policy](#cache-only-with-a-policy)
+  - [Pagination is a contract, not an inference](#pagination-is-a-contract-not-an-inference)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [RequestState is a discriminated union](#requeststate-is-a-discriminated-union)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-- Build complete API integration patterns
-- Handle loading states, pagination, and caching
-- Use TypeScript with full API response typing
-- Build an offline-capable data layer
+## Why this lesson exists
 
----
+Day 34 gave you `fetch`. Day 35 turns it into a data layer: one module owns transport rules, and feature code asks for domain data. Without that boundary, fetch calls, headers, status checks, caches, and error messages scatter through the UI and make every change expensive.
 
-## REST API Patterns
+## Prerequisites
+
+- Day 34: `fetch`, `response.ok`, `response.json`, `AbortController`, runtime guards.
+- Day 28: composing small functions.
+- Day 19-20: classes and instance state.
+
+## What you'll be able to explain and do
+
+By the end of this lesson you will be able to **do**:
+
+- build an `ApiClient` whose methods return data, not `Response`s;
+- return `unknown` at the trust boundary and guard into domain types;
+- model loading, success, and error as an explicit state union;
+- cache responses with a deliberate key and policy;
+- represent pagination as a contract with page and total fields;
+- run this course's Day 35 JavaScript and TypeScript starters and the type check.
+
+And you will be able to **explain**:
+
+- why the API boundary should return `unknown` before validation;
+- what loading state prevents a user from misunderstanding;
+- what cache policy would make stale data unacceptable;
+- why API credentials should never be committed to a frontend repository.
+
+## The problem this solves
 
 ```ts
-// Typed API client:
-interface ApiResponse<T> {
-  data: T
-  status: number
-  message: string
-}
-
-interface PaginatedResponse<T> {
-  data: T[]
-  total: number
-  page: number
-  perPage: number
-  hasMore: boolean
-}
-
 class ApiClient {
-  private baseUrl: string
-  private token: string | null = null
+  constructor(private readonly baseUrl: string) {}
 
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl
-  }
-
-  setToken(token: string): void {
-    this.token = token
-  }
-
-  private async request<T>(
-    endpoint: string,
-    options: RequestInit = {}
-  ): Promise<T> {
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string> || {})
-    }
-
-    if (this.token) {
-      headers['Authorization'] = `Bearer ${this.token}`
-    }
-
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
-      ...options,
-      headers
-    })
-
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`)
-    }
-
-    return response.json() as Promise<T>
-  }
-
-  async get<T>(endpoint: string): Promise<T> {
-    return this.request<T>(endpoint)
-  }
-
-  async post<T>(endpoint: string, body: unknown): Promise<T> {
-    return this.request<T>(endpoint, {
-      method: 'POST',
-      body: JSON.stringify(body)
-    })
+  async get(endpoint: string): Promise<unknown> {
+    const response = await fetch(this.baseUrl + endpoint)
+    if (!response.ok) throw new Error('HTTP ' + response.status)
+    return response.json()
   }
 }
-
-// Usage:
-const api = new ApiClient('https://jsonplaceholder.typicode.com')
-const users = await api.get<User[]>('/users')
 ```
 
----
+Feature code calls `api.get('/todos')` and receives a value to validate; it never repeats transport logic.
 
-## Local Data for Offline Use
+## JS runtime deep dive
 
-This curriculum includes `data/countries_data.js` for offline exercises. Use local JSON files instead of remote APIs when possible:
+### One boundary should own HTTP details
 
-```js
-// Load local data instead of fetching:
-import countries from '../data/countries_data.js'
+Scattering fetch, headers, status checks, JSON parsing, caching, and error messages throughout a UI makes changes expensive. An API client centralizes transport rules; feature code asks for domain data.
 
-// Or fetch local file:
-const response = await fetch('./data/weather.json')
-const data = await response.json()
+### The client returns unknown at the trust boundary
+
+```ts
+async get(endpoint: string): Promise<unknown> {
+  const response = await fetch(this.baseUrl + endpoint)
+  if (!response.ok) throw new Error('HTTP ' + response.status)
+  return response.json()
+}
 ```
 
----
+The client returns `unknown` at the trust boundary. A feature-specific guard turns `unknown` into a useful domain type. Do not make a generic `get<T>` assertion pretend that untrusted JSON was validated.
 
-## Exercises
+### Loading, success, and error are state
 
-### Level 1
+Every UI that waits for data needs an explicit state model:
 
-1. Create an `ApiClient` class with typed `get` and `post` methods.
-2. Load data from `https://jsonplaceholder.typicode.com/posts` and display it.
-3. Add error handling for network failures.
+```ts
+type RequestState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; message: string }
+```
 
-### Level 2
+This prevents stale success data from being displayed as if a newer request succeeded.
 
-1. Implement pagination for a list of posts.
-2. Add a simple in-memory cache for repeated requests.
-3. Create a TypeScript interface for the JSONPlaceholder API.
+### Cache only with a policy
 
-### Level 3
+An in-memory cache can avoid duplicate requests during one session. Decide its key, invalidation rule, and whether stale data is acceptable. A cache is not automatically correct simply because it is faster.
 
-1. Build an offline-first data layer with localStorage fallback.
-2. Implement request queuing for when the network is unavailable.
-3. Create a mock API server using local JSON files.
+### Pagination is a contract, not an inference
 
----
+Pagination is also a contract: page number, page size, total, and next-page behavior must come from the API. Do not infer that an array's length means there are no more records.
 
-[<< Day 34](../34_day_fetch_api/34_day_fetch_api.md) | [Day 36 >>](36_day_ts_types/36_day_ts_types.md)
+### Common mistakes table
 
-🎉 **Day 35 Complete!**
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| Scattering `fetch` across the UI | Speed | Route requests through one client |
+| `get<T>` pretending JSON was validated | Convenience | Return `unknown`, guard per feature |
+| Hiding loading state | Simplicity | Model idle/loading/success/error |
+| Showing stale success during a new load | Forgetfulness | Keep state per request |
+| Caching without an invalidation rule | Performance habit | Decide the key and staleness policy |
+| Treating array length as the end of pagination | Assuming | Read page/total from the API |
 
-🎉 **Progress**: 35/45 days complete
+## The TypeScript layer
+
+### RequestState is a discriminated union
+
+`status` is the discriminator. In the `success` arm, `data` exists; in the `error` arm, `message` exists; in `loading` and `idle`, neither does. A `switch (state.status)` narrows each arm so the fields you read always exist.
+
+### What TypeScript cannot decide
+
+TypeScript cannot decide what the server sends, when a request times out, or whether a cached entry is stale. The types describe the contract and the state transitions; the runtime guard and the cache policy are separate decisions that no type can enforce.
+
+### One compiler error, walked through
+
+Open `35_day_api_integration/starter/ts/main.ts`. The last section is commented out and deliberately broken:
+
+```ts
+const state: RequestState<Todo[]> = { status: 'loading' }
+console.log(state.data)
+```
+
+Uncomment it and run the type check:
+
+```powershell
+npm.cmd run check
+```
+
+TypeScript reports the reason:
+
+```
+Property 'data' does not exist on type 'RequestState<Todo[]>'.
+```
+
+Read it as: *"`RequestState` is a union, and only the `success` arm carries `data` — reading `data` without narrowing by `status` assumes the one arm that a `loading` state does not have."* The fix is to narrow through the discriminator:
+
+```ts
+const state: RequestState<Todo[]> = { status: 'success', data: [] }
+if (state.status === 'success') {
+  console.log(state.data)
+}
+```
+
+Comment the broken section back out when done so the starter keeps passing `npm run check`.
+
+## One-sentence mental model
+
+An API data layer is one boundary that owns transport, returns `unknown` at the trust boundary, models loading/success/error as state, caches by policy, and treats pagination as a contract — with the UI asking for domain data, never raw HTTP.
+
+## Practice
+
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+
+### Level 1 — Mechanical (10-15 min)
+
+For each snippet, write down the exact result before running.
+
+1. Why should the API boundary return `unknown` before validation?
+2. What does loading state prevent a user from misunderstanding?
+3. What cache policy would make stale data unacceptable?
+4. Why should API credentials never be committed to a frontend repository?
+5. Run `npm.cmd run day35:js` and `npm.cmd run day35`; then `npm.cmd run check` and confirm it passes.
+
+### Level 2 — Applied mini-projects
+
+1. Add a cache `Map` keyed by endpoint.
+2. Add a request-state helper and represent loading/success/error.
+3. Add a page parameter and a `hasMore` field to the returned contract.
+4. Type and validate a `Todo` response at runtime.
+
+### Level 3 — Creative synthesis
+
+1. The one-boundary refactor: move a hand-written `fetch` call into `ApiClient.get` and comment on what feature code gains.
+2. The stale-cache risk: add a cache with a freshness window, and comment on what happens when data changes before the window expires.
+3. The request-state gallery: render each of the four states for one endpoint, and comment on what each arm shows the user.
+4. The pagination contract: model a page response with page, size, total, and `hasMore`, and comment on why the array length alone is not enough.
+
+## Finish line
+
+Day 35 is complete when you can do all of these **without notes**:
+
+1. Build an `ApiClient` whose methods return data, not `Response`s.
+2. Return `unknown` at the trust boundary and guard into domain types.
+3. Model loading, success, and error as an explicit state union.
+4. Cache responses with a deliberate key and policy.
+5. Represent pagination as a contract with page and total fields.
+
+If any answer is a guess, revisit the matching section before Day 36.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. Why should the API boundary return `unknown` before validation?
+2. What does loading state prevent a user from misunderstanding?
+3. What cache policy would make stale data unacceptable?
+4. Why should API credentials never be committed to a frontend repository?
+5. Why does `state.data` fail against `RequestState<Todo[]>`, and what does the fix require?
+
+Your answers are today's evidence. If you can write them, move to [Day 36: TypeScript Types and Interfaces — Designing the Data Contract](../36_day_ts_types/36_day_ts_types.md).
+
+**Day 35 complete.** API integration is now one boundary that owns transport, returns `unknown` at the trust boundary, models loading/success/error as state, caches by policy, and treats pagination as a contract.

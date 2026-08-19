@@ -1,30 +1,32 @@
 export {}
 
-// Day 11: Destructuring, Spread & Rest
-interface UserData {
-  id: number
+// Day 11 - TypeScript: destructuring, rest, and spread
+type Learner = {
   name: string
-  email: string
-  role: string
+  track: 'frontend' | 'backend'
+  completedLessons: number
+  nickname?: string
 }
 
-const currentUser: UserData = { id: 1, name: 'Alice', email: 'alice@test.com', role: 'admin' }
+const learner: Learner = {
+  name: 'Mina',
+  track: 'frontend',
+  completedLessons: 11
+}
 
-// Object destructuring with defaults
-const { name: userName, role: userRole = 'guest' } = currentUser
-console.log(`${userName} (${userRole})`)
+const { name, track, nickname = 'new learner' } = learner
+console.log(name + ' is studying ' + track + ' as ' + nickname + '.')
 
-// Rest in destructuring
-const { id: _id, ...remainingFields } = currentUser
-console.log(remainingFields)
+const [firstScore, , thirdScore = 0, ...remainingScores]: number[] = [92, 86, 74, 68]
+console.log('First: ' + firstScore + '; third: ' + thirdScore)
+console.log('Remaining scores:', remainingScores)
 
-// Array destructuring
-const [firstScore, secondScore, ...restScores] = [95, 87, 72, 68, 91]
-console.log(`Top two: ${firstScore}, ${secondScore}`)
-console.log(`Rest: ${restScores}`)
+const { name: learnerName, ...progress } = learner
+console.log(learnerName + "'s progress:", progress)
 
-// Swap
-let x: number = 1
-let y: number = 2
-;[x, y] = [y, x]
-console.log(`x=${x}, y=${y}`)
+const updatedLearner: Learner = { ...learner, completedLessons: 12 }
+console.log('Original lessons:', learner.completedLessons)
+console.log('Updated lessons:', updatedLearner.completedLessons)
+
+// Try this, read the error, then restore the comment:
+// const { learnerId } = learner

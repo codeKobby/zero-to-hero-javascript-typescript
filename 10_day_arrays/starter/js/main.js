@@ -1,15 +1,14 @@
-// Day 10 — JavaScript Starter: Arrays & Generics
-const temperatures = [72, 85, 68, 90, 75]
+const originalTasks = ['Read', 'Practise']
 
-// Array methods
-const above80 = temperatures.filter(t => t > 80)
-const doubled = temperatures.map(t => t * 2)
-const total = temperatures.reduce((sum, t) => sum + t, 0)
+console.log('First task:', originalTasks[0])
+console.log('Last task:', originalTasks.at(-1))
 
-console.log('Above 80:', above80)
-console.log('Doubled:', doubled)
-console.log('Total:', total)
+const copiedTasks = [...originalTasks]
+copiedTasks.push('Build')
 
-// at() method
-console.log('First:', temperatures.at(0))
-console.log('Last:', temperatures.at(-1))
+console.log('Original tasks:', originalTasks)
+console.log('Copied tasks:', copiedTasks)
+
+const completedTask = copiedTasks.pop()
+console.log('Completed task:', completedTask)
+console.log('After pop:', copiedTasks)

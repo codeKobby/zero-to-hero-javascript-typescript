@@ -1,26 +1,44 @@
-// Day 23 — JavaScript Starter: Web Storage
-// Run in browser
+// Day 23 - JavaScript: safe small-value storage
+class MemoryStorage {
+  constructor() {
+    this.data = new Map()
+  }
 
-function storageSet(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value))
-  } catch (e) {
-    console.error('Storage error:', e)
+  getItem(key) {
+    return this.data.get(key) ?? null
+  }
+
+  setItem(key, value) {
+    this.data.set(key, value)
+  }
+
+  removeItem(key) {
+    this.data.delete(key)
   }
 }
 
-function storageGet(key, fallback) {
+const safeStorage = typeof localStorage !== 'undefined'
+  ? localStorage
+  : new MemoryStorage()
+
+function saveJson(storage, key, value) {
+  storage.setItem(key, JSON.stringify(value))
+}
+
+function loadJson(storage, key, fallback) {
+  const raw = storage.getItem(key)
+  if (raw === null) return fallback
+
   try {
-    var raw = localStorage.getItem(key)
-    return raw ? JSON.parse(raw) : fallback
+    return JSON.parse(raw)
   } catch {
     return fallback
   }
 }
 
-// Usage (browser):
-// storageSet('preferences', { theme: 'dark', language: 'en' })
-// var prefs = storageGet('preferences', { theme: 'light', language: 'en' })
-// console.log(prefs)
+const fallback = { theme: 'light', language: 'en' }
+saveJson(safeStorage, 'preferences', { theme: 'dark', language: 'en' })
+console.log('Loaded preferences:', loadJson(safeStorage, 'preferences', fallback))
 
-console.log('Day 23: Web Storage — open in browser to test')
+safeStorage.setItem('preferences', '{bad JSON}')
+console.log('Fallback after invalid data:', loadJson(safeStorage, 'preferences', fallback))

@@ -1,119 +1,102 @@
-# VS Code Setup Guide
+# VS Code Setup
 
-## Essential Extensions (Install These First)
+This course should work with VS Code's built-in JavaScript and TypeScript support. Do not install a large extension collection before you have run Day 1.
 
-| Extension | What It Does | Why You Need It |
-|-----------|--------------|-----------------|
-| **Code Runner** | Run code with ▶ button or `Ctrl+Alt+N` | One-click run for Node-based `.js` and `.ts` files |
-| **Live Server** | Auto-reloads browser on save | Essential for DOM/HTML projects |
-| **Console Ninja** | Shows `console.log` output inline in editor | See results without leaving code |
-| **Error Lens** | Shows errors/warnings inline in code | Catch mistakes instantly |
+## 1. Open the correct folder
 
-## One-Click Install
+In VS Code, choose File -> Open Folder and select the repository root:
 
-Open VS Code Command Palette (`Ctrl+Shift+P`) → **Extensions: Install Extensions** → Search and install each above.
+~~~text
+zero-to-hero-javascript-typescript
+~~~
 
-Or paste this in terminal:
-```bash
-code --install-extension formulahendry.code-runner
-code --install-extension ritwickdey.LiveServer
-code --install-extension console-ninja.console-ninja
-code --install-extension usernamehw.errorlens
-```
+Do not open only a single lesson folder. The run commands and TypeScript configuration live in the repository root.
 
----
+## 2. Open a terminal in VS Code
 
-## Required VS Code Settings
+Choose Terminal -> New Terminal.
 
-This repository already includes these settings in `.vscode/settings.json`. After cloning, open the repository root folder, accept VS Code's workspace trust prompt, and install the recommended extensions. If you opened a subfolder or need to repair your user settings, copy this block into your user `settings.json`.
+Run:
 
-Open Settings (`Ctrl+,`) → Search "settings.json" → Click "Open Settings (JSON)" → **Add this:**
+~~~bash
+node --version
+npm.cmd --version
+npm.cmd install
+~~~
 
-```json
-{
-  "code-runner.executorMap": {
-    "typescript": "node ./node_modules/tsx/dist/cli.mjs",
-    "javascript": "node"
-  },
-  "code-runner.executorMapByFileExtension": {
-    ".ts": "node ./node_modules/tsx/dist/cli.mjs",
-    ".js": "node"
-  },
-  "code-runner.cwd": "$workspaceRoot",
-  "code-runner.fileDirectoryAsCwd": false,
-  "code-runner.runInTerminal": true,
-  "code-runner.saveFileBeforeRun": true,
-  "console-ninja.showOutputOn": "editor",
-  "liveServer.settings.port": 5500,
-  "liveServer.settings.root": "/",
-  "editor.inlineSuggest.enabled": true,
-  "typescript.updateImportsOnFileMove.enabled": "always"
-}
-```
+On macOS, Linux, Git Bash, or Command Prompt, npm install is normally enough. PowerShell can block npm.ps1; npm.cmd avoids that Windows-specific issue.
 
----
+Installation runs the repository's environment check automatically. The project supports Node 20.19+ or Node 22.12+ and npm 10+. If your version is unsupported, the message tells you exactly what to install; do not work around it by installing tools globally.
 
-## How to Run Each Day
+## 3. Verify the environment before Day 1
 
-### Days 1–23, 28, 31–40 (Node.js / Terminal)
+~~~bash
+npm.cmd run day1:js
+npm.cmd run day1
+npm.cmd run check
+npm.cmd run doctor
+~~~
 
-| Method | How |
-|--------|-----|
-| **Easiest** | Open `.ts` file → Click **▶** top-right |
-| **Terminal** | `npm run day2` (or day3, day4...) |
-| **JS version** | `npm run day2:js` |
+Expected result:
 
-### Days 24–27, 29–30, 41–44 (Browser / DOM)
+- the JavaScript starter prints output;
+- the TypeScript starter prints corresponding output; and
+- the final command finishes with no TypeScript errors.
 
-| Method | How |
-|--------|-----|
-| **Go Live (Easiest)** | Open `index.html` → Click **Go Live** in bottom status bar |
-| **Right-click** | Right-click `index.html` → **Open with Live Server** |
-| **Manual** | Double-click `index.html` in file explorer (no auto-reload) |
+If one fails, use [TROUBLESHOOTING.md](TROUBLESHOOTING.md) before moving on.
 
-> **Live Server auto-reloads** when you save changes — best for DOM projects!
-> The **Go Live** button appears in VS Code's bottom status bar after installing Live Server.
+## 4. How to work through a Node lesson
 
----
+Open three files side by side:
 
-## Pro Tip: View 3 Files Side-by-Side
+1. the lesson markdown file;
+2. starter/js/main.js; and
+3. starter/ts/main.ts.
 
-Want to see the lesson (`.md`), JavaScript (`.js`), and TypeScript (`.ts`) at the same time?
+Read the explanation, predict the output, run the JavaScript file, then run the TypeScript version. The two files should demonstrate the same runtime behavior; TypeScript adds compile-time checks.
 
-**VS Code → View → Editor Layout → Three Columns**
+~~~bash
+npm.cmd run day6:js
+npm.cmd run day6
+~~~
 
-Then open:
-- Column 1: `02_day_variables/02_day_variables.md` (lesson)
-- Column 2: `02_day_variables/starter/js/main.js` (JavaScript)
-- Column 3: `02_day_variables/starter/ts/main.ts` (TypeScript)
+## 5. Browser lessons: the reproducible JS/TS path
 
-**Shortcut:** `Ctrl+1` / `Ctrl+2` / `Ctrl+3` to jump between columns
+DOM and project lessons run in a browser because document and localStorage do not exist in Node.js. This repository includes Vite as a local development dependency, so a fresh clone does not depend on a global server or a VS Code extension.
 
----
+From the repository root:
 
-## Troubleshooting
+~~~bash
+npm.cmd run dev
+~~~
 
-| Problem | Fix |
-|---------|-----|
-| `tsx: command not found` | Run `npm install` in project root |
-| PowerShell blocks `npm` or `npx` | Use `npm.cmd install` / `npm.cmd run day1`, or switch VS Code terminal to Command Prompt/Git Bash |
-| ▶ button runs `ts-node` (not found) | Make sure `.vscode/settings.json` exists and maps TypeScript to `node ./node_modules/tsx/dist/cli.mjs` |
-| ▶ button runs wrong command | Check `code-runner.executorMap` in settings.json |
-| Live Server won't start | Make sure you're right-clicking `index.html` (not `.ts` file) |
-| TypeScript errors not showing | Install **Error Lens** extension |
-| Console Ninja not showing output | Run the file first (`npm run day1`), then output appears inline |
-| "Cannot find module" errors | Run `npm install` then restart VS Code (`Ctrl+Shift+P` → "Developer: Reload Window") |
+Vite prints a local address. Open the lesson's two entry pages:
 
----
+~~~text
+/24_day_dom_selection/starter/index.html
+/24_day_dom_selection/starter/index.ts.html
+~~~
 
-## Quick Reference Card
+The first loads JavaScript. The second imports the TypeScript starter and lets Vite transform it for the browser. Each browser lesson documents its own paired paths. Keep the terminal running while you work.
 
-```
-DAY 1–23, 28, 31–40     →  npm run day<N>      → Runs in terminal
-DAY 24–27, 29–30, 41–44 →  Live Server        → Runs in browser
-DAY 45                  →  Your project!      → You decide
+Use browser developer tools with F12 when you need to inspect the DOM, console, or network errors. Opening an HTML file directly from disk is not the canonical workflow because browser module and origin behavior differs from a served application.
 
-Click ▶ on Node-day .ts files   → Runs local tsx through node
-Open index.html → Click Go Live → Runs in browser (Browser days)
-Right-click index.html → Open with Live Server (Also works)
-```
+## Optional extensions
+
+| Extension | Use it when | Why it is optional |
+|---|---|---|
+| Live Server | You already use it for another project | Vite is the canonical server for this repository |
+| Error Lens | You prefer inline error display | VS Code already reports TypeScript errors |
+| Code Runner | You understand its command configuration | The npm commands are more reliable for beginners |
+
+The built-in terminal and npm commands are the canonical workflow for this course. If an extension disagrees with the lesson commands, trust the terminal command first.
+
+## Quick reference
+
+~~~text
+npm.cmd install       Install project tools once
+npm.cmd run dayN:js   Run JavaScript for Day N
+npm.cmd run dayN      Run TypeScript for Day N
+npm.cmd run check     Type-check every TypeScript starter
+npm.cmd run dev       Serve paired browser JS/TS pages with Vite
+~~~

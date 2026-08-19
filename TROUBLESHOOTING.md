@@ -1,142 +1,94 @@
-# Troubleshooting Guide
+# Troubleshooting
 
-## Before You Start
+Work through this list in order. Copy the complete error message before changing settings.
 
-**Run this once after cloning:**
-```bash
-npm install
-```
+## PowerShell blocks npm
 
-This installs TypeScript and `tsx` locally. No global installs needed.
+**Symptom**
 
----
+~~~text
+npm.ps1 cannot be loaded because running scripts is disabled
+~~~
 
-## Common Issues
+**Fix**
 
-### "tsx: command not found" or "npm run day1 fails"
+Use the Windows command shim:
 
-**Cause:** Dependencies not installed.
-```bash
-npm install
-```
-
-### PowerShell says `npm.ps1` or `npx.ps1` "cannot be loaded"
-
-**Cause:** Windows PowerShell is blocking script shims. You do not need to change the project.
-
-Use the `.cmd` version of the command:
-```bat
+~~~bash
 npm.cmd install
 npm.cmd run day1
-```
+~~~
 
-Or switch VS Code's terminal profile to **Command Prompt** or **Git Bash**.
+You do not need to change Windows execution policy for this course.
 
-### "Cannot find module" / Red squiggly lines in imports
+## node or npm is not recognised
 
-**Cause:** TypeScript needs to re-scan.
-1. `Ctrl+Shift+P` → **TypeScript: Restart TS Server**
-2. Or restart VS Code
+**Cause:** Node.js is not installed, or the terminal needs to be restarted after installation.
 
-### ▶ Button runs wrong command / nothing happens
+**Fix**
 
-**Fix:** This repository includes the correct settings in `.vscode/settings.json`. Make sure you opened the repository root folder in VS Code. If the setting is missing or you need to repair your user settings, add this to VS Code `settings.json`:
-```json
-{
-  "code-runner.executorMap": {
-    "typescript": "node ./node_modules/tsx/dist/cli.mjs",
-    "javascript": "node"
-  },
-  "code-runner.executorMapByFileExtension": {
-    ".ts": "node ./node_modules/tsx/dist/cli.mjs",
-    ".js": "node"
-  },
-  "code-runner.cwd": "$workspaceRoot",
-  "code-runner.fileDirectoryAsCwd": false,
-  "code-runner.runInTerminal": true,
-  "code-runner.saveFileBeforeRun": true
-}
-```
+1. Install the current LTS release from nodejs.org.
+2. Close and reopen VS Code.
+3. Run node --version and npm.cmd --version again.
 
-If the terminal says `ts-node` is not recognized, Code Runner is ignoring the workspace settings or using old user settings. Reload VS Code with `Ctrl+Shift+P` → **Developer: Reload Window**, then try again.
+## tsx command not found or module not found
 
-### Live Server won't start / "Port already in use"
+**Cause:** Project dependencies are missing.
 
-**Fix:** 
-- Kill other Live Server instances
-- Or change port in settings: `"liveServer.settings.port": 5501`
+**Fix**
 
-### TypeScript errors not showing inline
+From the repository root:
 
-**Install:** **Error Lens** extension
-- Shows errors as red text on the line
-- No need to hover
-
-### Console Ninja not showing logs
-
-1. Run the file first: `npm run day1`
-2. Output appears inline next to `console.log`
-3. If not: `Ctrl+Shift+P` → **Console Ninja: Toggle Output**
-
-### "export {}" at top of files?
-
-**Why:** Makes file a module (prevents global scope leaks). Required for `"type": "module"` in package.json. Keep it!
-
----
-
-## Project-Specific Issues
-
-### Days 24–27, 29–30, 41–44: "document is not defined"
-
-**Cause:** Running browser code in Node.js.
-**Fix:** Use **Live Server** on `index.html`, not `npm run day24`.
-
-### Day 29/30/41-44: localStorage not working
-
-**Cause:** Opening `index.html` directly (`file://` protocol).
-**Fix:** Use **Live Server** (`http://localhost:5500`)
-
-### `npm run check` shows errors
-
-**This is GOOD!** It means TypeScript is catching bugs.
-- Fix the red squiggly lines in VS Code
-- Run `npm run check` again until clean
-
----
-
-## Still Stuck?
-
-1. **Check the terminal output** — errors usually tell you exactly what's wrong
-2. **Read the error message** — TypeScript errors are very descriptive
-3. **Compare with starter code** — Check `starter/ts/main.ts` for the day
-4. **Open GitHub Issue** — Include:
-   - Day number
-   - Error message (full text)
-   - Your code snippet
-   - OS / Node version (`node --version`)
-
----
-
-## Quick Commands Reference
-
-```bash
-# Install deps (run once)
-npm install
-# If PowerShell blocks npm.ps1 on Windows:
+~~~bash
 npm.cmd install
+~~~
 
-# Run TypeScript day
-npm run day1
-npm.cmd run day1
-npm run day2
-# ... up to day45
+Then run the intended day command again.
 
-# Run JavaScript version
-npm run day1:js
+## A TypeScript error appears
 
-# Type-check entire project
-npm run check
+This is useful feedback, not a signal to ignore TypeScript.
 
-# Start Live Server for browser days
-# Right-click index.html → "Open with Live Server"
-```
+1. Read the first error from top to bottom.
+2. Open the file and line mentioned in the message.
+3. Compare the value you supplied with the type the message expected.
+4. Make the smallest correction.
+5. Re-run:
+
+~~~bash
+npm.cmd run check
+~~~
+
+Do not “fix” a type error by adding any or a type assertion until the lesson has explained the trade-off.
+
+## document or localStorage is not defined
+
+**Cause:** A browser lesson was run in Node.js.
+
+**Fix:** Open starter/index.html with Live Server. Do not use an npm day command for browser-only lessons.
+
+## The page does not refresh or localStorage does not persist
+
+**Cause:** index.html was opened directly with the file protocol.
+
+**Fix:** Use Live Server so the page runs on http://localhost.
+
+## A command runs the wrong file
+
+**Fix**
+
+1. Confirm the terminal is in the repository root.
+2. Run npm.cmd run dayN rather than using a generic editor run button.
+3. Open package.json and confirm the matching dayN script.
+
+## Still stuck
+
+Record:
+
+- the day number;
+- the exact command you ran;
+- the complete error message;
+- your operating system; and
+- node --version.
+
+Then compare your starter with the day's separate hints and worked solutions. If your output differs, describe the difference rather than only saying “it does not work.”

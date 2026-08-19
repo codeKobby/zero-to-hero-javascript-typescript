@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "45 Days of JavaScript & TypeScript — from zero to hero. A complete curriculum teaching modern JS and TS side by side.",
   "main": "index.js",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "npm": ">=10"
+  },
   "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "doctor": "node scripts/doctor.mjs",
+    "links": "node scripts/check-links.mjs",
+    "postinstall": "node scripts/doctor.mjs",
     "check": "tsc --noEmit",
     "build": "tsc",
     "day1": "tsx 01_day_setup/starter/ts/main.ts",
@@ -109,6 +118,7 @@
   "type": "module",
   "devDependencies": {
     "tsx": "^4.23.12",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vite": "^8.2.1"
   }
 }

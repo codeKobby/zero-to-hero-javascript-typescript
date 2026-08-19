@@ -1,18 +1,22 @@
-// Day 14 — JavaScript Starter: Strings
-var sentence = 'Hello, World! Welcome to JavaScript'
+// Day 14 - JavaScript: working with text
+const rawTags = ' JavaScript, TypeScript, testing '
+const tags = rawTags
+  .split(',')
+  .map((tag) => tag.trim().toLowerCase())
 
-// Template literals
-var name14 = 'Alice'
-var age14 = 25
-console.log(name14 + ' is ' + age14 + ' years old')
+console.log('Tags:', tags)
+console.log('Original input:', rawTags)
 
-// String methods
-console.log(sentence.slice(0, 5))
-console.log(sentence.at(-1))
-console.log(sentence.split(' '))
-console.log(sentence.includes('World'))
-console.log(sentence.toUpperCase())
+const learner = 'Mina'
+const completed = 14
+console.log(`${learner} has completed ${completed} lessons.`)
 
-// padStart/padEnd
-console.log('5'.padStart(3, '0'))
-console.log('Hi'.padEnd(10, '.'))
+const filename = 'lesson-notes.md'
+console.log('File extension:', filename.slice(-3))
+console.log('Has dot:', filename.includes('.'))
+
+function isYes(answer) {
+  return answer.trim().toLowerCase() === 'yes'
+}
+
+console.log('YES is accepted:', isYes(' YES '))

@@ -1,22 +1,20 @@
-// Day 24 — JavaScript Starter: DOM Selection
-// Run in browser with index.html
-
-function selectElement(selector) {
-  var el = document.querySelector(selector)
-  if (!el) throw new Error('Element "' + selector + '" not found')
-  return el
+// Day 24 - JavaScript: select required and optional elements
+function requireElement(selector) {
+  const element = document.querySelector(selector)
+  if (element === null) {
+    throw new Error('Required element not found: ' + selector)
+  }
+  return element
 }
 
-function selectById(id) {
-  var el = document.getElementById(id)
-  if (!el) throw new Error('Element #' + id + ' not found')
-  return el
+const title = requireElement('#page-title')
+const emailInput = document.querySelector('input[type="email"]')
+const cards = document.querySelectorAll('.lesson-card')
+const output = requireElement('#output')
+
+output.textContent = 'Found ' + cards.length + ' lesson cards.'
+console.log('Title:', title.textContent)
+
+if (emailInput instanceof HTMLInputElement) {
+  emailInput.value = 'mina@example.com'
 }
-
-// Usage (browser):
-// var header = selectElement('h1')
-// header.textContent = 'Hello from Day 24!'
-// var input = selectById('email')
-// console.log(input.value)
-
-console.log('Day 24: DOM Selection — open in browser to test')

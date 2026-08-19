@@ -1,25 +1,99 @@
-// Day 30 — Project: Weather Dashboard — Starter
-// Build a weather dashboard using local JSON data and TypeScript
-
-var weatherData = [
-  { city: 'New York', temp: 72, humidity: 60, condition: 'Sunny', icon: '☀️' },
-  { city: 'London', temp: 55, humidity: 75, condition: 'Cloudy', icon: '☁️' },
-  { city: 'Tokyo', temp: 68, humidity: 65, condition: 'Rainy', icon: '🌧️' },
-  { city: 'Sydney', temp: 80, humidity: 50, condition: 'Clear', icon: '🌤️' },
-  { city: 'Paris', temp: 60, humidity: 70, condition: 'Windy', icon: '💨' }
+// Day 30 - JavaScript: offline weather API boundary
+const records = [
+  { city: 'Accra', temperature: 29, humidity: 72, condition: 'Sunny' },
+  { city: 'London', temperature: 14, humidity: 78, condition: 'Cloudy' },
+  { city: 'Tokyo', temperature: 22, humidity: 65, condition: 'Rainy' },
+  { city: 'New York', temperature: 18, humidity: 60, condition: 'Clear' }
 ]
 
-var favorites = JSON.parse(localStorage.getItem('favorites') || '[]')
+const state = { current: null, favorites: [], status: 'idle' }
+const form = document.querySelector('#search-form')
+const input = document.querySelector('#city')
+const status = document.querySelector('#status')
+const result = document.querySelector('#result')
+const favorites = document.querySelector('#favorites')
 
-function displayWeather(data) {
-  console.log(data.city + ': ' + data.temp + '°F ' + data.icon)
+if (!(form instanceof HTMLFormElement) ||
+    !(input instanceof HTMLInputElement) ||
+    !(status instanceof HTMLElement) ||
+    !(result instanceof HTMLElement) ||
+    !(favorites instanceof HTMLElement)) {
+  throw new Error('Weather starter HTML is incomplete.')
 }
 
-function searchCity(query) {
-  return weatherData.filter(function (w) {
-    return w.city.toLowerCase().includes(query.toLowerCase())
-  })
+function getWeather(city) {
+  const match = records.find((record) => record.city.toLowerCase() === city.toLowerCase())
+  return match === undefined
+    ? Promise.reject(new Error('City not found in the offline demo.'))
+    : Promise.resolve(match)
 }
 
-// Start
-weatherData.forEach(displayWeather)
+function saveFavorites() {
+  try {
+    localStorage.setItem('day30-favorites', JSON.stringify(state.favorites))
+  } catch {
+    // Preferences are optional; the search still works.
+  }
+}
+
+function render() {
+  status.textContent = state.status === 'loading' ? 'Loading...' :
+    state.status === 'error' ? 'Could not load that city.' : ''
+  result.replaceChildren()
+  if (state.current !== null) {
+    const heading = document.createElement('h2')
+    heading.textContent = state.current.city
+    const details = document.createElement('p')
+    details.textContent = state.current.temperature + '°C · ' +
+      state.current.condition + ' · Humidity ' + state.current.humidity + '%'
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.textContent = state.favorites.includes(state.current.city)
+      ? 'Remove favorite' : 'Add favorite'
+    button.addEventListener('click', () => {
+      state.favorites = state.favorites.includes(state.current.city)
+        ? state.favorites.filter((city) => city !== state.current.city)
+        : [...state.favorites, state.current.city]
+      saveFavorites()
+      render()
+    })
+    result.append(heading, details, button)
+  }
+  favorites.replaceChildren()
+  for (const city of state.favorites) {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.textContent = city
+    button.addEventListener('click', () => search(city))
+    favorites.append(button)
+  }
+}
+
+async function search(city) {
+  const query = city.trim()
+  if (query === '') return
+  state.status = 'loading'
+  render()
+  try {
+    state.current = await getWeather(query)
+    state.status = 'success'
+  } catch {
+    state.current = null
+    state.status = 'error'
+  }
+  render()
+}
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
+  search(input.value)
+})
+
+try {
+  const saved = JSON.parse(localStorage.getItem('day30-favorites') ?? '[]')
+  if (Array.isArray(saved) && saved.every((city) => typeof city === 'string')) {
+    state.favorites = saved
+  }
+} catch {}
+
+render()

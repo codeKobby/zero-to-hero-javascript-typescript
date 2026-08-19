@@ -1,32 +1,21 @@
-// Day 28 — JavaScript Starter: Functional Programming
-
-// Pure function
-function add(a, b) {
-  return a + b
+// Day 28 - JavaScript: predictable transformations
+function pipe(...functions) {
+  return (input) => functions.reduce((value, fn) => fn(value), input)
 }
 
-// Pipe — left to right composition
-function pipe() {
-  var fns = Array.prototype.slice.call(arguments)
-  return function (input) {
-    return fns.reduce(function (acc, fn) { return fn(acc) }, input)
-  }
+function updateUser(user, changes) {
+  return { ...user, ...changes }
 }
 
-var transform = pipe(
-  function (x) { return x + 1 },
-  function (x) { return x * 2 },
-  function (x) { return x - 3 }
+const normalize = pipe(
+  (text) => text.trim(),
+  (text) => text.toLowerCase(),
+  (text) => text.replaceAll(' ', '-')
 )
 
-console.log('Pipe result:', transform(5))  // ((5+1)*2)-3 = 9
+const user = { name: 'Mina', completedLessons: 27 }
+const updated = updateUser(user, { completedLessons: 28 })
 
-// Immutability helper
-function updateUser(user, updates) {
-  return Object.assign({}, user, updates)
-}
-
-var user = { name: 'Alice', age: 25, role: 'admin' }
-var updated = updateUser(user, { age: 26 })
+console.log('Normalized:', normalize(' JavaScript Basics '))
 console.log('Original:', user)
 console.log('Updated:', updated)

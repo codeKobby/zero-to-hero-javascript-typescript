@@ -1,26 +1,34 @@
-// Day 26 — JavaScript Starter: Events I
-// Run in browser with index.html
+// Day 26 - JavaScript: events and debounced input
+const button = document.querySelector('#click-button')
+const input = document.querySelector('#search')
+const output = document.querySelector('#output')
 
-function on(el, type, handler) {
-  el.addEventListener(type, handler)
+if (!(button instanceof HTMLButtonElement) ||
+    !(input instanceof HTMLInputElement) ||
+    !(output instanceof HTMLParagraphElement)) {
+  throw new Error('The starter HTML is missing required elements.')
 }
 
-function debounce(fn, ms) {
-  var timer
-  return function () {
-    var args = arguments
-    var ctx = this
+let count = 0
+button.addEventListener('click', () => {
+  count += 1
+  output.textContent = 'Clicks: ' + count
+})
+
+function debounce(callback, delay) {
+  let timer
+  return (...args) => {
     clearTimeout(timer)
-    timer = setTimeout(function () { fn.apply(ctx, args) }, ms)
+    timer = setTimeout(() => callback(...args), delay)
   }
 }
 
-// Usage (browser):
-// var btn = document.querySelector('button')
-// on(btn, 'click', function (e) { console.log('Clicked!', e.clientX) })
-//
-// var input = document.querySelector('input')
-// var logInput = debounce(function (val) { console.log(val) }, 300)
-// on(input, 'input', function (e) { logInput(e.target.value) })
+const showSearch = debounce((value) => {
+  output.textContent = 'Searching for: ' + value
+}, 300)
 
-console.log('Day 26: Events — open in browser to test')
+input.addEventListener('input', (event) => {
+  if (event.currentTarget instanceof HTMLInputElement) {
+    showSearch(event.currentTarget.value)
+  }
+})

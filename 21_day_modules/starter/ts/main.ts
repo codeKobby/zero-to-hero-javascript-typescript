@@ -1,21 +1,10 @@
-export {}
+import { formatLearner, formatProgress, type Learner } from './formatters.js'
 
-// Day 21: Modules
+// Day 21 - TypeScript: modules with named exports
+const learner: Learner = { name: 'Mina', completedLessons: 21 }
 
-export interface UserProfile {
-  id: number
-  name: string
-  email: string
-}
+console.log(formatLearner(learner))
+console.log(formatProgress(learner))
 
-export function formatUser(user: UserProfile): string {
-  return `#${user.id}: ${user.name} <${user.email}>`
-}
-
-// Dynamic import simulation:
-async function loadModule() {
-  // In real code: const module = await import('./utils.js')
-  console.log('Module loaded dynamically')
-}
-
-loadModule()
+// Try this, read the error, then restore the comment:
+// import { pluralizeLesson } from './formatters.js'

@@ -50,3 +50,14 @@ class ProductRepo implements Repository<Product> {
 const repo = new ProductRepo()
 repo.create({ id: '1', name: 'Widget', price: 25 })
 console.log(repo.getAll())
+
+// Keys and repositories
+function getProperty<T, K extends keyof T>(object: T, key: K): T[K] {
+  return object[key]
+}
+
+const product = { id: 'p1', price: 20 }
+console.log(getProperty(product, 'price'))
+
+// Try this, read the error, then restore the comment:
+// console.log(getProperty(product, 'name'))

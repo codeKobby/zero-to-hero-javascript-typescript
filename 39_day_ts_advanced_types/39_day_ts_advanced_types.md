@@ -1,157 +1,205 @@
-<div align="center">
-  <h1>Day 39: Advanced TypeScript Types</h1>
-</div>
+# Day 39: TypeScript Advanced Types — Conditional and Mapped Types
 
-[<< Day 38](../38_day_ts_utility_types/38_day_ts_utility_types.md) | [Day 40 >>](40_day_ts_best_practices/40_day_ts_best_practices.md)
+[Day 38 <<](../38_day_ts_utility_types/38_day_ts_utility_types.md) | [Day 40 >>](../40_day_ts_best_practices/40_day_ts_best_practices.md)
 
----
+## Table of Contents
 
-## 🎯 Learning Objectives
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [Advanced types are useful when they make an API harder to misuse](#advanced-types-are-useful-when-they-make-an-api-harder-to-misuse)
+  - [Conditional and inferred types](#conditional-and-inferred-types)
+  - [Mapped and template literal types](#mapped-and-template-literal-types)
+  - [Route parameters: a useful boundary](#route-parameters-a-useful-boundary)
+  - [Pitfalls table](#pitfalls-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [The compiler computes; JavaScript executes](#the-compiler-computes-javascript-executes)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-- Write conditional types
-- Use mapped types with modifiers
-- Apply template literal types for string manipulation
-- Combine all type features in real-world patterns
+## Why this lesson exists
 
----
+Day 38 covered the built-in utility types. Day 39 teaches you to build your own: conditional, mapped, inferred, and template literal types. They are worth it exactly when they make a real API harder to misuse — and they are worth skipping whenever a named interface or union communicates the design better.
 
-## Conditional Types
+## Prerequisites
+
+- Day 36: interfaces and unions.
+- Day 37: generics and `keyof`.
+- Day 38: the built-in utility types.
+
+## What you'll be able to explain and do
+
+By the end of this lesson you will be able to **do**:
+
+- write a conditional type with `extends ? :`;
+- extract a piece of a type with `infer`;
+- transform every key of a shape with a mapped type;
+- combine string literals with a template literal type;
+- model route parameters as a type that rejects missing keys;
+- run this course's Day 39 JavaScript and TypeScript starters and the type check.
+
+And you will be able to **explain**:
+
+- when an advanced type earns its complexity;
+- why `infer` has no runtime equivalent;
+- why type-level route safety cannot prove a server payload;
+- why `any` inside a conditional type leaks unsafety.
+
+## The problem this solves
 
 ```ts
-// Syntax: T extends U ? X : Y
+type Params<Path extends string> =
+  Path extends `${string}:${infer Name}/${infer Rest}`
+    ? { [Key in Name | keyof Params<Rest>]: string }
+    : Path extends `${string}:${infer Name}`
+      ? { [Key in Name]: string }
+      : {}
+type UserParams = Params<'/users/:id/posts/:postId'>
+```
+
+This helps a route-building API reject missing keys while editing. It does not parse a URL at runtime; a real application still validates `URL.pathname`.
+
+## JS runtime deep dive
+
+### Advanced types are useful when they make an API harder to misuse
+
+Advanced types increase compile-time complexity and error-message size. Prefer a named interface or union when it is easier for a teammate to understand. They pay off when the contract is complex enough that the compiler prevents a real class of mistakes.
+
+### Conditional and inferred types
+
+```ts
 type IsString<T> = T extends string ? true : false
-
-type A = IsString<'hello'>  // true
-type B = IsString<42>       // false
-
-// Distribute over unions:
-type NonNullable<T> = T extends null | undefined ? never : T
-
-type Result = NonNullable<string | null | undefined>
-// string (null and undefined removed)
-
-// Infer keyword — extract types:
-type ReturnOf<T> = T extends (...args: any[]) => infer R ? R : never
-
-type FnReturn = ReturnOf<() => number>  // number
-
-// Extract function params:
-type ParamsOf<T> = T extends (...args: infer P) => any ? P : never
+type ReturnOf<T> = T extends (...args: never[]) => infer Result ? Result : never
+type NumberResult = ReturnOf<() => number> // number
 ```
 
-## Mapped Types with Modifiers
+`infer` asks TypeScript to name a piece it can discover. There is no runtime equivalent; JavaScript simply calls the function and handles the returned value.
+
+### Mapped and template literal types
 
 ```ts
-// Add readonly:
-type ReadonlyAll<T> = { readonly [K in keyof T]: T[K] }
-
-// Remove readonly:
-type Mutable<T> = { -readonly [K in keyof T]: T[K] }
-
-// Add optional:
-type OptionalAll<T> = { [K in keyof T]?: T[K] }
-
-// Remove optional:
-type RequiredAll<T> = { [K in keyof T]-?: T[K] }
-
-// Combine modifiers:
-type PartialReadonly<T> = { readonly [K in keyof T]?: T[K] }
+type Mutable<T> = { -readonly [Key in keyof T]: T[Key] }
+type EventName<Name extends string> = `on${Capitalize<Name>}`
+type ClickEvent = EventName<'click'> // 'onClick'
 ```
 
-## Template Literal Types
+Mapped types iterate over keys at compile time. Template literal types combine string literals at compile time. JavaScript uses ordinary `Object.keys` and string operations at runtime.
+
+### Route parameters: a useful boundary
+
+The starter's `ExtractParams<'/users/:id/posts/:postId'>` becomes `{ id: string; postId: string }`. The route-builder API then rejects a route object missing either key, and the editor shows the required shape. At runtime, the URL still needs a real parser.
+
+### Pitfalls table
+
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| Using an advanced type where an interface reads better | Enthusiasm | Prefer the simpler contract |
+| Letting `any` leak through a conditional | Convenience | Use `unknown` and narrow it |
+| Expecting type-level routes to parse URLs | Type/runtime confusion | Validate `URL.pathname` at runtime |
+| Assuming advanced types check server data | Trusting the editor | Keep guards at the boundary |
+| Building clever types with no tests | Over-engineering | Keep the runtime implementation readable |
+
+## The TypeScript layer
+
+### The compiler computes; JavaScript executes
+
+Every conditional, mapped, and template literal type is resolved at compile time and erased before the browser runs the file. The runtime work — parsing, mapping objects, reading keys — is ordinary JavaScript: `Object.entries`, string operations, and a real URL parser.
+
+### What TypeScript cannot decide
+
+Advanced types cannot decide what a server returned, what a URL really contains, or whether a payload matches the promised route parameters. They narrow what the compiler accepts; runtime validation of `URL.pathname` and network data stays a separate, required step.
+
+### One compiler error, walked through
+
+Open `39_day_ts_advanced_types/starter/ts/main.ts`. The last section is commented out and deliberately broken:
 
 ```ts
-// String manipulation at type level:
-type EventName<T extends string> = `on${Capitalize<T>}`
-type ClickEvent = EventName<'click'>  // 'onClick'
-type FocusEvent = EventName<'focus'>  // 'onFocus'
-
-// CSS property names:
-type CSSProperty = `${string}-${string}-${string}`
-// 'margin-top-left', etc.
-
-// URL paths:
-type ApiRoute = `/api/v${number}/${string}`
-const route: ApiRoute = '/api/v1/users'  // ✅
-
-// Nested template literals for type-safe routes:
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-type TypedRoute<M extends HttpMethod, P extends string> = `${M} ${P}`
-type GetUsers = TypedRoute<'GET', '/users'>  // 'GET /users'
+const route: UserRoutes = { id: '1' }
 ```
 
----
+Uncomment it and run the type check:
 
-## Real-World Pattern: Type-Safe Builder
+```powershell
+npm.cmd run check
+```
+
+TypeScript reports the reason:
+
+```
+Property 'postId' is missing in type '{ id: string; }' but required in type 'UserRoutes'.
+```
+
+Read it as: *"`ExtractParams` derived every `:name` segment of the path, so `UserRoutes` requires both `id` and `postId` — an object with only `id` does not satisfy the route contract."* The fix is to supply every extracted parameter:
 
 ```ts
-type BuilderConfig<T> = {
-  [K in keyof T]?: T[K]
-} & {
-  build(): T
-}
-
-function createBuilder<T>() {
-  let config = {} as Partial<T>
-
-  return {
-    set<K extends keyof T>(key: K, value: T[K]) {
-      config[key] = value
-      return this
-    },
-    build(): T {
-      return config as T
-    }
-  }
-}
-
-// Usage:
-interface ServerConfig {
-  port: number
-  host: string
-  ssl: boolean
-}
-
-const config = createBuilder<ServerConfig>()
-  .set('port', 3000)
-  .set('host', 'localhost')
-  .set('ssl', false)
-  .build()
-
-// config: { port: number; host: string; ssl: boolean }
+const route: UserRoutes = { id: '1', postId: '42' }
 ```
 
----
+Comment the broken section back out when done so the starter keeps passing `npm run check`.
 
-## Exercises
+## One-sentence mental model
 
-### Level 1
+Advanced types compute new contracts from shapes — conditional on a relationship, inferred by discovery, mapped over keys, composed from string literals — so the compiler rejects misuse while editing, and the runtime still does the real work in JavaScript.
 
-1. Create a `IsBoolean<T>` conditional type.
-2. Use `infer` to extract the element type of an array: `ElementOf<string[]>` → `string`.
-3. Create a template literal type `UpperCase<S>` that uppercases string literal types.
+## Practice
 
-### Level 2
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
 
-1. Build a `PathKeys<T>` type that returns all dot-separated paths of a nested object.
-2. Create a `ResponseOf<T>` type that wraps any type in `{ data: T; status: number }`.
-3. Use mapped types to make all leaf properties of a nested object optional.
+### Level 1 — Mechanical (10-15 min)
 
-### Level 3
+For each snippet, write down the exact result before running.
 
-1. Create a type-safe router with parameter extraction:
-   ```ts
-   type ExtractParams<T extends string> = ...
-   type P = ExtractParams<'/users/:id/posts/:postId'>
-   // { id: string; postId: string }
-   ```
-2. Build a `Diff<T, U>` type that finds properties in T not in U.
-3. Create a type-safe SQL-like `Query<T>` builder.
+1. What does `infer` ask TypeScript to do, and why does it have no runtime equivalent?
+2. What do mapped types iterate over, and what does JavaScript use instead at runtime?
+3. When would an advanced type earn its complexity over a named interface?
+4. Why can type-level route safety not prove what a server returned?
+5. Run `npm.cmd run day39:js` and `npm.cmd run day39`; then `npm.cmd run check` and confirm it passes.
 
----
+### Level 2 — Applied mini-projects
 
-[<< Day 38](../38_day_ts_utility_types/38_day_ts_utility_types.md) | [Day 40 >>](40_day_ts_best_practices/40_day_ts_best_practices.md)
+1. Create an exhaustive shape-area function over a discriminated union.
+2. Create an `EventName` helper that turns `'click'` into `'onClick'`.
+3. Create a route-parameter type that extracts every `:name` segment.
+4. Add a JavaScript runtime parser for the route so you can distinguish compile-time and runtime work.
 
-🎉 **Day 39 Complete!**
+### Level 3 — Creative synthesis
 
-🎉 **Progress**: 39/45 days complete
+1. The conditional audit: write `IsString<T>` and check it against a string, a number, and a union; comment on each result.
+2. The infer extractor: use `ReturnOf` on a function and a non-function, and comment on what `never` means for the false branch.
+3. The mapped modifier: write `Mutable<T>` from a `Readonly<T>` view and comment on what `-readonly` does at compile time.
+4. The runtime parser: parse a pathname in JavaScript and comment on which guarantee the type adds and which it cannot.
+
+## Finish line
+
+Day 39 is complete when you can do all of these **without notes**:
+
+1. Write a conditional type with `extends ? :`.
+2. Extract a piece of a type with `infer`.
+3. Transform every key of a shape with a mapped type.
+4. Combine string literals with a template literal type.
+5. Model route parameters as a type that rejects missing keys.
+
+If any answer is a guess, revisit the matching section before Day 40.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. What does `infer` ask TypeScript to do, and why does it have no runtime equivalent?
+2. What do mapped types iterate over, and what does JavaScript use instead at runtime?
+3. When would an advanced type earn its complexity over a named interface?
+4. Why can type-level route safety not prove what a server returned?
+5. Why does `const route: UserRoutes = { id: '1' }` fail, and what does the fix require?
+
+Your answers are today's evidence. If you can write them, move to [Day 40: TypeScript in a Maintainable Project — Safety in the Real World](../40_day_ts_best_practices/40_day_ts_best_practices.md).
+
+**Day 39 complete.** Advanced types compute new contracts from shapes — conditional on a relationship, inferred by discovery, mapped over keys, composed from string literals — so the compiler rejects misuse while editing, and the runtime still does the real work in JavaScript.

@@ -1,40 +1,26 @@
 export {}
 
-// Day 13: Higher-Order Functions II — every, some, find, sort
-interface TodoItem {
-  id: number
-  text: string
-  completed: boolean
-  priority: 'low' | 'medium' | 'high'
+// Day 13 - Same behavior as main.js, with the missing-result case made explicit.
+
+const scores: number[] = [42, 78, 91, 49, 65]
+const firstPassingScore: number | undefined = scores.find(score => score >= 50)
+const hasExcellentScore: boolean = scores.some(score => score >= 90)
+const everyScorePasses: boolean = scores.every(score => score >= 50)
+
+if (firstPassingScore === undefined) {
+  console.log('No passing score was found.')
+} else {
+  console.log('First passing score:', firstPassingScore)
 }
 
-const todos: TodoItem[] = [
-  { id: 1, text: 'Learn TypeScript', completed: true, priority: 'high' },
-  { id: 2, text: 'Build project', completed: false, priority: 'high' },
-  { id: 3, text: 'Write tests', completed: false, priority: 'medium' },
-  { id: 4, text: 'Deploy', completed: false, priority: 'low' }
-]
+console.log('Has an excellent score:', hasExcellentScore)
+console.log('Every score passes:', everyScorePasses)
 
-// every
-const allComplete: boolean = todos.every(t => t.completed)  // false
+const originalNumbers: number[] = [10, 2, 30]
+const ascendingNumbers: number[] = [...originalNumbers].sort((left, right) => left - right)
 
-// some
-const hasHighPriority: boolean = todos.some(t => t.priority === 'high')  // true
+console.log('Original numbers:', originalNumbers)
+console.log('Sorted copy:', ascendingNumbers)
 
-// find
-const firstIncomplete: TodoItem | undefined = todos.find(t => !t.completed)
-
-// findIndex
-const deployIndex: number = todos.findIndex(t => t.text === 'Deploy')
-
-// sort (non-mutating)
-const sortedByPriority: TodoItem[] = [...todos].sort((a, b) => {
-  const order = { high: 0, medium: 1, low: 2 }
-  return order[a.priority] - order[b.priority]
-})
-
-console.log('All complete:', allComplete)
-console.log('Has high priority:', hasHighPriority)
-console.log('First incomplete:', firstIncomplete?.text)
-console.log('Deploy index:', deployIndex)
-console.log('Sorted:', sortedByPriority.map(t => `${t.text} (${t.priority})`))
+// Try this, read the error, then restore the comment:
+// console.log(firstPassingScore.toFixed(2))

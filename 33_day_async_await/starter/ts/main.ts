@@ -1,35 +1,39 @@
 export {}
 
-// Day 33 — Async/Await — TypeScript Starter
+// Day 33 - TypeScript: async/await over local Promises
+type User = { id: number; name: string }
 
-async function loadData(): Promise<void> {
+function delayed<T>(value: T, ms: number): Promise<T> {
+  return new Promise((resolve) => setTimeout(() => resolve(value), ms))
+}
+
+async function loadUser(id: number): Promise<User> {
+  return delayed({ id, name: 'User ' + id }, 10)
+}
+
+async function run(): Promise<void> {
+  const user = await loadUser(1)
+  console.log('Sequential:', user.name)
+
+  const [first, second] = await Promise.all([
+    loadUser(2),
+    loadUser(3)
+  ])
+  console.log('Parallel:', first.name, second.name)
+
   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    const data: unknown = await response.json()
-    console.log(data)
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error('Failed:', error.message)
-    }
+    throw new Error('Example failure')
+  } catch (error: unknown) {
+    if (error instanceof Error) console.log('Handled:', error.message)
   }
 }
 
-// Sequential vs Parallel
-async function loadSequential(): Promise<void> {
-  console.time('sequential')
-  await fetch('https://jsonplaceholder.typicode.com/users')
-  await fetch('https://jsonplaceholder.typicode.com/posts')
-  console.timeEnd('sequential')
-}
+run().catch((error: unknown) => {
+  if (error instanceof Error) console.error('Unexpected:', error.message)
+})
 
-async function loadParallel(): Promise<void> {
-  console.time('parallel')
-  await Promise.all([
-    fetch('https://jsonplaceholder.typicode.com/users'),
-    fetch('https://jsonplaceholder.typicode.com/posts')
-  ])
-  console.timeEnd('parallel')
-}
-
-loadData()
+// Try this, read the error, then restore the comment:
+// async function loadName() {
+//   const user = loadUser(1)
+//   return user.name
+// }

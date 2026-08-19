@@ -1,79 +1,271 @@
-<div align="center">
-  <h1>Day 28: Functional Programming</h1>
-</div>
+# Day 28: Functional Programming — Composing Small Pure Functions
 
-[<< Day 27](../27_day_events_ii/27_day_events_ii.md) | [Day 29 >>](../29_day_project_todo/29_day_project_todo.md)
+[Day 27 <<](../27_day_events_ii/27_day_events_ii.md) | [Day 29 >>](../29_day_project_todo/29_day_project_todo.md)
 
----
+## Table of Contents
 
-## What You'll Learn
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [Functional programming is a set of useful habits](#functional-programming-is-a-set-of-useful-habits)
+  - [Pure versus stateful](#pure-versus-stateful)
+  - [Do not mutate inputs by accident](#do-not-mutate-inputs-by-accident)
+  - [Composition explains a pipeline](#composition-explains-a-pipeline)
+  - [Callbacks and closures are still ordinary functions](#callbacks-and-closures-are-still-ordinary-functions)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [Preserve function contracts](#preserve-function-contracts)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-- Pure functions (no side effects)
-- Immutability (never mutate)
-- Function composition with `pipe`
-- Currying
+## Why this lesson exists
 
----
+The same data often flows through several transformations: trim, lowercase, slugify; filter, map, reduce. When each step is a small pure function and returns a new value, the pipeline is testable one step at a time.
 
-## Pure Functions
+This lesson teaches the three habits that make transformations predictable: pure functions, immutable updates, and composition.
+
+## Prerequisites
+
+- Day 12-13: `map`, `filter`, `reduce`, callbacks.
+- Day 19: objects and references.
+
+## What you'll be able to explain and do
+
+By the end of this lesson you will be able to **do**:
+
+- write a pure function that returns a new list;
+- write an immutable object update with spread;
+- compose a pipeline with a `pipe` helper;
+- keep side effects at clear boundaries;
+- type a pipe and immutable helpers without `any`;
+- run this course's Day 28 JavaScript and TypeScript starters and the type check.
+
+And you will be able to **explain**:
+
+- what makes a function pure;
+- why immutability is useful when several parts of an app share data;
+- what the value is after each step of a pipe;
+- why side effects should have clear boundaries.
+
+## The problem this solves
+
+A username arrives noisy and must be normalized for storage:
 
 ```js
-// ✅ Pure — same input, same output, no side effects
-function add(a, b) { return a + b }
+function pipe(...functions) {
+  return (input) => functions.reduce((value, fn) => fn(value), input)
+}
 
-// ❌ Impure — depends on external state
-let total = 0
-function addToTotal(n) { total += n; return total }
-```
-
-## Immutability
-
-```js
-// ❌ Mutating:
-list.push(item)
-
-// ✅ Immutable:
-const newList = [...list, item]
-```
-
-## Pipe and Compose
-
-```js
-const pipe = (...fns) => (input) => fns.reduce((acc, fn) => fn(acc), input)
-
-const transform = pipe(
-  (x) => x + 1,
-  (x) => x * 2
+const normalize = pipe(
+  (text) => text.trim(),
+  (text) => text.toLowerCase(),
+  (text) => text.replaceAll(' ', '-')
 )
-transform(5)  // 12
+
+console.log(normalize(' JavaScript Basics ')) // javascript-basics
 ```
 
-## Currying
+Each step is pure, so the pipeline can be read, named, and tested one transformation at a time.
+
+## JS runtime deep dive
+
+### Functional programming is a set of useful habits
+
+Functional programming is not a separate language. It is a way to make transformations easy to test and reason about:
+
+- a **pure** function gives the same output for the same input and does not change outside state;
+- an **immutable** update returns a new array or object instead of changing the input;
+- **composition** connects small transformations into a pipeline.
+
+Real applications still need side effects — DOM updates, storage, logging, and network calls. Put those at clear boundaries and keep the data transformations predictable.
+
+### Pure versus stateful
 
 ```js
-const add = a => b => a + b
-add(3)(4)  // 7
+function addTax(price, rate) {
+  return price + price * rate
+}
+
+let runningTotal = 0
+function addToRunningTotal(amount) {
+  runningTotal += amount
+  return runningTotal
+}
 ```
 
----
+`addTax` depends only on its arguments. `addToRunningTotal` depends on call history and changes external state. Stateful code is not forbidden; it simply needs a visible owner and tests that account for the state.
 
-## Exercises
+### Do not mutate inputs by accident
 
-### Level 1
+```js
+function addTag(tags, tag) {
+  return [...tags, tag]
+}
 
-1. Convert an impure function to pure.
-2. Pipe `addOne` and `double`.
-3. Create a curried `greet(greeting)(name)`.
+function updateProfile(profile, changes) {
+  return { ...profile, ...changes }
+}
+```
 
-### Level 2
+The original values remain available for comparison, undo, or another consumer. Spread is a shallow copy; nested objects still need a deliberate update strategy.
 
-1. Rewrite array operations using only `map`/`filter`/`reduce`.
-2. In TypeScript, write `pipe<T>` with proper typing.
+### Composition explains a pipeline
 
-### Level 3
+```js
+function pipe(...functions) {
+  return (input) => functions.reduce((value, fn) => fn(value), input)
+}
 
-1. Implement a `Maybe` monad with `map` and `getOrElse`.
+const normalize = pipe(
+  (text) => text.trim(),
+  (text) => text.toLowerCase(),
+  (text) => text.replaceAll(' ', '-')
+)
 
-[<< Day 27](../27_day_events_ii/27_day_events_ii.md) | [Day 29 >>](../29_day_project_todo/29_day_project_todo.md)
+console.log(normalize(' JavaScript Basics ')) // javascript-basics
+```
 
-🌕 **Day 28 Complete!**
+Trace the value after each function. If one step is confusing, name it and test it separately before composing it.
+
+### Callbacks and closures are still ordinary functions
+
+`map`, `filter`, and `reduce` work well with pure callbacks. A callback that changes outside state makes a pipeline harder to predict:
+
+```js
+const scores = [80, 90, 70]
+const passing = scores.filter((score) => score >= 80)
+```
+
+Use `forEach` when the purpose is a side effect, such as rendering. Use `map` when the purpose is a new array.
+
+### Common mistakes table
+
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| Mutating a shared array in place | Speed or habit | Return a new array |
+| Updating a shared object directly | Convenience | Spread into a new object |
+| Side effects inside callbacks | Copy-paste | Keep callbacks pure; move effects to a boundary |
+| Assuming spread copies nested objects | Over-generalizing | Copy nested objects only when updated |
+| Composing an unreadable pipeline | All-in-one | Name and test each step first |
+
+## The TypeScript layer
+
+### Preserve function contracts
+
+TypeScript can type the contract of each helper so a mismatch fails before it runs:
+
+```ts
+function pipe<T>(...functions: Array<(value: T) => T>): (input: T) => T {
+  return (input) => functions.reduce((value, fn) => fn(value), input)
+}
+```
+
+This simple `pipe` requires every step to accept and return the same type. More advanced pipelines can change types, but adding that complexity before understanding the data flow makes errors harder to read.
+
+### What TypeScript cannot decide
+
+TypeScript cannot decide whether a function mutates its input, because mutation happens at runtime. It cannot enforce purity or immutability. It types the shapes so mismatches surface, but the discipline — returning new values, keeping callbacks pure — is a runtime habit your tests must prove.
+
+### One compiler error, walked through
+
+Open `28_day_functional_programming/starter/ts/main.ts`. The last section is commented out and deliberately broken:
+
+```ts
+const broken = pipe(
+  (value: string) => value.trim(),
+  (value: string) => value.length
+)
+```
+
+Uncomment it and run the type check:
+
+```powershell
+npm.cmd run check
+```
+
+TypeScript reports the reason:
+
+```
+Type '(value: string) => number' is not assignable to type '(value: string) => string'.
+  Type 'number' is not assignable to type 'string'.
+```
+
+Read it as: *"The simple `pipe` requires every step to accept and return the same type `T`. The second step returns a number, so the pipeline cannot hold together."* The fix is to keep the pipeline on one type:
+
+```ts
+const label = pipe(
+  (value: string) => value.trim(),
+  (value: string) => value.toLowerCase(),
+  (value: string) => 'tag:' + value
+)
+```
+
+Comment the broken section back out when done so the starter keeps passing `npm run check`.
+
+## One-sentence mental model
+
+Functional programming is a set of useful habits — pure functions with the same output for the same input, immutable updates that return new values, and composition that traces one value through small named steps with side effects pushed to clear boundaries.
+
+## Practice
+
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+
+### Level 1 — Mechanical (10-15 min)
+
+For each snippet, write down the exact result before running.
+
+1. What makes a function pure?
+2. Why is immutability useful when several parts of an app use the same data?
+3. What is the value after each step of `pipe((t) => t.trim(), (t) => t.toLowerCase())` given `'  Hello  '`?
+4. Why should side effects have clear boundaries?
+5. Why is a callback that mutates state harder to predict?
+6. Run `npm.cmd run day28:js` and `npm.cmd run day28`; then `npm.cmd run check` and confirm it passes.
+
+### Level 2 — Applied mini-projects
+
+1. Write a pure function that returns a new list with one item removed.
+2. Write `updateUser` that returns a new object and leaves its input unchanged.
+3. Build a pipe that trims, lowercases, and adds a prefix.
+4. TypeScript: type the functions without using `any`.
+
+### Level 3 — Creative synthesis
+
+1. The identity pipe: write `pipe` that runs with zero functions and returns the input unchanged; then comment on why that base case keeps `reduce` correct.
+2. The selective merge: write `updateProfile` that copies a nested `preferences` object only when `changes.preferences` exists, and comment on why shallow copy alone is not enough.
+3. The audited state: write a pure `toReadingList` that sorts a copy of an array instead of mutating it, with a comment on what breaks if the sort happens in place.
+4. The boundary memo: write a comment block listing three side effects (DOM, storage, network) and where each boundary belongs in a typical page.
+
+## Finish line
+
+Day 28 is complete when you can do all of these **without notes**:
+
+1. Write a pure function that returns a new list.
+2. Write an immutable object update with spread.
+3. Compose a pipeline with a `pipe` helper.
+4. Keep side effects at clear boundaries.
+5. Type a pipe and immutable helpers without `any`.
+
+If any answer is a guess, revisit the matching section before Day 29.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. What makes a function pure?
+2. Why is immutability useful when several parts of an app use the same data?
+3. What is the value after each step of a pipe?
+4. Why should side effects have clear boundaries?
+5. Why does the simple `pipe` require every step to share one type?
+
+Your answers are today's evidence. If you can write them, move to [Day 29: The Todo Project — Bringing It Together](../29_day_project_todo/29_day_project_todo.md).
+
+**Day 28 complete.** Transformations are now predictable — pure functions, immutable updates that return new values, and a `pipe` that traces one value through small named steps with side effects pushed to clear boundaries.

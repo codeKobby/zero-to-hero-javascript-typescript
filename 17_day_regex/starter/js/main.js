@@ -1,34 +1,19 @@
-// Day 17 — JavaScript Starter: Regular Expressions
-var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Day 17 - JavaScript: readable regex patterns
+const courseCode = /^[A-Z]{2}-\d{3}$/
 
-function isValidEmail(email) {
-  return emailRegex.test(email)
+function isCourseCode(value) {
+  return courseCode.test(value)
 }
 
-console.log(isValidEmail('alice@test.com'))
-console.log(isValidEmail('invalid'))
-
-// Named capture groups
-function parsePhone(phoneStr) {
-  var regex = /(?<area>\d{3})-(?<exchange>\d{3})-(?<number>\d{4})/
-  var match = regex.exec(phoneStr)
-  if (!match || !match.groups) return null
-  return match.groups
-}
-
-var phone = parsePhone('555-123-4567')
-if (phone) {
-  console.log('Phone: (' + phone.area + ') ' + phone.exchange + '-' + phone.number)
-}
-
-// Extract hashtags
 function extractHashtags(text) {
-  var matches = text.matchAll(/#(\w+)/g)
-  var results = []
-  for (var m of matches) {
-    results.push(m[1])
-  }
-  return results
+  return [...text.matchAll(/#([a-z]+)/gi)]
+    .map((match) => match[1].toLowerCase())
 }
 
-console.log(extractHashtags('Loving #TypeScript and #JavaScript today'))
+const raw = '  Build     with  JavaScript  '
+const cleaned = raw.replace(/\s+/g, ' ').trim()
+
+console.log('JS-101 is valid:', isCourseCode('JS-101'))
+console.log('js-101 is valid:', isCourseCode('js-101'))
+console.log('Tags:', extractHashtags('Build #JavaScript with #TypeScript'))
+console.log('Cleaned:', cleaned)

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 30 TypeScript: Weather dashboard</title>
+  <style>
+    body { font-family: system-ui; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; }
+    form, #result, #favorites { display: grid; gap: .75rem; margin: 1rem 0; }
+    button { width: max-content; padding: .4rem .7rem; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header><h1>Weather Dashboard</h1></header>
+    <form id="search-form" class="search-box">
+      <label for="city">Search city</label>
+      <input type="text" id="city" placeholder="Accra, London..." required>
+      <button type="submit">Search</button>
+    </form>
+    <p id="status" role="status"></p>
+    <section id="result" aria-live="polite"></section>
+    <h2>Favorites</h2>
+    <div id="favorites"></div>
+  </main>
+  <script type="module" src="./ts/main.ts"></script>
+</body>
+</html>

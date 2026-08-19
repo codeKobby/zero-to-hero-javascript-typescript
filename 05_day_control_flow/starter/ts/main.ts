@@ -1,34 +1,36 @@
 export {}
 
-// Day 5: Control Flow
-const examScore: number = 85
+const score: number = 85
 
-// if/else
-if (examScore >= 90) {
+if (score >= 90) {
   console.log('Grade: A')
-} else if (examScore >= 80) {
+} else if (score >= 80) {
   console.log('Grade: B')
-} else if (examScore >= 70) {
-  console.log('Grade: C')
+} else if (score >= 60) {
+  console.log('Grade: Pass')
 } else {
-  console.log('Grade: F')
+  console.log('Grade: Needs more practice')
 }
 
-// Ternary
-const passStatus: string = examScore >= 60 ? 'Pass' : 'Fail'
-console.log(passStatus)
+const age: number = 17
+const ageGroup: string = age >= 18 ? 'Adult' : 'Minor'
+console.log(ageGroup)
 
-// Discriminated union
-type Shape =
-  | { kind: 'circle'; radius: number }
-  | { kind: 'square'; size: number }
+type TrafficLight = 'red' | 'yellow' | 'green'
+const trafficLights: TrafficLight[] = ['red', 'yellow', 'green']
+const trafficLight: TrafficLight = trafficLights[1] ?? 'red'
 
-function area(shape: Shape): number {
-  switch (shape.kind) {
-    case 'circle': return Math.PI * shape.radius ** 2
-    case 'square': return shape.size ** 2
-  }
+switch (trafficLight) {
+  case 'red':
+    console.log('Stop')
+    break
+  case 'yellow':
+    console.log('Slow down')
+    break
+  case 'green':
+    console.log('Go')
+    break
 }
 
-console.log(area({ kind: 'circle', radius: 5 }))
-console.log(area({ kind: 'square', size: 4 }))
+// Try this, read the error, then restore the comment:
+// const invalidLight: TrafficLight = 'blue'

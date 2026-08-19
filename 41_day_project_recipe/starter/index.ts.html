@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Recipe book TypeScript</title></head>
+<body>
+  <main>
+    <h1>Recipe book</h1>
+    <form id="recipe-form">
+      <label>Title <input id="title" required></label>
+      <label>Ingredients (comma separated) <input id="ingredients" required></label>
+      <button type="submit">Add recipe</button>
+    </form>
+    <label>Search <input id="search"></label>
+    <p id="message" role="status"></p>
+    <ul id="recipe-list"></ul>
+    <p><a href="./index.html">JavaScript version</a></p>
+  </main>
+  <script type="module" src="./ts/main.ts"></script>
+</body>
+</html>

@@ -1,25 +1,31 @@
 export {}
 
-// Day 12: Higher-Order Functions I — map, filter, reduce, forEach
-const prices: number[] = [25, 45, 10, 65, 30]
+// Day 12 - Same behavior as main.js, with checked callback contracts.
 
-// forEach
-prices.forEach((price, index) => console.log(`${index}: $${price}`))
+const scores: number[] = [42, 78, 91, 49, 65]
 
-// map
-const withTax: number[] = prices.map(p => p * 1.08)
-console.log('With tax:', withTax)
+const passingScores: number[] = scores.filter((score: number): boolean => {
+  return score >= 50
+})
 
-// filter
-const affordable: number[] = prices.filter(p => p < 40)
-console.log('Affordable:', affordable)
+const doubledScores: number[] = passingScores.map((score: number): number => {
+  return score * 2
+})
 
-// reduce
-const totalCost: number = prices.reduce((sum, p) => sum + p, 0)
-console.log('Total:', totalCost)
+const total: number = scores.reduce((runningTotal: number, score: number): number => {
+  return runningTotal + score
+}, 0)
 
-// Chaining
-const result: string[] = prices
-  .filter(p => p > 20)
-  .map(p => `$${p.toFixed(2)}`)
-console.log('Filtered & formatted:', result)
+console.log('Original scores:', scores)
+console.log('Passing scores:', passingScores)
+console.log('Doubled passing scores:', doubledScores)
+console.log('Total:', total)
+
+const names: string[] = ['Ada', 'Grace', 'Linus']
+console.log('Names:')
+names.forEach((name: string): void => {
+  console.log('- ' + name)
+})
+
+// Try this, read the error, then restore the comment:
+// scores.map(score => score.toUpperCase())

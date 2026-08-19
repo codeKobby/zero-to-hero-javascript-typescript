@@ -1,31 +1,22 @@
-// Day 19 — JavaScript Starter: Classes & OOP
-class Animal {
-  constructor(name, age) {
-    this.name = name
-    this.age = age
+// Day 19 - JavaScript: classes and instances
+class ReadingProgress {
+  constructor(title, completedLessons) {
+    this.title = title
+    this.completedLessons = completedLessons
   }
 
-  speak() {
-    return this.name + ' makes a sound'
-  }
-}
-
-class Dog extends Animal {
-  constructor(name, age, breed) {
-    super(name, age)
-    this.breed = breed
+  completeNextLesson() {
+    this.completedLessons += 1
   }
 
-  speak() {
-    return this.name + ' barks!'
-  }
-
-  fetch(item) {
-    return this.name + ' fetches the ' + item
+  summary() {
+    return this.title + ': ' + this.completedLessons + ' lessons complete'
   }
 }
 
-var rex = new Dog('Rex', 5, 'German Shepherd')
-console.log(rex.speak())
-console.log(rex.fetch('ball'))
-console.log(rex instanceof Animal)
+const javascript = new ReadingProgress('JavaScript', 18)
+const typescript = new ReadingProgress('TypeScript', 4)
+
+javascript.completeNextLesson()
+console.log(javascript.summary())
+console.log(typescript.summary())

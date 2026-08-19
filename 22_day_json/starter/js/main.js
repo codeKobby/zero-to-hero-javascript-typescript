@@ -1,27 +1,30 @@
-// Day 22 — JavaScript Starter: JSON & APIs
-
-// Safe JSON parse
-function safeJsonParse(text, fallback) {
+// Day 22 - JavaScript: parse, validate, then use JSON
+function tryParseJson(text) {
   try {
-    return JSON.parse(text)
+    return { ok: true, value: JSON.parse(text) }
   } catch {
-    return fallback
+    return { ok: false, value: null }
   }
 }
 
-var jsonData = '{"id":1,"name":"Alice","email":"alice@test.com"}'
-var user = safeJsonParse(jsonData, { id: 0, name: 'Unknown', email: '' })
-console.log(user)
-
-// Filter sensitive fields
-function safeStringify(obj, allowedKeys) {
-  var filtered = {}
-  for (var i = 0; i < allowedKeys.length; i++) {
-    var key = allowedKeys[i]
-    if (key in obj) filtered[key] = obj[key]
-  }
-  return JSON.stringify(filtered, null, 2)
+function isLearner(value) {
+  return typeof value === 'object' &&
+    value !== null &&
+    typeof value.name === 'string' &&
+    typeof value.completedLessons === 'number'
 }
 
-var rawData = { name: 'Alice', email: 'alice@test.com', password: 'secret', age: 25 }
-console.log(safeStringify(rawData, ['name', 'email', 'age']))
+function toPublicProfile(learner) {
+  return {
+    name: learner.name,
+    completedLessons: learner.completedLessons
+  }
+}
+
+const result = tryParseJson('{"name":"Mina","completedLessons":22}')
+if (result.ok && isLearner(result.value)) {
+  console.log('Trusted learner:', toPublicProfile(result.value))
+  console.log('Stored JSON:', JSON.stringify(toPublicProfile(result.value)))
+} else {
+  console.log('The data was not a usable learner.')
+}

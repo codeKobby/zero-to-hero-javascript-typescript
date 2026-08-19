@@ -1,36 +1,28 @@
 export {}
 
-// Day 3: Data Types & Type Guards
-const itemLabel: string = 'Widget'
-const itemCount: number = 42
-const itemInStock: boolean = true
+const userName: string = 'Ada'
+const score: number = 42
+const isLearning: boolean = true
+const intentionallyEmpty: null = null
+let notAssigned: undefined
+const hugeId: bigint = 9007199254740993n
+const uniqueId: symbol = Symbol('user')
 
-const prices: number[] = [10, 20, 30, 40, 50]
-const tags: string[] = ['sale', 'new', 'popular']
+console.log(typeof userName, typeof score, typeof isLearning)
+console.log(typeof intentionallyEmpty, typeof notAssigned)
+console.log(typeof hugeId, typeof uniqueId)
 
-interface Product {
-  id: number
-  name: string
-  price: number
+const colors: string[] = ['red']
+const copiedColors: string[] = colors
+copiedColors.push('blue')
+
+console.log('colors:', colors)
+console.log('copiedColors:', copiedColors)
+
+let selectedScore: number | null = 87
+if (selectedScore !== null) {
+  console.log(selectedScore.toFixed(2))
 }
 
-const widget: Product = { id: 1, name: 'Widget', price: 25 }
-
-// Nullish coalescing
-const displayName: string | null = null
-console.log(displayName ?? 'Guest')
-
-// Optional chaining
-console.log(widget?.name ?? 'Unknown')
-
-// Type guard
-function printType(value: string | number): void {
-  if (typeof value === 'string') {
-    console.log(value.toUpperCase())
-  } else {
-    console.log(value.toFixed(2))
-  }
-}
-
-printType('hello')
-printType(3.14159)
+// Try this, read the error, then restore the comment:
+// const wrongScore: number = 'forty-two'

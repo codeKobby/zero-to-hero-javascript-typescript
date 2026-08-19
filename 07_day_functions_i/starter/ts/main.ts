@@ -1,26 +1,25 @@
 export {}
 
-// Day 7: Functions
-function greet(name: string): string {
-  return `Hello, ${name}!`
+// Day 7 - This is the same program as main.js, with TypeScript contracts.
+
+function calculateTotal(price: number, quantity: number): number {
+  return price * quantity
 }
 
-const multiply = (a: number, b: number): number => a * b
-
-function greetWithDefault(name: string, greeting: string = 'Hello'): string {
-  return `${greeting}, ${name}!`
+function makeGreeting(name: string, greeting: string = 'Hello'): string {
+  return greeting + ', ' + name + '!'
 }
 
-console.log(greet('Alice'))
-console.log(multiply(3, 4))
-console.log(greetWithDefault('Bob', 'Hey'))
-
-// this binding demo
-const calculator = {
-  value: 10,
-  regularFn: function () { return this.value },
-  arrowFn: () => undefined  // arrow has no own `this`
+const calculateDiscount = (price: number, percent: number): number => {
+  const discount: number = price * percent / 100
+  return price - discount
 }
 
-console.log('regular:', calculator.regularFn())   // 10
-console.log('arrow:', calculator.arrowFn())        // undefined
+const bookTotal: number = calculateTotal(12, 3)
+console.log('Book total: ' + bookTotal)
+console.log(makeGreeting('Ada'))
+console.log(makeGreeting('Grace', 'Welcome'))
+console.log('Discounted price: ' + calculateDiscount(80, 25))
+
+// Try this, read the error, then restore the comment:
+// calculateTotal('12', 3)

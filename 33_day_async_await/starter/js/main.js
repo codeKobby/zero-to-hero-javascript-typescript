@@ -1,22 +1,27 @@
-// Day 33 — Async/Await — Starter
+// Day 33 - JavaScript: async/await over local Promises
+function delayed(value, ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(value), ms))
+}
 
-async function loadData() {
+async function loadUser(id) {
+  return delayed({ id, name: 'User ' + id }, 10)
+}
+
+async function run() {
+  const user = await loadUser(1)
+  console.log('Sequential:', user.name)
+
+  const [first, second] = await Promise.all([
+    loadUser(2),
+    loadUser(3)
+  ])
+  console.log('Parallel:', first.name, second.name)
+
   try {
-    var response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    var data = await response.json()
-    console.log(data)
+    throw new Error('Example failure')
   } catch (error) {
-    console.error('Failed:', error)
+    if (error instanceof Error) console.log('Handled:', error.message)
   }
 }
 
-// Parallel with await
-async function loadAll() {
-  var [users, posts] = await Promise.all([
-    fetch('https://jsonplaceholder.typicode.com/users').then(function (r) { return r.json() }),
-    fetch('https://jsonplaceholder.typicode.com/posts').then(function (r) { return r.json() })
-  ])
-  console.log('Users:', users.length, 'Posts:', posts.length)
-}
-
-loadData()
+run().catch((error) => console.error('Unexpected:', error))

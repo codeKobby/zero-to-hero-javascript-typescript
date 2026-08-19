@@ -1,26 +1,28 @@
-// Day 8 — JavaScript Starter: Rest, Spread, Callbacks, Closures
-function sumAll(...nums) {
-  return nums.reduce((a, b) => a + b, 0)
+// Day 8 - Trace the function values and calls before running this file.
+
+function applyToNumber(number, operation) {
+  return operation(number)
 }
-console.log(sumAll(1, 2, 3, 4, 5))
 
-// Spread
-const firstHalf = [1, 2, 3]
-const secondHalf = [4, 5, 6]
-const combined = [...firstHalf, ...secondHalf]
-console.log(combined)
+function double(number) {
+  return number * 2
+}
 
-// Closure
-function createCounter(start) {
-  start = start || 0
-  let count = start
-  return {
-    increment: function () { return ++count },
-    decrement: function () { return --count },
-    getValue: function () { return count }
+function createCounter() {
+  let count = 0
+
+  return function() {
+    count = count + 1
+    return count
   }
 }
 
-const counter = createCounter(10)
-console.log(counter.increment())
-console.log(counter.getValue())
+console.log('Double 5: ' + applyToNumber(5, double))
+console.log('Square 5: ' + applyToNumber(5, number => number * number))
+
+const nextCount = createCounter()
+console.log('Counter: ' + nextCount())
+console.log('Counter: ' + nextCount())
+
+const anotherCounter = createCounter()
+console.log('Another counter: ' + anotherCounter())

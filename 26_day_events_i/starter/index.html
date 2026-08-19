@@ -1,23 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day 26: Events I</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui; padding: 2rem; background: #f5f5f5; }
-    button { padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; }
-    input { padding: 0.5rem; font-size: 1rem; margin-right: 1rem; }
-    .log { margin-top: 1rem; padding: 1rem; background: #1e1e1e; color: #0f0; font-family: monospace; white-space: pre-wrap; max-height: 200px; overflow: auto; }
-  </style>
+  <title>Day 26 JavaScript: events</title>
 </head>
 <body>
-  <h1>Events I</h1>
-  <button id="clickBtn">Click Me</button>
-  <br><br>
-  <input type="text" id="debounceInput" placeholder="Type here (debounced)...">
-  <div id="log" class="log"></div>
-  <script type="module" src="js/main.js"></script>
+  <main>
+    <h1>Events</h1>
+    <button id="click-button" type="button">Click me</button>
+    <label>Search <input id="search" type="search"></label>
+    <p id="output">Clicks: 0</p>
+    <p><a href="./index.ts.html">TypeScript version</a></p>
+  </main>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>

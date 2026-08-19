@@ -1,19 +1,7 @@
-// Day 21 — JavaScript Starter: Modules
-// In browser: use <script type="module">
-// In Node.js: use .mjs extension or "type": "module" in package.json
+// Day 21 - JavaScript: modules with named exports
+import { formatLearner, formatProgress } from './formatters.js'
 
-// Named exports
-function formatUser(user) {
-  return '#' + user.id + ': ' + user.name + ' <' + user.email + '>'
-}
+const learner = { name: 'Mina', completedLessons: 21 }
 
-// Default export
-function createDefaultUser() {
-  return { id: 0, name: 'Guest', email: 'guest@test.com' }
-}
-
-// Dynamic import (async):
-// const module = await import('./utils.js')
-
-console.log(formatUser({ id: 1, name: 'Alice', email: 'alice@test.com' }))
-console.log(createDefaultUser())
+console.log(formatLearner(learner))
+console.log(formatProgress(learner))

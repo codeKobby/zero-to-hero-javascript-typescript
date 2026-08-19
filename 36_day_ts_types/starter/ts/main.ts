@@ -31,3 +31,6 @@ function handleResponse(response: ApiResponse): string {
 
 console.log(handleResponse({ ok: true, data: { id: 1, name: 'Alice', role: 'admin' } }))
 console.log(handleResponse({ ok: false, error: 'Not found' }))
+
+// Try this, read the error, then restore the comment:
+// const role: 'admin' | 'user' = 'guest'

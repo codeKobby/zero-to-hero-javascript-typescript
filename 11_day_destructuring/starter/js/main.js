@@ -1,20 +1,20 @@
-// Day 11 — JavaScript Starter: Destructuring, Spread & Rest
-const currentUser = { id: 1, name: 'Alice', email: 'alice@test.com', role: 'admin' }
+// Day 11 - JavaScript: destructuring, rest, and spread
+const learner = {
+  name: 'Mina',
+  track: 'frontend',
+  completedLessons: 11
+}
 
-// Object destructuring
-const { name, role = 'guest' } = currentUser
-console.log(name + ' (' + role + ')')
+const { name, track } = learner
+console.log(name + ' is studying ' + track + '.')
 
-// Rest in destructuring
-const { id, ...remainingFields } = currentUser
-console.log(remainingFields)
+const [firstScore, , thirdScore = 0, ...remainingScores] = [92, 86, 74, 68]
+console.log('First: ' + firstScore + '; third: ' + thirdScore)
+console.log('Remaining scores:', remainingScores)
 
-// Array destructuring
-const [first, second, ...rest] = [95, 87, 72, 68, 91]
-console.log('Top two:', first, second)
-console.log('Rest:', rest)
+const { name: learnerName, ...progress } = learner
+console.log(learnerName + "'s progress:", progress)
 
-// Swap
-let x = 1, y = 2
-;[x, y] = [y, x]
-console.log('x=' + x + ', y=' + y)
+const updatedLearner = { ...learner, completedLessons: 12 }
+console.log('Original lessons:', learner.completedLessons)
+console.log('Updated lessons:', updatedLearner.completedLessons)

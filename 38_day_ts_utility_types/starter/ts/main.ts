@@ -33,3 +33,7 @@ const permissions: RolePermissions = {
 
 console.log(basic)
 console.log(permissions)
+
+// Try this, read the error, then restore the comment:
+// const frozen: FrozenUser = { id: 2, name: 'Bob', email: 'b@test.com', age: 30, role: 'user' }
+// frozen.email = 'b2@test.com'

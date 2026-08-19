@@ -1,15 +1,20 @@
-// Day 7 — JavaScript Starter: Functions
-function greet(name) {
-  return 'Hello, ' + name + '!'
+// Day 7 - Functions: predict the returned value before you run each call.
+
+function calculateTotal(price, quantity) {
+  return price * quantity
 }
 
-const multiply = (a, b) => a * b
-
-function greetWithDefault(name, greeting) {
-  greeting = greeting || 'Hello'
+function makeGreeting(name, greeting = 'Hello') {
   return greeting + ', ' + name + '!'
 }
 
-console.log(greet('Alice'))
-console.log(multiply(3, 4))
-console.log(greetWithDefault('Bob', 'Hey'))
+const calculateDiscount = (price, percent) => {
+  const discount = price * percent / 100
+  return price - discount
+}
+
+const bookTotal = calculateTotal(12, 3)
+console.log('Book total: ' + bookTotal)
+console.log(makeGreeting('Ada'))
+console.log(makeGreeting('Grace', 'Welcome'))
+console.log('Discounted price: ' + calculateDiscount(80, 25))

@@ -1,50 +1,47 @@
 export {}
 
-// Day 17: Regular Expressions
-const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Day 17 - TypeScript: readable regex patterns
+const courseCode: RegExp = /^[A-Z]{2}-\d{3}$/
 
-function isValidEmail(email: string): boolean {
-  return emailRegex.test(email)
-}
-
-console.log(isValidEmail('alice@test.com'))  // true
-console.log(isValidEmail('invalid'))         // false
-
-// Named capture groups
-interface PhoneMatch {
-  area: string
-  exchange: string
+type ParsedCourseCode = {
+  subject: string
   number: string
 }
 
-function parsePhone(phoneStr: string): PhoneMatch | null {
-  const regex = /(?<area>\d{3})-(?<exchange>\d{3})-(?<number>\d{4})/
-  const match = regex.exec(phoneStr)
-  if (!match?.groups) return null
-  const { area, exchange, number } = match.groups
-  if (area === undefined || exchange === undefined || number === undefined) return null
-  return { area, exchange, number }
+function isCourseCode(value: string): boolean {
+  return courseCode.test(value)
 }
 
-const phone = parsePhone('555-123-4567')
-if (phone) {
-  console.log(`Phone: (${phone.area}) ${phone.exchange}-${phone.number}`)
-}
-
-// Find and replace
-const messy = '  Hello   World   '
-const cleaned = messy.replace(/\s+/g, ' ').trim()
-console.log(`Cleaned: "${cleaned}"`)
-
-// Extract hashtags
-function extractHashtags(text: string): string[] {
-  const matches = text.matchAll(/#(\w+)/g)
-  const results: string[] = []
-  for (const m of matches) {
-    const tag = m[1]
-    if (tag !== undefined) results.push(tag)
+function parseCourseCode(value: string): ParsedCourseCode | null {
+  const match = /^([A-Z]{2})-(\d{3})$/.exec(value)
+  if (match === null) {
+    return null
   }
-  return results
+
+  const subject = match[1]
+  const number = match[2]
+  if (subject === undefined || number === undefined) {
+    return null
+  }
+
+  return { subject, number }
 }
 
-console.log(extractHashtags('Loving #TypeScript and #JavaScript today'))
+function extractHashtags(text: string): string[] {
+  return [...text.matchAll(/#([a-z]+)/gi)]
+    .map((match) => match[1])
+    .filter((tag): tag is string => tag !== undefined)
+    .map((tag) => tag.toLowerCase())
+}
+
+const raw: string = '  Build     with  JavaScript  '
+const cleaned: string = raw.replace(/\s+/g, ' ').trim()
+
+console.log('JS-101 is valid:', isCourseCode('JS-101'))
+console.log('Parsed course:', parseCourseCode('JS-101'))
+console.log('Tags:', extractHashtags('Build #JavaScript with #TypeScript'))
+console.log('Cleaned:', cleaned)
+
+// Try this, read the error, then restore the comment:
+// const brokenMatch = /^([A-Z]{2})-(\d{3})$/.exec('JS-101')
+// console.log(brokenMatch[1])

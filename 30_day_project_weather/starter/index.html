@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day 30: Weather Dashboard</title>
+  <title>Day 30 JavaScript: Weather dashboard</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem; }
@@ -23,15 +23,18 @@
   </style>
 </head>
 <body>
-  <div class="app">
+  <main class="app">
     <header><h1>Weather Dashboard</h1></header>
-    <div class="search-box">
-      <label for="search" style="position: absolute; width: 1px; height: 1px; overflow: hidden;">Search cities</label>
-      <input type="text" id="search" placeholder="Search cities...">
-      <button id="searchBtn">Search</button>
-    </div>
-    <div class="grid" id="weatherGrid"></div>
-  </div>
-  <script type="module" src="js/main.js"></script>
+    <form id="search-form" class="search-box">
+      <label for="city">Search city</label>
+      <input type="text" id="city" placeholder="Accra, London..." required>
+      <button type="submit">Search</button>
+    </form>
+    <p id="status" role="status"></p>
+    <section id="result" aria-live="polite"></section>
+    <h2>Favorites</h2>
+    <div id="favorites"></div>
+  </main>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>

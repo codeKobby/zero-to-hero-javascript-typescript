@@ -33,3 +33,6 @@ type UserRoutes = ExtractParams<'/users/:id/posts/:postId'>
 
 const route: UserRoutes = { id: '1', postId: '42' }
 console.log(route)
+
+// Try this, read the error, then restore the comment:
+// const route: UserRoutes = { id: '1' }

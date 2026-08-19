@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 29 TypeScript: Todo app</title>
+  <style>
+    body { font-family: system-ui; max-width: 36rem; margin: 2rem auto; padding: 0 1rem; }
+    form, li { display: flex; gap: .5rem; margin: .5rem 0; }
+    input[type="text"] { flex: 1; }
+    li { list-style: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Todos (TypeScript)</h1>
+    <form id="todo-form">
+      <input id="todo-input" type="text" placeholder="What needs to be done?" required>
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+    <p id="todo-count">0 items left</p>
+    <p><a href="./index.html">JavaScript version</a></p>
+  </main>
+  <script type="module" src="./ts/main.ts"></script>
+</body>
+</html>

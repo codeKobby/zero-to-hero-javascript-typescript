@@ -1,34 +1,43 @@
 export {}
 
-// Day 22: JSON & APIs
-interface UserData {
-  id: number
+// Day 22 - TypeScript: parse, validate, then use JSON
+type Learner = {
   name: string
-  email: string
+  completedLessons: number
 }
 
-// Safe JSON parse
-function safeJsonParse<T>(text: string, fallback: T): T {
+function tryParseJson(text: string): { ok: boolean; value: unknown | null } {
   try {
-    return JSON.parse(text) as T
+    return { ok: true, value: JSON.parse(text) }
   } catch {
-    return fallback
+    return { ok: false, value: null }
   }
 }
 
-const jsonData = '{"id":1,"name":"Alice","email":"alice@test.com"}'
-const user: UserData = safeJsonParse<UserData>(jsonData, { id: 0, name: 'Unknown', email: '' })
-console.log(user)
-
-// Filter sensitive fields
-function safeStringify(obj: Record<string, unknown>, allowedKeys: string[]): string {
-  const filtered: Record<string, unknown> = {}
-  for (const key of allowedKeys) {
-    if (key in obj) filtered[key] = obj[key]
-  }
-  return JSON.stringify(filtered, null, 2)
+function isLearner(value: unknown): value is Learner {
+  return typeof value === 'object' &&
+    value !== null &&
+    'name' in value &&
+    'completedLessons' in value &&
+    typeof value.name === 'string' &&
+    typeof value.completedLessons === 'number'
 }
 
-const rawData = { name: 'Alice', email: 'alice@test.com', password: 'secret123', age: 25 }
-const safeJson = safeStringify(rawData, ['name', 'email', 'age'])
-console.log(safeJson)
+function toPublicProfile(learner: Learner): Learner {
+  return {
+    name: learner.name,
+    completedLessons: learner.completedLessons
+  }
+}
+
+const result = tryParseJson('{"name":"Mina","completedLessons":22}')
+if (result.ok && isLearner(result.value)) {
+  console.log('Trusted learner:', toPublicProfile(result.value))
+  console.log('Stored JSON:', JSON.stringify(toPublicProfile(result.value)))
+} else {
+  console.log('The data was not a usable learner.')
+}
+
+// Try this, read the error, then restore the comment:
+// const value: unknown = JSON.parse('{"name":"Mina","completedLessons":22}')
+// console.log(value.name)

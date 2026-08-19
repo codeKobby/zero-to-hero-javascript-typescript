@@ -1,16 +1,16 @@
-// Day 4 — JavaScript Starter: Operators & Type Coercion
-const numA = 5
-const numB = 5
-console.log(numA === numB)   // true
-console.log('hello' === 'hello')  // true
+// Day 4 - Predict each result before running.
 
-// Nullish coalescing
-const inputCount = 0
-console.log(inputCount || 10)   // 10
-console.log(inputCount ?? 10)   // 0
+const price = 12
+const quantity = 3
+const total = price * quantity
+console.log('Total:', total)
 
-// Optional chaining
-const profile = { name: 'Alice', address: { city: 'NYC' } }
-const city = profile?.address?.city ?? 'Unknown'
-const zip = profile?.address?.zip ?? 'No zip'
-console.log('City:', city, '| ZIP:', zip)
+console.log('Is 21 odd?', 21 % 2 !== 0)
+console.log('Strict comparison:', 5 === '5')
+console.log('Loose comparison:', 5 == '5')
+
+const isLoggedIn = true
+const hasPaidPlan = false
+console.log('Can use paid feature:', isLoggedIn && hasPaidPlan)
+console.log('Can see account screen:', isLoggedIn || hasPaidPlan)
+console.log('Is not logged in:', !isLoggedIn)

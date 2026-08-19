@@ -1,30 +1,16 @@
-// Day 13 — JavaScript Starter: Higher-Order Functions II
-var todos = [
-  { id: 1, text: 'Learn TypeScript', completed: true, priority: 'high' },
-  { id: 2, text: 'Build project', completed: false, priority: 'high' },
-  { id: 3, text: 'Write tests', completed: false, priority: 'medium' },
-  { id: 4, text: 'Deploy', completed: false, priority: 'low' }
-]
+// Day 13 - Predict each method's result and whether it changes the source array.
 
-// every
-var allComplete = todos.every(function (t) { return t.completed })
-console.log('All complete:', allComplete)
+const scores = [42, 78, 91, 49, 65]
+const firstPassingScore = scores.find(score => score >= 50)
+const hasExcellentScore = scores.some(score => score >= 90)
+const everyScorePasses = scores.every(score => score >= 50)
 
-// some
-var hasHigh = todos.some(function (t) { return t.priority === 'high' })
-console.log('Has high priority:', hasHigh)
+console.log('First passing score:', firstPassingScore)
+console.log('Has an excellent score:', hasExcellentScore)
+console.log('Every score passes:', everyScorePasses)
 
-// find
-var firstIncomplete = todos.find(function (t) { return !t.completed })
-console.log('First incomplete:', firstIncomplete && firstIncomplete.text)
+const originalNumbers = [10, 2, 30]
+const ascendingNumbers = [...originalNumbers].sort((left, right) => left - right)
 
-// findIndex
-var deployIdx = todos.findIndex(function (t) { return t.text === 'Deploy' })
-console.log('Deploy index:', deployIdx)
-
-// sort
-var sorted = todos.slice().sort(function (a, b) {
-  var order = { high: 0, medium: 1, low: 2 }
-  return order[a.priority] - order[b.priority]
-})
-console.log('Sorted:', sorted.map(function (t) { return t.text + ' (' + t.priority + ')' }))
+console.log('Original numbers:', originalNumbers)
+console.log('Sorted copy:', ascendingNumbers)

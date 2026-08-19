@@ -1,28 +1,20 @@
-// Day 3 — JavaScript Starter: Data Types & Type Guards
-const itemLabel = 'Widget'
-const itemCount = 42
-const itemInStock = true
+// Day 3 - Predict every typeof result before running this file.
 
-const prices = [10, 20, 30, 40, 50]
-const tags = ['sale', 'new', 'popular']
+const userName = 'Ada'
+const score = 42
+const isLearning = true
+const intentionallyEmpty = null
+let notAssigned
+const hugeId = 9007199254740993n
+const uniqueId = Symbol('user')
 
-const widget = { id: 1, name: 'Widget', price: 25 }
+console.log(typeof userName, typeof score, typeof isLearning)
+console.log(typeof intentionallyEmpty, typeof notAssigned)
+console.log(typeof hugeId, typeof uniqueId)
 
-// Nullish coalescing
-const displayName = null
-console.log(displayName ?? 'Guest')
+const colors = ['red']
+const copiedColors = colors
+copiedColors.push('blue')
 
-// Optional chaining
-console.log(widget?.name ?? 'Unknown')
-
-// Type guard
-function printType(value) {
-  if (typeof value === 'string') {
-    console.log(value.toUpperCase())
-  } else {
-    console.log(value.toFixed(2))
-  }
-}
-
-printType('hello')
-printType(3.14159)
+console.log('colors:', colors)
+console.log('copiedColors:', copiedColors)

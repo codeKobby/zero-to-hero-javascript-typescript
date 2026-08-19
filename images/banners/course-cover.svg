@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" role="img" aria-labelledby="title desc">
+  <title id="title">Zero to Junior course banner</title>
+  <desc id="desc">A dark, modern banner for a JavaScript and TypeScript learning course with code cards and subtle gradients.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#09111f" />
+      <stop offset="50%" stop-color="#0f1d36" />
+      <stop offset="100%" stop-color="#142f47" />
+    </linearGradient>
+    <linearGradient id="glowA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="glowB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="cardEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#34d399" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.8" />
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#020617" flood-opacity="0.55" />
+    </filter>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 H 0 V 64" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="560" fill="url(#bg)" />
+  <rect width="1600" height="560" fill="url(#grid)" />
+
+  <circle cx="260" cy="120" r="220" fill="url(#glowA)" opacity="0.55" />
+  <circle cx="1320" cy="120" r="210" fill="url(#glowB)" opacity="0.35" />
+  <circle cx="1200" cy="470" r="260" fill="#22c55e" opacity="0.07" />
+
+  <path d="M 0 440 C 220 360, 360 520, 620 450 S 1040 320, 1600 420" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2" />
+  <path d="M 0 470 C 260 390, 360 560, 650 500 S 1080 360, 1600 470" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="2" />
+
+  <g transform="translate(110 110)">
+    <text x="0" y="0" fill="#7dd3fc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3">COURSE COVER</text>
+    <text x="0" y="92" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="86" font-weight="800">Zero to Junior</text>
+    <text x="0" y="154" fill="#dbeafe" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="40" font-weight="600">JavaScript + TypeScript</text>
+    <text x="0" y="208" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="500">45-day practice-first course for learners who want to explain, trace, and build</text>
+
+    <g transform="translate(0 252)">
+      <rect x="0" y="0" rx="18" ry="18" width="138" height="46" fill="#0f172a" fill-opacity="0.6" stroke="#22d3ee" stroke-opacity="0.6" />
+      <text x="69" y="30" text-anchor="middle" fill="#ecfeff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">predict</text>
+
+      <rect x="154" y="0" rx="18" ry="18" width="106" height="46" fill="#0f172a" fill-opacity="0.6" stroke="#34d399" stroke-opacity="0.6" />
+      <text x="207" y="30" text-anchor="middle" fill="#ecfdf5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">trace</text>
+
+      <rect x="276" y="0" rx="18" ry="18" width="106" height="46" fill="#0f172a" fill-opacity="0.6" stroke="#f59e0b" stroke-opacity="0.6" />
+      <text x="329" y="30" text-anchor="middle" fill="#fff7ed" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">build</text>
+    </g>
+  </g>
+
+  <g transform="translate(980 96)" filter="url(#softShadow)">
+    <rect x="0" y="0" rx="28" ry="28" width="490" height="350" fill="url(#card)" stroke="url(#cardEdge)" stroke-width="2" />
+    <rect x="26" y="26" rx="18" ry="18" width="438" height="46" fill="#020617" fill-opacity="0.45" />
+    <circle cx="54" cy="49" r="7" fill="#22d3ee" />
+    <circle cx="78" cy="49" r="7" fill="#34d399" />
+    <circle cx="102" cy="49" r="7" fill="#f59e0b" />
+    <text x="132" y="56" fill="#e2e8f0" font-family="Cascadia Mono, Consolas, monospace" font-size="18" font-weight="700">learning-loop.ts</text>
+
+    <g font-family="Cascadia Mono, Consolas, monospace" font-size="22" font-weight="600">
+      <text x="36" y="118" fill="#7dd3fc">const</text>
+      <text x="112" y="118" fill="#e2e8f0">value</text>
+      <text x="188" y="118" fill="#f8fafc">=</text>
+      <text x="220" y="118" fill="#f9a8d4">'predict'</text>
+
+      <text x="36" y="166" fill="#7dd3fc">type</text>
+      <text x="100" y="166" fill="#e2e8f0">Lesson</text>
+      <text x="196" y="166" fill="#f8fafc">=</text>
+      <text x="232" y="166" fill="#86efac">{</text>
+      <text x="256" y="166" fill="#f8fafc">trace:</text>
+      <text x="344" y="166" fill="#fde68a">boolean</text>
+      <text x="418" y="166" fill="#86efac">}</text>
+
+      <text x="36" y="214" fill="#7dd3fc">npm</text>
+      <text x="88" y="214" fill="#e2e8f0">run</text>
+      <text x="148" y="214" fill="#f8fafc">check</text>
+      <text x="238" y="214" fill="#94a3b8">// compile-time guardrails</text>
+
+      <text x="36" y="262" fill="#7dd3fc">fetch</text>
+      <text x="118" y="262" fill="#f8fafc">-&gt;</text>
+      <text x="156" y="262" fill="#e2e8f0">unknown</text>
+      <text x="262" y="262" fill="#f8fafc">-&gt;</text>
+      <text x="300" y="262" fill="#fde68a">guard</text>
+    </g>
+
+    <rect x="26" y="294" rx="18" ry="18" width="438" height="30" fill="#020617" fill-opacity="0.38" />
+    <text x="42" y="315" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="600">Read, run, predict, explain, then build.</text>
+  </g>
+</svg>

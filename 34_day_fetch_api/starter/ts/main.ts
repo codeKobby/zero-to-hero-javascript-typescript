@@ -1,30 +1,41 @@
 export {}
 
-// Day 34 — Fetch API — TypeScript Starter
+// Day 34 - TypeScript: fetch with a deterministic data URL
+type User = { id: number; name: string }
+const payload = encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'Mina' },
+  { id: 2, name: 'Kai' }
+]))
+const localDataUrl = 'data:application/json,' + payload
 
-interface ApiUser {
-  id: number
-  name: string
-  email: string
+async function getJson(url: string): Promise<unknown> {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error('HTTP ' + response.status)
+  return response.json()
 }
 
-async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(url, options)
-  if (!response.ok) throw new Error(`HTTP ${response.status}`)
-  return response.json() as Promise<T>
+function isUser(value: unknown): value is User {
+  return typeof value === 'object' &&
+    value !== null &&
+    'id' in value && typeof value.id === 'number' &&
+    'name' in value && typeof value.name === 'string'
 }
 
-async function getUsers(): Promise<void> {
-  const users = await apiFetch<ApiUser[]>('https://jsonplaceholder.typicode.com/users')
-  users.forEach(u => console.log(`${u.name} <${u.email}>`))
+async function run(): Promise<void> {
+  const data = await getJson(localDataUrl)
+  if (!Array.isArray(data) || !data.every(isUser)) {
+    throw new Error('Response did not match the User shape')
+  }
+  console.log('Fetched records:', data.length)
+  console.log('First record:', data[0])
 }
 
-async function createUser(data: Omit<ApiUser, 'id'>): Promise<ApiUser> {
-  return apiFetch<ApiUser>('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-}
+run().catch((error: unknown) => {
+  if (error instanceof Error) console.error('Request failed:', error.message)
+})
 
-getUsers()
+// Try this, read the error, then restore the comment:
+// await fetch(localDataUrl, {
+//   method: 'POST',
+//   body: { title: 'Practice' }
+// })

@@ -1,20 +1,27 @@
-// Day 15 — JavaScript Starter: Numbers & Math
-var amount = 1234567.89
+// Day 15 - JavaScript: parsing, validation, calculation, formatting
+function readQuantity(text) {
+  const trimmed = text.trim()
+  const quantity = Number(trimmed)
 
-// Formatting
-console.log(amount.toFixed(2))
-console.log(amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
+  if (trimmed === '' || !Number.isFinite(quantity)) {
+    return null
+  }
 
-// Math methods
-console.log(Math.round(4.5))
-console.log(Math.floor(4.9))
-console.log(Math.ceil(4.1))
-console.log(Math.max(1, 5, 3))
-
-// Clamp
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max)
+  return quantity
 }
-console.log(clamp(-5, 0, 100))
-console.log(clamp(150, 0, 100))
-console.log(clamp(50, 0, 100))
+
+function clamp(value, minimum, maximum) {
+  return Math.min(Math.max(value, minimum), maximum)
+}
+
+const quantity = readQuantity(' 3.5 ')
+console.log('Parsed quantity:', quantity)
+console.log('Clamped percentage:', clamp(120, 0, 100))
+
+const subtotal = 1234.5
+console.log('Price:', subtotal.toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD'
+}))
+
+console.log('0.1 + 0.2:', 0.1 + 0.2)

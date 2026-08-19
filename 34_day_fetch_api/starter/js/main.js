@@ -1,20 +1,20 @@
-// Day 34 — Fetch API — Starter
+// Day 34 - JavaScript: fetch with a deterministic data URL
+const payload = encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'Mina' },
+  { id: 2, name: 'Kai' }
+]))
+const localDataUrl = 'data:application/json,' + payload
 
-async function getUsers() {
-  var response = await fetch('https://jsonplaceholder.typicode.com/users')
-  if (!response.ok) throw new Error('Failed: ' + response.status)
-  var users = await response.json()
-  console.log(users)
+async function getJson(url) {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error('HTTP ' + response.status)
+  return response.json()
 }
 
-async function createPost(title, body, userId) {
-  var response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: title, body: body, userId: userId })
-  })
-  var newPost = await response.json()
-  console.log('Created:', newPost)
+async function run() {
+  const data = await getJson(localDataUrl)
+  console.log('Fetched records:', data.length)
+  console.log('First record:', data[0])
 }
 
-getUsers()
+run().catch((error) => console.error('Request failed:', error.message))

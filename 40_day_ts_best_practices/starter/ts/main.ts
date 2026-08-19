@@ -38,3 +38,8 @@ const config: Config = { apiUrl: 'https://api.example.com', timeout: 5000 }
 
 console.log(safeProcess('hello'))
 console.log(config)
+
+// Try this, read the error, then restore the comment:
+// function describeState(state) {
+//   return state.status
+// }

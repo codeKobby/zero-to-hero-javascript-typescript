@@ -1,74 +1,63 @@
 export {}
 
-// Day 20: Classes II — Private Fields, Getters/Setters, Abstract
-interface IShape {
-  area(): number
-  perimeter(): number
-}
-
-abstract class Shape implements IShape {
-  constructor(public readonly color: string) {}
-  abstract area(): number
-  abstract perimeter(): number
-
-  describe(): string {
-    return `${this.color} shape — area: ${this.area().toFixed(2)}`
+// Day 20 - TypeScript: private state and class rules
+class InsufficientFundsError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'InsufficientFundsError'
   }
 }
 
-class CircleShape extends Shape {
+class BankAccount {
+  #balanceInCents: number
+
   constructor(
-    color: string,
-    public readonly radius: number
+    public readonly owner: string,
+    initialBalanceInCents: number = 0
   ) {
-    super(color)
+    this.#balanceInCents = initialBalanceInCents
   }
 
-  area(): number {
-    return Math.PI * this.radius ** 2
+  get balanceInCents(): number {
+    return this.#balanceInCents
   }
 
-  perimeter(): number {
-    return 2 * Math.PI * this.radius
-  }
-}
-
-class RectShape extends Shape {
-  constructor(
-    color: string,
-    public readonly width: number,
-    public readonly height: number
-  ) {
-    super(color)
+  deposit(cents: number): void {
+    if (!Number.isInteger(cents) || cents <= 0) {
+      throw new Error('Deposit must be positive whole cents')
+    }
+    this.#balanceInCents += cents
   }
 
-  area(): number {
-    return this.width * this.height
-  }
-
-  perimeter(): number {
-    return 2 * (this.width + this.height)
+  withdraw(cents: number): void {
+    if (!Number.isInteger(cents) || cents <= 0) {
+      throw new Error('Withdrawal must be positive whole cents')
+    }
+    if (cents > this.#balanceInCents) {
+      throw new InsufficientFundsError('Balance is too low for that withdrawal')
+    }
+    this.#balanceInCents -= cents
   }
 }
 
-const shapes: Shape[] = [
-  new CircleShape('red', 5),
-  new RectShape('blue', 3, 4)
-]
-
-shapes.forEach(s => console.log(s.describe()))
-
-// Stack with generics
-class Stack<T> {
-  private items: T[] = []
-
-  push(item: T): void { this.items.push(item) }
-  pop(): T | undefined { return this.items.pop() }
-  peek(): T | undefined { return this.items[this.items.length - 1] }
-  get size(): number { return this.items.length }
+function formatCents(cents: number): string {
+  return (cents / 100).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  })
 }
 
-const numberStack = new Stack<number>()
-numberStack.push(10)
-numberStack.push(20)
-console.log(`Stack size: ${numberStack.size}, top: ${numberStack.peek()}`)
+const account = new BankAccount('Mina', 1_000)
+account.deposit(250)
+console.log(account.owner + ':', formatCents(account.balanceInCents))
+
+try {
+  account.withdraw(2_000)
+} catch (error) {
+  if (error instanceof InsufficientFundsError) {
+    console.log('Withdrawal declined:', error.message)
+  }
+}
+
+// Try this, read the error, then restore the comment:
+// account.owner = 'Alex'

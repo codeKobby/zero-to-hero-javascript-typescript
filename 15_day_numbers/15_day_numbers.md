@@ -1,80 +1,354 @@
-<div align="center">
-  <h1>Day 15: Numbers & Math</h1>
-</div>
+# Day 15: Numbers and Math — Parsing, Precision, and Calculation
 
-[<< Day 14](../14_day_strings/14_day_strings.md) | [Day 16 >>](../16_day_dates/16_day_dates.md)
+[Day 14 <<](../14_day_strings/14_day_strings.md) | [Day 16 >>](../16_day_dates/16_day_dates.md)
 
----
+## Table of Contents
 
-## What You'll Learn
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [JavaScript has one ordinary number type](#javascript-has-one-ordinary-number-type)
+  - [Convert input deliberately](#convert-input-deliberately)
+  - [Calculate with intention](#calculate-with-intention)
+  - [Format only at the display boundary](#format-only-at-the-display-boundary)
+  - [The decimal precision trap](#the-decimal-precision-trap)
+  - [Randomness is not security](#randomness-is-not-security)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [Model uncertainty with a union return](#model-uncertainty-with-a-union-return)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-- Parse, format, and validate numbers
-- Math methods for common operations
-- Fix floating-point precision issues
+## Why this lesson exists
 
----
+Values from form inputs, URLs, CSV files, and APIs arrive as **text**. A price such as `'19.99'` looks numeric to a human but is still a string to JavaScript. Arithmetic on it fails silently or produces surprising results, and decimal math has a precision trap that breaks naive equality checks.
 
-## Key Concepts
+This lesson teaches the complete path for numeric work: receive text, convert it deliberately, reject bad data, calculate, and format the result only at the display boundary. Each step has a tool and a trap — and knowing the trap is what separates working code from code that "mostly works."
+
+## Prerequisites
+
+- Day 3: operators, comparisons.
+- Day 4: conditionals.
+- Day 7: functions, `return`.
+- Day 14: strings, trimming, validation.
+
+## What you'll be able to explain and do
+
+By the end of this lesson you will be able to **do**:
+
+- convert text to a number with `Number`, `parseInt`, and `parseFloat`;
+- detect bad input with `Number.isFinite` and reject empty input before converting;
+- round, floor, ceil, min, and max with `Math`;
+- clamp a value into a range;
+- format currency and decimals only at the display boundary;
+- compare decimals with a tolerance instead of strict equality;
+- write a safe random integer for games and practice (not security);
+- run this course's Day 15 JavaScript and TypeScript starters and the type check.
+
+And you will be able to **explain**:
+
+- why `Number('')` is `0` and why that is risky;
+- why `NaN` must be tested with `Number.isNaN`, not `=== NaN`;
+- why currency formatting happens after calculation;
+- why `0.1 + 0.2` is not `0.3` and what to do about it;
+- why `toFixed` returns a string and should not feed later arithmetic;
+- why `Math.random()` is not suitable for secrets.
+
+## The problem this solves
+
+A form sends a quantity as text. The app must parse it, reject nonsense, calculate, and show a formatted result:
 
 ```js
-parseInt('42')       // 42
-parseFloat('3.14')   // 3.14
-Number.isNaN(NaN)    // true
-Number.isFinite(42)  // true
+function readQuantity(text) {
+  const trimmed = text.trim()
+  const quantity = Number(trimmed)
 
-(1234567).toLocaleString('en-US')  // '1,234,567'
+  if (trimmed === '' || !Number.isFinite(quantity)) {
+    return null
+  }
 
-Math.round(4.5)    // 5
-Math.floor(4.9)    // 4
-Math.ceil(4.1)     // 5
-Math.random()      // 0 to 0.999
+  return quantity
+}
 ```
 
-## Floating-Point Fix
+This function has **two** possible results: a number means valid input; `null` means no usable quantity. That is clearer than quietly turning bad data into zero — a zero quantity could silently cancel an order.
+
+The path is the theme of the day: **receive text → convert → reject bad data → calculate → format**. Skipping the reject step is how garbage becomes silent bugs.
+
+## JS runtime deep dive
+
+### JavaScript has one ordinary number type
+
+JavaScript uses `number` for whole numbers and decimals:
 
 ```js
-0.1 + 0.2 === 0.3  // false!
-// Fix:
-Math.abs(0.1 + 0.2 - 0.3) < Number.EPSILON  // true
+const lessonsCompleted = 15
+const price = 19.99
+const temperature = -4.5
 ```
 
----
+There is also `bigint` for extremely large whole numbers, but ordinary product work begins with `number`. Do not mix `number` and `bigint` in one calculation.
 
-## Exercises
+### Convert input deliberately
 
-### Level 1
+Use `Number` when the whole string must represent a number:
 
-1. Generate a random integer between 1 and 100.
-2. Format `1234567.89` as US currency.
-3. Write a `clamp(value, min, max)` function.
+```js
+Number('42')       // 42
+Number('  3.5 ')   // 3.5
+Number('')         // 0 — surprising; validate empty input first
+Number('3.5px')    // NaN
+```
 
-### Level 2
+Use `parseInt` or `parseFloat` only when you deliberately accept a numeric prefix:
 
-1. In TypeScript, create a `DiceRoll` type: `1 | 2 | 3 | 4 | 5 | 6`.
-2. Write a `lerp(start, end, t)` function for linear interpolation.
+```js
+parseInt('12px', 10) // 12
+parseFloat('3.5rem') // 3.5
+```
 
-### Level 3
+For a price field, accepting `'12dollars'` as `12` is usually a bug. Prefer `Number` after checking for an empty string.
 
-1. Write a `factorial(n): bigint` that handles large numbers.
+`NaN` means "not a number." It is a special number value, so testing it requires `Number.isNaN` — `NaN === NaN` is `false`:
 
-<details>
-<summary>🔍 View Solutions</summary>
+```js
+console.log(NaN === NaN) // false
+console.log(Number.isNaN(NaN)) // true
+```
+
+`Number.isFinite` is even more useful for validation because it also rejects `Infinity` and `-Infinity`:
+
+```js
+Number.isFinite(Number('42'))    // true
+Number.isFinite(Number('3.5px')) // false
+Number.isFinite(Infinity)        // false
+```
+
+### Calculate with intention
+
+`Math` gives named operations:
+
+```js
+Math.round(4.5) // 5
+Math.floor(4.9) // 4
+Math.ceil(4.1)  // 5
+Math.min(3, 9)  // 3
+Math.max(3, 9)  // 9
+```
+
+A clamp keeps a value inside an allowed range:
+
+```js
+function clamp(value, minimum, maximum) {
+  return Math.min(Math.max(value, minimum), maximum)
+}
+
+clamp(120, 0, 100) // 100
+```
+
+Read it from the inside out: `Math.max` raises a value below the minimum; `Math.min` then lowers a value above the maximum.
+
+### Format only at the display boundary
+
+Keep values as numbers while calculating. Format them only when presenting them:
+
+```js
+const subtotal = 1234.5
+const label = subtotal.toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})
+
+console.log(label) // $1,234.50 in an en-US environment
+```
+
+`toFixed` is useful for displaying a fixed number of decimal places, but it returns a **string**:
+
+```js
+console.log((3.5).toFixed(2)) // '3.50' (a string)
+```
+
+Do not use a formatted string as the next calculation input. Formatting is the last step, not a step in the middle.
+
+### The decimal precision trap
+
+Computers store ordinary JavaScript numbers in binary floating point. Many decimal fractions cannot be stored exactly:
+
+```js
+console.log(0.1 + 0.2)         // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3) // false
+```
+
+Do not compare calculated decimal values for strict equality. For a small tolerance:
+
+```js
+function nearlyEqual(a, b) {
+  return Math.abs(a - b) < Number.EPSILON
+}
+
+console.log(nearlyEqual(0.1 + 0.2, 0.3)) // true
+```
+
+For money, do calculations in the smallest unit you control (such as cents), or use a decimal-money approach chosen by your team. Formatting to two decimals does not repair a calculation.
+
+### Randomness is not security
+
+`Math.random` returns a number from `0` up to, but **not including**, `1`. It is fine for a dice game or a random practice prompt:
+
+```js
+function rollDie() {
+  return Math.floor(Math.random() * 6) + 1
+}
+```
+
+It is **not** appropriate for passwords, authentication tokens, or security-sensitive IDs. Browser code should use the Web Crypto APIs for those cases.
+
+### Common mistakes table
+
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| Trusting `Number('')` to be `0` | `Number('')` returns `0` | Reject empty input before converting |
+| Testing `value === NaN` | `NaN` never equals itself | Use `Number.isNaN(value)` |
+| Comparing `0.1 + 0.2 === 0.3` | Binary floating point is inexact | Compare with a tolerance or work in cents |
+| Feeding `toFixed` output into arithmetic | `toFixed` returns a string | Keep numbers for math; format at display |
+| Using `Math.random()` for tokens or passwords | It is not cryptographically secure | Use Web Crypto for secrets |
+| Accepting `'12dollars'` as `12` | `parseInt` reads a numeric prefix | Use `Number` for whole-string values |
+
+## The TypeScript layer
+
+### Model uncertainty with a union return
+
+The runtime conversion is JavaScript. TypeScript makes the result shape explicit:
 
 ```ts
-type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
+function readQuantity(text: string): number | null {
+  const trimmed = text.trim()
+  const quantity = Number(trimmed)
 
-function rollDice(): DiceRoll {
-  return (Math.floor(Math.random() * 6) + 1) as DiceRoll
+  if (trimmed === '' || !Number.isFinite(quantity)) {
+    return null
+  }
+
+  return quantity
 }
 
-function lerp(start: number, end: number, t: number): number {
-  return start + (end - start) * t
+const quantity = readQuantity('3')
+if (quantity !== null) {
+  console.log(quantity * 2)
 }
 ```
-</details>
 
----
+The null check is required because the function honestly says that parsing can fail. This is the useful TypeScript habit: **model uncertainty** instead of pretending invalid input cannot happen.
 
-[<< Day 14](../14_day_strings/14_day_strings.md) | [Day 16 >>](../16_day_dates/16_day_dates.md)
+### What TypeScript cannot decide
 
-🌕 **Day 15 Complete!**
+TypeScript knows `readQuantity` may return `null`; it cannot know what your app should *do* when it does — show a message, default to one, or refuse to submit. And TypeScript cannot detect the precision trap: `0.1 + 0.2 === 0.3` is perfectly typed and perfectly wrong. Decimal correctness is a runtime decision your tests must prove. The same applies to `Math.random`: it is typed as a number either way, and whether that number is safe for authentication is a product decision.
+
+### One compiler error, walked through
+
+Open `15_day_numbers/starter/ts/main.ts`. The last line is commented out and deliberately broken:
+
+```ts
+console.log(quantity.toFixed(2))
+```
+
+Uncomment it and run the type check:
+
+```powershell
+npm.cmd run check
+```
+
+TypeScript reports the reason:
+
+```
+'quantity' is possibly 'null'.
+```
+
+Read it as: *"You called a number method on a value that may be `null` — `readQuantity` returns `number | null` because parsing can fail."* The fix is to narrow first:
+
+```ts
+if (quantity !== null) {
+  console.log(quantity.toFixed(2))
+}
+```
+
+Inside the `if`, TypeScript knows `quantity` is a number. Comment the broken line back out when done so the starter keeps passing `npm run check`.
+
+## One-sentence mental model
+
+Numbers arrive as text and must be converted, validated, calculated, and formatted in that order — with `Number.isFinite` rejecting bad input, `Math` for calculation, formatting only at the display boundary, and a tolerance (or cents) for decimal comparisons — while TypeScript forces you to handle the `number | null` reality of parsing.
+
+## Practice
+
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+
+### Level 1 — Mechanical (10-15 min)
+
+For each snippet, write down the exact output before running.
+
+1. `Number('42')`, `Number('  3.5 ')`, `Number('')`, `Number('3.5px')` — four results.
+2. `parseInt('12px', 10)` and `parseFloat('3.5rem')` — two results.
+3. `Math.round(4.5)`, `Math.floor(4.9)`, `Math.ceil(4.1)` — three results.
+4. `Math.min(Math.max(120, 0), 100)` — what is the result, and what does it do?
+5. `0.1 + 0.2 === 0.3` — true or false, and why?
+6. `(3.5).toFixed(2)` — what type is the result?
+7. `NaN === NaN` — true or false? What should you use instead?
+8. `Math.floor(Math.random() * 6) + 1` — what range of values can it produce?
+9. `Number.isFinite(Number('42'))` versus `Number.isFinite(Number('3.5px'))` — two results.
+10. Run `npm.cmd run day15:js` and `npm.cmd run day15`; then `npm.cmd run check` and confirm it passes.
+
+### Level 2 — Applied mini-projects
+
+1. Write `readPercentage(text)` that returns a number from `0` through `100`, or `null` for an empty, non-numeric, or out-of-range input.
+2. Write `formatCents(cents, locale, currency)` that converts integer cents to a localized currency label (e.g. `1234` → `$12.34`).
+3. Write `clamp(value, minimum, maximum)` and verify `clamp(120, 0, 100)`, `clamp(-5, 0, 100)`, `clamp(50, 0, 100)`.
+4. Write `rollDie()` and run it a few times, confirming the range with a comment.
+5. TypeScript: write `readPercentage` with precise types — `string` in, `number | null` out. Do not use `any`.
+6. Write `nearlyEqual(a, b)` and verify it returns `true` for `0.1 + 0.2` versus `0.3`.
+
+### Level 3 — Creative synthesis
+
+1. The range reader: write `randomInteger(minimum, maximum)` that includes **both** endpoints. State what should happen if `minimum` is greater than `maximum`, and implement your decision.
+2. The validator: write `readNonNegative(text)` that returns a non-negative number or `null`. Compare your empty-input handling with `readQuantity` from the lesson.
+3. The safe total: write `totalInCents(priceText, quantityText)` that multiplies a parsed price by a parsed quantity, working entirely in cents, and returns `null` if either input is invalid.
+4. The display helper: write `formatPrice(price)` using `toLocaleString` with the `'USD'` currency, and `formatPercent(value)` with the `'percent'` style. Call both on the same value.
+5. The decision memo: write a comment block explaining, for your own future self, (a) why money math avoids decimal fractions, and (b) why `Math.random` is fine for a dice game but not for a password.
+
+## Finish line
+
+Day 15 is complete when you can do all of these **without notes**:
+
+1. Convert text with `Number`, `parseInt`, and `parseFloat` and state when each is appropriate.
+2. Reject empty and non-finite input before returning a number.
+3. Clamp a value into a range with `Math.min`/`Math.max`.
+4. Format currency and decimals only at the display boundary.
+5. Compare decimals with a tolerance, or work in cents for money.
+6. Explain why `NaN` must be tested with `Number.isNaN`.
+7. Explain why `Math.random` is not suitable for security.
+8. Model a parse result as `number | null` in TypeScript and narrow before use.
+
+If any answer is a guess, revisit the matching section before Day 16.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. Why is `Number('')` risky without a separate empty-input check?
+2. Why is `Number.isNaN` better than comparing a value to `NaN`?
+3. Why should currency formatting happen after calculation?
+4. Why does `readQuantity` return `number | null` rather than always a number?
+5. Why is `0.1 + 0.2 === 0.3` false, and what are the two practical responses?
+6. What does the type checker know that your tests must still verify about numbers?
+
+Your answers are today's evidence. If you can write them, move to [Day 16: Dates and Time — Moments and Durations](../16_day_dates/16_day_dates.md).
+
+**Day 15 complete.** Numeric work now follows one path — convert, validate, calculate, format — and the traps are named: empty input, `NaN`, binary decimal precision, string-typed formatting, and randomness that must never guard a secret.

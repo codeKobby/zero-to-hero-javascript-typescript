@@ -1,152 +1,214 @@
-<div align="center">
-  <h1>Day 36: TypeScript Types & Interfaces Deep Dive</h1>
-</div>
+# Day 36: TypeScript Types and Interfaces — Designing the Data Contract
 
-[<< Day 35](../35_day_api_integration/35_day_api_integration.md) | [Day 37 >>](37_day_ts_generics/37_day_ts_generics.md)
+[Day 35 <<](../35_day_api_integration/35_day_api_integration.md) | [Day 37 >>](../37_day_ts_generics/37_day_ts_generics.md)
 
----
+## Table of Contents
 
-## 🎯 Learning Objectives
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [An object can silently change shape](#an-object-can-silently-change-shape)
+  - [Type aliases and interfaces](#type-aliases-and-interfaces)
+  - [Narrowing a union](#narrowing-a-union)
+  - [Types disappear at runtime](#types-disappear-at-runtime)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [The annotation is checked before execution](#the-annotation-is-checked-before-execution)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-- Master type aliases vs interfaces
-- Use union types, intersection types, and literal types
-- Apply type narrowing with `in`, `typeof`, `instanceof`, and `as const`
-- Design type-safe APIs with discriminated unions
+## Why this lesson exists
 
----
+Day 36 is where you stop only annotating and start designing a small data model. Interfaces, unions, and narrowing let the editor catch invalid property access before the code runs. The catch: types describe shape, they do not prove that JSON or user input is valid — so you learn both sides of the boundary.
 
-## Type Aliases vs Interfaces
+## Prerequisites
+
+- Day 34-35: `unknown`, type guards, trust boundaries.
+- Day 19-20: objects and class shapes.
+
+## What you'll be able to explain and do
+
+By the end of this lesson you will be able to **do**:
+
+- model an object shape with an interface;
+- compose unions, tuples, and primitives with a type alias;
+- narrow a discriminated union with a `status` or `ok` field;
+- keep a runtime guard for data crossing a network, storage, or DOM boundary;
+- run this course's Day 36 JavaScript and TypeScript starters and the type check.
+
+And you will be able to **explain**:
+
+- what is passed to `message`, and which property narrows the union;
+- why `JSON.parse` still needs a runtime guard in TypeScript;
+- when an interface would be clearer than a type alias;
+- why `as User` is an assertion, not validation.
+
+## The problem this solves
+
+In JavaScript, an object can silently change shape:
+
+```js
+const user = { id: 1, name: 'Mina' }
+user.name = 42 // JavaScript allows this; a later function may fail
+```
+
+TypeScript can describe the intended shape:
 
 ```ts
-// Type alias — can represent anything:
+interface User { id: number; name: string; role: 'admin' | 'user' }
+const user: User = { id: 1, name: 'Mina', role: 'user' }
+// user.name = 42 // compile-time error
+```
+
+The value passed to `user` is an object. The annotation after the colon is checked before execution; it is not emitted into the browser.
+
+## JS runtime deep dive
+
+### An object can silently change shape
+
+JavaScript lets an object change shape unless you guard it yourself. TypeScript lets you describe the same shape so the editor catches invalid property access before the code runs. Keep the runtime guard for external data; types do not prove that JSON or form input is valid.
+
+### Type aliases and interfaces
+
+Use an interface for an extendable object shape. Use a type alias for unions, tuples, primitives, and composition:
+
+```ts
 type ID = string | number
-type Point = { x: number; y: number }
-type Callback = (data: unknown) => void
-type Result<T> = { ok: true; data: T } | { ok: false; error: string }
-
-// Interface — only represents object shapes:
-interface User {
-  id: number
-  name: string
-  email?: string
-}
-
-// Interface extends:
-interface Employee extends User {
-  department: string
-  salary: number
-}
-
-// Interface merges (declaration merging):
-interface Window {
-  customProperty: string
-}
-// Adds to the global Window type — type aliases can't do this
+type Status = 'idle' | 'loading' | 'success' | 'error'
+interface Employee extends User { department: string }
 ```
 
-### When to use which
+Neither choice validates a value received from `JSON.parse`. That value is `unknown` until a runtime guard proves it.
 
-| Type Alias | Interface |
-|---|---|
-| Unions, primitives, functions | Object shapes only |
-| Mapped types, conditional types | Declaration merging |
-| Can't be extended with `extends` | Can be extended with `extends` |
-| Better for complex type math | Better for OOP patterns |
-
----
-
-## Union & Intersection Types
+### Narrowing a union
 
 ```ts
-// Union (OR) — value can be one of the types:
-type Status = 'pending' | 'active' | 'done'
-type InputValue = string | number
+type Response =
+  | { ok: true; data: User }
+  | { ok: false; error: string }
 
-function format(val: InputValue): string {
-  if (typeof val === 'string') return val.toUpperCase()
-  return val.toFixed(2)
+function message(response: Response): string {
+  return response.ok ? `User: ${response.data.name}` : `Error: ${response.error}`
 }
-
-// Intersection (AND) — combines all types:
-type Timestamped = { createdAt: Date; updatedAt: Date }
-type Named = { name: string }
-
-type Article = Timestamped & Named & {
-  id: number
-  body: string
-}
-// Article has: name, id, body, createdAt, updatedAt
 ```
 
----
+`response.ok` is the discriminator. Once the branch checks it, TypeScript knows which fields exist. In JavaScript the same pattern works, but the editor cannot guarantee that every caller supplied the right shape.
 
-## Discriminated Unions (Tagged Unions)
+### Types disappear at runtime
+
+`interface`, `type`, and the union disappear after compilation. Nothing ships to the browser. That is why a guard must exist in code for data crossing a network, storage, or DOM boundary — the compiler cannot be the runtime check.
+
+### Common mistakes table
+
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| `as User` to silence an unknown API response | Convenience | It is an assertion, not validation; guard at runtime |
+| Treating `email?: string` as "any value is acceptable" | Misreading optionality | Optional means the property may be absent, nothing more |
+| Reading a field that only one union arm has | Laziness | Narrow by the discriminator first |
+| Assuming types validate `JSON.parse` output | Trusting the editor | Types describe; guards prove |
+| Making every shape an interface | Habit | Interface for object shapes, type alias for unions and composition |
+
+## The TypeScript layer
+
+### The annotation is checked before execution
+
+The colon annotation is a compile-time contract. TypeScript checks it when you run `npm run check` and when your editor opens the file; it is erased from the emitted JavaScript. The value you store must match the shape you declared.
+
+### What TypeScript cannot decide
+
+TypeScript cannot decide what a server sends, what a user types into a form, or what an object becomes after `JSON.parse`. Those values start as `unknown` and need runtime guards. The type layer reduces whole classes of mistakes; it does not replace checking.
+
+### One compiler error, walked through
+
+Open `36_day_ts_types/starter/ts/main.ts`. The last section is commented out and deliberately broken:
 
 ```ts
-type Shape =
-  | { kind: 'circle'; radius: number }
-  | { kind: 'rectangle'; width: number; height: number }
-  | { kind: 'triangle'; base: number; height: number }
-
-function area(shape: Shape): number {
-  switch (shape.kind) {
-    case 'circle':
-      return Math.PI * shape.radius ** 2
-    case 'rectangle':
-      return shape.width * shape.height
-    case 'triangle':
-      return (shape.base * shape.height) / 2
-  }
-}
-
-// TypeScript exhaustiveness check:
-function area(shape: Shape): number {
-  switch (shape.kind) {
-    case 'circle': return Math.PI * shape.radius ** 2
-    case 'rectangle': return shape.width * shape.height
-    case 'triangle': return (shape.base * shape.height) / 2
-    default:
-      const _exhaustive: never = shape
-      return _exhaustive
-  }
-  // If you add a new shape and forget to handle it,
-  // TypeScript will error at compile time!
-}
+const role: 'admin' | 'user' = 'guest'
 ```
 
----
+Uncomment it and run the type check:
 
-## Exercises
+```powershell
+npm.cmd run check
+```
 
-### Level 1
+TypeScript reports the reason:
 
-1. Create a `type StringOrNumber = string | number` and write a function that accepts it.
-2. Define an `interface` for a `Book` with required and optional fields.
-3. Use a discriminated union for a `LoadingState` type.
+```
+Type '"guest"' is not assignable to type '"admin" | "user"'.
+```
 
-### Level 2
+Read it as: *"`role` is a literal union with exactly two allowed values, and `'guest'` is a third value the contract did not list."* The fix is to use a value the union allows:
 
-1. Create a type-safe API response type with discriminated unions for success/error.
-2. Use intersection types to combine `Timestamped`, `Identifiable`, and `SoftDeletable`.
-3. Write a function with exhaustive switch-case checking.
+```ts
+const role: 'admin' | 'user' = 'user'
+```
 
-### Level 3
+Comment the broken section back out when done so the starter keeps passing `npm run check`.
 
-1. Create a `DeepReadonly<T>` recursive type.
-2. Build a `Routes` type that maps paths to param types:
-   ```ts
-   type Routes = {
-     '/users': { id?: never }
-     '/users/:id': { id: string }
-     '/posts/:id/comments': { id: string }
-   }
-   ```
-3. Design a type-safe event system with typed event maps.
+## One-sentence mental model
 
----
+TypeScript types and interfaces are a compile-time contract that describes shape, narrows unions through a discriminator, and vanishes at runtime — while runtime guards, not assertions, are the only thing that validates data crossing a boundary.
 
-[<< Day 35](../35_day_api_integration/35_day_api_integration.md) | [Day 37 >>](37_day_ts_generics/37_day_ts_generics.md)
+## Practice
 
-🎉 **Day 36 Complete!**
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
 
-🎉 **Progress**: 36/45 days complete
+### Level 1 — Mechanical (10-15 min)
+
+For each snippet, write down the exact result before running.
+
+1. What is passed to `message`, and which property narrows the union?
+2. Why does `JSON.parse` still need a runtime guard in TypeScript?
+3. When would an interface be clearer than a type alias?
+4. Why is `as User` an assertion, not validation?
+5. Run `npm.cmd run day36:js` and `npm.cmd run day36`; then `npm.cmd run check` and confirm it passes.
+
+### Level 2 — Applied mini-projects
+
+1. Create a `Book` model with id, title, author, and optional `publishedAt`.
+2. Model a `LoadingState` discriminated union with idle, loading, success, and error.
+3. Write a function that handles every state and returns a readable string.
+4. Write the JavaScript equivalent and explain what the compiler adds.
+
+### Level 3 — Creative synthesis
+
+1. The shape guard: implement `isBook(value: unknown): value is Book` and comment on what a type alias could not provide by itself.
+2. The extendable model: create `Employee extends User` and comment on when interface inheritance beats repeating fields.
+3. The exhaustive state: add a new status to `LoadingState` and comment on what the compiler tells you about every switch.
+4. The assertion trap: replace a runtime guard with `as Book` and comment on what breaks the moment the data does not match.
+
+## Finish line
+
+Day 36 is complete when you can do all of these **without notes**:
+
+1. Model an object shape with an interface.
+2. Compose unions, tuples, and primitives with a type alias.
+3. Narrow a discriminated union with a `status` or `ok` field.
+4. Keep a runtime guard for data crossing a boundary.
+5. Explain why an assertion is not validation.
+
+If any answer is a guess, revisit the matching section before Day 37.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. What is passed to `message`, and which property narrows the union?
+2. Why does `JSON.parse` still need a runtime guard in TypeScript?
+3. When would an interface be clearer than a type alias?
+4. Why is `as User` an assertion, not validation?
+5. Why does `role = 'guest'` fail, and what does the fix require?
+
+Your answers are today's evidence. If you can write them, move to [Day 37: TypeScript Generics — One Function, Many Types](../37_day_ts_generics/37_day_ts_generics.md).
+
+**Day 36 complete.** TypeScript types and interfaces are a compile-time contract that describes shape, narrows unions through a discriminator, and vanishes at runtime — while runtime guards, not assertions, are the only thing that validates data crossing a boundary.

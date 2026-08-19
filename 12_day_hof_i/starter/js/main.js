@@ -1,19 +1,19 @@
-// Day 12 — JavaScript Starter: Higher-Order Functions I
-const prices = [25, 45, 10, 65, 30]
+// Day 12 - Predict the callback inputs, returns, and final method result.
 
-// forEach
-prices.forEach(function (price, index) {
-  console.log(index + ': $' + price)
+const scores = [42, 78, 91, 49, 65]
+
+const passingScores = scores.filter(score => score >= 50)
+const doubledScores = passingScores.map(score => score * 2)
+const total = scores.reduce((runningTotal, score) => {
+  return runningTotal + score
+}, 0)
+
+console.log('Original scores:', scores)
+console.log('Passing scores:', passingScores)
+console.log('Doubled passing scores:', doubledScores)
+console.log('Total:', total)
+
+console.log('Names:')
+;['Ada', 'Grace', 'Linus'].forEach(name => {
+  console.log('- ' + name)
 })
-
-// map
-const withTax = prices.map(function (p) { return p * 1.08 })
-console.log('With tax:', withTax)
-
-// filter
-const affordable = prices.filter(function (p) { return p < 40 })
-console.log('Affordable:', affordable)
-
-// reduce
-const totalCost = prices.reduce(function (sum, p) { return sum + p }, 0)
-console.log('Total:', totalCost)

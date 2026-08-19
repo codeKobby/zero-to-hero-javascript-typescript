@@ -1,32 +1,39 @@
 export {}
 
-// Day 6: Loops & Iteration
+// Day 6 - The TypeScript version has the same behavior as main.js.
+// Types help prevent using the wrong kind of value; they do not replace tracing.
+
+const students: string[] = ['Ada', 'Grace', 'Linus']
+
+console.log('Students, using an index:')
+for (let index: number = 0; index < students.length; index = index + 1) {
+  console.log(index + ': ' + students[index])
+}
+
+console.log('')
+console.log('Students, using for...of:')
+for (const student of students) {
+  console.log('Hello, ' + student)
+}
+
 const scores: number[] = [85, 92, 78, 95, 88]
+let passingCount: number = 0
 
-// for...of
 for (const score of scores) {
-  console.log(`Score: ${score}`)
+  if (score >= 80) {
+    passingCount = passingCount + 1
+  }
 }
 
-// Array methods
-const passingScores: number[] = scores.filter(s => s >= 80)
-const average: number = scores.reduce((sum, s) => sum + s, 0) / scores.length
-const highest: number = scores.find(s => s === Math.max(...scores))!
+console.log('')
+console.log('Passing scores: ' + passingCount)
 
-console.log(`Passing: ${passingScores}, Average: ${average}, Highest: ${highest}`)
-
-// Object iteration
-interface StudentResult {
-  name: string
-  grade: number
+let countdown: number = 3
+while (countdown > 0) {
+  console.log(countdown)
+  countdown = countdown - 1
 }
+console.log('Lift off!')
 
-const results: StudentResult[] = [
-  { name: 'Alice', grade: 95 },
-  { name: 'Bob', grade: 82 },
-  { name: 'Charlie', grade: 78 }
-]
-
-for (const [index, student] of results.entries()) {
-  console.log(`${index + 1}. ${student.name}: ${student.grade}`)
-}
+// Try this, read the TypeScript error, then put the comment back:
+// scores.push('not a number')

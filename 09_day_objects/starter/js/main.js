@@ -1,21 +1,20 @@
-// Day 9 — JavaScript Starter: Objects & Interfaces
-const myBook = {
-  id: 1,
+const originalBook = {
   title: 'Dune',
-  author: 'Herbert',
-  year: 2021,
-  isAvailable: true
-}
-
-console.log(myBook.title)
-console.log(myBook['author'])
-
-// Getter pattern
-const bookWrapper = {
-  _book: myBook,
-  get description() {
-    return this._book.title + ' by ' + this._book.author
+  author: 'Frank Herbert',
+  isAvailable: true,
+  describe() {
+    return this.title + ' by ' + this.author
   }
 }
 
-console.log(bookWrapper.description)
+const bookKey = 'title'
+console.log(originalBook[bookKey])
+console.log(originalBook.describe())
+
+const checkedOutBook = {
+  ...originalBook,
+  isAvailable: false
+}
+
+console.log('Original available:', originalBook.isAvailable)
+console.log('Copy available:', checkedOutBook.isAvailable)

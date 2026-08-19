@@ -1,39 +1,29 @@
-// Day 18 — JavaScript Starter: Error Handling
-class ValidationError extends Error {
-  constructor(message, field) {
-    super(message)
-    this.name = 'ValidationError'
-    this.field = field
+// Day 18 - JavaScript: expected failures and recovery
+function tryParseJson(text) {
+  try {
+    return { ok: true, value: JSON.parse(text) }
+  } catch {
+    return { ok: false, value: null }
   }
 }
 
-function validateAge(age) {
-  if (typeof age !== 'number') {
-    throw new ValidationError('Age must be a number', 'age')
+function divide(total, people) {
+  if (!Number.isInteger(people) || people <= 0) {
+    throw new Error('people must be a positive whole number')
   }
-  if (age < 0 || age > 150) {
-    throw new ValidationError('Age must be between 0 and 150', 'age')
-  }
-  return age
+
+  return total / people
 }
+
+console.log('Valid JSON:', tryParseJson('{"theme":"dark"}'))
+console.log('Invalid JSON:', tryParseJson('{not valid json}'))
 
 try {
-  var validAge = validateAge(25)
-  console.log('Valid age:', validAge)
+  console.log('Each person receives:', divide(12, 3))
+  divide(12, 0)
 } catch (error) {
-  if (error instanceof ValidationError) {
-    console.log('Error on "' + error.field + '": ' + error.message)
+  console.log('Could not split the total safely.')
+  if (error instanceof Error) {
+    console.log('Developer detail:', error.message)
   }
 }
-
-// Safe JSON parse
-function safeParse(json) {
-  try {
-    return JSON.parse(json)
-  } catch {
-    return null
-  }
-}
-
-console.log(safeParse('{"port":3000}'))
-console.log(safeParse('invalid json'))

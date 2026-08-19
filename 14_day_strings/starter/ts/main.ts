@@ -1,27 +1,38 @@
 export {}
 
-// Day 14: Strings
-const sentence: string = 'Hello, World! Welcome to TypeScript'
+// Day 14 - TypeScript: working with text
+const rawTags: string = ' JavaScript, TypeScript, testing '
+const tags: string[] = rawTags
+  .split(',')
+  .map((tag) => tag.trim().toLowerCase())
 
-// Template literals
-const name14: string = 'Alice'
-const age14: number = 25
-console.log(`${name14} is ${age14} years old`)
+console.log('Tags:', tags)
+console.log('Original input:', rawTags)
 
-// String methods
-console.log(sentence.slice(0, 5))       // Hello
-console.log(sentence.at(-1))            // !
-console.log(sentence.split(' '))        // array of words
-console.log(sentence.includes('World')) // true
-console.log(sentence.toUpperCase())
+const learner: string = 'Mina'
+const completed: number = 14
+console.log(`${learner} has completed ${completed} lessons.`)
 
-// padStart/padEnd
-console.log('5'.padStart(3, '0'))       // 005
-console.log('Hi'.padEnd(10, '.'))       // Hi........
+const filename: string = 'lesson-notes.md'
+console.log('File extension:', filename.slice(-3))
+console.log('Has dot:', filename.includes('.'))
 
-// Template literal types
-type Greeting = `Hello, ${string}`
-const g: Greeting = 'Hello, World'  // ✅
-// const bad: Greeting = 'Goodbye'  // ❌
+function isYes(answer: string): boolean {
+  return answer.trim().toLowerCase() === 'yes'
+}
 
-console.log(g)
+function displayLabel(value: unknown): string {
+  if (typeof value !== 'string') {
+    return 'No label'
+  }
+
+  return value.trim() || 'No label'
+}
+
+console.log('YES is accepted:', isYes(' YES '))
+console.log('Unknown label:', displayLabel('  Mina  '))
+
+// Try this, read the error, then restore the comment:
+// function brokenLabel(value: unknown): string {
+//   return value.trim()
+// }

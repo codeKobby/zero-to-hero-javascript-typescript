@@ -1,31 +1,26 @@
 export {}
 
-// Day 25: DOM Manipulation
-// Run in browser with index.html
+// Day 25 - TypeScript: create, append, and remove DOM nodes
+const list = document.querySelector('#task-list')
+const output = document.querySelector('#output')
 
-function escapeHtml(str: string): string {
-  const div = document.createElement('div')
-  div.textContent = str
-  return div.innerHTML
+if (!(list instanceof HTMLUListElement) || !(output instanceof HTMLParagraphElement)) {
+  throw new Error('The starter HTML is missing required elements.')
 }
 
-function createElement<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  attrs?: Record<string, string>,
-  text?: string
-): HTMLElementTagNameMap[K] {
-  const el = document.createElement(tag)
-  if (attrs) {
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value)
-    }
-  }
-  if (text) el.textContent = text
-  return el
+function addTask(list: HTMLUListElement, label: string): HTMLLIElement {
+  const item = document.createElement('li')
+  item.classList.add('task')
+  item.dataset.status = 'open'
+  item.textContent = label
+  list.append(item)
+  return item
 }
 
-// Usage:
-// const card = createElement('div', { class: 'card', id: 'user-1' }, 'Hello')
-// document.body.appendChild(card)
+const task = addTask(list, 'Practice safe DOM updates')
+task.classList.toggle('is-complete')
+output.textContent = 'Created one task with status: ' + task.dataset.status
 
-console.log('Day 25: DOM Manipulation — open in browser to test')
+// Try this, read the error, then restore the comment:
+// const generic = document.createElement('div')
+// generic.disabled = true

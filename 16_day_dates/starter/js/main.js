@@ -1,19 +1,24 @@
-// Day 16 — JavaScript Starter: Dates & Time
-var today = new Date()
-console.log('ISO:', today.toISOString())
-console.log('Date string:', today.toDateString())
-
-// Formatting with Intl
-var formatter = new Intl.DateTimeFormat('en-US', {
-  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+// Day 16 - JavaScript: dates, time zones, and formatting
+const event = new Date('2025-01-15T09:30:00Z')
+const formatter = new Intl.DateTimeFormat('en-GB', {
+  dateStyle: 'full',
+  timeStyle: 'short',
+  timeZone: 'Africa/Accra'
 })
-console.log('Formatted:', formatter.format(today))
 
-// Date calculations
-function daysBetween(a, b) {
-  var msPerDay = 1000 * 60 * 60 * 24
-  return Math.abs(b.getTime() - a.getTime()) / msPerDay
+function parseInstant(text) {
+  const date = new Date(text)
+  return Number.isNaN(date.getTime()) ? null : date
 }
 
-var birthday = new Date('1995-06-15')
-console.log('Days since birthday:', Math.floor(daysBetween(birthday, today)))
+function hoursBetween(start, end) {
+  return (end.getTime() - start.getTime()) / (1000 * 60 * 60)
+}
+
+console.log('Stored ISO:', event.toISOString())
+console.log('Display:', formatter.format(event))
+console.log('Hours in example:', hoursBetween(
+  new Date('2025-01-15T09:30:00Z'),
+  new Date('2025-01-16T21:30:00Z')
+))
+console.log('Invalid input:', parseInstant('not a date'))

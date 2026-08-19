@@ -1,23 +1,10 @@
-// Day 44 — Project: Country Explorer — Starter
-// Uses data/countries_data.js
-
-// Load countries from local data
-// var countries = require('./data/countries_data.js')  // Node.js
-// Or: import countries from './data/countries_data.js'  // Browser module
-
-function searchCountries(query) {
-  // TODO: filter countries by name, capital, or language
-  return []
-}
-
-function getMostSpokenLanguages(countries, topN) {
-  // TODO: count languages across all countries, return top N
-  return []
-}
-
-function getMostPopulous(countries, topN) {
-  // TODO: sort by population, return top N
-  return []
-}
-
-console.log('Country Explorer ready! Load data from ../data/countries_data.js')
+import { countries } from './data/countries.js'
+const format = value => new Intl.NumberFormat().format(value)
+const searchCountries = (items, query, region) => { const q = query.trim().toLowerCase(); return items.filter(country => (region === 'all' || country.region === region) && (!q || [country.name, country.capital, ...country.languages].some(value => value.toLowerCase().includes(q)))) }
+const languageStats = items => Object.entries(items.flatMap(country => country.languages).reduce((counts, language) => ({ ...counts, [language]: (counts[language] ?? 0) + 1 }), {})).sort((a, b) => b[1] - a[1]).slice(0, 3)
+const root = document.querySelector('#app'); if (!(root instanceof HTMLElement)) throw new Error('Missing #app')
+root.innerHTML = '<h1>Country explorer</h1><label>Search <input id="search" type="search" placeholder="name, capital, or language"></label><label>Region <select id="region"><option>all</option><option>Africa</option><option>Americas</option><option>Asia</option><option>Europe</option><option>Oceania</option></select></label><p id="stats"></p><div id="countries"></div>'
+const search = document.querySelector('#search'); const region = document.querySelector('#region'); const list = document.querySelector('#countries'); const stats = document.querySelector('#stats')
+if (!(search instanceof HTMLInputElement) || !(region instanceof HTMLSelectElement) || !(list instanceof HTMLElement) || !(stats instanceof HTMLElement)) throw new Error('Missing controls')
+function render() { const visible = searchCountries(countries, search.value, region.value); list.replaceChildren(...visible.map(country => { const card = document.createElement('article'); card.innerHTML = '<h2></h2><p></p>'; card.querySelector('h2').textContent = `${country.flag} ${country.name}`; card.querySelector('p').textContent = `${country.capital} - ${country.region} - population ${format(country.population)} - ${country.languages.join(', ')}`; return card })); const top = languageStats(visible).map(([name, count]) => `${name} (${count})`).join(', '); stats.textContent = `${visible.length} countries - common languages: ${top || 'none'}` }
+search.addEventListener('input', render); region.addEventListener('change', render); render()

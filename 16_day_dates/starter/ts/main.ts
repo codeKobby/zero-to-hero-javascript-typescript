@@ -1,43 +1,29 @@
 export {}
 
-// Day 16: Dates & Time
-const today: Date = new Date()
-console.log('ISO:', today.toISOString())
-console.log('Date string:', today.toDateString())
-
-// Formatting with Intl
-const formatter = new Intl.DateTimeFormat('en-US', {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
+// Day 16 - TypeScript: dates, time zones, and formatting
+const event: Date = new Date('2025-01-15T09:30:00Z')
+const formatter = new Intl.DateTimeFormat('en-GB', {
+  dateStyle: 'full',
+  timeStyle: 'short',
+  timeZone: 'Africa/Accra'
 })
-console.log('Formatted:', formatter.format(today))
 
-// Date calculations
-function daysBetween(a: Date, b: Date): number {
-  const msPerDay = 1000 * 60 * 60 * 24
-  return Math.abs(b.getTime() - a.getTime()) / msPerDay
+function parseInstant(text: string): Date | null {
+  const date = new Date(text)
+  return Number.isNaN(date.getTime()) ? null : date
 }
 
-const birthday = new Date('1995-06-15')
-console.log(`Days since birthday: ${Math.floor(daysBetween(birthday, today))}`)
-
-// Add days
-function addDays(date: Date, days: number): Date {
-  const result = new Date(date)
-  result.setDate(result.getDate() + days)
-  return result
+function hoursBetween(start: Date, end: Date): number {
+  return (end.getTime() - start.getTime()) / (1000 * 60 * 60)
 }
 
-console.log('Next week:', addDays(today, 7).toDateString())
+console.log('Stored ISO:', event.toISOString())
+console.log('Display:', formatter.format(event))
+console.log('Hours in example:', hoursBetween(
+  new Date('2025-01-15T09:30:00Z'),
+  new Date('2025-01-16T21:30:00Z')
+))
+console.log('Invalid input:', parseInstant('not a date'))
 
-// Type-safe date helpers
-type DateInput = Date | string | number
-
-function parseDate(input: DateInput): Date {
-  return input instanceof Date ? input : new Date(input)
-}
-
-console.log(parseDate('2024-01-15'))
-console.log(parseDate(1700000000000))
+// Try this, read the error, then restore the comment:
+// console.log(parseInstant('2025-01-15T09:30:00Z').toISOString())

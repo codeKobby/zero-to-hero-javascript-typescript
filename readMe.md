@@ -1,102 +1,99 @@
-<div align="center">
-  <h1> Zero to Hero: JavaScript & TypeScript</h1>
-  <p><em>45 days from beginner to confident developer</em></p>
-</div>
+# Zero to Junior: JavaScript and TypeScript
 
----
+<p align="center">
+  <img src="images/banners/course-cover.svg" alt="Zero to Junior course banner" />
+</p>
 
-## What Is This?
+A 45-day, practice-first course for a complete beginner. JavaScript is the runtime language; TypeScript is taught beside it as a typed development layer. You will see what both versions do, why they differ, and when each trade-off matters.
 
-A step-by-step curriculum that teaches **JavaScript and TypeScript together**. Every day you learn a concept in both languages, so you see exactly what TypeScript adds.
+This course is designed to be cloned and run by other learners. The repository is the source of truth for commands, dependencies, examples, and checks.
 
-**No prior coding experience needed.**
+## Start from a fresh clone
 
----
+Install Node.js 20.19+ or 22.12+ (the current supported LTS lines), then run these commands from the repository root:
 
-## What You'll Build
+~~~powershell
+git clone <repository-url>
+cd zero-to-hero-javascript-typescript
+npm.cmd install
+npm.cmd run day1:js
+npm.cmd run day1
+npm.cmd run check
+~~~
 
-| Phase | Days | What You'll Learn |
-|-------|------|-------------------|
-| **Foundations** | 1–10 | Variables, data types, functions, loops, arrays |
-| **Core Concepts** | 11–20 | Objects, strings, dates, classes, error handling |
-| **DOM & Projects** | 21–30 | Web pages, browser storage, events, 2 real projects |
-| **Async Programming** | 31–35 | Promises, async/await, fetching data from APIs |
-| **TypeScript Deep Dive** | 36–40 | Advanced types, generics, best practices |
-| **Capstone Projects** | 41–45 | 4 portfolio projects + your own final project |
+That single install command installs the exact lockfile dependency tree and runs the repository environment check. No global TypeScript, tsx, Vite, or Live Server installation is required.
 
----
+On macOS, Linux, Git Bash, or Command Prompt, npm usually works without the .cmd suffix. On Windows PowerShell, npm.cmd avoids the common script-policy problem.
 
-## Get Started in 3 Steps
+If a command fails, read [VS_CODE_SETUP.md](VS_CODE_SETUP.md) and [TROUBLESHOOTING.md](TROUBLESHOOTING.md) before changing the project configuration.
 
-### 1. Install Node.js
-Go to **[nodejs.org](https://nodejs.org)** → Download **LTS** → Install (keep defaults).
+## The daily loop
 
-### 2. Open This Folder in VS Code
-- Open VS Code
-- `File` → `Open Folder` → Select `zero-to-hero-javascript-typescript`
-- Click **"Yes, I trust the authors"**
+Each Node-based lesson has:
 
-### 3. Run One Command
-Open the terminal in VS Code (`Ctrl+\``) and run:
-```bash
-npm install
-```
+~~~text
+DAY/lesson.md
+DAY/starter/js/main.js
+DAY/starter/ts/main.ts
+DAY/practice/hints.md
+DAY/practice/solutions.md
+~~~
 
-That's it. You're ready.
+Read the explanation, predict the output, run JavaScript, run TypeScript, then attempt the practice before opening hints or solutions.
 
-On Windows, if PowerShell blocks `npm`, use `npm.cmd install`. For the VS Code play button, install the recommended **Code Runner** extension and keep the included `.vscode/settings.json` file.
+~~~powershell
+npm.cmd run day6:js
+npm.cmd run day6
+npm.cmd run check
+~~~
 
----
+The paired starters should demonstrate the same runtime idea. TypeScript may add annotations, unions, narrowing, or contracts, but it should not hide JavaScript's behavior.
 
-## Run Your First Code
+## Browser lessons
 
-### Day 1 — TypeScript
-```bash
-npm run day1
-```
+DOM and project lessons run in a browser. Vite is included locally, so cloned learners do not need a globally installed server or a particular VS Code extension:
 
-### Day 2 — Variables
-```bash
-npm run day2
-```
+~~~powershell
+npm.cmd run dev
+~~~
 
-### Any Day (1–45)
-```bash
-npm run day<N>
-```
+Open the JavaScript or TypeScript entry page documented by the lesson. For example:
 
-**Or just click the ▶ button** in the top-right of any Node-based lesson `.ts` file in VS Code after installing the recommended extensions. Browser/DOM lessons run from `index.html` with Live Server.
+~~~text
+/24_day_dom_selection/starter/index.html
+/24_day_dom_selection/starter/index.ts.html
+~~~
 
----
+The TypeScript page imports the .ts starter and Vite transforms it for the browser. Keep the Vite terminal running. Do not open the HTML directly from disk.
 
-## How to Learn
+## Roadmap
 
-1. **Read the lesson** — Open `01_day_setup/01_day_setup.md`, then `02_day_variables/02_day_variables.md`, etc.
-2. **Run the code** — Use `npm run day1` or click ▶
-3. **Do the exercises** — Each lesson ends with 3 levels of practice
-4. **Move to the next day** — Concepts build on each other
+| Days | Focus |
+| --- | --- |
+| 1–10 | Setup, values, operators, control flow, loops, functions, objects, arrays |
+| 11–20 | Destructuring, higher-order functions, text, numbers, dates, regex, errors, classes |
+| 21–28 | Modules, JSON, storage, DOM, events, and functional browser patterns |
+| 29–35 | Projects, promises, async/await, fetch, and API boundaries |
+| 36–40 | TypeScript types, generics, utility types, advanced types, and maintainable practices |
+| 41–45 | Portfolio projects, testing, accessibility, deployment, and a capstone |
 
----
+The roadmap is intentionally progressive. Do not skip the practice because a later project appears more exciting; the projects depend on the earlier mental models.
 
-## If Something Breaks
+## Learner guides
 
-- **Red error in VS Code?** That's TypeScript catching a mistake before you run it. Fix the red squiggly line.
-- **Command not found?** Make sure you ran `npm install` in this folder.
-- **Play button runs `ts-node`?** See [VS_CODE_SETUP.md](VS_CODE_SETUP.md) and [TROUBLESHOOTING.md](TROUBLESHOOTING.md). This repo uses local `tsx`, not global `ts-node`.
-- **Still stuck?** Open an issue on GitHub or ask in Discussions.
+- [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md): what every lesson must teach and verify.
+- [CURRICULUM_GUIDE.md](CURRICULUM_GUIDE.md): the full day-by-day map.
+- [LEETCODE_GUIDE.md](LEETCODE_GUIDE.md): optional problem-solving track.
+- [PORTFOLIO_TRACK.md](PORTFOLIO_TRACK.md): project quality and evidence checklist.
+- [VS_CODE_SETUP.md](VS_CODE_SETUP.md): clone, Node, TypeScript, Vite, and browser workflow.
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md): diagnosis-first fixes.
 
----
+## What completion means
 
-## Resources (When You Want More)
+Finishing a reading is not the same as being job-ready. A learner should be able to explain the code, modify it, handle invalid input, write tests, use Git, debug a browser or Node failure, and present a small project with a clear README. The later project and portfolio guides make those expectations explicit.
 
-- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide) — Beginner-friendly reference
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) — Official TypeScript docs
-- [TypeScript Playground](https://www.typescriptlang.org/play) — Try code in your browser
+## Official references
 
----
-
-## Start Now
-
-[**Day 1: Setup & Tooling →**](01_day_setup/01_day_setup.md)
-
-🌟 **You've got this.** Day 1 takes 10 minutes.
+- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [TypeScript configuration reference](https://www.typescriptlang.org/tsconfig/)

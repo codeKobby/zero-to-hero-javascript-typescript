@@ -1,34 +1,35 @@
 export {}
 
-// Day 9: Objects & Interfaces
 interface Book {
-  id: number
+  readonly id: number
   title: string
   author: string
-  year: number
   isAvailable: boolean
-  genre?: string  // optional field
+  genre?: string
+  describe(): string
 }
 
-const myBook: Book = {
+const originalBook: Book = {
   id: 1,
   title: 'Dune',
-  author: 'Herbert',
-  year: 2021,
+  author: 'Frank Herbert',
   isAvailable: true,
-  genre: 'Sci-Fi'
-}
-
-// Accessing
-console.log(myBook.title)
-console.log(myBook['author'])
-
-// Getter pattern with object
-const bookWrapper = {
-  _book: myBook,
-  get description(): string {
-    return `${this._book.title} by ${this._book.author}`
+  describe() {
+    return this.title + ' by ' + this.author
   }
 }
 
-console.log(bookWrapper.description)
+const bookKey: keyof Book = 'title'
+console.log(originalBook[bookKey])
+console.log(originalBook.describe())
+
+const checkedOutBook: Book = {
+  ...originalBook,
+  isAvailable: false
+}
+
+console.log('Original available:', originalBook.isAvailable)
+console.log('Copy available:', checkedOutBook.isAvailable)
+
+// Try this, read the error, then restore the comment:
+// originalBook.id = 2

@@ -1,28 +1,26 @@
 export {}
 
-// Day 24: DOM Selection
-// Run in browser with index.html
-
-function selectElement<K extends keyof HTMLElementTagNameMap>(
-  selector: K
-): HTMLElementTagNameMap[K] {
-  const el = document.querySelector(selector)
-  if (!el) throw new Error(`Element "${selector}" not found`)
-  return el
+// Day 24 - TypeScript: select required and optional elements
+function requireElement(selector: string): Element {
+  const element = document.querySelector(selector)
+  if (element === null) {
+    throw new Error('Required element not found: ' + selector)
+  }
+  return element
 }
 
-function selectById<T extends HTMLElement>(id: string): T {
-  const el = document.getElementById(id)
-  if (!el) throw new Error(`Element #${id} not found`)
-  return el as T
+const title = requireElement('#page-title')
+const emailInput = document.querySelector('input[type="email"]')
+const cards = document.querySelectorAll('.lesson-card')
+const output = requireElement('#output')
+
+output.textContent = 'Found ' + cards.length + ' lesson cards.'
+console.log('Title:', title.textContent)
+
+if (emailInput instanceof HTMLInputElement) {
+  emailInput.value = 'mina@example.com'
 }
 
-// Usage (browser only):
-// const header = selectElement('h1')
-// const input = selectById<HTMLInputElement>('email')
-
-console.log('Day 24: DOM Selection — open in browser to test')
-
-// Safe optional chaining for DOM:
-// document.querySelector('#app')?.classList.add('loaded')
-// document.querySelector('#missing')?.textContent  // undefined — no error
+// Try this, read the error, then restore the comment:
+// const email = document.querySelector('input[type="email"]')
+// console.log(email.value)

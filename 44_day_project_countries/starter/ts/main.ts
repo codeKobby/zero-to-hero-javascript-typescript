@@ -1,39 +1,12 @@
+import { countries, type Country } from './data/countries.ts'
 export {}
-
-// Day 44 — Project: Country Explorer — TypeScript Starter
-
-interface Country {
-  name: string
-  capital: string
-  population: number
-  languages: string[]
-  region: string
-  area: number
-}
-
-// Load from data/countries_data.js
-const countries: Country[] = []
-
-function searchCountries(query: string): Country[] {
-  const q = query.toLowerCase()
-  return countries.filter(c =>
-    c.name.toLowerCase().includes(q) ||
-    c.capital.toLowerCase().includes(q) ||
-    c.languages.some(l => l.toLowerCase().includes(q))
-  )
-}
-
-function getMostSpokenLanguages(countries: Country[], topN: number): { language: string; count: number }[] {
-  const counts: Record<string, number> = {}
-  for (const country of countries) {
-    for (const lang of country.languages) {
-      counts[lang] = (counts[lang] || 0) + 1
-    }
-  }
-  return Object.entries(counts)
-    .map(([language, count]) => ({ language, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, topN)
-}
-
-console.log('Country Explorer — TypeScript Starter ready!')
+const format = (value: number): string => new Intl.NumberFormat().format(value)
+const searchCountries = (items: Country[], query: string, region: string): Country[] => { const q = query.trim().toLowerCase(); return items.filter(country => (region === 'all' || country.region === region) && (!q || [country.name, country.capital, ...country.languages].some(value => value.toLowerCase().includes(q)))) }
+const languageStats = (items: Country[]): Array<[string, number]> => { const counts = new Map<string, number>(); for (const country of items) for (const language of country.languages) counts.set(language, (counts.get(language) ?? 0) + 1); return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3) }
+const root = document.querySelector('#app'); if (!(root instanceof HTMLElement)) throw new Error('Missing #app')
+root.innerHTML = '<h1>Country explorer</h1><label>Search <input id="search" type="search" placeholder="name, capital, or language"></label><label>Region <select id="region"><option>all</option><option>Africa</option><option>Americas</option><option>Asia</option><option>Europe</option><option>Oceania</option></select></label><p id="stats"></p><div id="countries"></div>'
+const search = document.querySelector('#search'); const region = document.querySelector('#region'); const list = document.querySelector('#countries'); const stats = document.querySelector('#stats')
+if (!(search instanceof HTMLInputElement) || !(region instanceof HTMLSelectElement) || !(list instanceof HTMLElement) || !(stats instanceof HTMLElement)) throw new Error('Missing controls')
+const ui = { search, region, list, stats }
+function render(): void { const visible = searchCountries(countries, ui.search.value, ui.region.value); ui.list.replaceChildren(...visible.map(country => { const card = document.createElement('article'); card.innerHTML = '<h2></h2><p></p>'; card.querySelector('h2')!.textContent = `${country.flag} ${country.name}`; card.querySelector('p')!.textContent = `${country.capital} - ${country.region} - population ${format(country.population)} - ${country.languages.join(', ')}`; return card })); const top = languageStats(visible).map(([name, count]) => `${name} (${count})`).join(', '); ui.stats.textContent = `${visible.length} countries - common languages: ${top || 'none'}` }
+ui.search.addEventListener('input', render); ui.region.addEventListener('change', render); render()

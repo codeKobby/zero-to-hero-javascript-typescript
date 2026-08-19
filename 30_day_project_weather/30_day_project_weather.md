@@ -1,90 +1,244 @@
-<div align="center">
-  <h1>Day 30: Project — Weather Dashboard</h1>
-</div>
+# Day 30: The Weather Project — Fetching and Rendering
 
-[<< Day 29](../29_day_project_todo/29_day_project_todo.md) | [Day 31 >>](31_day_promises_i/31_day_promises_i.md)
+[Day 29 <<](../29_day_project_todo/29_day_project_todo.md) | [Day 31 >>](../31_day_promises_i/31_day_promises_i.md)
 
----
+## Table of Contents
 
-## 🎯 Project Goal
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [The state and boundary](#the-state-and-boundary)
+  - [A Promise that settles deterministically](#a-promise-that-settles-deterministically)
+  - [Loading, success, and error as one state machine](#loading-success-and-error-as-one-state-machine)
+  - [Favorites with validated hydration](#favorites-with-validated-hydration)
+  - [Pitfalls to test](#pitfalls-to-test)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [Explicit status and fields, erased at runtime](#explicit-status-and-fields-erased-at-runtime)
+  - [What TypeScript cannot decide](#what-typescript-cannot-decide)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
 
-Build a **Weather Dashboard** that fetches weather data from an API, displays current conditions, and stores favorites in localStorage. This project integrates async patterns (introduced next week) with DOM manipulation.
+## Why this lesson exists
 
----
+Most real apps eventually talk to a server. This project models that boundary without an API key: an offline mock returns a Promise, so every clone can observe loading, success, and error states deterministically. The same structure — a boundary, a state machine, and guarded rendering — transfers directly to a real `fetch`.
 
-## Requirements
+## Prerequisites
 
-1. Enter a city name → fetch weather data
-2. Display: temperature, humidity, conditions, icon
-3. Save favorite cities to localStorage
-4. Show favorites list with one-click access
-5. Handle loading states and errors gracefully
+- Day 29: the todo project's state-and-render loop.
+- Day 28: side effects at boundaries.
+- Day 22: parsing and validating external data.
 
----
+## What you'll be able to explain and do
 
-## Data Model (for local mock data)
+By the end of this lesson you will be able to **do**:
 
-Since this must work offline, we'll use a local JSON file as our "API":
+- keep API/data logic separate from DOM rendering;
+- render loading before a Promise settles;
+- show an error for an unknown city and recover on the next search;
+- add and remove favorites with validated `localStorage` hydration;
+- replace the mock with `fetch` later without rewriting the render;
+- run this course's Day 30 starter pages in both languages and the type check.
 
-```json
-[
-  { "city": "New York", "temp": 72, "humidity": 60, "condition": "Sunny", "icon": "☀️" },
-  { "city": "London", "temp": 55, "humidity": 75, "condition": "Cloudy", "icon": "☁️" },
-  { "city": "Tokyo", "temp": 68, "humidity": 65, "condition": "Rainy", "icon": "🌧️" },
-  { "city": "Sydney", "temp": 80, "humidity": 50, "condition": "Clear", "icon": "🌤️" },
-  { "city": "Paris", "temp": 60, "humidity": 70, "condition": "Windy", "icon": "💨" }
-]
-```
+And you will be able to **explain**:
 
-### TypeScript Types
+- why a loading state must not leave stale success text looking current;
+- why a later search must own which result wins the UI;
+- why API keys do not belong in browser source or committed `.env` files;
+- why mock data is not permission to skip failure and empty states.
+
+## The problem this solves
+
+A search renders three different things over time — a placeholder, a loading message, and either a result or an error. If those states are scattered, a stale result can look current. One state machine and one render function keep the boundary honest.
 
 ```ts
-interface WeatherData {
-  city: string
-  temp: number
-  humidity: number
-  condition: string
-  icon: string
-}
-
-interface DashboardState {
-  current: WeatherData | null
+type Weather = { city: string; temperature: number; humidity: number; condition: string }
+type DashboardState = {
+  current: Weather | null
   favorites: string[]
-  searchHistory: string[]
+  status: 'idle' | 'loading' | 'success' | 'error'
 }
 ```
 
-### Suggested Architecture
+## JS runtime deep dive
+
+### The state and boundary
+
+`getWeather(city)` returns a Promise and does not touch the DOM. The UI trims input, renders loading, awaits the boundary, then renders success or error. Keeping API/data logic separate from DOM rendering means a real `fetch` implementation can replace the mock later.
+
+### A Promise that settles deterministically
+
+```js
+function getWeather(city) {
+  const match = records.find((record) => record.city.toLowerCase() === city.toLowerCase())
+  return match === undefined
+    ? Promise.reject(new Error('City not found in the offline demo.'))
+    : Promise.resolve(match)
+}
+```
+
+The mock rejects for an unknown city, so the error path is observable without a network.
+
+### Loading, success, and error as one state machine
+
+```js
+async function search(city) {
+  const query = city.trim()
+  if (query === '') return
+  state.status = 'loading'
+  render()
+  try {
+    state.current = await getWeather(query)
+    state.status = 'success'
+  } catch {
+    state.current = null
+    state.status = 'error'
+  }
+  render()
+}
+```
+
+The status drives the status line; the result region renders only when `state.current` is not `null`. A Promise can reject after the user has started another search, so decide which result owns the UI — here the latest `search` call reassigns `state` before rendering.
+
+### Favorites with validated hydration
+
+```js
+const saved = JSON.parse(localStorage.getItem('day30-favorites') ?? '[]')
+if (Array.isArray(saved) && saved.every((city) => typeof city === 'string')) {
+  state.favorites = saved
+}
+```
+
+A parsed favorites value is validated as an array of strings before it is assigned. Writing it back goes through `saveFavorites`, which degrades gracefully when storage is blocked.
+
+### Pitfalls to test
+
+- A Promise can reject after the user has started another search; decide which result owns the UI.
+- A loading state must not leave stale success text that looks current.
+- API keys do not belong in browser source or committed `.env` files.
+- Local mock data is not permission to skip failure and empty states.
+
+### Common mistakes table
+
+| Mistake | Why it happens | The fix |
+| --- | --- | --- |
+| Rendering before the Promise settles | Forgetting async | Set loading and render first |
+| Leaving stale success text during loading | Shortcut | Let status drive the status line |
+| Parsing favorites without validation | Trusting storage | Check array-of-strings first |
+| Mixing API calls into render | Convenience | Keep the boundary separate |
+| Committing keys or `.env` files | Copy-paste | Keep credentials out of browser code |
+
+## The TypeScript layer
+
+### Explicit status and fields, erased at runtime
+
+JavaScript carries the same state machine through runtime checks. TypeScript makes the status strings and weather fields explicit:
+
+```ts
+type Status = 'idle' | 'loading' | 'success' | 'error'
+```
+
+TypeScript cannot guarantee that a real server returned those fields. If you replace the mock with `fetch`, parse as `unknown` and use a guard before assigning `Weather`.
+
+### What TypeScript cannot decide
+
+TypeScript cannot decide what a real server returns, whether a search still owns the UI, or whether `localStorage` held a valid favorites array. The status machine and the `Array.isArray` + `every` checks are runtime behavior; the types describe the shapes the guards enforce.
+
+### One compiler error, walked through
+
+Open `30_day_project_weather/starter/ts/main.ts`. The last section is commented out and deliberately broken:
+
+```ts
+const current = state.current
+console.log(current.temperature)
+```
+
+Uncomment it and run the type check:
+
+```powershell
+npm.cmd run check
+```
+
+TypeScript reports the reason:
 
 ```
-starter/
-├── js/main.js
-├── ts/main.ts
-├── index.html
-├── style.css
-└── ../data/weather.json    # Local mock data (reuse from ../data/)
+'current' is possibly 'null'.
 ```
 
----
+Read it as: *"`state.current` is `Weather | null` — before any search, and after an error, there is no weather to read. The render must check it first."* The fix is the guarded render from the lesson:
 
-## Exercises
+```ts
+const current = state.current
+if (current !== null) {
+  // render the result
+}
+```
 
-### Level 1 — Basic
+Comment the broken section back out when done so the starter keeps passing `npm run check`.
 
-Load weather data from a local JSON file and display it.
+## One-sentence mental model
 
-### Level 2 — Full Dashboard
+A weather dashboard is a boundary (the API Promise) feeding a state machine (`idle`/`loading`/`success`/`error`), and a render that never reads `current` until it is checked — with favorites validated after every parse.
 
-Add search, favorites, localStorage persistence. Use TypeScript.
+## Practice
 
-### Level 3 — Enhanced
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
 
-Add 5-day forecast display, charts (using Canvas), weather animations.
+### Level 1 — Mechanical (10-15 min)
 
----
+For each snippet, write down the exact result before running.
 
-[<< Day 29](../29_day_project_todo/29_day_project_todo.md) | [Day 31 >>](31_day_promises_i/31_day_promises_i.md)
+1. Why must the loading state clear or override stale success text?
+2. Why does the latest search own which result wins the UI?
+3. Why are favorites validated after parsing?
+4. Why do API keys not belong in browser source or committed `.env` files?
+5. Why is mock data not permission to skip failure states?
+6. Start `npm.cmd run dev`, open both starter pages, and confirm loading, a known city, an unknown city, favorites, and refresh all behave; then run `npm.cmd run check` and confirm it passes.
 
-🎉 **Day 30 Complete!**
+### Level 2 — Applied mini-projects
 
-🎉 **🎉 Certificate Milestone: Full-Stack Ready!** Complete Days 1-30
+1. Add a Retry button that re-runs the last failed query and re-renders loading before settling.
+2. Sort favorites alphabetically in the render without mutating the stored array.
+3. TypeScript: replace the mock `getWeather` signature with one that returns `Promise<Weather>` from a small async helper, and add a comment on what changes if a real `fetch` replaces it.
+4. Persist the last successful search in a second storage key and restore it on load.
+
+### Level 3 — Creative synthesis
+
+1. The stale-result guard: add a `searchId` that increments per search and let the result apply only when it still matches, with a comment on why timing wins are a runtime concern TypeScript cannot solve.
+2. The validated fetch: write `isWeather(value: unknown): value is Weather` and a comment block describing where it runs if the mock is swapped for `fetch`.
+3. The empty state: when `state.current` is `null` and status is `idle`, render a hint instead of a blank region, and comment on why the empty state is driven by state, not by the DOM.
+4. The failure log: keep the last error message in state and render it distinctly from a generic "could not load", with a comment on what a server would need to include for the message to be user-safe.
+
+## Finish line
+
+Day 30 is complete when you can do all of these **without notes**:
+
+1. Keep API/data logic separate from DOM rendering.
+2. Render loading before a Promise settles.
+3. Show an error for an unknown city and recover on the next search.
+4. Add and remove favorites with validated `localStorage` hydration.
+5. Replace the mock with `fetch` later without rewriting the render.
+
+If any answer is a guess, revisit the matching section before Day 31.
+
+## Prove it
+
+Write, in your own words, a short answer to each:
+
+1. Why does the render never read `state.current` until it is checked?
+2. Why does the latest search own which result wins the UI?
+3. Why are favorites validated after parsing?
+4. Why is mock data not permission to skip failure and empty states?
+5. Why does `state.current` read as `Weather | null` in TypeScript, and what does the render require?
+
+Your answers are today's evidence. If you can write them, move to [Day 31: Promises — One Future Result](../31_day_promises_i/31_day_promises_i.md).
+
+**Day 30 complete.** The weather dashboard now runs a boundary, a state machine, and guarded rendering end to end — loading, success, and error are observable offline, favorites survive refresh with validation, and a real `fetch` can replace the mock without touching the render.

@@ -1,32 +1,25 @@
 export {}
 
-// Day 10: Arrays & Generics
-const temperatures: number[] = [72, 85, 68, 90, 75]
+const originalTasks: string[] = ['Read', 'Practise']
 
-// Array methods
-const above80: number[] = temperatures.filter(t => t > 80)
-const doubled: number[] = temperatures.map(t => t * 2)
-const total: number = temperatures.reduce((sum, t) => sum + t, 0)
+const firstTask: string | undefined = originalTasks[0]
+const lastTask: string | undefined = originalTasks.at(-1)
+console.log('First task:', firstTask)
+console.log('Last task:', lastTask)
 
-console.log('Above 80:', above80)
-console.log('Doubled:', doubled)
-console.log('Total:', total)
+const copiedTasks: string[] = [...originalTasks]
+copiedTasks.push('Build')
 
-// at() method
-console.log('First:', temperatures.at(0))
-console.log('Last:', temperatures.at(-1))
+console.log('Original tasks:', originalTasks)
+console.log('Copied tasks:', copiedTasks)
 
-// Generic function
-function getFirst<T>(arr: T[]): T | undefined {
-  return arr[0]
-}
+const completedTask: string | undefined = copiedTasks.pop()
+console.log('Completed task:', completedTask)
+console.log('After pop:', copiedTasks)
 
-console.log('First item:', getFirst(temperatures))
-console.log('First string:', getFirst(['hello', 'world']))
+type Point = [number, number]
+const coordinate: Point = [12, 8]
+console.log('Coordinate:', coordinate)
 
-// Tuple
-type Point2D = [number, number]
-const origin: Point2D = [0, 0]
-const coordinate: Point2D = [10, 20]
-console.log(`Origin: (${origin[0]}, ${origin[1]})`)
-console.log(`Point: (${coordinate[0]}, ${coordinate[1]})`)
+// Try this, read the error, then restore the comment:
+// originalTasks.push(4)

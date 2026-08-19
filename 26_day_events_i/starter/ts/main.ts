@@ -1,35 +1,44 @@
 export {}
 
-// Day 26: Events I
-// Run in browser with index.html
+// Day 26 - TypeScript: events and debounced input
+const button = document.querySelector('#click-button')
+const input = document.querySelector('#search')
+const output = document.querySelector('#output')
 
-type EventCallback<T extends Event> = (event: T) => void
-
-function on<K extends keyof HTMLElementEventMap>(
-  el: HTMLElement,
-  type: K,
-  handler: EventCallback<HTMLElementEventMap[K]>
-): void {
-  el.addEventListener(type, handler as EventListener)
+if (!(button instanceof HTMLButtonElement) ||
+    !(input instanceof HTMLInputElement) ||
+    !(output instanceof HTMLParagraphElement)) {
+  throw new Error('The starter HTML is missing required elements.')
 }
 
-function debounce<T extends (...args: unknown[]) => void>(
-  fn: T,
-  ms: number
+let count: number = 0
+button.addEventListener('click', () => {
+  count += 1
+  output.textContent = 'Clicks: ' + count
+})
+
+function debounce<T extends (...args: string[]) => void>(
+  callback: T,
+  delay: number
 ): (...args: Parameters<T>) => void {
   let timer: ReturnType<typeof setTimeout>
   return (...args: Parameters<T>) => {
     clearTimeout(timer)
-    timer = setTimeout(() => fn(...args), ms)
+    timer = setTimeout(() => callback(...args), delay)
   }
 }
 
-// Usage:
-// const btn = document.querySelector('button')!
-// on(btn, 'click', (e) => console.log('Clicked!', e.clientX))
+const showSearch = debounce((value: string) => {
+  output.textContent = 'Searching for: ' + value
+}, 300)
 
-// const input = document.querySelector('input')!
-// const logInput = debounce((val: string) => console.log(val), 300)
-// on(input, 'input', (e) => logInput(e.target.value))
+input.addEventListener('input', (event: Event) => {
+  if (event.currentTarget instanceof HTMLInputElement) {
+    showSearch(event.currentTarget.value)
+  }
+})
 
-console.log('Day 26: Events — open in browser to test')
+// Try this, read the error, then restore the comment:
+// input.addEventListener('input', (event: Event) => {
+//   console.log(event.target.value)
+// })
