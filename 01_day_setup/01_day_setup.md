@@ -12,6 +12,7 @@
   - [Code is text, and a runtime turns it into behavior](#code-is-text-and-a-runtime-turns-it-into-behavior)
   - [The two runtimes you will use](#the-two-runtimes-you-will-use)
   - [Install Node.js](#install-nodejs)
+  - [Get the course onto your machine](#get-the-course-onto-your-machine)
   - [Your first program](#your-first-program)
   - [The browser console is the same runtime in your pocket](#the-browser-console-is-the-same-runtime-in-your-pocket)
   - [console.log — the program speaks](#-consolelog--the-program-speaks)
@@ -55,6 +56,7 @@ There are no programming prerequisites. If you have never written a line of code
 By the end of this lesson you will be able to **do**:
 
 - install Node.js and verify it from a terminal;
+- clone (or download) this course, install its dependencies, and verify the environment;
 - write a JavaScript file and run it with Node;
 - open the browser console and run the same code there;
 - add JavaScript to a web page inline, internally, and externally;
@@ -113,7 +115,7 @@ You will use both. Today, you will use Node for files and the browser console fo
 
 ### Install Node.js
 
-Download the LTS (Long Term Support) version from [nodejs.org](https://nodejs.org/). Choose LTS — it is the stable line most teams use.
+Download the LTS (Long Term Support) version from [nodejs.org](https://nodejs.org/). Choose LTS — it is the stable line most teams use. This course supports **Node 20.19 or newer, or Node 22 or newer** (the current LTS lines). Pick the newest LTS installer. If your installed version is outside those lines, the environment check that runs during `npm install` will name the exact version to install.
 
 ![Node download](../images/download_node.png)
 
@@ -143,9 +145,52 @@ npm -v
 
 If either prints an error, the install did not complete or the terminal was opened before the install finished. Close and reopen the terminal, then try again. That is a common first trip-up, and the fix is always "reopen the terminal."
 
+### Get the course onto your machine
+
+You have two runtimes installed (`node` and `npm`). Now get this course's code onto your machine. The normal way uses **Git**.
+
+- **Git** — the tool that downloads and updates code repositories. Install it from [git-scm.com](https://git-scm.com/) (on Windows choose "Git for Windows" and keep the defaults). Verify with `git --version`.
+- **No Git yet?** You can still start today: on the course's GitHub page, click **Code > Download ZIP** and unzip it. You will want Git soon — the portfolio track uses it — but nothing today breaks without it.
+
+Open a terminal and clone the repository into a folder you control:
+
+```powershell
+git clone <repository-url>
+cd zero-to-hero-javascript-typescript
+```
+
+Replace `<repository-url>` with the repository address you were given. If you downloaded the ZIP instead, `cd` into the unzipped folder.
+
+Now install the course's dependencies — the one command that makes everything else work:
+
+```powershell
+npm.cmd install
+```
+
+That command does two things:
+
+1. It reads `package-lock.json` and installs the exact dependency tree the course was built against — TypeScript, tsx, and Vite included — into a `node_modules` folder. Nothing is installed globally. Every fresh clone gets the same tree.
+2. When the install finishes, it automatically runs the course's **environment check**, which verifies your Node version and that the course's key files are present.
+
+Then verify the whole loop with the three commands you will use every day:
+
+```powershell
+npm.cmd run day1:js
+npm.cmd run day1
+npm.cmd run check
+```
+
+- `npm.cmd run day1:js` runs today's JavaScript starter.
+- `npm.cmd run day1` runs the TypeScript starter (through tsx — no global TypeScript install needed).
+- `npm.cmd run check` type-checks every TypeScript starter in the course. A clean check prints nothing.
+
+If any command prints an error, read the message — it is the starting point of the fix — and consult [TROUBLESHOOTING.md](../TROUBLESHOOTING.md). On macOS, Linux, or Git Bash, `npm.cmd` is usually just `npm`; the `.cmd` suffix matters only on Windows PowerShell.
+
+From here on, run every command in this course from the repository root — the folder that contains `package.json`. Keep a terminal open there.
+
 ### Your first program
 
-Create a folder for this course and, inside it, a file named `hello.js` with one line:
+Inside the course folder you just cloned, create a file named `hello.js` with one line:
 
 ```js
 console.log('Hello, world!')
@@ -261,7 +306,7 @@ Download it from [code.visualstudio.com](https://code.visualstudio.com/) and ins
 
 ![VS Code interface](../images/vscode_ui.png)
 
-Open VS Code, then open the course folder with **File > Open Folder**. You will see the project files in the sidebar and the editor in the main area.
+Open VS Code, then open the course folder with **File > Open Folder** — choose the repository root you cloned (the folder containing `package.json`), not a single lesson folder. You will see the project files in the sidebar and the editor in the main area.
 
 ![Add the project to VS Code](../images/adding_project_to_vscode.png)
 
@@ -363,6 +408,8 @@ Reading error messages is not a sign of failure. It is the job. Do not ignore an
 | Mistake | What happens | The fix |
 | --- | --- | --- |
 | `node -v` says not found | Node not installed, or terminal opened before install | Reopen terminal; reinstall |
+| `git` is not recognized | Git not installed, or terminal opened before install | Install Git from git-scm.com; reopen the terminal |
+| `npm.cmd install` fails on the environment check | Node version outside 20.19+/22+ | Install the LTS version the error names, reopen the terminal, reinstall |
 | Unclosed quote | `SyntaxError` at the string | Close the quote |
 | `console.log(Hello)` (no quotes) | `ReferenceError: Hello is not defined` | Quotes make it text; unquoted names are variables |
 | `console.log(2 + 3` missing paren | `SyntaxError` | Close the parentheses |
@@ -525,6 +572,7 @@ Day 1 is complete when you can do all four of these **without notes**:
 2. Run the same idea in the browser console and say how it is the same runtime.
 3. Run `npm.cmd run day1:js` and `npm.cmd run day1` from the repo root.
 4. Explain to someone else why TypeScript files are checked and compiled before the runtime ever sees them.
+5. Explain, out loud, what `npm.cmd install` did and what the environment check verified.
 
 If any of the four is a guess, go back to the matching section before starting Day 2. This finish line is the course's contract with you: every day ends with things you can actually do, not just a page you read.
 
@@ -537,6 +585,7 @@ Write, in your own words, a short answer to each:
 3. Name one thing TypeScript catches and one thing it cannot catch.
 4. What does `%` do, and give a number that shows it.
 5. What is the difference between a comment and executable code?
+6. What does `npm.cmd install` do, and why does this course avoid installing tools globally?
 
 Your answers are the evidence for today. If you can write them, Day 1 is banked — move to [Day 2: Variables](../02_day_variables/02_day_variables.md).
 
