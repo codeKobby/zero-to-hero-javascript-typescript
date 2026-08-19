@@ -127,14 +127,13 @@ That is why the lesson folders use two entry pages:
 
 The browser workflow looks like this:
 
-1. You run `npm run dev`.
-2. Vite starts a local server.
+1. The JavaScript page opens directly from disk and loads `js/main.js` — no server involved.
+2. For the TypeScript page you run `npm run dev`; Vite starts a local server.
 3. The browser opens the lesson page from that server.
-4. The JavaScript page loads `js/main.js` directly.
-5. The TypeScript page imports `ts/main.ts`, and Vite transforms it for the browser.
-6. The browser receives JavaScript either way.
+4. The TypeScript page imports `ts/main.ts`, and Vite transforms it for the browser.
+5. The browser receives JavaScript either way.
 
-Do not open browser lesson HTML files directly from disk. The server path is part of the lesson.
+Only module-based and TypeScript browser pages need the server; the plain JavaScript pages behave the same on disk or served.
 
 ## Why not global installs?
 
@@ -152,7 +151,7 @@ Project-local tools keep the course reproducible.
 - Installing `tsx`, `typescript`, or `vite` globally instead of using the project copy.
 - Treating `noEmit` as if it disables checking. It does not.
 - Assuming TypeScript can prove external JSON, storage, or form input is valid without a runtime guard.
-- Opening a browser lesson directly from disk instead of through the local server.
+- Opening a TypeScript (or module-based) browser page directly from disk instead of through the Vite server.
 
 ## Practice before you move on
 

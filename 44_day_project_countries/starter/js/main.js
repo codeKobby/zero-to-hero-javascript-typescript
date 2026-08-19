@@ -1,4 +1,3 @@
-import { countries } from './data/countries.js'
 const format = value => new Intl.NumberFormat().format(value)
 const searchCountries = (items, query, region) => { const q = query.trim().toLowerCase(); return items.filter(country => (region === 'all' || country.region === region) && (!q || [country.name, country.capital, ...country.languages].some(value => value.toLowerCase().includes(q)))) }
 const languageStats = items => Object.entries(items.flatMap(country => country.languages).reduce((counts, language) => ({ ...counts, [language]: (counts[language] ?? 0) + 1 }), {})).sort((a, b) => b[1] - a[1]).slice(0, 3)

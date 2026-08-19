@@ -60,26 +60,19 @@ npm.cmd run day6:js
 npm.cmd run day6
 ~~~
 
-## 5. Browser lessons: the reproducible JS/TS path
+## 5. Browser lessons: the JS and TS pages
 
-DOM and project lessons run in a browser because document and localStorage do not exist in Node.js. This repository includes Vite as a local development dependency, so a fresh clone does not depend on a global server or a VS Code extension.
+DOM and project lessons run in a browser because document and localStorage do not exist in Node.js.
 
-From the repository root:
+Each lesson ships two entry pages. The JavaScript page is plain, so open `starter/index.html` directly in your browser (double-click the file); no server is needed. The TypeScript page imports a `.ts` starter that Vite transforms, so serve it from the repository root:
 
 ~~~bash
 npm.cmd run dev
 ~~~
 
-Vite prints a local address. Open the lesson's two entry pages:
+Vite prints a local address. Open the lesson's TypeScript path, for example `/24_day_dom_selection/starter/index.ts.html`, and keep the terminal running while you work. Each browser lesson documents its own paths.
 
-~~~text
-/24_day_dom_selection/starter/index.html
-/24_day_dom_selection/starter/index.ts.html
-~~~
-
-The first loads JavaScript. The second imports the TypeScript starter and lets Vite transform it for the browser. Each browser lesson documents its own paired paths. Keep the terminal running while you work.
-
-Use browser developer tools with F12 when you need to inspect the DOM, console, or network errors. Opening an HTML file directly from disk is not the canonical workflow because browser module and origin behavior differs from a served application.
+Use browser developer tools with F12 when you need to inspect the DOM, console, or network errors. The JavaScript page behaves the same on disk or served; only the TypeScript page requires the Vite server, because a browser cannot run a `.ts` file directly.
 
 ## Optional extensions
 
@@ -98,5 +91,5 @@ npm.cmd install       Install project tools once
 npm.cmd run dayN:js   Run JavaScript for Day N
 npm.cmd run dayN      Run TypeScript for Day N
 npm.cmd run check     Type-check every TypeScript starter
-npm.cmd run dev       Serve paired browser JS/TS pages with Vite
+npm.cmd run dev       Serve the TypeScript browser pages with Vite
 ~~~

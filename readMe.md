@@ -51,20 +51,18 @@ The paired starters should demonstrate the same runtime idea. TypeScript may add
 
 ## Browser lessons
 
-DOM and project lessons run in a browser. Vite is included locally, so cloned learners do not need a globally installed server or a particular VS Code extension:
+DOM and project lessons run in a browser. Each lesson ships two entry pages with the same starter code:
+
+- **JavaScript** — `starter/index.html` is plain, so open it directly in your browser (double-click the file). No server needed.
+- **TypeScript** — `starter/index.ts.html` imports a `.ts` file that Vite transforms, so serve it with the Vite included in this repository. From the repository root:
 
 ~~~powershell
 npm.cmd run dev
 ~~~
 
-Open the JavaScript or TypeScript entry page documented by the lesson. For example:
+Then open the path Vite prints, for example `/24_day_dom_selection/starter/index.ts.html`, and keep the Vite terminal running.
 
-~~~text
-/24_day_dom_selection/starter/index.html
-/24_day_dom_selection/starter/index.ts.html
-~~~
-
-The TypeScript page imports the .ts starter and Vite transforms it for the browser. Keep the Vite terminal running. Do not open the HTML directly from disk.
+A fresh clone needs no globally installed server or VS Code extension; Vite is a local dependency.
 
 ## Roadmap
 

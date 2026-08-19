@@ -61,13 +61,13 @@ A recipes app needs create, read, update, delete, and search — and it must sur
 
 ### The runnable slice
 
-The starter is a runnable create/read/search baseline. Run it with:
+The starter is a runnable create/read/search baseline. The JavaScript page opens directly — double-click `41_day_project_recipe/starter/index.html` (no server needed). The TypeScript page is served with Vite from the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open `/41_day_project_recipe/starter/index.html` for JavaScript or `/41_day_project_recipe/starter/index.ts.html` for TypeScript.
+Then open `/41_day_project_recipe/starter/index.ts.html`.
 
 The slice defines the recipe contract, guards storage, renders with `textContent`, and derives search from source state:
 
@@ -138,7 +138,7 @@ For each snippet, write down the exact result before running.
 1. Why does `JSON.parse` returning an object not make it a `Recipe[]`?
 2. Why should search be derived from source state instead of stored as a second list?
 3. Why must a delete button have an accessible name and not trust arbitrary dataset values?
-4. Run `npm.cmd run check` and `npm.cmd run links`; then `npm.cmd run dev` and open both starters.
+4. Run `npm.cmd run check` and `npm.cmd run links`; then open the JavaScript starter directly (`starter/index.html`) and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`).
 
 ### Level 2 — Applied mini-projects
 

@@ -201,7 +201,7 @@ For each snippet, write down the exact result before running.
 3. Why are favorites validated after parsing?
 4. Why do API keys not belong in browser source or committed `.env` files?
 5. Why is mock data not permission to skip failure states?
-6. Start `npm.cmd run dev`, open both starter pages, and confirm loading, a known city, an unknown city, favorites, and refresh all behave; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm loading, a known city, an unknown city, favorites, and refresh all behave on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 

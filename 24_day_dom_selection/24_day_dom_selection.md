@@ -78,18 +78,15 @@ Today is only about finding the exact element you intend to use. Tomorrow you wi
 
 ### Run JavaScript and TypeScript deliberately
 
-Start the modern local development server once from the repository root:
+The JavaScript page needs no server: open `24_day_dom_selection/starter/index.html` directly in your browser (double-click the file).
+
+The TypeScript page imports a `.ts` entry file, so it must be served. From the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open one of these paths shown by Vite:
-
-- JavaScript: `/24_day_dom_selection/starter/index.html`
-- TypeScript: `/24_day_dom_selection/starter/index.ts.html`
-
-The TypeScript page imports a `.ts` entry file and Vite compiles it for the browser. Do not open either HTML file directly from disk; a server gives browser modules their intended environment.
+Then open `/24_day_dom_selection/starter/index.ts.html` and keep the Vite terminal running. Vite compiles the `.ts` file for the browser.
 
 ### Query methods answer different questions
 
@@ -219,7 +216,7 @@ For each snippet, write down the exact result before running.
 4. Why is `querySelectorAll` not tested against `null`?
 5. Is a `NodeList` an array? What does it support?
 6. Why is an `HTMLInputElement` check stronger than a type assertion?
-7. Start `npm.cmd run dev`, open both starter pages, and confirm the output line appears; then run `npm.cmd run check` and confirm it passes.
+7. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm the output line appears on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 

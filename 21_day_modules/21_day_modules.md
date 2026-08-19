@@ -127,7 +127,7 @@ In a browser, the entry script must be marked as a module:
 <script type="module" src="./js/main.js"></script>
 ```
 
-Module scripts are deferred by default and follow the import graph. Opening files directly from disk can cause browser security problems; use a local development server for browser lessons. The setup guide explains the consistent workflow.
+Module scripts are deferred by default and follow the import graph, and a module page must be served — opening it directly from disk can cause browser security problems. In this course, module-based and TypeScript browser pages are served with Vite, while the plain JavaScript starter pages open directly from disk. The setup guide explains the workflow.
 
 ### Dynamic import is a later-loading tool
 

@@ -205,7 +205,7 @@ For each snippet, write down the exact result before running.
 3. When should you use `input.value` rather than `getAttribute('value')`?
 4. Why does `classList.toggle` preserve other classes?
 5. What does `document.createElement('li')` return before it is appended?
-6. Start `npm.cmd run dev`, open both starter pages, and confirm the output line appears; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm the output line appears on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 

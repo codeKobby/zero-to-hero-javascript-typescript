@@ -61,13 +61,13 @@ A forum is nested data plus user actions: posts contain comments, comments conta
 
 ### The runnable baseline
 
-The baseline supports creating posts and liking them. Run it with:
+The baseline supports creating posts and liking them. The JavaScript page opens directly — double-click `42_day_project_forum/starter/index.html` (no server needed). The TypeScript page is served with Vite from the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open `/42_day_project_forum/starter/index.html` for JavaScript and `/42_day_project_forum/starter/index.ts.html` for TypeScript.
+Then open `/42_day_project_forum/starter/index.ts.html`.
 
 Creation pushes into the single `posts` array; a delegated click handler finds the post by stable id and increments likes:
 
@@ -141,7 +141,7 @@ For each snippet, write down the exact result before running.
 1. Why does recursion need a base case, and why does a hostile tree need a size strategy?
 2. Why does storing both a sorted list and source posts cause stale views?
 3. Why must likes and replies identify stable ids rather than array indexes?
-4. Run `npm.cmd run check` and `npm.cmd run links`; then `npm.cmd run dev` and open both starters.
+4. Run `npm.cmd run check` and `npm.cmd run links`; then open the JavaScript starter directly (`starter/index.html`) and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`).
 
 ### Level 2 — Applied mini-projects
 

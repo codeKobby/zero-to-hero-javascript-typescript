@@ -1,4 +1,4 @@
-export const countries = [
+const countries = [
   { name: 'Ghana', capital: 'Accra', population: 34000000, region: 'Africa', area: 238533, languages: ['English', 'Akan'], flag: 'GH' },
   { name: 'Nigeria', capital: 'Abuja', population: 229000000, region: 'Africa', area: 923768, languages: ['English', 'Hausa', 'Yoruba'], flag: 'NG' },
   { name: 'Kenya', capital: 'Nairobi', population: 56000000, region: 'Africa', area: 580367, languages: ['English', 'Swahili'], flag: 'KE' },

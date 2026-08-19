@@ -53,13 +53,13 @@ The capstone expects the same real application in both languages. JavaScript pro
 
 ### The runnable baseline
 
-Run the planner with:
+Run the planner. The JavaScript page opens directly — double-click `45_day_capstone/starter/index.html` (no server needed). The TypeScript page is served with Vite from the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open `/45_day_capstone/starter/index.html` for JavaScript or `/45_day_capstone/starter/index.ts.html` for TypeScript. The planner stores `{ title, milestones }` in localStorage:
+Then open `/45_day_capstone/starter/index.ts.html`. The planner stores `{ title, milestones }` in localStorage:
 
 ```js
 const STORAGE_KEY = 'day45-capstone-plan'
@@ -128,7 +128,7 @@ For each snippet, write down the exact result before running.
 1. Why does JavaScript prove the runtime design while TypeScript layers on contracts?
 2. Why does strict `npm.cmd run check` not replace runtime validation at boundaries?
 3. Why is the README written before the code, not after?
-4. Run `npm.cmd run check` and `npm.cmd run links`; then `npm.cmd run dev` and open both planner pages.
+4. Run `npm.cmd run check` and `npm.cmd run links`; then open the JavaScript starter directly (`starter/index.html`) and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`).
 
 ### Level 2 — Applied mini-projects
 

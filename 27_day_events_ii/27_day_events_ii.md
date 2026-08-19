@@ -205,7 +205,7 @@ For each snippet, write down the exact result before running.
 3. Why is `preventDefault` separate from `stopPropagation`?
 4. Why can `FormData` contain `File` values?
 5. Why must the delegated handler guard `event.target` before `closest`?
-6. Start `npm.cmd run dev`, open both starter pages, and confirm a delegated task removal, a form submit, and the shortcut all update the page; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm a delegated task removal, a form submit, and the shortcut all update the page on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 

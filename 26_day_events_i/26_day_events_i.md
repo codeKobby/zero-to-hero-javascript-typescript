@@ -230,7 +230,7 @@ For each snippet, write down the exact result before running.
 3. What does `preventDefault` stop, and what does it not stop?
 4. Why does listener removal require the same function reference?
 5. What does `debounce` actually postpone — and what does it not do?
-6. Start `npm.cmd run dev`, open both starter pages, and confirm a click and a pause after typing both update the output; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm a click and a pause after typing both update the output on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 

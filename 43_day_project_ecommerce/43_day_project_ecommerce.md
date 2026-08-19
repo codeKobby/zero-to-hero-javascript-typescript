@@ -60,13 +60,13 @@ A product list composes search, category, stock, rating, and price filters, and 
 
 ### The runnable baseline
 
-Run the starter with:
+Run the starter. The JavaScript page opens directly — double-click `43_day_project_ecommerce/starter/index.html` (no server needed). The TypeScript page is served with Vite from the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open `/43_day_project_ecommerce/starter/index.html` for JavaScript or `/43_day_project_ecommerce/starter/index.ts.html` for TypeScript.
+Then open `/43_day_project_ecommerce/starter/index.ts.html`.
 
 The baseline derives the visible list from the product array and the current controls, then renders with `textContent` for every data value:
 
@@ -152,7 +152,7 @@ For each snippet, write down the exact result before running.
 1. Why does a second cart-product list invite synchronization bugs?
 2. Why does `sort` mutate its input, and when does copying matter?
 3. Why does a TypeScript interface not validate products loaded from localStorage?
-4. Run `npm.cmd run check` and `npm.cmd run links`; then `npm.cmd run dev` and open both starters.
+4. Run `npm.cmd run check` and `npm.cmd run links`; then open the JavaScript starter directly (`starter/index.html`) and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`).
 
 ### Level 2 — Applied mini-projects
 

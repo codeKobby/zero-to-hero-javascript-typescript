@@ -59,13 +59,13 @@ A country explorer processes a local dataset offline: search covers name, capita
 
 ### The runnable baseline
 
-Run the starter with:
+Run the starter. The JavaScript page opens directly — double-click `44_day_project_countries/starter/index.html` (no server needed). The TypeScript page is served with Vite from the repository root:
 
 ```powershell
 npm.cmd run dev
 ```
 
-Then open `/44_day_project_countries/starter/index.html` for JavaScript or `/44_day_project_countries/starter/index.ts.html` for TypeScript.
+Then open `/44_day_project_countries/starter/index.ts.html`.
 
 The baseline imports the local fixture and uses runtime checks:
 
@@ -150,7 +150,7 @@ For each snippet, write down the exact result before running.
 1. Why can't a TypeScript type prove that an imported JSON-like value is valid?
 2. Why does sorting the source array in place change later views?
 3. Why should statistics use the current filtered set, not stale global totals?
-4. Run `npm.cmd run check` and `npm.cmd run links`; then `npm.cmd run dev` and open both starters.
+4. Run `npm.cmd run check` and `npm.cmd run links`; then open the JavaScript starter directly (`starter/index.html`) and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`).
 
 ### Level 2 — Applied mini-projects
 

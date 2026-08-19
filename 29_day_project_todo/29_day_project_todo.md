@@ -216,7 +216,7 @@ For each snippet, write down the exact result before running.
 3. Why are filters derived, not stored?
 4. Why does `JSON.parse` need both a catch and a shape check?
 5. Why is a browser refresh part of the acceptance test?
-6. Start `npm.cmd run dev`, open both starter pages, and confirm add, toggle, delete, filter, and refresh all work; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm add, toggle, delete, filter, and refresh all work on both; then run `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
 
