@@ -16,6 +16,7 @@
   - [One boundary, walked through](#one-boundary-walked-through)
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -66,6 +67,8 @@ const STORAGE_KEY = 'day45-capstone-plan'
 const state = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{"title":"My capstone","milestones":[]}')
 ```
 
+`getItem` returns `null` when the key is missing, which is why the `??` fallback exists — [MDN documents Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and the [Web Storage guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) explains the missing-key case in detail.
+
 ### One vertical slice: input, state, render, persist
 
 The planner is a single vertical slice: the form reads input, `save` writes the whole state object, and `render` rebuilds the view from state. One source of truth, one save path, one render path:
@@ -74,6 +77,8 @@ The planner is a single vertical slice: the form reads input, `save` writes the 
 function save() { state.title = title.value.trim() || 'My capstone'; localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) }
 function render() { heading.textContent = state.title; list.replaceChildren(...state.milestones.map(item => { const li = document.createElement('li'); li.textContent = item; return li })) }
 ```
+
+Rebuilding the list is one `replaceChildren` call; [MDN documents Element.replaceChildren](https://developer.mozilla.org/en-US/docs/Web/API/Element/replaceChildren) showing why it beats manual `removeChild` loops for a whole-list re-render.
 
 ### Pitfalls table
 
@@ -84,6 +89,8 @@ function render() { heading.textContent = state.title; list.replaceChildren(...s
 | Treating `check` as the only safety | Types are erased | Validate data at boundaries |
 | Trusting untested code | Confidence | Test pure logic, then let a person break it |
 | Rendering data into `innerHTML` | Convenience | Use safe DOM APIs and accessible states |
+
+Trimming the input before saving relies on `trim`; [MDN documents String.prototype.trim](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim) including the whitespace definition it strips from both ends.
 
 ## The TypeScript layer
 
@@ -117,9 +124,28 @@ Strict `npm.cmd run check` proves the types line up; it cannot prove the app wor
 
 A capstone is an assessment: write the README first, build one vertical slice in JavaScript, carry the same design into TypeScript with contracts at the boundaries, test the pure logic, deploy, and let another person break it so you can record the fixes.
 
+## Learn more on MDN
+
+The capstone pulls together storage, parsing, rendering, and events — each with a reference page worth returning to:
+
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the parse step in `readPlan` that can throw and return the wrong shape
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the `Storage` object behind `getItem` and `setItem`
+- [Web Storage API guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) — the `null` for a missing key and when storage is unavailable
+- [Element.replaceChildren](https://developer.mozilla.org/en-US/docs/Web/API/Element/replaceChildren) — the whole-list re-render primitive the slice uses
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe, plain-text rendering of the title and milestones
+- [String.prototype.trim](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim) — input normalization at the form boundary
+- [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event) and [event.target](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) — the object your delegated handlers read before narrowing
+- [HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) — the `data-*` attributes routing per-item actions
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `typeof` and `in` checks inside `readPlan`
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what a shape-checked `unknown` to `Plan` conversion tells the compiler
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types the DOM reads in the starter
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -139,6 +165,7 @@ Build the capstone in order, recording evidence for each milestone in your proje
 3. Port the slice to `starter/ts` with interfaces, generics or utility types where they improve the design, and runtime validation for external data.
 4. Add tests for pure functions and manually test keyboard, mobile, refresh, empty, and failure states.
 5. Deploy and ask another person to break it. Record fixes and trade-offs in the README.
+6. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `removeItem` and `clear`, and add a "Reset plan" button that clears the stored plan and resets state to the defaults. Comment on which method fits resetting the whole plan and why.
 
 ### Level 3 — Creative synthesis
 

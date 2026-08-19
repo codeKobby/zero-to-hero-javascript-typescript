@@ -24,6 +24,7 @@
   - [What TypeScript cannot catch](#what-typescript-cannot-catch)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -154,6 +155,8 @@ console.log('' == 0)    // true  — both become... 0
 
 The conversions are a rabbit hole of special cases — exactly the kind of "wait, why?" that wastes hours. The decision is easy: **always use `===` and `!==`.** There are vanishingly few reasons to use `==`, and none of them matter to you yet. If you are ever tempted by `==` because it is shorter, remember it is shorter only because it hides a type conversion.
 
+MDN's [equality comparisons and sameness page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness) documents the full rabbit hole of loose-equality conversions, so you can see exactly what you are avoiding.
+
 ### Logical operators: and, or, not
 
 Logical operators combine conditions — and they are *not* limited to booleans, as the truthiness section shows. Start with the boolean case:
@@ -232,6 +235,8 @@ if (userInput !== null && userInput !== '') { /* real input */ }
 
 instead of relying on `if (userInput)`, which is also false for `0` — and `0` might be a legitimate answer to "how many items?"
 
+The glossary pages for [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) and [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) list the coercion rules, and [the Boolean reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) covers the `Boolean(...)` conversion you just used.
+
 ### Order of operations
 
 Arithmetic follows the usual precedence: `**` before `*`/`/` before `+`/`-`, left to right within a level. Comparison and logical operators have their own precedence rules, which are easy to misremember.
@@ -244,6 +249,8 @@ console.log((3 + 4) * 2) // 14 — parentheses win
 ```
 
 If an expression mixes more than one operator, add parentheses or split it into an intermediate variable. A future reader (including you, next month) will thank you.
+
+The full ranking — every operator, arithmetic to logical — is in [the operator precedence reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence).
 
 ### Common mistakes table
 
@@ -342,6 +349,24 @@ Comment the broken line back out when done so the starter keeps passing `npm run
 
 Operators are the verbs that turn values into new values; comparisons answer with booleans, `===` demands same value *and* same type, `&&`/`||` stop early left-to-right, truthiness makes every value a condition with exactly eight falsy exceptions, and TypeScript blocks mixed-type arithmetic before runtime.
 
+## Learn more on MDN
+
+Day 4 makes operators predictable, and MDN documents every rule. Bookmark these pages and return as you grow:
+
+- [Expressions and operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators) — the guide that ranks today's whole operator family
+- [Arithmetic operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_operators) — `+` through `**`, including the `%` remainder quirk
+- [Assignment operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment_operators) — the shorthand forms behind `+=` and friends
+- [Equality comparisons and sameness](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness) — why `===` and `==` are different creatures
+- [Logical operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_operators) — `&&`, `||`, `!` and their value-returning behavior
+- [Operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) — the full ranking table behind order of operations
+- [Truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) — the values that coerce to `true`
+- [Falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) — the exact eight values that coerce to `false`
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind today's numeric contracts
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `!== null` check narrows `number | null` to `number`
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -368,6 +393,7 @@ Predict the exact output (or the error) before running, then run and compare.
 4. A strict-vs-loose lab: log `5 === '5'`, `5 == '5'`, `0 === false`, and `0 == false`, and explain each result in a comment.
 5. A truthiness table: use `Boolean(...)` on `0`, `1`, `''`, `' '`, `null`, `undefined`, `NaN`, `[]`, `{}` and print the results.
 6. In TypeScript, create a `number | null` variable and use narrowing to safely double it inside an `if` check.
+7. **MDN lookup:** Open the [logical operators reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_operators), read how `||` returns the first truthy operand rather than a boolean, then write a `defaultName(name)` function that returns `name` or the string `'guest'` using `||`. Test it with `'Ada'`, `''`, and `null` and comment on the result for each.
 
 ### Level 3 — Creative synthesis
 

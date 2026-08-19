@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -118,6 +119,8 @@ function updateProfile(profile, changes) {
 
 The original values remain available for comparison, undo, or another consumer. Spread is a shallow copy; nested objects still need a deliberate update strategy.
 
+[The spread syntax page on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) documents what spread copies and what it does not — the distinction behind every immutable update in this lesson.
+
 ### Composition explains a pipeline
 
 ```js
@@ -136,6 +139,8 @@ console.log(normalize(' JavaScript Basics ')) // javascript-basics
 
 Trace the value after each function. If one step is confusing, name it and test it separately before composing it.
 
+[MDN's `Array.prototype.reduce` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) is the method behind the `pipe` helper — its accumulator contract is exactly what the composition loop uses.
+
 ### Callbacks and closures are still ordinary functions
 
 `map`, `filter`, and `reduce` work well with pure callbacks. A callback that changes outside state makes a pipeline harder to predict:
@@ -146,6 +151,8 @@ const passing = scores.filter((score) => score >= 80)
 ```
 
 Use `forEach` when the purpose is a side effect, such as rendering. Use `map` when the purpose is a new array.
+
+[MDN's `Array.prototype.map` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) is the entry point for the transformation methods — `filter`, `reduce`, and `forEach` each have their own page with the exact callback contract.
 
 ### Common mistakes table
 
@@ -215,6 +222,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Functional programming is a set of useful habits — pure functions with the same output for the same input, immutable updates that return new values, and composition that traces one value through small named steps with side effects pushed to clear boundaries.
 
+## Learn more on MDN
+
+The transformation methods and spread carry most of the weight here. Bookmark these pages and return as you grow:
+
+- [Array.prototype.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) — one new array, one value per item
+- [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — keeping the items that pass a predicate
+- [Array.prototype.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) — the accumulator contract behind `pipe`
+- [Array.prototype.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) — the side-effect iteration
+- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) — copying arrays and objects, and what stays shallow
+- [Array.prototype.toSorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) — a built-in immutable sort that returns a new array
+- [Array.prototype.with](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/with) — a built-in immutable element replacement
+- [Immutability](https://developer.mozilla.org/en-US/docs/Glossary/Immutable) — the glossary definition behind immutable updates
+- [Pure function](https://developer.mozilla.org/en-US/docs/Glossary/Pure_function) — the glossary definition behind pure functions
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind function contracts
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T` in `pipe<T>` and how it flows through the pipeline
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -230,7 +256,7 @@ For each snippet, write down the exact result before running.
 5. Why is a callback that mutates state harder to predict?
 6. Run `npm.cmd run day28:js` and `npm.cmd run day28`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2635 Apply Transform Over Each Element in Array — https://leetcode.com/problems/apply-transform-over-each-element-in-array/ (hint: NeetCode roadmap)
+**LeetCode:** 2635 Apply Transform Over Each Element in Array — https://leetcode.com/problems/apply-transform-over-each-element-in-array/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -238,6 +264,7 @@ For each snippet, write down the exact result before running.
 2. Write `updateUser` that returns a new object and leaves its input unchanged.
 3. Build a pipe that trims, lowercases, and adds a prefix.
 4. TypeScript: type the functions without using `any`.
+5. **MDN lookup:** Open the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), find the `initialValue` parameter, and rewrite the `pipe` helper to pass an explicit initial value. Comment on what changes if the first pipeline step receives `undefined` instead of the input.
 
 ### Level 3 — Creative synthesis
 

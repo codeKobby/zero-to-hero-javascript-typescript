@@ -17,6 +17,7 @@
   - [One boundary, walked through](#one-boundary-walked-through)
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -80,9 +81,11 @@ list.addEventListener('click', (event) => {
 })
 ```
 
+The handler reads `event.target` before narrowing it; [MDN documents event.target](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) including why the target can be any node inside the list, not only the button that was clicked.
+
 ### Identifiers, not indexes
 
-The button records `dataset.id`, and the handler searches the state for that id. Indexes would break as soon as sorting reorders the array; stable ids survive reordering and persistence.
+The button records `dataset.id`, and the handler searches the state for that id. Indexes would break as soon as sorting reorders the array; stable ids survive reordering and persistence. The search is `find`, and [MDN documents Array.prototype.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) including the `undefined` it returns when no post matches.
 
 ### Pitfalls table
 
@@ -93,6 +96,8 @@ The button records `dataset.id`, and the handler searches the state for that id.
 | Rendering user content with `innerHTML` | Convenience | Use `textContent` or a trusted sanitizer |
 | Indexing likes and replies by array position | Reorders after sorting | Use stable ids |
 | Trusting localStorage shape | Parsing succeeds | Validate recursively before use |
+
+Rendering user content with `textContent` is the habit the whole forum depends on; [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) and [Element.innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) read differently on MDN, and only the first is plain text.
 
 ## The TypeScript layer
 
@@ -130,9 +135,28 @@ The compiler cannot decide whether a comment has a safe depth, whether user cont
 
 A forum is one recursive state tree — posts contain comment trees, actions mutate by stable id, views are derived at render time, and user content is never trusted as HTML.
 
+## Learn more on MDN
+
+The forum is recursive state, delegated events, and storage recovery — each with a reference page worth returning to:
+
+- [Array.prototype.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) — looking a post up by stable id, and the `undefined` it returns
+- [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event) and [event.target](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) — the object a delegated handler reads before narrowing
+- [HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) — the `data-*` attributes behind like and reply actions
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe, plain-text rendering of posts and comments
+- [Element.innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) — the alternative property and the cost that comes with it
+- [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) — the in-place mutator your pure sort functions copy first
+- [Array.prototype.every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) — checking every node of a loaded tree before trusting it
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the `Storage` object behind persistence and malformed-storage recovery
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the unions and array types behind `Comment[]` and `sortBy`
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `instanceof HTMLButtonElement` narrows the event target
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what a recursive storage guard tells the compiler
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -152,6 +176,7 @@ Build the project in order, recording evidence for each milestone in your projec
 3. Add newest/most-liked/most-commented sorting as pure functions.
 4. Add a current-user simulation, persistence, and malformed-storage recovery.
 5. Add character counts, keyboard/focus behavior, and a README with evidence.
+6. **MDN lookup:** Open the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), find the callback signature and the initial value, and use it to count the total comments across all posts in one pass. Comment on what the initial value accomplishes and why it is required here.
 
 ### Level 3 — Creative synthesis
 

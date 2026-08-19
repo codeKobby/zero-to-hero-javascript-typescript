@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -79,7 +80,7 @@ The rest of this lesson hardens that exchange: missing keys, malformed text, blo
 
 `localStorage` persists strings for an origin. `sessionStorage` persists strings for one browser tab session. Both survive a page refresh; `localStorage` generally survives browser restarts while `sessionStorage` ends when its tab session ends.
 
-Use storage for small non-sensitive preferences, drafts, or cached UI state. Do **not** put passwords, access tokens, payment data, or private user data in `localStorage`. JavaScript running on the page can read it, including malicious code introduced through an XSS vulnerability.
+Use storage for small non-sensitive preferences, drafts, or cached UI state. Do **not** put passwords, access tokens, payment data, or private user data in `localStorage`. JavaScript running on the page can read it, including malicious code introduced through an XSS vulnerability. Both stores implement the same `Storage` interface — the [MDN Storage reference](https://developer.mozilla.org/en-US/docs/Web/API/Storage) lists the full `getItem`, `setItem`, `removeItem`, `clear`, `key`, and `length` API you will use through this course.
 
 ### Storage only stores strings
 
@@ -95,7 +96,7 @@ localStorage.setItem('preferences', JSON.stringify({ theme: 'dark' }))
 const raw = localStorage.getItem('preferences')
 ```
 
-Read results may be `null` and saved text may be malformed or from an older application version. Treat both as expected cases.
+Read results may be `null` and saved text may be malformed or from an older application version. Treat both as expected cases. The [Web Storage API guide on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) explains the string-only rule and the difference between `localStorage` and `sessionStorage` in the browser's own words.
 
 ### A narrow storage wrapper
 
@@ -132,7 +133,7 @@ try {
 }
 ```
 
-Do **not** clear all storage as a recovery shortcut. `localStorage.clear()` removes every key belonging to your origin, including data owned by unrelated parts of the same application.
+Do **not** clear all storage as a recovery shortcut. `localStorage.clear()` removes every key belonging to your origin, including data owned by unrelated parts of the same application. The [MDN Storage.clear() reference](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear) documents why `clear()` is so broad, and [Storage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem) is the surgical counterpart that removes a single key.
 
 ### Expiry is application metadata
 
@@ -208,6 +209,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Web storage is a small, synchronous, string-only, untrusted shelf — read with a fallback, write as JSON, guard the parsed shape, catch failures at the boundary, and never store secrets there.
 
+## Learn more on MDN
+
+Web storage has a small but sharp API — bookmark the pages that match the shelf you just read and wrote:
+
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the browser's persistent per-origin store
+- [Window.sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) — the tab-session-scoped counterpart
+- [Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage) — the shared interface: getItem, setItem, removeItem, clear, key, length
+- [Storage.setItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem) — can throw when storage is blocked, disabled, or full
+- [Storage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem) — removing a single key
+- [Storage.clear()](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear) — removing every key for the origin
+- [Using the Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) — availability, limits, and the string-only rule
+- [StorageEvent](https://developer.mozilla.org/en-US/docs/Web/API/StorageEvent) — the event fired when storage changes in another tab
+
+### TypeScript docs
+
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `localStorage` and its `string | null` reads
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T | null` pattern behind `loadJson`
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -230,6 +249,7 @@ For each snippet, write down the exact result before running.
 2. Add an expiry timestamp to a cached value and delete it once expired.
 3. Write `isPreferences(value)` to validate persisted preferences before use.
 4. TypeScript: use a type guard after parsing instead of asserting parsed text is `Preferences`.
+5. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `key()` and `length`, and write a `clearByPrefix(prefix)` helper that removes every stored key starting with a prefix without calling `clear()`. Comment on why this is safer than `localStorage.clear()` when an app stores many kinds of data under one origin.
 
 ### Level 3 — Creative synthesis
 

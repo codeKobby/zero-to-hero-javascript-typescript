@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -97,6 +98,8 @@ function lengthOf<T extends HasLength>(value: T): number {
 
 `extends` does not mean class inheritance here. It means the caller's type must include a `length` property. The value could be a string, array, or custom object.
 
+The handbook's [Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints) section is the same `extends` rule — constrain only what the implementation actually needs, never the runtime type.
+
 ### Keys and repositories
 
 ```ts
@@ -109,6 +112,8 @@ getProperty(product, 'price') // number
 ```
 
 The starter also builds a `Repository<Product>`. Trace what `create` receives and what `getAll` returns.
+
+The [Keyof Type Operator](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html) handbook page explains how `K extends keyof T` limits a key parameter to keys that actually exist.
 
 ### Common mistakes table
 
@@ -125,6 +130,8 @@ The starter also builds a `Repository<Product>`. Trace what `create` receives an
 ### A type parameter is a placeholder filled by the caller
 
 `function identity<T>(value: T): T` is checked once against the relationship "output has the input's type", then instantiated per call: `T` is `number` for `identity(42)`, `string` for `identity('ready')`. Nothing about `<T>` is emitted to JavaScript.
+
+The handbook's [Generics page](https://www.typescriptlang.org/docs/handbook/2/generics.html) walks through the same placeholder idea — including a `getProperty`-style helper very close to the one you wrote.
 
 ### What TypeScript cannot decide
 
@@ -162,6 +169,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Generics make one function preserve the relationship between input and output for every type, with `extends` and `keyof` constraining what the implementation may rely on — and with the emitted code still one ordinary JavaScript function.
 
+## Learn more on MDN
+
+### TypeScript docs
+
+The official handbook is the authority on every construct in this lesson — bookmark the pages that match what you just wrote:
+
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — type parameters, generic functions, and how the caller fills `T`
+- [Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints) — why `extends` here means shape, not inheritance
+- [Generic Types](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-types) — writing `Repository<T>`-style generic classes and interfaces
+- [Keyof Type Operator](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html) — the `keyof T` check behind safe key access
+- [Type Inference](https://www.typescriptlang.org/docs/handbook/2/type-inference.html) — how TypeScript picks the type argument when you omit it
+
+### MDN
+
+- [typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) — the runtime type check; generics are erased so there is no runtime equivalent
+- [in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in) — the runtime key lookup behind `keyof`-checked access
+- [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) — the runtime type behind `T[]` / `Array<T>` and the `length` constraint
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -176,7 +201,7 @@ For each snippet, write down the exact result before running.
 4. When would a generic be less clear than a plain annotation?
 5. Run `npm.cmd run day37:js` and `npm.cmd run day37`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 238 Product of Array Except Self — https://leetcode.com/problems/product-of-array-except-self/ (hint: https://neetcode.io/problems/products-of-array-discluding-self/question)
+**LeetCode:** 238 Product of Array Except Self — https://leetcode.com/problems/product-of-array-except-self/ (hint: https://neetcode.io/problems/products-of-array-discluding-self/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -184,6 +209,7 @@ For each snippet, write down the exact result before running.
 2. Implement `swap<A, B>` that returns a tuple with the arguments reversed.
 3. Implement a constrained `logLength` and call it with a string, an array, and a custom object.
 4. Implement a generic `Result<T, E>` union and a function that narrows it.
+5. **TypeScript docs lookup:** Open the handbook's [Generics page](https://www.typescriptlang.org/docs/handbook/2/generics.html) and find the [Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints) section. Write a generic `pluck<T, K extends keyof T>(object: T, key: K): T[K]` that returns one property, then constrain a second generic with `extends HasLength` and comment on what each `extends` restricts.
 
 ### Level 3 — Creative synthesis
 

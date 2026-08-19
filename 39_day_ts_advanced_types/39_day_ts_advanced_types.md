@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -84,6 +85,8 @@ type NumberResult = ReturnOf<() => number> // number
 
 `infer` asks TypeScript to name a piece it can discover. There is no runtime equivalent; JavaScript simply calls the function and handles the returned value.
 
+The handbook's [Conditional Types page](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html) covers the same `extends ? :` syntax, and the [inferring within conditional types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types) section is exactly the `infer Result` trick in `ReturnOf`.
+
 ### Mapped and template literal types
 
 ```ts
@@ -93,6 +96,8 @@ type ClickEvent = EventName<'click'> // 'onClick'
 ```
 
 Mapped types iterate over keys at compile time. Template literal types combine string literals at compile time. JavaScript uses ordinary `Object.keys` and string operations at runtime.
+
+The [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) and [Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) handbook pages cover both families — including the `Capitalize` helper your `EventName` used.
 
 ### Route parameters: a useful boundary
 
@@ -113,6 +118,8 @@ The starter's `ExtractParams<'/users/:id/posts/:postId'>` becomes `{ id: string;
 ### The compiler computes; JavaScript executes
 
 Every conditional, mapped, and template literal type is resolved at compile time and erased before the browser runs the file. The runtime work — parsing, mapping objects, reading keys — is ordinary JavaScript: `Object.entries`, string operations, and a real URL parser.
+
+The handbook's [Type Manipulation](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) tour connects conditional, mapped, and template literal types into one story about creating types from types.
 
 ### What TypeScript cannot decide
 
@@ -150,6 +157,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Advanced types compute new contracts from shapes — conditional on a relationship, inferred by discovery, mapped over keys, composed from string literals — so the compiler rejects misuse while editing, and the runtime still does the real work in JavaScript.
 
+## Learn more on MDN
+
+### TypeScript docs
+
+The official handbook is the authority on every construct in this lesson — bookmark the pages that match what you just wrote:
+
+- [Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html) — `extends ? :` and the distributive rule behind `IsString<T>`
+- [Inferring Within Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types) — the `infer` discovery behind `ReturnOf`
+- [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) — transforming every key, including the `-readonly` modifier
+- [Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) — composing string literals and the `Capitalize` helper
+- [Type Manipulation](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) — the overview connecting every tool in this lesson
+
+### MDN
+
+- [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) — the real runtime parser for the route data your type describes
+- [Object.entries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) — the runtime way to iterate an object where a mapped type only describes it
+- [Object.keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) — reading keys at runtime, where mapped types compute them at compile time
+- [String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) — the kind of runtime string check template literal types only describe
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -164,7 +190,7 @@ For each snippet, write down the exact result before running.
 4. Why can type-level route safety not prove what a server returned?
 5. Run `npm.cmd run day39:js` and `npm.cmd run day39`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 981 Time Based Key-Value Store — https://leetcode.com/problems/time-based-key-value-store/ (hint: https://neetcode.io/problems/time-based-key-value-store/question)
+**LeetCode:** 981 Time Based Key-Value Store — https://leetcode.com/problems/time-based-key-value-store/ (hint: https://neetcode.io/problems/time-based-key-value-store/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -172,6 +198,7 @@ For each snippet, write down the exact result before running.
 2. Create an `EventName` helper that turns `'click'` into `'onClick'`.
 3. Create a route-parameter type that extracts every `:name` segment.
 4. Add a JavaScript runtime parser for the route so you can distinguish compile-time and runtime work.
+5. **TypeScript docs lookup:** Open the handbook's [Template Literal Types page](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) and find the [Intrinsic String Manipulation Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html#intrinsic-string-manipulation-types) section. Build an `EventName<Name extends string>` helper that prefixes `on` to any `'click'`-style literal, then comment on what the compiler reports when you pass a plain `string` instead of a literal.
 
 ### Level 3 — Creative synthesis
 

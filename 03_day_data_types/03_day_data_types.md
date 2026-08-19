@@ -24,6 +24,7 @@
   - [What TypeScript cannot catch](#what-typescript-cannot-catch)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -108,6 +109,8 @@ A **primitive** value is a single value with no named parts. JavaScript has seve
 
 You will touch five of these constantly: string, number, boolean, undefined, null. Bigint and symbol are real and you should recognize them, but they are specialized tools you reach for rarely.
 
+The seven types are cataloged in [MDN's data structures reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures), and the two you rarely use each get their own page — [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) for very large exact integers, [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) for unique identifiers — so you can recognize them when you meet them.
+
 ### The five types you will use daily
 
 **String** — text, always written inside quotes:
@@ -131,6 +134,8 @@ console.log(Infinity)   // Infinity
 ```
 
 `NaN` is a number type whose value is "not a valid number." It is the result of math that fails, like `0 / 0`. It has a nasty habit: `NaN === NaN` is `false`. We will meet it again and give it the respect it demands.
+
+The full picture of the numeric type — the special values, the methods, and the constants like `Number.MAX_SAFE_INTEGER` — lives in [the Number reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
 
 **Boolean** — the two decisions:
 
@@ -232,6 +237,8 @@ console.log(Array.isArray({}))    // false
 ```
 
 Rule of thumb: `typeof` for primitives, `=== null` for null, `Array.isArray` for arrays.
+
+Every result `typeof` can return, including the edge cases, is listed in [the typeof reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof).
 
 ### The + trap: when operators change meaning
 
@@ -384,6 +391,24 @@ Which one you choose depends on what the value means — and *that* is the decis
 
 Every value carries a type that decides how it behaves; primitives are single values, reference values are shared collections pointed at by names, `undefined` and `null` are two different kinds of absence, and TypeScript makes the allowed type of each name a contract enforced before runtime.
 
+## Learn more on MDN
+
+Day 3 is about what a value is, and MDN has the vocabulary for all of it. Bookmark these pages and return as you grow:
+
+- [JavaScript data structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) — the seven primitive types and how they behave at runtime
+- [typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) — the operator behind today's two famous lies
+- [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined) — the value for "declared but never set"
+- [null](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null) — the value for "chosen nothing"
+- [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) — the numeric type, its special values, and its methods
+- [Array.isArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray) — the reliable test for arrays
+- [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) — exact integers beyond the ordinary number range
+- [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) — unique, unguessable identifiers
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind today's contracts
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `!== null` checks you wrote narrow a union to one type
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -411,6 +436,7 @@ For each, predict the exact output before running, then run and compare.
 4. Write a program that shows `undefined` and `null` as different values, using `console.log` and a comment explaining the difference in meaning.
 5. Write a program that uses `Number.isNaN` to check two expressions, one of which is `NaN`, and explains in a comment why `NaN === NaN` is false.
 6. In TypeScript, create a `string | null` variable, assign `null` to it, then safely print its length inside an `if` check.
+7. **MDN lookup:** Open the [typeof reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof), read how `typeof` reports a function, then log `typeof function named() {}`. Comment on why the result is not one of the seven primitive types.
 
 ### Level 3 — Creative synthesis
 

@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -86,7 +87,7 @@ The class is the recipe; each `new` call bakes a separate instance with its own 
 
 ### A class is one way to create related objects
 
-Use a class when an instance owns state and methods that work on that state. Do not create a class merely to hold a collection of unrelated helper functions.
+Use a class when an instance owns state and methods that work on that state. Do not create a class merely to hold a collection of unrelated helper functions. JavaScript's classes are syntax over its prototype-based inheritance — the [MDN class reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) explains the difference and the pieces this course uses: constructors, static methods, and field declarations.
 
 ### Read class code as an instance recipe
 
@@ -97,7 +98,7 @@ Trace `new ReadingProgress('JavaScript', 18)`:
 3. The constructor stores `title` and `completedLessons` on that object.
 4. The variable `progress` refers to the finished instance.
 
-Methods written in the class body are shared through the class prototype. The instance owns its changing data; it does **not** get a separate copy of every method.
+Methods written in the class body are shared through the class prototype. The instance owns its changing data; it does **not** get a separate copy of every method. The prototype mechanism underneath all of this is documented in the MDN guide [Inheritance and the prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain), which shows how method lookup actually walks the chain.
 
 ### Instance versus class
 
@@ -112,7 +113,7 @@ console.log(first.completedLessons)  // 20
 console.log(second.completedLessons) // 4
 ```
 
-`completeNextLesson` updated `first`'s own `completedLessons`; `second` is untouched. Methods are shared, state is per-instance.
+`completeNextLesson` updated `first`'s own `completedLessons`; `second` is untouched. Methods are shared, state is per-instance. The [MDN `new` operator reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) shows the exact steps `new` performs, including how the constructor is invoked with the fresh object as `this`.
 
 ### Methods need the right receiver
 
@@ -195,6 +196,23 @@ Comment the broken line back out when done so the starter keeps passing `npm run
 
 A class is a recipe for instances — `new` builds a fresh object, the constructor stores per-instance state on `this`, methods are shared through the prototype, and TypeScript declares the fields and constructor contract in advance.
 
+## Learn more on MDN
+
+Classes sit on top of a large language feature — bookmark the pages that match the recipe you just traced:
+
+- [Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) — class syntax, constructors, static members, and field declarations
+- [new operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) — the exact steps that build a fresh instance
+- [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) — the method that initializes each instance
+- [this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) — what `this` refers to during an instance method call
+- [Inheritance and the prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) — the guide behind class syntax
+- [Public class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields) — declaring state directly on the class body
+- [instanceof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) — the runtime check that an object is an instance
+
+### TypeScript docs
+
+- [Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html) — TypeScript's field declarations, modifiers, and constructor typing
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — `instanceof` narrowing for class instances
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -211,7 +229,7 @@ For each snippet, write down the exact result before running.
 6. `new ReadingProgress('X')` — what is `completedLessons` in this case (JavaScript)?
 7. Run `npm.cmd run day19:js` and `npm.cmd run day19`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2695 Array Wrapper — https://leetcode.com/problems/array-wrapper/ (hint: NeetCode roadmap)
+**LeetCode:** 2695 Array Wrapper — https://leetcode.com/problems/array-wrapper/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -226,6 +244,7 @@ For each snippet, write down the exact result before running.
 2. The clock: write a `Stopwatch` class with `elapsedSeconds`, `start()`, `tick()`, and `reset()`. Add a `label()` method. State the rule for what happens when `tick` runs before `start`.
 3. The catalog: build an array of three `ReadingProgress` instances and log each `summary()`. Show that mapping over them works like any object array.
 4. The decision memo: write a comment block comparing a class to a plain object-plus-function for the same `ReadingProgress` idea, and state when you would choose each.
+5. **MDN lookup:** Open the [class reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), find `static` methods and public class fields, and add a `static create(title, completedLessons)` factory plus a static counter that tracks how many `ReadingProgress` instances were created. Comment on why the counter is shared across all instances rather than stored per-instance.
 
 ## Finish line
 

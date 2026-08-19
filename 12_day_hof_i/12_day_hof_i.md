@@ -22,6 +22,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -160,7 +161,7 @@ const labels = names.map((name, index) => {
 console.log(labels) // ['1. Ada', '2. Grace', '3. Linus']
 ```
 
-Use the index only when it adds meaning. The item is usually enough.
+Use the index only when it adds meaning. The item is usually enough. Read the [map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) reference for the callback's full signature — value, index, and the whole array.
 
 ### filter: keep the items that pass a test
 
@@ -236,6 +237,8 @@ The final accumulator, 13, becomes the return value of `reduce`.
 | list you are building | `[]` |
 | object you are building | `{}` |
 
+Read the [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) reference for the complete callback signature and for what changes when you omit the initial value.
+
 ### forEach: do an action, do not build a result
 
 `forEach` calls the callback once per item, like a `for...of` loop, and returns `undefined`:
@@ -248,7 +251,7 @@ names.forEach(function(name) {
 })
 ```
 
-The `undefined` return is intentional: its purpose is an **action** such as logging, updating a page, or sending a request — not creating a new array.
+The `undefined` return is intentional: its purpose is an **action** such as logging, updating a page, or sending a request — not creating a new array. See [forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) for the documented behavior.
 
 ```js
 const result = names.forEach(name => name.toUpperCase())
@@ -363,6 +366,23 @@ Read it as: *"You called a string method on a value TypeScript knows is a number
 
 Array methods are higher-order functions that each answer one selector question — `map` makes one new value per item, `filter` keeps the true items, `reduce` folds everything into one accumulated result, and `forEach` performs an action and returns nothing — while TypeScript checks the callback's contract and your tests check the goal.
 
+## Learn more on MDN
+
+Bookmark these pages and return as you grow:
+
+- [map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) — one new array, one transformed item per input item.
+- [filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — keep the items that pass a boolean test.
+- [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) — fold all items into one accumulated result.
+- [forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) — run an action per item and return nothing.
+- [Higher-order function](https://developer.mozilla.org/en-US/docs/Glossary/Higher-order_function) — the glossary term for a function that takes or returns a function.
+- [Callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) — the input function each array method calls per item.
+- [Indexed collections](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections) — the guide's take on array methods and when to use them.
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — typing arrays so callbacks are inferred.
+- [Type Inference](https://www.typescriptlang.org/docs/handbook/type-inference.html) — how callback parameters and results are inferred.
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -382,7 +402,7 @@ For each snippet, write down the exact output before running.
 9. What does `scores.filter(score => score >= 50)` return for `[42, 78, 91, 49, 65]`, and why does `49` not appear?
 10. Run `npm.cmd run day12:js` and `npm.cmd run day12`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2626 Array Reduce Transformation — https://leetcode.com/problems/array-reduce-transformation/ (hint: NeetCode roadmap)
+**LeetCode:** 2626 Array Reduce Transformation — https://leetcode.com/problems/array-reduce-transformation/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -392,6 +412,7 @@ For each snippet, write down the exact output before running.
 4. Print each color in `['red', 'green', 'blue']` with `forEach`.
 5. TypeScript: type the source as `number[]` and the `map` result as `string[]` — convert `[42, 78, 91]` to `['Score: 42', 'Score: 78', 'Score: 91']`.
 6. Build `'Ada, Grace, Linus'` from the names array with `reduce` and initial value `''`. Explain why the string does not start with a comma.
+7. **MDN lookup:** on the [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) page, read the section about omitting the initial value, then write `sum(numbers)` with `reduce` using an explicit `0`, and in a comment note what would change — and what could break — if you left the initial value out.
 
 ### Level 3 — Creative synthesis
 

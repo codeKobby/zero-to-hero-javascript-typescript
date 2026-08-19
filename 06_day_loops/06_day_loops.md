@@ -23,6 +23,7 @@
   - [What TypeScript cannot catch](#what-typescript-cannot-catch)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -217,6 +218,8 @@ Choose:
 
 Do **not** use `for...in` with arrays. It produces property *names* such as `'0'` and `'1'`, not the array values. We will meet its proper object use after Day 9.
 
+The [for...of reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) shows that any iterable works — arrays, strings, and more — and [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) documents why you keep it for objects.
+
 ### while loops: continue until something changes
 
 Use `while` when the stopping condition is the main idea, rather than a counter:
@@ -242,6 +245,8 @@ Game over
 ```
 
 The `while` form does not hide the change in a header. The change must live inside the body, and that is exactly where beginners forget it.
+
+The [while reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while) covers the basic form, and [do...while](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/do...while) is the variant that runs the body once before checking — handy when at least one round always makes sense.
 
 ### The most dangerous loop bug: no progress
 
@@ -300,6 +305,8 @@ Output:
 When `number` is 3, `continue` skips `console.log` for that round. The loop still performs its normal change and continues with 4.
 
 Use `break` and `continue` sparingly. A clear `if` is usually easier to read than several jumps.
+
+The [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break) and [continue](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/continue) references on MDN show exactly what each does to the loop's flow.
 
 ### Common mistakes table
 
@@ -401,6 +408,24 @@ Read it as: *"`scores` is a list of numbers — a string cannot be pushed into i
 
 A loop repeats **start → check → work → change**; trace those four steps on paper whenever a loop feels confusing, and remember that TypeScript checks the types inside the loop but never the loop's logic.
 
+## Learn more on MDN
+
+Day 6 makes repeating work safe, and MDN documents every loop. Bookmark these pages and return as you grow:
+
+- [for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) — the counting loop with start, check, and change in the header
+- [for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) — visiting each item of an array (or string) in order
+- [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) — the object loop you keep away from arrays
+- [while](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while) — the loop that continues until a condition changes
+- [do...while](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/do...while) — the variant that always runs its body at least once
+- [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break) — stopping a loop immediately
+- [continue](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/continue) — skipping one round without ending the loop
+- [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) — the machinery `for...of` relies on under the hood
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the array annotations behind `scores: number[]`
+- [TypeScript for the New Programmer](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html) — the why behind checking types before runtime
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -428,6 +453,7 @@ For each snippet, write down the exact output before running.
 4. Given `[12, 7, 20, 4]`, use a loop to count how many values are at least 10. Expected answer: 2.
 5. Find the first score below 50 in `[82, 91, 47, 76, 40]`, printing each score you check and stopping as soon as you find the low one.
 6. Print only the odd numbers from 1 through 10 using `continue` on the evens.
+7. **MDN lookup:** Open the [for...of reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of), read how it iterates strings as well as arrays, then use it to print each character of `'Ada'` on its own line. Comment on why no index is needed.
 
 ### Level 3 — Creative synthesis
 

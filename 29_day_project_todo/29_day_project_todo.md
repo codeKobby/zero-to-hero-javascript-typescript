@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -89,6 +90,8 @@ function isTodo(value) {
 
 The todo is valid only when every expected property has the expected runtime type. `null` fails because `typeof null === 'object'`.
 
+`typeof` is doing the real work here, and it has sharp edges — [MDN documents `typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) including the historical `typeof null === 'object'` quirk you just relied on.
+
 ### Rendering from one source of truth
 
 The list is rebuilt from state on every change:
@@ -107,6 +110,8 @@ for (const todo of visibleTodos()) {
 
 Rendering user text with `innerHTML` can create a markup injection bug; `textContent` assigns plain text instead of parsing it.
 
+Both properties are worth reading side by side on MDN — [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) (plain text, safe for user input) and [Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) (parsed markup, dangerous for user input).
+
 ### Persistence is a boundary, not a promise
 
 ```js
@@ -123,6 +128,8 @@ function load() {
 ```
 
 `JSON.parse` can throw and can return the wrong shape. The `try/catch` covers the throw; the `Array.isArray` and `every(isTodo)` checks cover the shape. The app remains usable when storage is blocked.
+
+[MDN's `JSON.parse` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) shows the throw path (a `SyntaxError` on malformed text), and the [Web Storage guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) explains why `localStorage.getItem` returns `null` for a missing key — the exact case the TypeScript compiler forced you to handle.
 
 ### Derived filters, not duplicated state
 
@@ -203,9 +210,27 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 A todo app is a loop — validate input into a typed todo, update one source of truth, derive the visible list, render with `textContent`, persist at the boundary, and guard everything read from storage because the browser can return `null` or the wrong shape.
 
+## Learn more on MDN
+
+The todo app touches the DOM, storage, and events — each with a reference page worth returning to:
+
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe, plain-text rendering of user input
+- [Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) — markup rendering, and why it is dangerous for user text
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the throw path and return shape you must guard
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the `Storage` object behind `getItem`/`setItem`
+- [Web Storage API guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) — when storage is available, when it is not, and the `null` for a missing key
+- [Element.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) — the `data-*` attributes that route your delegated clicks
+- [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event) and [event.target](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) — the object your delegated handler reads
+- [HTMLElement.replaceChildren](https://developer.mozilla.org/en-US/docs/Web/API/Element/replaceChildren) — the re-render primitive you used for the list
+
+### TypeScript docs
+
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types the DOM reads in `isTodo`
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what `value is Todo` tells the compiler, and what it still does not prove
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -224,6 +249,7 @@ For each snippet, write down the exact result before running.
 2. Add a filter row of three buttons (All, Active, Completed) that sets `state.filter` and re-renders without duplicating todo data.
 3. Extend the save/load boundary: version the storage key as `day29-todos-v2` and migrate an old array when present.
 4. TypeScript: extend `isTodo` with a `note?: string` field and keep the type predicate honest.
+5. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `removeItem` and `length`, and add a "Clear completed" button that removes every completed todo from state *and* from storage using those methods. Comment on whether `clear()` would also be correct here and why.
 
 ### Level 3 — Creative synthesis
 

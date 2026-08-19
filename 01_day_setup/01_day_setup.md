@@ -28,6 +28,7 @@
   - [Inference versus explicit types](#inference-versus-explicit-types)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -184,7 +185,7 @@ npm.cmd run check
 - `npm.cmd run day1` runs the TypeScript starter (through tsx — no global TypeScript install needed).
 - `npm.cmd run check` type-checks every TypeScript starter in the course. A clean check prints nothing.
 
-If any command prints an error, read the message — it is the starting point of the fix — and consult [TROUBLESHOOTING.md](../TROUBLESHOOTING.md). On macOS, Linux, or Git Bash, `npm.cmd` is usually just `npm`; the `.cmd` suffix matters only on Windows PowerShell.
+If any command prints an error, read the message — it is the starting point of the fix — and consult [TROUBLESHOOTING.md](../TROUBLESHOOTING.md) or [VS_CODE_SETUP.md](../VS_CODE_SETUP.md) for editor setup and tooling. On macOS, Linux, or Git Bash, `npm.cmd` is usually just `npm`; the `.cmd` suffix matters only on Windows PowerShell.
 
 From here on, run every command in this course from the repository root — the folder that contains `package.json`. Keep a terminal open there.
 
@@ -258,6 +259,8 @@ console.log(`backtick`)
 
 This course uses single quotes by default. Backticks become important later when you meet template literals.
 
+`console` is bigger than `log` — [the console reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/console) lists `console.warn`, `console.error`, `console.table`, and the rest you will meet in later days.
+
 ### Comments are for humans
 
 A comment is text the runtime ignores. Comments are for the human reader — for the person who comes back to this file in six months, which is often you.
@@ -295,6 +298,8 @@ Two operators need a moment of attention:
 - `**` is **exponentiation**. `3 ** 2` is 3 squared, which is 9.
 
 Do not read these as "equals." Read them as "evaluates to." `console.log(2 + 3)` evaluates to printing `5`.
+
+Arithmetic is a slice of a larger family — [the expressions and operators guide on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators) ranks every operator, from `+` to `===` to `&&`, in one precedence table.
 
 ### Set up your code editor
 
@@ -402,6 +407,8 @@ Close the quote and the same line runs. The pattern to internalize:
 - finding and fixing errors is called **debugging**, and it is a core skill of the job.
 
 Reading error messages is not a sign of failure. It is the job. Do not ignore an error message; read the first line, which names the file and line, then the message.
+
+Every error type has a page — [the JavaScript error reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) catalogs `SyntaxError`, `ReferenceError`, `TypeError`, and dozens more, each with examples of the code that triggers it.
 
 ### Common mistakes table
 
@@ -528,6 +535,24 @@ Now `npm.cmd run check` passes silently, which is the sound of nothing wrong. A 
 
 Code is text and a runtime turns it into behavior; TypeScript is a checking layer that reads your text before the runtime does, catches type mistakes, then compiles to the very JavaScript the runtime runs.
 
+## Learn more on MDN
+
+Day 1 builds the machine model everything else hangs off, and MDN has the full picture. Bookmark these pages and return as you grow:
+
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) — the language overview and its history
+- [JavaScript guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide) — the official walk-through of the language
+- [console](https://developer.mozilla.org/en-US/docs/Web/API/console) — every method beyond `log`, from `warn` to `table`
+- [Expressions and operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators) — the operator family behind today's arithmetic, ranked in one table
+- [JavaScript error reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) — the exact meaning of each runtime error
+- [SyntaxError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError) — the error when text does not match the language's rules
+- [ReferenceError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError) — the error for names that do not exist
+- [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — the error for the wrong kind of operation on a value
+
+### TypeScript docs
+
+- [TypeScript for the New Programmer](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html) — why TypeScript exists and how it wraps JavaScript
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations you will start writing today
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md). The solutions explain *decisions*, not just code.
@@ -555,6 +580,7 @@ Attempt the exercises before opening [hints](practice/hints.md) or [solutions](p
 6. Write a file that uses a single-line comment and a multi-line comment, then a `console.log`. Run it and confirm the comments do not print.
 7. Run `npm.cmd run check` on an unchanged starter and confirm it passes silently. Then break one type annotation, run check again, and read the error.
 8. Find the file `01_day_setup/starter/ts/my-first-ts.ts`. Read it, run it, and add one more line of your own.
+9. **MDN lookup:** Open the [console reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/console), find `console.table`, and use it to print the results of `3 ** 2`, `2 ** 10`, and `10 ** 3` in a small table. Comment on how the table output differs from `console.log`.
 
 ### Level 3 — Creative synthesis
 

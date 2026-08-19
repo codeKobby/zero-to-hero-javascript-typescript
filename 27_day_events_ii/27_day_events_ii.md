@@ -18,6 +18,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -83,6 +84,8 @@ list.addEventListener('click', (event) => {
 
 The click begins at the button, bubbles to the list, and `closest` finds the task that owns that button. The guards matter: a list can contain other elements and `EventTarget` is not automatically an element.
 
+`closest` walks up the ancestors from the target — [MDN's `Element.closest` reference](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest) documents the selector matching rules and that it returns `null` when no ancestor matches.
+
 ### Form submission is a browser default
 
 ```js
@@ -102,6 +105,8 @@ The `submit` event is the correct place to handle a form, including pressing Ent
 
 Without a `name`, the control is not included in the submitted data.
 
+[The `FormData` reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/FormData) documents `get`, `getAll`, `has`, `append`, and `set`, and how file inputs arrive as `File` values.
+
 ### Keyboard shortcuts must respect context
 
 ```js
@@ -114,6 +119,8 @@ document.addEventListener('keydown', (event) => {
 ```
 
 Do not steal ordinary browser or assistive-technology shortcuts without a clear reason. Escape is often useful for closing a dialog, but only if your page has a dialog to close.
+
+[MDN's `KeyboardEvent` reference](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) documents `key`, `ctrlKey`, `metaKey`, and `repeat` — the properties that distinguish a real shortcut from an accidental one.
 
 ### Common mistakes table
 
@@ -192,6 +199,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Delegation puts one listener on the stable parent and finds the owning element with `closest`; a form is read at submit after `preventDefault`, with every `FormData` entry narrowed before it enters typed state.
 
+## Learn more on MDN
+
+Delegation and forms hang off a few foundational pages. Bookmark these and return as you grow:
+
+- [Element.closest](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest) — finding the owning ancestor from any bubbled target
+- [Element.matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) — the selector check behind delegation guards
+- [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) — reading submitted controls by their `name`
+- [FormData.get](https://developer.mozilla.org/en-US/docs/Web/API/FormData/get) — the single-entry accessor and its `File` cases
+- [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement) — the element behind `form` and its `elements` collection
+- [Event.preventDefault](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) — stopping navigation before the data is read
+- [Document: keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event) — the event behind keyboard shortcuts
+- [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) — `key`, `ctrlKey`, `metaKey`, and `repeat`
+- [HTMLFormElement: submit event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event) — the submit event you read today
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `typeof` checks that prove a `FormDataEntryValue` is text
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind the typed form object
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -213,6 +239,7 @@ For each snippet, write down the exact result before running.
 2. Handle form submit, prevent navigation, and display the submitted name.
 3. Add a `Cmd/Ctrl+S` shortcut that updates a status message.
 4. TypeScript: convert `FormData` entries into a validated `FormValues` object.
+5. **MDN lookup:** Open the [FormData reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/FormData), find the `getAll()` method, and add two checkboxes with the same `name` to a form; read them back with `getAll('tags')` and render each selected value. Comment on why `get` would only return the first one.
 
 ### Level 3 — Creative synthesis
 

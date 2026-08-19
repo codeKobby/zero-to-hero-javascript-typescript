@@ -23,6 +23,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -112,7 +113,7 @@ Read it from right to left:
 2. Look up its `name` property and store it in a variable named `name`.
 3. Look up its `track` property and store it in a variable named `track`.
 
-The braces are **not** making a new object here. On the left side of `=`, braces describe *which properties to pull out*.
+The braces are **not** making a new object here. On the left side of `=`, braces describe *which properties to pull out*. Read the [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) reference for the full syntax.
 
 ### Object destructuring uses property names
 
@@ -201,7 +202,7 @@ Rest must be the **last** element because it means "everything that is still lef
 // const [...others, last] = [1, 2, 3]   // Error: rest must be last
 ```
 
-Rest creates a new outer array or object, but it is not a deep copy. If a nested object is shared, both outer containers still point to that same nested object.
+Rest creates a new outer array or object, but it is not a deep copy. If a nested object is shared, both outer containers still point to that same nested object. See [Rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) for how the same token works in function calls.
 
 ### Spread places values into something new
 
@@ -217,7 +218,7 @@ const promotedProfile = { ...originalProfile, role: 'mentor' }
 // promotedProfile is { name: 'Mina', role: 'mentor' }
 ```
 
-For `allTopics`, JavaScript makes a new array containing the elements of `requiredTopics`, then adds `'arrays'`. For `promotedProfile`, it copies the listed properties, then the later `role` property **replaces** the earlier one.
+For `allTopics`, JavaScript makes a new array containing the elements of `requiredTopics`, then adds `'arrays'`. For `promotedProfile`, it copies the listed properties, then the later `role` property **replaces** the earlier one. Read the [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) reference to see every place spread works.
 
 This gives the clean "immutable update" pattern — change a copy, never the original:
 
@@ -337,6 +338,23 @@ Read it as: *"You asked to pull `learnerId` out of a `Learner`, but `Learner` ha
 
 Destructuring pulls values out of a source in one line — objects by name, arrays by position, with defaults that fire only on `undefined`, rest gathering what remains, and spread placing contents into something new — while TypeScript checks that every name you pull out actually exists in the source's type.
 
+## Learn more on MDN
+
+Bookmark these pages and return as you grow:
+
+- [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) — the full syntax for pulling values out of arrays and objects.
+- [Rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) — gathering remaining values, including in function calls.
+- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) — placing contents into an array literal, object literal, or call.
+- [Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters) — the function-side cousin of destructuring defaults.
+- [Object initializer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer) — how object literals, shorthand, and computed names work.
+- [Property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors) — dot and bracket notation behind every destructured name.
+- [Shallow copy](https://developer.mozilla.org/en-US/docs/Glossary/Shallow_copy) — why nested objects are still shared after spread and rest.
+
+### TypeScript docs
+
+- [Variable Declarations](https://www.typescriptlang.org/docs/handbook/variable-declarations.html) — destructuring and rest in TypeScript, in depth.
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the source types your destructured variables are inferred from.
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -364,6 +382,7 @@ For each snippet, write down the exact output before running.
 4. From a `learner` object, destructure `name` and use rest to collect the remaining properties into `progress`.
 5. TypeScript: define a `Task` type with an optional `assignee`. Destructure it with a fallback of `'unassigned'`.
 6. Write `printFirstTwo(scores)` that destructures the first two items in its parameter and logs them.
+7. **MDN lookup:** on the [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) page, read the "Assigning to new variable names" section, then write `extractTitle(book)` that destructures `title` into a variable named `bookTitle` and returns it.
 
 ### Level 3 — Creative synthesis
 

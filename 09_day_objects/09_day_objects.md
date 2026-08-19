@@ -23,6 +23,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -133,6 +134,8 @@ console.log(book.propertyName)  // undefined      (looks for a key literally nam
 
 Rule: if the property name is *dynamic* (from a variable or an expression), use brackets. If it is a *literal* name you typed, use a dot.
 
+Both forms have more nuance than this lesson needs — the [MDN reference for property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors) documents chained access, computed keys, and optional chaining (`object?.key`) for safely reading nested properties.
+
 ### Add and update properties
 
 ```js
@@ -183,6 +186,8 @@ console.log(checkedOutBook.isAvailable) // false
 
 The spread operator creates a **new** object. `originalBook` and `checkedOutBook` are separate objects. This is a **shallow** copy: nested objects are shared, not duplicated — you will meet nested copying again in later days.
 
+Spread does more than copy objects — [read about spread syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) to see it merge objects, expand array arguments into calls, and collect leftovers.
+
 ### Methods: a property whose value is a function
 
 A **method** is a property whose value is a function:
@@ -220,6 +225,8 @@ const wrongBook = {
 ```
 
 An arrow function does not create its own `this`. It captures the `this` of where it was *written*, not the object it lives in. For methods that read the object's data, use method syntax.
+
+`this` has more call forms than this lesson shows — [the MDN reference for `this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) walks through method calls, free calls, arrow functions, and event handlers, and what `this` becomes in each.
 
 ### Getters: computed reads
 
@@ -346,6 +353,25 @@ Read it as: *"`Book.id` is declared `readonly`, so assigning to it through a `Bo
 
 An object groups related facts as named properties; read literal names with a dot and dynamic names with brackets, copy before mutating shared objects, and remember that `this` inside a method is whatever object stood before the dot — while TypeScript checks the object's shape, not the trustworthiness of outside data.
 
+## Learn more on MDN
+
+Objects look simple and hide deep mechanics. Bookmark these pages and return as you grow:
+
+- [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) — the global reference for every object and its static helpers
+- [Object literal syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer) — shorthand properties, computed keys, and nested literals
+- [Property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors) — dot and bracket notation, plus optional chaining
+- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) — copying, merging, and placing object contents
+- [this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) — how the call site decides what `this` is
+- [Method definitions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions) — the clean method syntax used in this lesson
+- [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) — the classic alternative to spread for copying properties
+- [Object.freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) — when you genuinely want a frozen object
+
+### TypeScript docs
+
+- [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) — describing an object's shape, optional properties, and readonly fields
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — object type literals and type aliases
+- [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html) — optional properties and index signatures in detail
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -365,7 +391,7 @@ For each snippet, write down the exact output before running.
 9. What does `book.description` produce when `description` is a getter, and why is there no `()`?
 10. Run `npm.cmd run day9:js` and `npm.cmd run day9`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 242 Valid Anagram — https://leetcode.com/problems/valid-anagram/ (hint: https://neetcode.io/problems/is-anagram/question)
+**LeetCode:** 242 Valid Anagram — https://leetcode.com/problems/valid-anagram/ (hint: https://neetcode.io/problems/is-anagram/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -374,6 +400,7 @@ For each snippet, write down the exact output before running.
 3. Add a `watched` property **without changing the original** — copy first, then set `watched: true` on the copy.
 4. Add a `describe()` method that uses `this` to return `'TITLE by DIRECTOR'`.
 5. Define a `Movie` interface in the TS starter matching your object, then intentionally give `year` a string value and read the error.
+6. **MDN lookup:** Open the [Object reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), find `Object.keys` (which returns an array of an object's own property names), and use it to write `printKeys(movie)` that logs each key of your `movie` object. Verify it lists `title`, `director`, and `year`, and comment on whether the order is guaranteed.
 
 ### Level 3 — Creative synthesis
 

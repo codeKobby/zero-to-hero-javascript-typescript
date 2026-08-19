@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -89,6 +90,8 @@ interface Employee extends User { department: string }
 
 Neither choice validates a value received from `JSON.parse`. That value is `unknown` until a runtime guard proves it.
 
+The [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) explains the choice in its own words: [Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#interfaces) are for extendable object shapes, [Type Aliases](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases) for unions and composition. The page even shows the interface `extends` syntax you used above.
+
 ### Narrowing a union
 
 ```ts
@@ -103,9 +106,13 @@ function message(response: Response): string {
 
 `response.ok` is the discriminator. Once the branch checks it, TypeScript knows which fields exist. In JavaScript the same pattern works, but the editor cannot guarantee that every caller supplied the right shape.
 
+The handbook section on [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions) is exactly this pattern — read it to meet the `never` check that makes a union exhaustive (Level 3 below uses it).
+
 ### Types disappear at runtime
 
 `interface`, `type`, and the union disappear after compilation. Nothing ships to the browser. That is why a guard must exist in code for data crossing a network, storage, or DOM boundary — the compiler cannot be the runtime check.
+
+The handbook's [Everyday Types page](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) notes the same erasure: "Type annotations are erased at compile time." And because erased types cannot validate `JSON.parse` output, the runtime check is real JavaScript — [MDN documents `JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse), the function your guards must wrap.
 
 ### Common mistakes table
 
@@ -159,6 +166,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 TypeScript types and interfaces are a compile-time contract that describes shape, narrows unions through a discriminator, and vanishes at runtime — while runtime guards, not assertions, are the only thing that validates data crossing a boundary.
 
+## Learn more on MDN
+
+### TypeScript docs
+
+The official handbook is the authority on every construct in this lesson. Bookmark the pages that match what you just wrote:
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — interfaces, type aliases, unions, and literal types in one tour
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the full family of narrowing checks, including the `in` operator you used in guards
+- [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html) — optional properties, readonly, and index signatures
+- [Type Manipulation](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) — what type aliases can compose beyond unions and tuples
+- [Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — `value is Book` predicates and the `unknown` boundary
+
+### MDN
+
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the runtime function your guards must wrap
+- [typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) — the runtime type check behind every guard
+- [instanceof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) — the runtime check for class instances
+- [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — what the emitted JavaScript can throw when a guard is missing
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -173,7 +199,7 @@ For each snippet, write down the exact result before running.
 4. Why is `as User` an assertion, not validation?
 5. Run `npm.cmd run day36:js` and `npm.cmd run day36`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 271 Encode and Decode Strings — https://leetcode.com/problems/encode-and-decode-strings/ (hint: https://neetcode.io/problems/string-encode-and-decode/question)
+**LeetCode:** 271 Encode and Decode Strings — https://leetcode.com/problems/encode-and-decode-strings/ (hint: https://neetcode.io/problems/string-encode-and-decode/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -181,6 +207,7 @@ For each snippet, write down the exact result before running.
 2. Model a `LoadingState` discriminated union with idle, loading, success, and error.
 3. Write a function that handles every state and returns a readable string.
 4. Write the JavaScript equivalent and explain what the compiler adds.
+5. **TypeScript docs lookup:** Open the handbook section on [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions) and find the `never` exhaustive check. Add a `'pending'` status to your `LoadingState` union, then write a `switch` with an `exhaustive` branch — comment on what the compiler tells you when a case is missing.
 
 ### Level 3 — Creative synthesis
 

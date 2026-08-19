@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -105,6 +106,8 @@ console.log(launch.toISOString()) // always UTC, ending in Z
 
 Avoid non-standard strings such as `01/15/2025` — different environments interpret them differently.
 
+The [MDN reference for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) documents every constructor form and method, from `Date.UTC` and `Date.parse` to `getTime`, `setMonth`, and `toISOString`. Bookmark it — you will return to it every time a date behavior surprises you.
+
 **Important historical pitfall:** a date-only string such as `'2025-01-15'` is interpreted as UTC by `Date`, while a date-time with no offset is interpreted as local time. A birthday in the middle of the night UTC can display as the previous day somewhere else. Do not use a `Date` for a birthday or a due date until you have chosen how the application preserves the calendar date.
 
 ### Read local time or UTC time on purpose
@@ -151,6 +154,8 @@ console.log(formatter.format(event))
 
 Passing `locale` and `timeZone` makes your intent visible and makes tests predictable. Without them, output depends on the person's device settings.
 
+[Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) is the whole engine behind this example — its MDN page shows the full option set (`dateStyle`, `timeStyle`, `hour12`, `timeZoneName`, and more). And when you need calendar math that survives zones and daylight saving, meet the newer [Temporal proposal on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) — still a proposal today, but the design you will likely reach for in the future.
+
 ### Validate before using a Date
 
 The constructor can create an Invalid Date. Check its timestamp before formatting or performing calculations:
@@ -168,6 +173,8 @@ function parseInstant(text) {
 ```
 
 This validates that the runtime produced a usable timestamp. It does not prove that a user entered the business date they intended. For calendar-date input, validate the expected string shape and business rules separately.
+
+`getTime()` is the method that makes the invalid state visible — [MDN documents Invalid Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#the_epoch_timestamps_and_invalid_date) and why comparing with `NaN` is the canonical check.
 
 ### Common mistakes table
 
@@ -240,6 +247,24 @@ Comment the broken line back out when done so the starter keeps passing `npm run
 
 Dates are instants measured in milliseconds since 1970, stored as unambiguous ISO text, validated before use, and formatted for people with an explicit locale and time zone — while TypeScript forces you to handle the `Date | null` reality of parsing.
 
+## Learn more on MDN
+
+Dates are a small API hiding a deep set of pitfalls. Bookmark these pages and return as you grow:
+
+- [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) — every constructor form and method on the traditional API
+- [Date.now](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now) — the current timestamp in milliseconds
+- [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) — locale and time-zone-aware formatting options
+- [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) — the wider internationalization engine behind all the formatters
+- [Temporal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) — the modern date-and-time proposal that separates instants, dates, and durations
+- [Date.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) — the exact strings the runtime is willing to parse
+- [UTC time](https://developer.mozilla.org/en-US/docs/Glossary/UTC) — the glossary entry for the standard behind the `Z` suffix
+- [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN) — `Number.isNaN`, the check that detects Invalid Date
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `Date` as a built-in object type
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `if (launch !== null)` protects the `toISOString` call
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -257,7 +282,7 @@ For each snippet, write down the exact output before running.
 7. `parseInstant('2025-01-15T09:30:00Z')` returns what type of value on success?
 8. Run `npm.cmd run day16:js` and `npm.cmd run day16`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 1185 Day of the Week — https://leetcode.com/problems/day-of-the-week/ (hint: NeetCode roadmap)
+**LeetCode:** 1185 Day of the Week — https://leetcode.com/problems/day-of-the-week/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -266,6 +291,7 @@ For each snippet, write down the exact output before running.
 3. Write `hoursBetween(start, end)` given two ISO instant strings; decide whether the result should be signed or absolute and state your choice.
 4. Write `daysBetween(start, end)` that returns whole calendar days for two UTC instants, and add a comment noting when that approximation is safe.
 5. TypeScript: write `parseInstant` returning `Date | null` and make the caller handle both paths.
+6. **MDN lookup:** Open the [Date.now reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now), and use it to write `currentSeconds()` that returns the current Unix time in whole seconds. Verify it is close to `Math.floor(new Date().getTime() / 1000)`, then comment on why `Date.now()` exists at all if `getTime()` can do the same job.
 
 ### Level 3 — Creative synthesis
 

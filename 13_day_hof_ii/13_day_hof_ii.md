@@ -23,6 +23,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -108,7 +109,7 @@ console.log(roles.includes('admin')) // true
 console.log(roles.includes('owner')) // false
 ```
 
-Use `includes` when you already know the exact value. For a condition such as "a score above 90", use `some` or `find` instead.
+Use `includes` when you already know the exact value. For a condition such as "a score above 90", use `some` or `find` instead. The [includes()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) page spells out the exact-match rule.
 
 ### some and every: yes-or-no questions
 
@@ -169,7 +170,7 @@ const missing = students.find(student => student.name === 'Mina')
 console.log(missing) // undefined
 ```
 
-That is different from an empty object or an empty string. It means: **no matching array item exists.**
+That is different from an empty object or an empty string. It means: **no matching array item exists.** The [find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) page documents the `undefined` result and the early stop.
 
 ### findIndex: get the position of the first match
 
@@ -218,7 +219,7 @@ For ascending numbers, `left - right` works:
 | 2 | 10 | -8 | 2 before 10 |
 | 30 | 10 | 20 | 10 before 30 |
 
-For descending numbers, reverse it: `right - left`.
+For descending numbers, reverse it: `right - left`. The [sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) reference details the comparator and the default text comparison.
 
 ### Keep the original array unchanged
 
@@ -323,6 +324,24 @@ Inside the `if`, TypeScript knows the value is a number. Comment the broken line
 
 Each array question has one method — `includes` for an exact value, `some`/`every` for yes-or-no tests, `find`/`findIndex` for the first match, `sort` with a comparator on a copy — and TypeScript forces you to handle the missing result before you use it.
 
+## Learn more on MDN
+
+Bookmark these pages and return as you grow:
+
+- [includes()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) — exact-value membership as a boolean.
+- [some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) — does at least one item pass the test?
+- [every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) — do all items pass the test?
+- [find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) — the first matching item, or `undefined`.
+- [findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) — the position of the first match, or `-1`.
+- [sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) — the mutating sort, and what a comparator returns.
+- [toSorted()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) — the modern non-mutating sort that returns a copy.
+- [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) — the full reference for every question method.
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — typing arrays whose items can be found or missing.
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `undefined` check turns `number | undefined` into `number`.
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -342,7 +361,7 @@ For each snippet, write down the exact output before running.
 9. `[].some(x => x > 0)` versus `[].every(x => x > 0)` — why do they differ?
 10. Run `npm.cmd run day13:js` and `npm.cmd run day13`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 56 Merge Intervals — https://leetcode.com/problems/merge-intervals/ (hint: https://neetcode.io/problems/merge-intervals/question)
+**LeetCode:** 56 Merge Intervals — https://leetcode.com/problems/merge-intervals/ (hint: https://neetcode.io/problems/merge-intervals/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -352,6 +371,7 @@ For each snippet, write down the exact output before running.
 4. Locate the first word longer than five letters with `find`.
 5. TypeScript: define a `Product` interface with `name` and `price`. Use `find` to locate a product and handle `Product | undefined` before reading its `name`.
 6. Sort `[15, 3, 40, 8]` from smallest to largest **without changing the original**; confirm the original stays `[15, 3, 40, 8]`.
+7. **MDN lookup:** on the [toSorted()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) page, read how it returns a sorted copy, then write `sortedCopy(items)` that uses `toSorted` with a numeric comparator — and in a comment note how it differs from the `[...items].sort(...)` approach in this lesson.
 
 ### Level 3 — Creative synthesis
 

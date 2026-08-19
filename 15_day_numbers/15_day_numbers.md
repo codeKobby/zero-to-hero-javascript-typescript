@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -133,6 +134,8 @@ Number.isFinite(Number('3.5px')) // false
 Number.isFinite(Infinity)        // false
 ```
 
+The conversion toolset is bigger than three functions. [Read about `Number` on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) to meet `Number.MAX_SAFE_INTEGER` and the `Number.isInteger`/`Number.isSafeInteger` checks, and see [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt) and [parseFloat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) for edge cases like the radix argument and numeric prefixes.
+
 ### Calculate with intention
 
 `Math` gives named operations:
@@ -157,6 +160,8 @@ clamp(120, 0, 100) // 100
 
 Read it from the inside out: `Math.max` raises a value below the minimum; `Math.min` then lowers a value above the maximum.
 
+`Math` is a toolbox, not a single function — [browse the full Math reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) for `Math.abs`, `Math.pow`, `Math.sqrt`, `Math.trunc`, `Math.hypot`, `Math.sign`, and more. You only need a handful today; knowing the whole toolbox is what lets you reach for the right one later.
+
 ### Format only at the display boundary
 
 Keep values as numbers while calculating. Format them only when presenting them:
@@ -179,6 +184,8 @@ console.log((3.5).toFixed(2)) // '3.50' (a string)
 
 Do not use a formatted string as the next calculation input. Formatting is the last step, not a step in the middle.
 
+`toLocaleString` is one method on a number; [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is the same engine as a reusable object — read its MDN page to meet percent, unit, and compact-notation styles you can apply at the display boundary.
+
 ### The decimal precision trap
 
 Computers store ordinary JavaScript numbers in binary floating point. Many decimal fractions cannot be stored exactly:
@@ -200,6 +207,8 @@ console.log(nearlyEqual(0.1 + 0.2, 0.3)) // true
 
 For money, do calculations in the smallest unit you control (such as cents), or use a decimal-money approach chosen by your team. Formatting to two decimals does not repair a calculation.
 
+JavaScript numbers are IEEE-754 binary floating point. [Read MDN's floating-point guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number#Floating_point_equality) to understand why `0.1 + 0.2` lands on `0.30000000000000004`, and meet `Number.EPSILON`, `Number.MAX_VALUE`, and the safe-integer limits.
+
 ### Randomness is not security
 
 `Math.random` returns a number from `0` up to, but **not including**, `1`. It is fine for a dice game or a random practice prompt:
@@ -210,7 +219,7 @@ function rollDie() {
 }
 ```
 
-It is **not** appropriate for passwords, authentication tokens, or security-sensitive IDs. Browser code should use the Web Crypto APIs for those cases.
+It is **not** appropriate for passwords, authentication tokens, or security-sensitive IDs. Browser code should use the Web Crypto APIs for those cases — [read about `crypto.getRandomValues` on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues), which is designed for exactly that job.
 
 ### Common mistakes table
 
@@ -287,6 +296,25 @@ Inside the `if`, TypeScript knows `quantity` is a number. Comment the broken lin
 
 Numbers arrive as text and must be converted, validated, calculated, and formatted in that order — with `Number.isFinite` rejecting bad input, `Math` for calculation, formatting only at the display boundary, and a tolerance (or cents) for decimal comparisons — while TypeScript forces you to handle the `number | null` reality of parsing.
 
+## Learn more on MDN
+
+This lesson walks the full numbers pipeline — convert, validate, calculate, format — but each tool is bigger than one day. Bookmark these pages and return as you grow:
+
+- [Numbers and dates (JavaScript guide)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates) — the whole landscape in one place
+- [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) — `toFixed`, `toPrecision`, `Number.MAX_SAFE_INTEGER`, `Number.isInteger`, and more
+- [Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) — `abs`, `pow`, `sqrt`, `trunc`, `hypot`, `sign`, and more
+- [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt) — the radix argument and when a numeric prefix is acceptable
+- [parseFloat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) — reading a leading decimal number
+- [Number.isNaN / Number.isFinite](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN) — strict numeric checks that reject `NaN` and infinities
+- [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) — currency, percent, and locale-aware formatting as a reusable object
+- [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) — whole numbers beyond `Number.MAX_SAFE_INTEGER`
+- [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) — secure random values and cryptography
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `number`, `bigint`, and annotation basics
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the compiler narrows unions like `number | null` after a check
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -306,7 +334,7 @@ For each snippet, write down the exact output before running.
 9. `Number.isFinite(Number('42'))` versus `Number.isFinite(Number('3.5px'))` — two results.
 10. Run `npm.cmd run day15:js` and `npm.cmd run day15`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 202 Happy Number — https://leetcode.com/problems/happy-number/ (hint: NeetCode roadmap)
+**LeetCode:** 202 Happy Number — https://leetcode.com/problems/happy-number/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -316,6 +344,7 @@ For each snippet, write down the exact output before running.
 4. Write `rollDie()` and run it a few times, confirming the range with a comment.
 5. TypeScript: write `readPercentage` with precise types — `string` in, `number | null` out. Do not use `any`.
 6. Write `nearlyEqual(a, b)` and verify it returns `true` for `0.1 + 0.2` versus `0.3`.
+7. **MDN lookup:** Open the [Math reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math), find `Math.trunc` (which removes the fractional part without rounding), and use it to write `wholePart(value)` that returns the integer part of a number. Verify it works for `3.9`, `-3.9`, and `0.5`, and comment on how it differs from `Math.round`.
 
 ### Level 3 — Creative synthesis
 

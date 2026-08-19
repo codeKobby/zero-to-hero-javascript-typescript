@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -96,6 +97,8 @@ message.textContent = userProvidedText
 
 `innerHTML` parses a string as HTML. Never put untrusted text in `innerHTML`. That can turn user input into executable markup and create cross-site scripting vulnerabilities. If you have a genuine need to render trusted markup, document exactly where it comes from and use a security-reviewed sanitization strategy.
 
+Both properties are worth reading side by side on MDN — [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) treats every value as plain text, while [Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) parses it as markup and explains exactly when that is dangerous.
+
 ### A readable element-building sequence
 
 ```js
@@ -111,6 +114,8 @@ function addTask(list, label) {
 
 Read that as a sequence: create an unattached element, give it presentation and data attributes, add safe visible text, attach it, return a reference. Keeping this sequence in one small function makes the mutation easy to locate.
 
+`createElement` is only the start — [MDN's `createElement` reference](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) also shows the `options` parameter and how the tag-name map picks the concrete element type that the TypeScript walkthrough below relies on.
+
 ### Attributes, properties, classes, and data
 
 An HTML attribute is written in markup. A DOM property is the JavaScript-facing value. For a live form value, read `input.value`; for a custom data marker, use `dataset`:
@@ -121,7 +126,7 @@ item.dataset.status = 'done'
 item.classList.toggle('is-complete')
 ```
 
-Use `classList` rather than overwriting `className` when you are adding or removing one class among several.
+Use `classList` rather than overwriting `className` when you are adding or removing one class among several. `classList` is a `DOMTokenList` with more than `add` and `toggle` — [MDN's `classList` reference](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) documents `replace`, `contains`, `remove`, and `item` too.
 
 ### Remove only the element you own
 
@@ -192,6 +197,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 DOM changes are visible state changes — build in memory, assign text with `textContent`, configure classes and data attributes, attach, remove only what you own, and let `createElement`'s tag-name typing catch wrong element types before the browser runs.
 
+## Learn more on MDN
+
+Creating and changing elements is a small slice of the DOM's mutation surface. Bookmark these pages and return as you grow:
+
+- [Document.createElement](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) — creating a node in memory before it is attached
+- [Element.append](https://developer.mozilla.org/en-US/docs/Web/API/Element/append) — attaching a node so it becomes visible
+- [Element.remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) — removing the element you own a reference to
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe, plain-text assignment for user input
+- [Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) — markup parsing, and why it is dangerous for user text
+- [Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) — the `DOMTokenList` with `add`, `toggle`, `replace`, and `contains`
+- [HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) — the `data-*` attribute mapping behind `item.dataset.status`
+- [HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement) — the concrete element type behind `input.value`
+- [Document](https://developer.mozilla.org/en-US/docs/Web/API/Document) — the object behind `document` and the methods that create and find nodes
+
+### TypeScript docs
+
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `createElement` by tag name
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind the typed DOM values you read today
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -213,6 +237,7 @@ For each snippet, write down the exact result before running.
 2. Add a `data-priority` attribute and a priority class.
 3. Toggle an `is-complete` class without deleting the other classes.
 4. Remove the list item only after you hold a direct reference to it.
+5. **MDN lookup:** Open the [classList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList), find the `replace()` method on `DOMTokenList`, and swap a `pending` class for a `done` class on a list item using `classList.replace()`. Comment on why `replace` is safer than removing one class and adding another in two separate calls.
 
 ### Level 3 — Creative synthesis
 

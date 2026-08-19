@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -106,6 +107,8 @@ Not magic — both names refer to the same recipe:
 | `const copy = sayHello` | store the function in `copy` |
 | `copy()` | call that stored function |
 
+The [Functions guide on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions) is the full reference for treating functions as values — storing them, passing them, and returning them.
+
 ### What is a callback?
 
 A **callback** is a function you give to another function so that the other function can call it later:
@@ -147,6 +150,8 @@ Output:
 Starting task
 Task result: Dishes are clean
 ```
+
+The one-line definition lives in MDN's [callback glossary entry](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) — a function passed into another function to be invoked later.
 
 ### The common callback mistake
 
@@ -248,6 +253,8 @@ console.log(secondCounter()) // 1
 
 Closure does **not** mean the variable is global. It means the returned function keeps access to the variables from the *specific call* that created it. This is how a function carries private state: the count is unreachable from outside, yet preserved between calls.
 
+MDN's [guide to closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) explains the mechanism in full, including practical uses like private state and factory functions.
+
 ### Common mistakes table
 
 | Mistake | What happens | The fix |
@@ -338,6 +345,23 @@ Read it as: *"`applyToNumber` promised to receive a function that takes a number
 
 A function is a value you can store, pass, and return: pass it *without* parentheses as a callback, call it *with* parentheses at the right time, and a closure keeps the variables of its creation scope alive for as long as the function itself lives.
 
+## Learn more on MDN
+
+Day 8 turns functions into values, and MDN covers each idea. Bookmark these pages and return as you grow:
+
+- [Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) — the full guide to functions keeping their creation scope alive
+- [Functions guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions) — the complete walk-through of functions as values
+- [Callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) — the glossary definition of a function passed to be invoked later
+- [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) — the concise callback form with implicit return
+- [Array.prototype.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) — the classic callback consumer, returning a new array
+- [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — keeping only the items a callback says pass
+- [Array.prototype.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) — folding a whole array into one value through a callback
+
+### TypeScript docs
+
+- [More on Functions](https://www.typescriptlang.org/docs/handbook/2/functions.html) — writing callback types like `NumberOperation`
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the primitives behind the shapes you type
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -357,7 +381,7 @@ For each snippet, write down the exact output before running.
 9. For `runTask(task)` where `task` is a no-return function: what does `task()` put in `result`?
 10. Run `npm.cmd run day8:js` and `npm.cmd run day8`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2629 Function Composition — https://leetcode.com/problems/function-composition/ (hint: NeetCode roadmap)
+**LeetCode:** 2629 Function Composition — https://leetcode.com/problems/function-composition/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -367,6 +391,7 @@ For each snippet, write down the exact output before running.
 4. Write `createGreeting(greeting)` that returns a function receiving a `name`. Test `createGreeting('Welcome')('Ada')` → `'Welcome, Ada!'`.
 5. Predict then verify the output of two independent counters from one `createCounter`.
 6. Write `calculateTotal(price, applyDiscount)` where `applyDiscount` is a callback that receives `price` and returns the new price.
+7. **MDN lookup:** Open [Array.prototype.map on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), read how it calls its callback for every element, then use `[1, 2, 3].map(...)` with an arrow callback that doubles each number so the result is `[2, 4, 6]`. Comment on who calls the callback and when.
 
 ### Level 3 — Creative synthesis
 

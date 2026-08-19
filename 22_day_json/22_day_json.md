@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -85,7 +86,7 @@ console.log(typeof text)  // string
 console.log(typeof value) // object
 ```
 
-JSON supports objects, arrays, strings, numbers, booleans, and `null`. It does not preserve functions, `undefined`, `Map`, `Set`, or `Date` objects as their original JavaScript values.
+JSON supports objects, arrays, strings, numbers, booleans, and `null`. It does not preserve functions, `undefined`, `Map`, `Set`, or `Date` objects as their original JavaScript values. The [MDN JSON reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) is the full picture of what the format can and cannot carry, and the [Working with JSON guide](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) shows JSON in the wild on a real API response.
 
 ### Parse is not validate
 
@@ -96,7 +97,7 @@ const parsed = JSON.parse('{"completedLessons":"twenty-two"}')
 // The text is valid JSON, but completedLessons is a string.
 ```
 
-Treat external JSON as unknown. Check the parts you use. The object check comes first because `null` is also reported as an object by `typeof`.
+Treat external JSON as unknown. Check the parts you use. The object check comes first because `null` is also reported as an object by `typeof`. The [MDN JSON.parse reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) documents the throw path on malformed text and the optional `reviver` function, which can transform values during parsing but is no substitute for a shape guard.
 
 ### Handle syntax errors at the boundary
 
@@ -122,7 +123,7 @@ const readableText = JSON.stringify(learner, null, 2)
 
 The final argument requests indentation for people. Do not rely on property order in JSON as a business rule.
 
-`JSON.stringify` omits object properties whose values are `undefined` or functions. It turns `Date` values into ISO strings through Date serialization. Decide deliberately how your data should be represented before storing or sending it.
+`JSON.stringify` omits object properties whose values are `undefined` or functions. It turns `Date` values into ISO strings through Date serialization. Decide deliberately how your data should be represented before storing or sending it. The [MDN JSON.stringify reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) documents the `replacer` parameter and the exact rules for which values are omitted — worth reading before you rely on what survives a round trip.
 
 ### Allowlist public data
 
@@ -212,6 +213,23 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 JSON is text, not trusted data — parse it safely, prove its shape with a guard before use, and send back only the allowlisted public fields.
 
+## Learn more on MDN
+
+JSON has more surface than `parse` and `stringify` — bookmark the pages that match the boundary you just hardened:
+
+- [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) — the global object with `parse` and `stringify`
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the throw path, the reviver, and what counts as valid JSON text
+- [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) — the replacer and space parameters and which values are omitted
+- [Working with JSON](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) — JSON in a real request and response cycle
+- [typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) — why `null` reports as `object` and must be excluded
+- [SyntaxError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError) — what `JSON.parse` throws on malformed text
+- [Date.prototype.toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON) — how `Date` objects serialize into ISO strings
+
+### TypeScript docs
+
+- [Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — `value is Learner` predicates, the core of this lesson's trust boundary
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the checks that turn `unknown` into a usable shape
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -234,6 +252,7 @@ For each snippet, write down the exact result before running.
 2. Write `isProduct(value)` for `{ name: string, priceInCents: number }`.
 3. Write `toPublicProduct(product)` that returns only `name` and `priceInCents`.
 4. TypeScript: express `isProduct` as a type predicate, not as a type assertion.
+5. **MDN lookup:** Open the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify), find the `replacer` parameter, and use it to build `toPublicProfile` so it picks only `id` and `name` out of a full user object without a hand-written allowlist. Comment on whether the `replacer` approach is clearer or worse than the explicit function from the lesson.
 
 ### Level 3 — Creative synthesis
 

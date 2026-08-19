@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -84,6 +85,8 @@ greet().then(console.log)
 
 The function still returns a `Promise<string>`, not a string.
 
+[MDN's async function reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) documents the wrapping rule — how a returned value becomes fulfillment and a thrown error becomes rejection.
+
 ### await unwraps one Promise at a time
 
 ```js
@@ -94,6 +97,8 @@ async function loadUser() {
 ```
 
 Each `await` pauses this function's continuation until the awaited promise settles, then resumes with its fulfilled value. Other functions and events keep running.
+
+[MDN's `await` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) explains the unwrapping and what happens when you `await` a value that is not a Promise.
 
 ### Handle failures around the operation that can fail
 
@@ -110,6 +115,8 @@ async function readProfile() {
 ```
 
 The catch turns a rejection into a normal return, so the caller no longer needs its own try/catch for this path. In TypeScript, catch values are `unknown`; narrow before reading `message`.
+
+The `try`/`catch` mechanics are covered in [MDN's error handling guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling) — including what a rejected `await` does inside the `try` block.
 
 ### Sequential and parallel are different decisions
 
@@ -200,6 +207,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 `async`/`await` is Promise syntax that reads sequentially — an async function always returns a `Promise<T>`, each `await` unwraps one promise, and independent operations still need `Promise.all` to run in parallel.
 
+## Learn more on MDN
+
+Async/await wraps the Promise machinery you met yesterday. Bookmark these pages and return as you grow:
+
+- [async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) — the declaration and its Promise-wrapping rule
+- [await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) — unwrapping one promise at a time
+- [async function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function) — `const load = async () => ...`
+- [try...catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) — the statement that turns a rejection into a handled path
+- [Control flow and error handling](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling) — the guide to try/catch around awaited work
+- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) — the machinery async/await sits on top of
+- [Promise.all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) — the combinator for parallel work inside async functions
+- [for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) — the loop that preserves order with `await`
+- [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of) — awaiting each item of an async iterable
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — annotating the resolved return type of an async function
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — treating caught values as `unknown` before reading properties
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -214,7 +240,7 @@ For each snippet, write down the exact result before running.
 4. Why does `Promise.all` still matter inside async functions?
 5. Run `npm.cmd run day33:js` and `npm.cmd run day33`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2637 Promise Time Limit — https://leetcode.com/problems/promise-time-limit/ (hint: NeetCode roadmap)
+**LeetCode:** 2637 Promise Time Limit — https://leetcode.com/problems/promise-time-limit/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -222,6 +248,7 @@ For each snippet, write down the exact result before running.
 2. Write `safeLoad` that returns a value or `null` on failure.
 3. Compare sequential and parallel local operations.
 4. Type the functions and narrow caught errors.
+5. **MDN lookup:** Open the [await reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await), find the note about awaiting non-Promise values, and write an async function that `await`s a plain string before returning it. Comment on what `await` returns when the value is already a string.
 
 ### Level 3 — Creative synthesis
 

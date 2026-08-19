@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -86,6 +87,8 @@ const body = await response.json()
 
 A 404 still gives you a `Response`; only the network error rejects. `ok` is true for statuses 200-299.
 
+[MDN's `Response.ok` reference](https://developer.mozilla.org/en-US/docs/Web/API/Response/ok) documents the 200-299 rule and how `ok` relates to `status`.
+
 ### Request methods and bodies
 
 GET reads. POST creates. PUT or PATCH updates. DELETE removes. A JSON request body needs a content type and `JSON.stringify`:
@@ -99,6 +102,8 @@ await fetch('/api/posts', {
 ```
 
 The body must be a string; `JSON.stringify` produces one.
+
+The full option set — `method`, `headers`, and `body` — is documented in [MDN's Using the Fetch API guide](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch).
 
 ### response.json is also asynchronous
 
@@ -124,6 +129,8 @@ try {
 ```
 
 The abort is cooperative: the fetch receives the signal and stops listening for the response. The abort surfaces as an `AbortError` the caller can catch.
+
+Signals and their states are documented on [MDN's `AbortController` reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) — including how to reuse or compose them.
 
 ### Common mistakes table
 
@@ -199,6 +206,26 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 `fetch` is one Promise for an HTTP round trip — it resolves with a `Response` even for 404s, requires `response.ok` to be checked and the body to be awaited, sends string bodies, and its parsed JSON must be guarded at the runtime boundary, never trusted through an assertion.
 
+## Learn more on MDN
+
+`fetch` is the browser's HTTP client with a precise contract. Bookmark these pages and return as you grow:
+
+- [Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) — the guide to requests and responses
+- [fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch) — the global function that starts a request
+- [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) — what `fetch` resolves with
+- [Response.ok](https://developer.mozilla.org/en-US/docs/Web/API/Response/ok) — true for statuses 200-299
+- [Response.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json) — reading the body as JSON, asynchronously
+- [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) — the options behind a fetch call
+- [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) — request and response headers
+- [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) — cancelling an in-flight fetch
+- [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) — the signal and its `aborted` state
+- [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) — the codes behind `response.status`
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `unknown`, objects, and reading response shapes
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — `value is User` type guards at the runtime boundary
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -213,7 +240,7 @@ For each snippet, write down the exact result before running.
 4. Why does a TypeScript assertion not validate network data?
 5. Run `npm.cmd run day34:js` and `npm.cmd run day34`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2715 Timeout Cancellation — https://leetcode.com/problems/timeout-cancellation/ (hint: NeetCode roadmap)
+**LeetCode:** 2715 Timeout Cancellation — https://leetcode.com/problems/timeout-cancellation/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -221,6 +248,7 @@ For each snippet, write down the exact result before running.
 2. Add a timeout with `AbortController`.
 3. POST a JSON body to a server you control and inspect the response status.
 4. Type a guard for the response shape instead of asserting it.
+5. **MDN lookup:** Open the [Response.json() reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Response/json), find what happens when the body is empty or invalid JSON, and write a `getJson` variant that catches that failure. Comment on why `response.json` is awaited and can itself reject.
 
 ### Level 3 — Creative synthesis
 

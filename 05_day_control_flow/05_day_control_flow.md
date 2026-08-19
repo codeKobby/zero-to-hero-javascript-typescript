@@ -24,6 +24,7 @@
   - [What TypeScript cannot catch](#what-typescript-cannot-catch)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -167,6 +168,8 @@ if (isLoggedIn === true) { ... } // redundant: already a boolean
 
 Since `isLoggedIn` is already a boolean, comparing it to `true` adds nothing. Write the condition itself. The same discipline applies to falsy checks: `if (!userInput)` reads "if there is no input."
 
+The [if...else reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) shows the full statement — including `else if` chains and what counts as a truthy condition.
+
 ### The ternary: choose one small value
 
 An `if`/`else` that does nothing but *pick one of two values* is common enough to have a compact form — the **ternary**:
@@ -196,6 +199,8 @@ if (score >= 60) {
 ```
 
 The rule: **ternary for one small two-way value; `if`/`else` for real work.**
+
+The [conditional (ternary) operator reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) covers the exact structure and nesting rules.
 
 ### switch: compare one value with named choices
 
@@ -239,6 +244,8 @@ switch (plan) {
 ```
 
 The runtime model: *match value against case labels in order, using `===`; run the matched case; stop at `break`.*
+
+The [switch reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) walks through the same model with a step-by-step example.
 
 ### Fall-through and when it is intentional
 
@@ -390,6 +397,23 @@ Read it as: *"`TrafficLight` is red, yellow, or green — `'blue'` is not on the
 
 Control flow routes execution: `if` chains run the first true branch and skip the rest, the ternary picks one of two values, `switch` matches one value against named cases with `===` and needs `break` to stop, and TypeScript literal unions make the set of allowed choices a compile-time fact.
 
+## Learn more on MDN
+
+Day 5 makes decisions exact, and MDN documents each tool. Bookmark these pages and return as you grow:
+
+- [if...else](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) — the statement behind every branch you wrote today
+- [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) — `condition ? yes : no` and its nesting rules
+- [switch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) — the statement that matches one value against named cases
+- [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break) — what stops fall-through and exits loops early
+- [Comparison operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_operators) — the questions behind today's conditions
+- [Truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) — what makes a condition run
+- [Falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) — the exact values that do not
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations and literal unions behind today's `Plan`
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how TypeScript watches your branches and knows more inside each one
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -415,6 +439,7 @@ For each snippet, write down which branch runs and what prints, before running.
 4. A weekend detector: write a `switch` that groups Saturday and Sunday into one `Weekend` case, with the fall-through commented as intentional.
 5. TypeScript union: define `type Plan = 'free' | 'pro' | 'enterprise'` and a `describePlan` function with a `switch` and a `default`.
 6. Grade reporter: use an `if`/`else if` chain for score ≥ 90 → A, ≥ 80 → B, ≥ 60 → Pass, else Fail — and trace what happens for scores 95, 85, 65, 40.
+7. **MDN lookup:** Open the [switch reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch), read how the `default` clause behaves, then write a `describeMonth(month)` function whose `switch` groups months by season with intentional fall-through and a `default` for unknown input. Test it with `'January'`, `'July'`, and `'Nope'`.
 
 ### Level 3 — Creative synthesis
 

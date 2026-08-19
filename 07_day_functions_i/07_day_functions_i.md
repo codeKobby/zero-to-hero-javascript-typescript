@@ -23,6 +23,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -172,6 +173,8 @@ const second = getDouble(4)  // second receives 8
 
 The rule: **use `return` when another line needs the result.** A function may log for debugging, but a reusable function returns data.
 
+The [return statement reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return) documents what happens when there is no `return` — and why the function hands back `undefined`.
+
 ### More than one input
 
 Parameters are positional — order matters:
@@ -209,6 +212,8 @@ console.log(makeGreeting('Ada', 'Welcome'))  // Welcome, Ada!
 ```
 
 Do not treat a default as validation. An empty string `''` is a supplied value, so it does not trigger the default.
+
+The [default parameters reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters) covers the exact rule for when a default is used — including the `undefined` case.
 
 ### Local scope: variables inside stay inside
 
@@ -263,6 +268,8 @@ const bug = number => {
 ```
 
 For now, do not choose based on fashion. Function declarations are readable and useful everywhere. Arrow functions become especially useful in Day 8, when you pass a function into another function.
+
+Both forms are documented on MDN — [function declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) and [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) — including the subtle differences that matter later.
 
 ### Common mistakes table
 
@@ -353,6 +360,23 @@ Read it as: *"`calculateTotal` promised to accept numbers — `'12'` is a string
 
 Define a function once, call it with arguments, let parameters receive those values, and use `return` to send a result back — and TypeScript checks that every argument and every result matches the shapes you declared.
 
+## Learn more on MDN
+
+Day 7 builds the function model, and MDN documents it end to end. Bookmark these pages and return as you grow:
+
+- [Functions guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions) — the full walk-through from parameters to scope
+- [Function declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) — the `function name(...) {}` form you used today
+- [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) — the short form, including implicit return and when braces change it
+- [Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters) — the exact rules for when a default applies
+- [return](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return) — the statement that sends a result back, and why missing it returns `undefined`
+- [arguments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments) — the array-like object of every passed argument
+- [Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope) — the glossary entry behind "variables inside stay inside"
+
+### TypeScript docs
+
+- [More on Functions](https://www.typescriptlang.org/docs/handbook/2/functions.html) — the parameter and return annotations you wrote today
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the shapes behind `price: number, quantity: number`
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -372,7 +396,7 @@ For each snippet, write down the value each variable receives, before running.
 9. For `function area(w, h) { return w * h }`, which parameter receives which value in `area(3, 4)`?
 10. Run `npm.cmd run day7:js` and `npm.cmd run day7`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 9 Palindrome Number — https://leetcode.com/problems/palindrome-number/ (hint: NeetCode roadmap)
+**LeetCode:** 9 Palindrome Number — https://leetcode.com/problems/palindrome-number/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -382,6 +406,7 @@ For each snippet, write down the value each variable receives, before running.
 4. Write `calculateDiscount(price, percent)` that returns the discounted price. Test with `(80, 25)`; expected 60.
 5. Write `lastChar(text)` that returns the final character of a string. Test `lastChar('Ada')`; expected `'a'`. (Hint: `text[text.length - 1]`.)
 6. Convert `calculateDiscount` to an arrow function and confirm the same result.
+7. **MDN lookup:** Open the [arrow functions reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), read how the concise body returns implicitly, then rewrite `calculateDiscount(price, percent)` from exercise 4 as a one-line arrow function and confirm `(80, 25)` still returns `60`. Comment on why braces would require a `return`.
 
 ### Level 3 — Creative synthesis
 

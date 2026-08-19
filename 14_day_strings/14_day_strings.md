@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -127,7 +128,7 @@ const message = learner + ' has completed ' + completed + ' lessons.'
 const clearerMessage = `${learner} has completed ${completed} lessons.`
 ```
 
-Both have the same value. Use a template literal when it genuinely improves readability; a short fixed string does not need one.
+Both have the same value. Use a template literal when it genuinely improves readability; a short fixed string does not need one. See [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) for the full syntax, including nesting and tagged templates.
 
 ### The everyday text toolkit
 
@@ -143,7 +144,7 @@ Start with the question you are trying to answer:
 | join array pieces | `join` | `['red', 'green'].join(', ')` → `'red, green'` |
 | replace one known section | `replace` | `'draft.txt'.replace('.txt', '.md')` → `'draft.md'` |
 
-Every method returns a **new** string (or, for `split` and `join`, a new array or string). The source string stays unchanged.
+Every method returns a **new** string (or, for `split` and `join`, a new array or string). The source string stays unchanged. The [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) reference lists every method and what it returns.
 
 ### Exact comparison needs a decision
 
@@ -177,6 +178,8 @@ console.log(filename.includes('.')) // true
 const empty = ''
 console.log(empty.at(0)) // undefined
 ```
+
+The [slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice) page covers the exact start-and-end counting rule used above.
 
 ### Common mistakes table
 
@@ -254,6 +257,24 @@ Read it as: *"You called a string method on a value whose type is unknown — fi
 
 Strings are ordered, indexed, and immutable text: every method returns a new string and never edits the original, comparisons are a product rule you choose, and TypeScript narrows unknown input before any string method may run.
 
+## Learn more on MDN
+
+Bookmark these pages and return as you grow:
+
+- [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) — the reference for every string property and method.
+- [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) — interpolation, multi-line text, and tagged templates.
+- [trim()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim) — removing accidental outer whitespace.
+- [slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice) — taking a section with inclusive start and exclusive end.
+- [split()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) — turning one string into an array at a separator.
+- [includes()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes) — checking whether text contains text.
+- [toLowerCase()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) — standardizing text for comparison.
+- [replace()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) — replacing a section of text with a new value.
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — strings as `string` and the methods you can call on them.
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `typeof` turns `unknown` into `string` before the methods run.
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -273,7 +294,7 @@ For each snippet, write down the exact output before running.
 9. `''.at(0)` — what is the result?
 10. Run `npm.cmd run day14:js` and `npm.cmd run day14`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 125 Valid Palindrome — https://leetcode.com/problems/valid-palindrome/ (hint: https://neetcode.io/problems/is-palindrome/question)
+**LeetCode:** 125 Valid Palindrome — https://leetcode.com/problems/valid-palindrome/ (hint: https://neetcode.io/problems/is-palindrome/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -283,6 +304,7 @@ For each snippet, write down the exact output before running.
 4. Write `isYes(answer)` that accepts `' YES '`, `'yes'`, and `'Yes'` but rejects anything else.
 5. TypeScript: write `asDisplayName(value: unknown)` that returns a trimmed non-empty string or `'Anonymous'` for every other case.
 6. Build `'lesson'` from `'lesson-notes.md'` using `slice`, without hard-coding the number `6` — use `indexOf('-')`.
+7. **MDN lookup:** on the [replaceAll()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll) page, read how it replaces every occurrence, then write `dashToUnderscore(text)` that turns `'one-two'` into `'one_two'` — and in a comment note the difference from `replace`.
 
 ### Level 3 — Creative synthesis
 

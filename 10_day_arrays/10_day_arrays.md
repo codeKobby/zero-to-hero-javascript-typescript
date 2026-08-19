@@ -23,6 +23,7 @@
   - [Tuples: a short array with a fixed meaning per position](#tuples-a-short-array-with-a-fixed-meaning-per-position)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -143,7 +144,7 @@ console.log(tasks)           // ['Read']
 | `unshift(item)` | yes | new length |
 | `slice(start, end)` | no | a new portion of the array |
 
-Note the asymmetry: `push` and `unshift` return the new **length**; `pop` and `shift` return the **removed item**. Mixing these up is a classic silent bug.
+Note the asymmetry: `push` and `unshift` return the new **length**; `pop` and `shift` return the **removed item**. Mixing these up is a classic silent bug. The [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) reference lists every method and exactly what it returns.
 
 ### Copy before changing shared data
 
@@ -159,7 +160,7 @@ console.log(originalTasks) // ['Read', 'Practise']
 console.log(copiedTasks)   // ['Read', 'Practise', 'Build']
 ```
 
-The spread operator copies the items into a brand-new array, so pushing to the copy does not touch the original.
+The spread operator copies the items into a brand-new array, so pushing to the copy does not touch the original — see [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) for the full behavior.
 
 ### Assignment does not copy
 
@@ -185,7 +186,7 @@ console.log(colors.at(0))  // red
 console.log(colors.at(-1)) // green
 ```
 
-`at(-1)` is a readable modern way to ask for the final item. It still returns `undefined` for an empty array — so the boundary rule still applies.
+`at(-1)` is a readable modern way to ask for the final item. It still returns `undefined` for an empty array — so the boundary rule still applies. Read the [at() page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at) for the full index rules.
 
 ### Common mistakes table
 
@@ -276,6 +277,24 @@ Read it as: *"`originalTasks` promised to hold strings — `4` is a number."* Th
 
 An array is an ordered collection read from index 0 to `length - 1`; know which methods mutate and copy with `[...items]` before changing shared data — while TypeScript checks that every item matches the declared type, and represents an arbitrary index as possibly `undefined`.
 
+## Learn more on MDN
+
+Bookmark these pages and return as you grow:
+
+- [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) — the reference for every array method and what it returns.
+- [Indexed collections](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections) — the guide that frames arrays inside the language's collection story.
+- [push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) — adds to the end and returns the new length.
+- [pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop) — removes from the end and returns the removed item.
+- [slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) — copies a portion of the array without mutating it.
+- [at()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at) — reads an item by index, including negative indexes from the end.
+- [length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length) — the count, and how `length - 1` is the last valid index.
+- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) — how `[...items]` builds a new array.
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — arrays as `number[]` and `string[]`.
+- [Objects](https://www.typescriptlang.org/docs/handbook/2/objects.html) — array and tuple types in context.
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -295,7 +314,7 @@ For each snippet, write down the exact output before running.
 9. What do `colors.at(0)` and `colors.at(-1)` produce?
 10. Run `npm.cmd run day10:js` and `npm.cmd run day10`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 217 Contains Duplicate — https://leetcode.com/problems/contains-duplicate/ (hint: https://neetcode.io/problems/duplicate-integer/question)
+**LeetCode:** 217 Contains Duplicate — https://leetcode.com/problems/contains-duplicate/ (hint: https://neetcode.io/problems/duplicate-integer/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -305,6 +324,7 @@ For each snippet, write down the exact output before running.
 4. In TypeScript, make a `string[]` and intentionally `push` a number — read the error, then comment the line back out.
 5. Define a `Point` tuple type `[number, number]` and create one coordinate.
 6. Write a function `firstItem(items)` that returns the first item using `at(0)`.
+7. **MDN lookup:** on the [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) reference, read the `slice` page, then write `copyOf(items)` that returns a copy of `items` using `slice` instead of spread — and in a comment note the one difference from `[...items]`.
 
 ### Level 3 — Creative synthesis
 

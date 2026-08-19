@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -87,6 +88,8 @@ function handleClick(event) {
 
 The function is passed, not called. `addEventListener` needs a function reference to call later. Writing `handleClick()` would run it immediately and pass its return value instead.
 
+[MDN's `addEventListener` reference](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) documents the full signature — the `options` object with `once`, `capture`, and `signal`, and the exact rules for matching a listener to remove.
+
 ### target and currentTarget are different
 
 `event.target` is the deepest element that initiated the event. `event.currentTarget` is the element whose listener is currently running. For a listener directly on a button they may match; for nested elements or bubbling they may not:
@@ -99,6 +102,8 @@ button.addEventListener('click', (event) => {
 ```
 
 Use `currentTarget` when the handler belongs to the element you registered. Treat `target` as `EventTarget` until you prove it is an `HTMLElement`.
+
+[The `Event` reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event) spells out `target` versus `currentTarget` and the full event lifecycle, including which phase — capture, target, or bubble — each listener runs in.
 
 ### Common handler flow
 
@@ -132,6 +137,8 @@ const controller = new AbortController()
 button.addEventListener('click', handleClick, { signal: controller.signal })
 controller.abort()
 ```
+
+[MDN's `AbortController` reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) explains what `signal` ties together and what calling `abort()` actually does to every linked listener.
 
 ### Debounce means wait for quiet
 
@@ -217,6 +224,26 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 An event is a report from the browser — pass a function reference, not a call; read `currentTarget` with runtime proof; prevent defaults deliberately; and remove listeners with the same reference that added them.
 
+## Learn more on MDN
+
+Events are a deep API behind a simple call. Bookmark these pages and return as you grow:
+
+- [EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) — registering listeners, including the `options` object
+- [EventTarget.removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) — the same-reference rule for cleanup
+- [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event) — `target` versus `currentTarget` and the full event lifecycle
+- [Event.preventDefault](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) — stopping the browser's default action, not the event itself
+- [Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) — stopping bubbling, and why it is not reflexive
+- [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) — sharing one lifetime across a group of listeners
+- [Window: resize event](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event) — a common window-level event
+- [Element: click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) — the click event you registered today
+- [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) — the timer behind the debounce wrapper
+- [HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement) — the element type behind the `instanceof` narrow
+
+### TypeScript docs
+
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `addEventListener` and its mapped event types
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `instanceof` proves `event.currentTarget` is an input
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -238,6 +265,7 @@ For each snippet, write down the exact result before running.
 2. Add an input handler that displays the current value.
 3. Write `debounce` and use it to update a status after 300 milliseconds of quiet.
 4. Remove a named listener and explain why an inline replacement does not work.
+5. **MDN lookup:** Open the [Event reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event), find the `bubbles` property, and register a handler on a child button that logs whether its `click` event bubbles to the parent container. Comment on what bubbling means for the delegated-listener pattern in the next lesson.
 
 ### Level 3 — Creative synthesis
 

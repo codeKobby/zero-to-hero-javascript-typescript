@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -85,6 +86,8 @@ function safeParse(json) {
 
 `JSON.parse` throws on malformed input. Wrapping it in `try/catch` keeps a bad string from crashing the caller, and the `null` result is an explicit signal the caller must handle.
 
+MDN documents the two operators side by side — [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) and [nullish coalescing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing).
+
 ### A discriminated state switch
 
 ```js
@@ -122,6 +125,8 @@ The `status` string discriminates the shape. JavaScript relies on tests and runt
 6. Let inference handle obvious local variables; annotate public functions and data models.
 7. Use compiler errors as feedback, not as proof that runtime data is safe.
 
+TypeScript's own [Do's and Don'ts](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) page is the same discipline applied to public APIs — avoid `any`, keep explicit signatures where they matter.
+
 ### The unknown boundary
 
 ```ts
@@ -132,6 +137,8 @@ function safeProcess(value: unknown): string {
 ```
 
 `unknown` forces a narrowing step before use. `any` skips it and leaks unsafety; `unknown` makes the boundary visible so the guard is intentional and reviewable.
+
+The handbook's [Narrowing page](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) covers the guard steps `unknown` forces — the [typeof type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#typeof-type-guards) section is exactly the `typeof value === 'string'` check above.
 
 ### What TypeScript cannot decide
 
@@ -178,6 +185,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 A maintainable project keeps the compiler strict, treats external data as `unknown` until a guard proves it, and uses tests and runtime validation for what the compiler cannot see — because the browser only ever runs JavaScript.
 
+## Learn more on MDN
+
+### TypeScript docs
+
+The official handbook is the authority on every construct in this lesson — bookmark the pages that match what you just wrote:
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the erasure note behind "the browser only ever sees JavaScript"
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the guard checks `unknown` forces before use
+- [Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — `value is State` predicates for validated external data
+- [Type Inference](https://www.typescriptlang.org/docs/handbook/2/type-inference.html) — when to let the compiler infer and when to annotate
+- [Do's and Don'ts](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) — the handbook's own rules against `any` and loose signatures
+
+### MDN
+
+- [Optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) — the runtime lookup guard in both languages
+- [Nullish coalescing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) — the fallback that treats `0` and `''` as real values
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the boundary function `safeParse` wraps
+- [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — what malformed data can throw when a guard is missing
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -198,6 +224,7 @@ For each snippet, write down the exact result before running.
 2. Add a discriminated state to the same feature.
 3. Add an `unknown` parser that validates external data with a guard.
 4. Keep JS and TS acceptance criteria identical.
+5. **TypeScript docs lookup:** Open the handbook's [Narrowing page](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) and find the [using type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) section. Write an `isState(value: unknown): value is LoadingState` guard for your discriminated state, use it in the `safeParse` boundary, and comment on what your domain code may assume once the guard passes.
 
 ### Level 3 — Creative synthesis
 

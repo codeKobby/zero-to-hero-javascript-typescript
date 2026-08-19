@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -91,6 +92,8 @@ const [profile, settings] = await Promise.all([
 
 This is parallel coordination, not sequential waiting. Calling `loadProfile` and `loadSettings` before `await` starts both operations.
 
+[MDN's `Promise.all` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) documents the input-order guarantee and the fail-fast behavior — the whole result rejects on the first rejection.
+
 ### allSettled gives partial success
 
 ```js
@@ -102,6 +105,8 @@ for (const result of results) {
 ```
 
 The status check is a discriminated union at runtime and in TypeScript.
+
+[MDN's `Promise.allSettled` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) shows the `{ status, value }` and `{ status, reason }` result shapes this loop reads.
 
 ### Race and any are different
 
@@ -119,6 +124,8 @@ function withTimeout(operation, ms) {
 The timeout rejects, but it does not automatically cancel the original operation. Cancellation requires an API that accepts `AbortSignal`.
 
 `any` ignores rejected attempts until one fulfills. If every attempt rejects, it rejects with `AggregateError`.
+
+Both combinators have dedicated pages — [the `Promise.race` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) for first settlement and [the `Promise.any` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any) for first fulfillment and the `AggregateError` it can throw.
 
 ### AbortController cancels cooperative work
 
@@ -199,6 +206,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Coordination combinators ask one question each — `all` (everything must succeed), `allSettled` (report every outcome), `race` (first settlement), `any` (first fulfillment) — with `all` preserving input order and typed as a tuple by TypeScript.
 
+## Learn more on MDN
+
+Each combinator has a reference page that makes its rule precise. Bookmark these and return as you grow:
+
+- [Promise.all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) — every operation must fulfill, in input order
+- [Promise.allSettled](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) — wait for every outcome, including failures
+- [Promise.race](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) — first settlement wins, success or failure
+- [Promise.any](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any) — first fulfillment wins; rejects only if all reject
+- [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError) — the error `Promise.any` throws when nothing fulfills
+- [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) — the only way to cancel cooperative work
+- [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) — the signal an operation listens for
+- [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) — the timer behind the `withTimeout` wrapper
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `status === 'fulfilled'` check that reaches `value`
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — how `Promise.all` infers each tuple position
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -213,7 +238,7 @@ For each snippet, write down the exact result before running.
 4. What happens when `Promise.any` has no fulfillment?
 5. Run `npm.cmd run day32:js` and `npm.cmd run day32`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2636 Promise Pool — https://leetcode.com/problems/promise-pool/ (hint: NeetCode roadmap)
+**LeetCode:** 2636 Promise Pool — https://leetcode.com/problems/promise-pool/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -221,6 +246,7 @@ For each snippet, write down the exact result before running.
 2. Use `allSettled` to report one success and one failure.
 3. Build a timeout wrapper and explain why it does not cancel the original Promise.
 4. Type the result branches and narrow `AggregateError` or `Error` safely.
+5. **MDN lookup:** Open the [Promise.any reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any), find what happens when every promise rejects, and catch that case to read the error's `errors` property. Comment on why `race` would reject with the first failure instead of an `AggregateError`.
 
 ### Level 3 — Creative synthesis
 

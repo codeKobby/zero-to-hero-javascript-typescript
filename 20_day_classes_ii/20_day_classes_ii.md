@@ -22,6 +22,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -108,7 +109,7 @@ A field beginning with `#` can be read or written **only inside the class body**
 // account.#balanceInCents
 ```
 
-JavaScript privacy is enforced at runtime. The class is the only place allowed to change its private balance.
+JavaScript privacy is enforced at runtime. The class is the only place allowed to change its private balance. Private fields are a standard, mature part of the language — the [MDN private class features reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields) documents `#` fields, private methods, and the `#field in obj` existence check.
 
 ### Getters are property-shaped methods
 
@@ -120,7 +121,7 @@ console.log(account.balanceInCents)
 
 It invokes the getter. A getter should usually be quick and unsurprising. It is good for exposing a derived read-only value. Do not hide expensive network calls, mutations, or risky work behind a property-looking access.
 
-Prefer explicit methods for actions: `deposit`, `withdraw`, `rename`, and `closeAccount` communicate that state might change.
+Prefer explicit methods for actions: `deposit`, `withdraw`, `rename`, and `closeAccount` communicate that state might change. The [MDN getter reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) documents the syntax and rules — a getter takes no arguments, and a setter is its write-side counterpart when you need to validate assignments.
 
 ### Keep money as integers while calculating
 
@@ -140,6 +141,8 @@ function formatCents(cents) {
   })
 }
 ```
+
+`Number.isInteger` does the guard work throughout this lesson — [MDN documents `Number.isInteger`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger) and its sibling `Number.isFinite`, which you will reach for any time an unvalidated number enters a boundary.
 
 ### Prefer composition before inheritance
 
@@ -238,6 +241,24 @@ Comment the broken line back out when done so the starter keeps passing `npm run
 
 Design a class around the rules its state must obey — hide that state with a runtime `#` field, expose read-only values through getters, change state only through validated methods, keep money as integer cents, and prefer composition over inheritance.
 
+## Learn more on MDN
+
+Class design touches several reference pages — bookmark the ones that match the rules you just enforced:
+
+- [Private class features](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields) — `#` fields, private methods, and `#field in obj` checks
+- [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) — the syntax and rules of property-shaped reads
+- [setter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) — the write-side counterpart for validated assignments
+- [Number.isInteger](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger) — the runtime guard used on every money mutation
+- [Number.isFinite](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite) — rejecting `NaN` and `Infinity` at boundaries
+- [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) — the base class custom errors extend
+- [extends](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends) — subclassing and the `super` call
+- [Using classes guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes) — composition versus inheritance trade-offs in context
+
+### TypeScript docs
+
+- [Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html) — `private`, `protected`, `readonly`, and constructor shorthand
+- [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html) — `readonly` properties and how TypeScript models mutable object contents
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -254,7 +275,7 @@ For each snippet, write down the exact result before running.
 6. `account.withdraw(2_000)` with a balance of 1_250 — what is thrown?
 7. Run `npm.cmd run day20:js` and `npm.cmd run day20`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 155 Min Stack — https://leetcode.com/problems/min-stack/ (hint: https://neetcode.io/problems/minimum-stack/question)
+**LeetCode:** 155 Min Stack — https://leetcode.com/problems/min-stack/ (hint: https://neetcode.io/problems/minimum-stack/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -269,6 +290,7 @@ For each snippet, write down the exact result before running.
 2. The shared state guard: write a `TemperatureSensor` class with a private `#readingCelsius`, a getter, and a `record(celsius)` method that rejects non-finite values. Show that the reading is read-only from outside.
 3. The composition decision: build a small `Report` that takes an array of `BankAccount` instances and prints one line each. Explain in a comment why `Report` uses accounts rather than extending them.
 4. The custom error memo: write a comment block listing two cases where a custom error earns its class and two where a plain `Error` is enough.
+5. **MDN lookup:** Open the [private class features reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields), find the `#field in obj` check, and add a `hasBalance(account)` helper that reports whether an object carries the private `#balanceInCents` field. Comment on why `in` can detect a private field even though the field cannot be read from outside the class.
 
 ## Finish line
 

@@ -24,6 +24,7 @@
   - [What TypeScript cannot catch](#what-typescript-cannot-catch)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -159,6 +160,8 @@ const name // SyntaxError: Missing initializer in const declaration
 
 - The default choice. Start every variable as `const`. Switch to `let` only when you can point at the line where it changes. This is the industry rule, and it makes your code self-documenting: a reader sees `const` and knows the name is stable.
 
+Both keywords are documented in depth on MDN — [read `let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) there to meet their full rules, including redeclaration errors and the temporal dead zone mentioned below.
+
 ### Why var is retired
 
 `var` is the old declaration keyword, from before `let` and `const`. You will meet it in old code and old tutorials. You should understand it, and you should not write it.
@@ -278,6 +281,8 @@ Why this matters for you:
 
 The practical lesson is shorter than the theory: **declare every variable at the top of the block where you need it.** Then the TDZ never bites you, and hoisting becomes trivia you can explain in an interview.
 
+MDN's [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var) pages both document the temporal dead zone and hoisting in their own words — worth reading side by side to see why `var` predates and `let`/`const` fix it.
+
 ### const locks the name, not the value
 
 The most common `const` misconception:
@@ -308,6 +313,8 @@ user.name = 'Grace' // fine: contents change
 ```
 
 Remember the box-and-label picture: `const` superglues the label to the box. What is *inside* the box is the object's business. We explore arrays and objects properly in later days; today's rule is that `const` governs names, not contents.
+
+The [MDN reference for `const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) spells out the same rule under "const declarations" — including that `const` creates an immutable binding, not an immutable value.
 
 ### Common mistakes table
 
@@ -418,6 +425,24 @@ Comment the line back out when you are done, so the starter keeps passing `npm r
 
 A variable is a labeled box holding one value at a time; `const` locks the label, `let` allows changing the value, `var` is retired because it ignores blocks, and TypeScript checks the type of what goes in the box before the runtime runs.
 
+## Learn more on MDN
+
+Variables look simple until you read the fine print. Bookmark these pages and return as you grow:
+
+- [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) — redeclaration errors, scoping, and the temporal dead zone
+- [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) — immutable bindings versus immutable values
+- [var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var) — the old keyword and why it escapes blocks
+- [Identifier](https://developer.mozilla.org/en-US/docs/Glossary/Identifier) — the full grammar rules for valid names
+- [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined) — the value of a declared-but-unassigned name
+- [ReferenceError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError) — the error for names that do not exist or are in the TDZ
+- [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — the error for reassigning a `const`
+- [Scope (JavaScript guide)](https://developer.mozilla.org/en-US/docs/Glossary/Scope) — blocks, functions, and where names live
+
+### TypeScript docs
+
+- [Variable Declarations](https://www.typescriptlang.org/docs/handbook/variable-declarations.html) — how `let`/`const` map to TypeScript, with `const` guidance for object shapes
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — annotations and `string | undefined` unions
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -445,6 +470,7 @@ For each snippet, **write down the exact output before running it**, then run an
 4. Write a program that shows the difference between `undefined` and `ReferenceError` by printing one of each. Add a comment explaining the distinction.
 5. Write a program that demonstrates `const` allowing array contents to change but forbidding reassignment. Both behaviors in one file, each with a comment.
 6. Write a program that prints the result of `counter = counter + 1` three times, and explain in a comment why `=` is assignment, not math equality.
+7. **MDN lookup:** Open the [let reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let), find the section on the temporal dead zone, and write a three-line snippet that reads a `let` variable *before* its declaration. Run it, capture the exact error, and add a comment explaining what the error is really saying.
 
 ### Level 3 — Creative synthesis
 

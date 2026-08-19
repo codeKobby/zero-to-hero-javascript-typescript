@@ -18,6 +18,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -79,6 +80,8 @@ JavaScript performs the actual object copying, picking, omitting, and freezing. 
 - `Record<K, V>` creates a dictionary whose keys and values are known.
 - `Readonly<T>` prevents assignment through that TypeScript view; it does not deep-freeze nested objects.
 
+The handbook's [Utility Types page](https://www.typescriptlang.org/docs/handbook/utility-types.html) documents every built-in with one-line descriptions — bookmark it for the ones this lesson does not cover.
+
 ### JS and TS side by side
 
 ```js
@@ -109,6 +112,8 @@ The TS signature catches an invalid key, while the implementation still runs Jav
 ### The signature catches the key, the runtime still runs JavaScript
 
 `Pick<T, K>` with `K extends keyof T` means the compiler rejects `Pick<User, 'nickname'>` before execution. Inside the implementation, the assertion `as Pick<T, K>` only tells the compiler to trust the object; the runtime still needs the JavaScript behavior to be correct.
+
+The handbook's [Pick&lt;T, K&gt; entry](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktk) shows the same `K extends keyof T` signature the compiler enforces for you.
 
 ### What TypeScript cannot decide
 
@@ -147,6 +152,26 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Utility types derive related contracts — optional, picked, omitted, recorded, readonly — from one declared shape, changing only what the compiler permits, never what the runtime does.
 
+## Learn more on MDN
+
+### TypeScript docs
+
+The official handbook is the authority on every construct in this lesson — bookmark the pages that match what you just wrote:
+
+- [Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html) — the full reference for `Partial`, `Required`, `Pick`, `Omit`, `Record`, `Readonly`
+- [Partial&lt;T&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype) — making every field optional for PATCH-style updates
+- [Pick&lt;T, K&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktk) — projecting a smaller view with `K extends keyof T`
+- [Record&lt;K, T&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkt) — building a typed dictionary whose keys and values are known
+- [Readonly&lt;T&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype) — the shallow assignment guard behind your `FrozenUser`
+- [Type Manipulation](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) — how the built-ins are themselves built from mapped and conditional types
+
+### MDN
+
+- [Object.freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) — the runtime behavior `Readonly` only describes
+- [Object.fromEntries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries) — the helper behind the `pick` implementation
+- [Object.entries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) — reading an object's keys the way a runtime `omit` must
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — why a PATCH payload needs validation, not just a `Partial` type
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -161,7 +186,7 @@ For each snippet, write down the exact result before running.
 4. Which guarantees exist only in the editor, and which only at runtime?
 5. Run `npm.cmd run day38:js` and `npm.cmd run day38`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 347 Top K Frequent Elements — https://leetcode.com/problems/top-k-frequent-elements/ (hint: https://neetcode.io/problems/top-k-elements-in-list/question)
+**LeetCode:** 347 Top K Frequent Elements — https://leetcode.com/problems/top-k-frequent-elements/ (hint: https://neetcode.io/problems/top-k-elements-in-list/question) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -169,6 +194,7 @@ For each snippet, write down the exact result before running.
 2. Create a public projection with `Pick<User, 'id' | 'name'>`.
 3. Create a permissions dictionary with `Record<'admin' | 'user', string[]>`.
 4. Reimplement the same operations in JavaScript with `pick`, `omit`, and `Object.freeze`, and write down which guarantees exist only in the editor.
+5. **TypeScript docs lookup:** Open the handbook's [Utility Types page](https://www.typescriptlang.org/docs/handbook/utility-types.html) and find the [Required&lt;T&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype) entry. Write a `complete(draft: Partial<User>): Required<User>` helper that fills in every optional field, then comment on what the compiler guarantees once the function returns.
 
 ### Level 3 — Creative synthesis
 

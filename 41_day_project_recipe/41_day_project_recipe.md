@@ -16,6 +16,7 @@
   - [One boundary, walked through](#one-boundary-walked-through)
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -77,6 +78,8 @@ const visible = recipes.filter((recipe) =>
   recipe.ingredients.some((ingredient) => ingredient.toLowerCase().includes(query)))
 ```
 
+Search leans on `filter` and `some`, and both are worth reading on MDN — [Array.prototype.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) shows how `some` returns as soon as one ingredient matches, while `filter` builds the surviving list.
+
 ### Validation, not assumptions
 
 ```js
@@ -88,7 +91,7 @@ function isRecipe(value) {
 }
 ```
 
-An object that came back from `JSON.parse` only looks like a recipe; the guard checks each field before state accepts it.
+An object that came back from `JSON.parse` only looks like a recipe; the guard checks each field before state accepts it. The `Array.isArray` and `every` calls are the shape checks doing that work, and [MDN documents Array.isArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray) including why `typeof []` alone would not be enough.
 
 ### Pitfalls table
 
@@ -99,6 +102,8 @@ An object that came back from `JSON.parse` only looks like a recipe; the guard c
 | Storing a filtered recipe list | Second source of truth | Derive search from source state |
 | Trusting dataset values in a delete handler | Inline data is arbitrary | Verify with a guard |
 | Building HTML with strings | Injection risk | Build nodes and use `textContent` |
+
+The delete and edit paths read their target id from `data-*` attributes; [MDN's HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) explains how `dataset` maps attribute names to camelCase properties.
 
 ## The TypeScript layer
 
@@ -127,9 +132,28 @@ The compiler cannot decide what a user typed, what `localStorage` returned, or w
 
 A recipe app is a small domain model with DOM, storage, and form effects at the edges — validate at every boundary, derive search from source state, and render with `textContent` so the app stays testable and safe.
 
+## Learn more on MDN
+
+The recipe app reads storage, validates shapes, searches the list, and renders with safe DOM APIs — each with a reference page worth returning to:
+
+- [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — the search's core, which builds a new list without touching source state
+- [Array.prototype.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) — how one matching ingredient keeps a recipe in the results
+- [String.prototype.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes) — the case-sensitive substring check behind the query
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the parse step that can throw and return the wrong shape
+- [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) — serializing recipes for save and for export
+- [Array.isArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray) — the check that decides a parsed value is a list
+- [HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) — the `data-*` attributes that route delete and edit clicks
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the `Storage` object behind persistence
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe, plain-text rendering of recipe text
+
+### TypeScript docs
+
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what `value is Recipe` tells the compiler, and what it still does not prove
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types the DOM reads in the starter
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -150,6 +174,7 @@ Build the project in order, recording evidence for each milestone in your projec
 4. Add delete and edit paths through delegated events.
 5. Add debounced search and JSON export/import.
 6. Extract pure functions and add tests before calling the project portfolio-ready.
+7. **MDN lookup:** Open the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify), find the `replacer` and `space` arguments, and add a JSON export feature that uses both to pretty-print the saved recipes. Comment on what `space` does and why the exported text is safe to paste into another app.
 
 ### Level 3 — Creative synthesis
 

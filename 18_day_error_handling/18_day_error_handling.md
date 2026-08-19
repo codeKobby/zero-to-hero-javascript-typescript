@@ -22,6 +22,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -110,6 +111,8 @@ try {
 
 If the `try` block finishes, `catch` is skipped. If it throws, the rest of the `try` block is skipped and `catch` runs. `finally` runs **in either case** and is mainly for cleanup, not normal control flow.
 
+JavaScript ships several error constructors for different failure kinds — [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError), [ReferenceError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError), and [SyntaxError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError) among them — all documented on the [MDN Error reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
+
 ### Return a failure value when the caller can continue
 
 Parsing optional user data is a good case for a result value:
@@ -142,6 +145,8 @@ function divide(total, people) {
 
 The caller that owns the user interaction or request boundary decides how to present that failure. Do not use errors for ordinary branching, such as an empty optional search result.
 
+The [MDN throw statement reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) covers what can be thrown — any value, not just `Error` instances — and why a real `Error` is still the better default because it carries a `.message` and a stack trace.
+
 ### Error messages need context, not secrets
 
 Useful messages say **what failed** and **what rule was expected**. They must not expose passwords, tokens, personally sensitive data, or internal system details to users. Log useful technical context securely; show a short, safe message in the interface.
@@ -156,6 +161,8 @@ const value = JSON.parse('{"port":"3000"}')
 ```
 
 Treat parsed data as unknown first. Validate its shape before using it.
+
+[MDN's JSON.parse reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) documents the throw path and the optional `reviver` parameter, which can transform values during parsing — a power feature worth knowing, though shape validation after parsing is still the reliable path.
 
 ### Common mistakes table
 
@@ -255,6 +262,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 Failures are either returned as values for the caller to decide on or thrown as errors when a contract is broken — caught errors are `unknown` until `instanceof Error` proves them, and JSON parsing validates syntax but never shape.
 
+## Learn more on MDN
+
+Errors have more constructors and flows than fit in one lesson — bookmark the pages that match the recovery styles you just practiced:
+
+- [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) — the base constructor and its `.message` and `stack` properties
+- [try...catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) — the full flow of try, catch, and finally
+- [throw](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) — what can be thrown and why a real `Error` is the default
+- [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — thrown when an operation receives the wrong kind of value
+- [ReferenceError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError) — thrown when a name cannot be found
+- [SyntaxError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError) — what `JSON.parse` throws on malformed text
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the throw path and the reviver parameter
+- [instanceof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) — the runtime check that narrows a caught value
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `instanceof Error` check that turns `unknown` into a usable error
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — where `unknown` and union types fit in the type system
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -272,7 +297,7 @@ For each snippet, write down the exact result before running.
 7. Why is an empty optional search result not an error?
 8. Run `npm.cmd run day18:js` and `npm.cmd run day18`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2704 To Be Or Not To Be — https://leetcode.com/problems/to-be-or-not-to-be/ (hint: NeetCode roadmap)
+**LeetCode:** 2704 To Be Or Not To Be — https://leetcode.com/problems/to-be-or-not-to-be/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -281,6 +306,7 @@ For each snippet, write down the exact result before running.
 3. Call `divide` inside `try/catch` and show a safe user-facing message (no user input repeated).
 4. Write `readConfig(text)` that returns `{ ok: true, config }` for valid JSON, or `{ ok: false, reason }` otherwise — and state the `reason` in a user-safe way.
 5. TypeScript: handle a caught `unknown` error with `instanceof Error` — no assertion.
+6. **MDN lookup:** Open the [Error reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error), find the `name` and `stack` properties, and add a custom `ConfigError` class that you throw in `readConfig`. Catch it and log `error.name` and the stack separately from the user-facing message, then comment on why `stack` belongs in developer logs rather than visible text.
 
 ### Level 3 — Creative synthesis
 

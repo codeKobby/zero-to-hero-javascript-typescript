@@ -19,6 +19,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -90,6 +91,8 @@ const result = new Promise((resolve, reject) => {
 
 The executor function runs immediately. `resolve` and `reject` settle the promise; they do not return the future value to the surrounding synchronous code.
 
+The full settle rules live on [MDN's `Promise` constructor reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise) — including what happens when the executor throws instead of calling `reject`.
+
 ### Consuming a Promise
 
 `then` receives the fulfillment value. `catch` receives a rejection. `finally` runs on either outcome and does not receive the value:
@@ -112,6 +115,8 @@ console.log('C')
 
 This is why a Promise does not block the whole program.
 
+[MDN's `Promise.prototype.then` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) documents the two callbacks (`onFulfilled` and `onRejected`) and the exact promise-returning contract every chain depends on.
+
 ### Chaining passes returned values
 
 Every `then` returns a new Promise. If its callback returns a plain value, the next `then` receives that value. If it returns a Promise, the chain waits for it. If it throws, the chain becomes rejected and the next `catch` can handle it:
@@ -128,6 +133,8 @@ getUser(1)
 ```
 
 Return the next operation from a `then`. Omitting `return` starts an unrelated operation and passes `undefined` to the next step.
+
+Flattening, waiting, and error forwarding are described on [MDN's promises guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) — the canonical walkthrough of chaining and `return`.
 
 ### Common mistakes table
 
@@ -191,6 +198,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 A Promise is one future outcome — pending, then fulfilled with a value or rejected with a reason — consumed with `then`/`catch`/`finally`, chained by returning the next operation, and typed as `Promise<T>` for the value it will fulfill with.
 
+## Learn more on MDN
+
+Promises have a small core and a wide set of reference pages. Bookmark these and return as you grow:
+
+- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) — states, settlement, and the static methods
+- [Promise constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise) — the executor contract and its parameters
+- [Promise.prototype.then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) — the fulfillment and rejection callbacks
+- [Promise.prototype.catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch) — handling a rejection
+- [Promise.prototype.finally](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally) — cleanup on either outcome
+- [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve) — a promise that is already fulfilled
+- [Promise.reject](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject) — a promise that is already rejected
+- [Using promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) — the guide to chaining and composing
+- [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) — the timer behind `delay(ms)`
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind `Promise<T>`
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T` in `Promise<T>` and how fulfilled values flow
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -206,7 +232,7 @@ For each snippet, write down the exact result before running.
 5. Why can a settled promise not change outcome?
 6. Run `npm.cmd run day31:js` and `npm.cmd run day31`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2723 Add Two Promises — https://leetcode.com/problems/add-two-promises/ (hint: NeetCode roadmap)
+**LeetCode:** 2723 Add Two Promises — https://leetcode.com/problems/add-two-promises/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -214,6 +240,7 @@ For each snippet, write down the exact result before running.
 2. Chain `getUser` to get a user's next lesson.
 3. Create a rejecting Promise and handle it with `catch`.
 4. Type every resolved value and narrow caught errors.
+5. **MDN lookup:** Open the [Promise.prototype.then reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then), find the `onRejected` second argument, and handle a rejecting promise with `then(onFulfilled, onRejected)` instead of a separate `catch`. Comment on how this differs from `.then(...).catch(...)`.
 
 ### Level 3 — Creative synthesis
 

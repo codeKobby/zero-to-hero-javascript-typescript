@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -98,6 +99,8 @@ const cards = document.querySelectorAll('.lesson-card')
 
 `getElementById` returns an element or `null`. `querySelector` returns the first matching element or `null`. `querySelectorAll` returns a `NodeList` that may be empty but is never `null`.
 
+Each method is fully documented on MDN — [getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById), [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector), and [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll). The selector strings themselves are the full CSS selector grammar — [the CSS selectors reference on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors) shows every selector you can pass, from attributes to `:nth-child`.
+
 Choose the most specific, stable selector you control. An ID is good for one named page landmark. A class is good for a repeated group. Avoid selecting based on fragile styling or deep document structure when a meaningful data attribute would express intent.
 
 ### Handle a missing match intentionally
@@ -123,7 +126,7 @@ function requireElement(selector) {
 }
 ```
 
-Optional chaining avoids a crash but can also hide an incorrectly spelled required selector. Choose based on the page contract, not convenience.
+Optional chaining avoids a crash but can also hide an incorrectly spelled required selector. Choose based on the page contract, not convenience. [MDN documents optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) and exactly when it returns `undefined` instead of throwing.
 
 ### NodeLists are collections, not arrays
 
@@ -137,6 +140,8 @@ for (const card of cards) {
 ```
 
 It is a static snapshot for `querySelectorAll`. If you later create another matching card, run the query again when you need the new set.
+
+The [NodeList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) shows the full family: `forEach`, `entries`, `keys`, `values`, and how a `NodeList` differs from a real array.
 
 ### Common mistakes table
 
@@ -202,6 +207,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 The DOM is the browser's object model of HTML — select the exact element with the right query, guard an optional miss, throw on a required miss, and narrow generic elements with runtime checks before reading their properties.
 
+## Learn more on MDN
+
+Querying the page is a small slice of the DOM's surface. Bookmark these pages and return as you grow:
+
+- [getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) — the fast, specific ID lookup
+- [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) — the first match for any CSS selector
+- [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) — every match as a `NodeList`
+- [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) — `forEach`, `entries`, `keys`, `values`, and how it differs from an array
+- [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors) — the full selector grammar you can pass to the query methods
+- [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element) — the generic element type and its properties
+- [Optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) — when `?.` returns `undefined` instead of throwing
+- [HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement) — the concrete element type behind the `instanceof` check
+- [Document](https://developer.mozilla.org/en-US/docs/Web/API/Document) — the object behind `document`, plus `getElementsByClassName` and `getElementsByTagName`
+
+### TypeScript docs
+
+- [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `Element`, `NodeList`, and the narrowing you used today
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -224,6 +247,7 @@ For each snippet, write down the exact result before running.
 2. Count all elements with the `lesson-card` class.
 3. Select the email input and read its value only after proving it is an `HTMLInputElement`.
 4. Add a required-element helper that throws a clear error for a missing required selector.
+5. **MDN lookup:** Open the [NodeList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/NodeList), find the `entries()` (or `keys()`/`values()`) method, and iterate the lesson cards using one of those instead of `forEach`. Comment on what makes `for...of` over a `NodeList` work without `Array.from`.
 
 ### Level 3 — Creative synthesis
 

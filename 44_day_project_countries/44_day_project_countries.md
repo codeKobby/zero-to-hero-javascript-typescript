@@ -18,6 +18,7 @@
   - [One boundary, walked through](#one-boundary-walked-through)
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -81,11 +82,11 @@ const searchCountries = (items, query, region) => {
 }
 ```
 
-Search covers name, capital, and every language of a country, case-insensitively.
+Search covers name, capital, and every language of a country, case-insensitively. The matching itself is `some` and `includes`; [MDN documents Array.prototype.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) including the empty-array result and the `thisArg` you can ignore.
 
 ### The pipeline: validated, filtered, sorted, rendered
 
-The core pipeline is `validated -> filtered -> sorted -> rendered`. Keep the original country array unchanged. A language statistic can be built with a `Map`, then converted with `[...counts.entries()].sort(...)` so the source data and the sorted view never share an array.
+The core pipeline is `validated -> filtered -> sorted -> rendered`. Keep the original country array unchanged. A language statistic can be built with a `Map`, then converted with `[...counts.entries()].sort(...)` so the source data and the sorted view never share an array. `flatMap` flattens every country's languages into one list first, and [MDN documents Array.prototype.flatMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) showing how the mapping and flattening happen in one pass.
 
 ### Statistics from the filtered set
 
@@ -97,7 +98,7 @@ const languageStats = items =>
     .slice(0, 3)
 ```
 
-`languageStats` takes the currently visible countries, so the common-languages readout updates as the search narrows instead of reflecting stale global totals.
+`languageStats` takes the currently visible countries, so the common-languages readout updates as the search narrows instead of reflecting stale global totals. Counting with a `Map` relies on `get` returning `undefined` for a new key; [MDN documents Map.prototype.set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set) and the `get` behavior the `?? 0` fallback depends on.
 
 ### Pitfalls table
 
@@ -139,9 +140,28 @@ The `Country` type describes the fixture's shape, but it cannot prove that a JSO
 
 A country explorer treats imported data as untrusted, runs it through a validated-to-filtered-to-sorted-to-rendered pipeline that never mutates the source, computes statistics from the filtered set, and shares a `Country` model in TypeScript while keeping runtime validation at the boundary.
 
+## Learn more on MDN
+
+The country explorer is one data pipeline of filters, flattens, counts, and sorts — each with a reference page worth returning to:
+
+- [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — composing region and query into the visible set
+- [Array.prototype.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) — matching name, capital, or any single language
+- [String.prototype.toLowerCase](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) — the case-insensitive normalization behind search
+- [Array.prototype.flatMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) — flattening each country's languages into one list in a pass
+- [Array.prototype.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) — building the language-count map from the flattened list
+- [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) — the counts accumulator and its `get`/`set` behavior
+- [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) — the copy-first sorted view that never touches source order
+- [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) — taking the top three languages from the sorted counts
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the `Country` model and its array-shaped fields
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `instanceof HTMLElement` proves each DOM lookup
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what an `isCountry` guard tells the compiler about imported data
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -160,6 +180,7 @@ Build the project in order, recording evidence for each milestone in your projec
 2. Add sort, population/area statistics, a detail view, and favorites.
 3. Add a two-country comparison and an empty/error state.
 4. Port each feature to TypeScript and add a type guard for the dataset.
+5. **MDN lookup:** Open the [Array.prototype.find reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find), find how it returns `undefined` when nothing matches, and add a detail view that shows the first country matching a clicked name. Comment on when `find` is the right tool compared with `filter`.
 
 ### Level 3 — Creative synthesis
 

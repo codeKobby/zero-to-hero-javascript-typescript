@@ -22,6 +22,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -109,11 +110,11 @@ export function formatLearner(learner) { /* ... */ }
 import { courseName, formatLearner } from './formatters.js'
 ```
 
-Use named exports for a module with several meaningful public values. A default export can be appropriate when a file has one clear main value, but it allows the importer to rename it freely. This course prefers named exports while learners are building a mental map of where names come from.
+Use named exports for a module with several meaningful public values. A default export can be appropriate when a file has one clear main value, but it allows the importer to rename it freely. This course prefers named exports while learners are building a mental map of where names come from. The [MDN import statement reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) covers named, default, and namespace import forms side by side.
 
 ### Imports run before the rest of the module body
 
-Modules are loaded, linked, and evaluated before your main file's ordinary top-level statements execute. That means imported bindings are available when the module runs. Keep module top-level code small and unsurprising; a file that fetches data or changes storage merely by being imported is hard to reason about.
+Modules are loaded, linked, and evaluated before your main file's ordinary top-level statements execute. That means imported bindings are available when the module runs. Keep module top-level code small and unsurprising; a file that fetches data or changes storage merely by being imported is hard to reason about. MDN's [JavaScript modules guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) walks through this exact load sequence — parsing, linking, and evaluating — and what differs from standard scripts.
 
 ### Imported bindings are read-only
 
@@ -127,7 +128,7 @@ In a browser, the entry script must be marked as a module:
 <script type="module" src="./js/main.js"></script>
 ```
 
-Module scripts are deferred by default and follow the import graph, and a module page must be served — opening it directly from disk can cause browser security problems. In this course, module-based and TypeScript browser pages are served with Vite, while the plain JavaScript starter pages open directly from disk. The setup guide explains the workflow.
+Module scripts are deferred by default and follow the import graph, and a module page must be served — opening it directly from disk can cause browser security problems. In this course, module-based and TypeScript browser pages are served with Vite, while the plain JavaScript starter pages open directly from disk. The setup guide explains the workflow, and the [MDN script element reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) documents `type="module"`, deferral behavior, and the CORS and file-URL restrictions behind that rule.
 
 ### Dynamic import is a later-loading tool
 
@@ -137,7 +138,7 @@ Module scripts are deferred by default and follow the import graph, and a module
 const { formatLearner } = await import('./formatters.js')
 ```
 
-Use it for genuine lazy loading. It is asynchronous, so it belongs with the promises and async/await lessons rather than replacing ordinary imports.
+Use it for genuine lazy loading. It is asynchronous, so it belongs with the promises and async/await lessons rather than replacing ordinary imports. The [MDN `import()` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) documents the call form, how it differs from the static `import` statement, and the `import.meta` object available inside modules.
 
 ### Common mistakes table
 
@@ -204,6 +205,23 @@ Comment the broken line back out when done so the starter keeps passing `npm run
 
 A module is a file with an explicit public surface — `export` opens names to other files, `import` receives them, unexported values stay private, and TypeScript types cross the same boundary but vanish at runtime.
 
+## Learn more on MDN
+
+Modules have several forms beyond the named exports you used — bookmark the references that match the boundaries you just built:
+
+- [JavaScript modules guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) — the full tour of import, export, and loading behavior
+- [import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) — named, default, and namespace import forms
+- [export statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) — named, default, and re-export syntax
+- [import() operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) — the asynchronous, lazy-loading form
+- [import.meta](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import.meta) — module metadata such as the current URL
+- [script element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) — `type="module"` and deferral in the browser
+- [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) — why module code is automatically strict
+
+### TypeScript docs
+
+- [Modules](https://www.typescriptlang.org/docs/handbook/modules.html) — how `export`, `import`, and `export type` map to TypeScript
+- [Modules Reference](https://www.typescriptlang.org/docs/handbook/modules-reference.html) — the import and export forms and resolution rules in detail
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -226,6 +244,7 @@ For each snippet, write down the exact result before running.
 2. Import both functions into a main file and call them.
 3. Add one non-exported helper. Confirm another module cannot import it.
 4. TypeScript: export a `Product` type and a `formatProduct` function that accepts it.
+5. **MDN lookup:** Open the [export statement reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export), find default exports, and convert one named export in your math module to a default export. Update the import in the main file, then comment on when a default export is clearer and when it hides where a name came from.
 
 ### Level 3 — Creative synthesis
 

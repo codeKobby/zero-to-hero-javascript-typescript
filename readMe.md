@@ -81,7 +81,7 @@ The roadmap is intentionally progressive. Do not skip the practice because a lat
 
 - [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md): what every lesson must teach and verify.
 - [CURRICULUM_GUIDE.md](CURRICULUM_GUIDE.md): the full day-by-day map.
-- [LEETCODE_GUIDE.md](LEETCODE_GUIDE.md): optional problem-solving track mapping each day's skills to a LeetCode problem.
+- [LEETCODE_GUIDE.md](LEETCODE_GUIDE.md): optional problem-solving track that teaches how LeetCode works and maps each day's skills to a problem.
 - [PORTFOLIO_TRACK.md](PORTFOLIO_TRACK.md): project quality and evidence checklist.
 - [VS_CODE_SETUP.md](VS_CODE_SETUP.md): clone, Node, TypeScript, Vite, and browser workflow.
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md): diagnosis-first fixes.

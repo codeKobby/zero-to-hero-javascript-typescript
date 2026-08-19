@@ -18,6 +18,7 @@
   - [One boundary, walked through](#one-boundary-walked-through)
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -80,6 +81,8 @@ function visibleProducts(items, query, category) {
 }
 ```
 
+Most of the filtering happens inside one callback passed to `filter`; [MDN documents Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) including the `thisArg` and skipped-holes behavior you can safely ignore.
+
 ### Cart by id, not by copy
 
 ```js
@@ -91,11 +94,11 @@ function cartTotal(items) {
 }
 ```
 
-The cart stores ids and quantities only. Totals are computed by joining the cart rows to the product array, so product prices never drift from their source.
+The cart stores ids and quantities only. Totals are computed by joining the cart rows to the product array, so product prices never drift from their source. The cart is a `Map` keyed by id, and [MDN documents Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) including why `get` returns `undefined` for a missing key — the `?? 0` fallback you rely on.
 
 ### Sorting without mutation
 
-`sort` mutates the array it is called on. The baseline copies before sorting (`.toSorted` in JavaScript, the spread-then-`sort` pattern in TypeScript) so the source order of `products` is never lost.
+`sort` mutates the array it is called on. The baseline copies before sorting (`.toSorted` in JavaScript, the spread-then-`sort` pattern in TypeScript) so the source order of `products` is never lost. Both are worth reading side by side — [Array.prototype.toSorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) returns a new array while [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) sorts in place.
 
 ### Pitfalls table
 
@@ -141,9 +144,28 @@ An interface does not validate products loaded from localStorage, and the compil
 
 An e-commerce list keeps products immutable, stores the cart as ids and quantities, derives every visible list and total at render time, and renders data with `textContent` so filters compose without synchronization bugs.
 
+## Learn more on MDN
+
+The product list composes array transforms, a Map-backed cart, and a locale-aware total — each with a reference page worth returning to:
+
+- [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) — composing search and category into the visible list
+- [Array.prototype.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) — joining cart rows into the running total
+- [Array.prototype.toSorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) — sorting without mutating the source array
+- [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) — the in-place mutator to copy before using
+- [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) — the id-to-quantity store behind the cart
+- [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) — locale-aware formatting of product prices and totals
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the `Storage` object behind the versioned cart
+- [Node.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) — safe rendering of product data
+
+### TypeScript docs
+
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the `Product` type and the literal strings behind it
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `instanceof HTMLButtonElement` narrows the delegated event target
+- [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — validating the cart data loaded from storage
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -163,6 +185,7 @@ Build the project in order, recording evidence for each milestone in your projec
 3. Persist a versioned cart in localStorage; reject malformed or stale data.
 4. Add accessible empty states, quantity controls, and keyboard-friendly focus.
 5. Make the TS version meet the same acceptance criteria, then test both pages.
+6. **MDN lookup:** Open the [Intl.NumberFormat reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat), find `formatToParts`, and add a price display that uses it to render each product price and the cart total with a currency symbol. Comment on why `format()` alone hides the parts that `formatToParts` exposes.
 
 ### Level 3 — Creative synthesis
 

@@ -21,6 +21,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -126,7 +127,7 @@ const cleaned = raw.replace(/\s+/g, ' ').trim()
 console.log(cleaned) // 'one two'
 ```
 
-None of these mutate the original string — they return new values, exactly like Day 14's string methods.
+None of these mutate the original string — they return new values, exactly like Day 14's string methods. `test` is a `RegExp` method while `matchAll` and `replace` live on the string side — [MDN's RegExp reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) documents the shared flags and the `exec` loop, and [String.prototype.replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) shows the replacement patterns and callback form.
 
 ### Character classes, quantifiers, and flags
 
@@ -150,7 +151,7 @@ Flags change how the pattern searches:
 /hello/g // find all occurrences when using matchAll or replace
 ```
 
-Avoid the `g` flag with repeated `test` calls on the same `RegExp` object until you understand its mutable `lastIndex` state. For basic validation, omit `g`.
+Avoid the `g` flag with repeated `test` calls on the same `RegExp` object until you understand its mutable `lastIndex` state. For basic validation, omit `g`. The [MDN RegExp reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) documents that `lastIndex` state and the full flag list — including the `y` sticky flag, a cousin of `g` that anchors its search to a specific position.
 
 ### Capture only the data you need
 
@@ -168,7 +169,7 @@ if (match === null) {
 }
 ```
 
-The whole matched text is at position zero. The first and second parenthesized groups are at positions one and two. **Always handle the null path**: `exec` and `match` may find nothing.
+The whole matched text is at position zero. The first and second parenthesized groups are at positions one and two. **Always handle the null path**: `exec` and `match` may find nothing. [String.prototype.match](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) changes its return shape with the `g` flag — without `g` it returns the first match array with groups, with `g` a plain array of full matches — which is exactly why `matchAll` is the extraction tool of choice in this lesson.
 
 ### Escape user text before making a dynamic regex
 
@@ -253,6 +254,24 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 A regex is a readable description of a text pattern with three main operations — test for yes/no, matchAll to extract, replace to clean — and TypeScript forces you to handle the `null` result when extraction may fail.
 
+## Learn more on MDN
+
+Regexes have more surface than any lesson can cover — bookmark the references that match the operations you just used:
+
+- [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) — the constructor, flags, and the mutable `lastIndex` state
+- [RegExp.prototype.test](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test) — the yes/no question method
+- [RegExp.prototype.exec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec) — the detailed match array and its `null` result
+- [String.prototype.match](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) — how the `g` flag changes the return shape
+- [String.prototype.matchAll](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll) — the iterator of every match with groups intact
+- [String.prototype.replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) — replacement strings and the callback form
+- [Regular expressions guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions) — the full tour of syntax, groups, and flags
+- [Character classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Character_classes) — `\d`, `\s`, `\w`, and their negated forms
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `null` checks that make `parseCourseCode` safe
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — where the `string` and `null` union members come from
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -272,7 +291,7 @@ For each snippet, write down the exact result before running.
 9. `'C++'.includes('+')` — what does this avoid needing?
 10. Run `npm.cmd run day17:js` and `npm.cmd run day17`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 520 Detect Capital — https://leetcode.com/problems/detect-capital/ (hint: NeetCode roadmap)
+**LeetCode:** 520 Detect Capital — https://leetcode.com/problems/detect-capital/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -281,6 +300,7 @@ For each snippet, write down the exact result before running.
 3. Write `collapseSpaces(text)` that converts `'Ada   Lovelace'` to `'Ada Lovelace'`, then `trim`s the result.
 4. Write `firstTag(text)` that returns the first hashtag without the `#`, or `null` when there is none.
 5. TypeScript: write `parseCourseCode(value)` that returns `{ subject, number }` or `null`, matching the lesson.
+6. **MDN lookup:** Open the [RegExp reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), find `lastIndex` and the `y` (sticky) flag, and write a small loop that uses `exec` with the `g` flag to extract every hashtag from a string, capturing the group without the `#`. Comment on how `lastIndex` moves across calls and why a fresh `RegExp` or `matchAll` is the safer choice for repeated extraction.
 
 ### Level 3 — Creative synthesis
 

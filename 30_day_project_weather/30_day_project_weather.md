@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -87,6 +88,8 @@ function getWeather(city) {
 
 The mock rejects for an unknown city, so the error path is observable without a network.
 
+The mock is built from `Promise.resolve` and `Promise.reject` — [MDN's `Promise` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) explains how both constructors settle a promise without touching the network.
+
 ### Loading, success, and error as one state machine
 
 ```js
@@ -108,6 +111,8 @@ async function search(city) {
 
 The status drives the status line; the result region renders only when `state.current` is not `null`. A Promise can reject after the user has started another search, so decide which result owns the UI — here the latest `search` call reassigns `state` before rendering.
 
+`async`/`await` keeps the flow readable — [MDN's async function reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) describes how `await` turns the promise into either a value or a thrown error caught here by `try`/`catch`.
+
 ### Favorites with validated hydration
 
 ```js
@@ -118,6 +123,8 @@ if (Array.isArray(saved) && saved.every((city) => typeof city === 'string')) {
 ```
 
 A parsed favorites value is validated as an array of strings before it is assigned. Writing it back goes through `saveFavorites`, which degrades gracefully when storage is blocked.
+
+The guard uses `Array.isArray` plus `every` — [MDN's `localStorage` reference](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) documents the storage API and why its values arrive as strings that need parsing and validation.
 
 ### Pitfalls to test
 
@@ -188,9 +195,28 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 A weather dashboard is a boundary (the API Promise) feeding a state machine (`idle`/`loading`/`success`/`error`), and a render that never reads `current` until it is checked — with favorites validated after every parse.
 
+## Learn more on MDN
+
+The weather project leans on Promises, storage, and state. Bookmark these pages and return as you grow:
+
+- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) — the object behind every async boundary
+- [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve) — the deterministic success path of the mock
+- [Promise.reject](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject) — the deterministic error path of the mock
+- [async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) — `await` and how rejection becomes a caught error
+- [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) — the storage API behind favorites
+- [Storage.getItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem) — reading a stored value as a string
+- [Storage.setItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem) — writing back a string value
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — turning storage strings into values that must be validated
+- [Array.prototype.every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) — the check that every stored city is a string
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `current !== null` checks the render relies on
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind the status strings and weather fields
+
 ## Practice
 
-Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
+Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
 
@@ -209,6 +235,7 @@ For each snippet, write down the exact result before running.
 2. Sort favorites alphabetically in the render without mutating the stored array.
 3. TypeScript: replace the mock `getWeather` signature with one that returns `Promise<Weather>` from a small async helper, and add a comment on what changes if a real `fetch` replaces it.
 4. Persist the last successful search in a second storage key and restore it on load.
+5. **MDN lookup:** Open the [Promise reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), find the `finally()` method, and add it to the `search` flow so a status message is always restored after either outcome. Comment on why `finally` runs for both success and error.
 
 ### Level 3 — Creative synthesis
 

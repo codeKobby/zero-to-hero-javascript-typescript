@@ -20,6 +20,7 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
@@ -77,6 +78,8 @@ Feature code calls `api.get('/todos')` and receives a value to validate; it neve
 
 Scattering fetch, headers, status checks, JSON parsing, caching, and error messages throughout a UI makes changes expensive. An API client centralizes transport rules; feature code asks for domain data.
 
+The client wraps the rules you met yesterday — [MDN's Using the Fetch API guide](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) describes the transport it centralizes.
+
 ### The client returns unknown at the trust boundary
 
 ```ts
@@ -88,6 +91,8 @@ async get(endpoint: string): Promise<unknown> {
 ```
 
 The client returns `unknown` at the trust boundary. A feature-specific guard turns `unknown` into a useful domain type. Do not make a generic `get<T>` assertion pretend that untrusted JSON was validated.
+
+`response.json()` parses the body through [the `JSON.parse` algorithm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse), which is why the boundary hands back `unknown` — nothing about the wire format is trusted yet.
 
 ### Loading, success, and error are state
 
@@ -106,6 +111,8 @@ This prevents stale success data from being displayed as if a newer request succ
 ### Cache only with a policy
 
 An in-memory cache can avoid duplicate requests during one session. Decide its key, invalidation rule, and whether stale data is acceptable. A cache is not automatically correct simply because it is faster.
+
+[MDN's `Map` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) documents the structure behind a keyed in-memory cache — insertion order and the `has`/`get`/`set` trio.
 
 ### Pagination is a contract, not an inference
 
@@ -168,6 +175,25 @@ Comment the broken section back out when done so the starter keeps passing `npm 
 
 An API data layer is one boundary that owns transport, returns `unknown` at the trust boundary, models loading/success/error as state, caches by policy, and treats pagination as a contract — with the UI asking for domain data, never raw HTTP.
 
+## Learn more on MDN
+
+An API layer composes the fetch rules you already know. Bookmark these pages and return as you grow:
+
+- [Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) — the transport rules the client wraps
+- [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) — the object `fetch` resolves with
+- [Response.ok](https://developer.mozilla.org/en-US/docs/Web/API/Response/ok) — the status check every client method performs
+- [Response.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json) — reading the body at the trust boundary
+- [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the parser behind `response.json()`
+- [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) — the structure for a keyed response cache
+- [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) — the browser's HTTP cache for longer-lived policies
+- [HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) — the protocol-level caching rules
+- [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) — the base type for the client's thrown failures
+
+### TypeScript docs
+
+- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the discriminated-union narrowing behind `RequestState`
+- [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T` in `RequestState<T>` and `Promise<T>`
+
 ## Practice
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
@@ -182,7 +208,7 @@ For each snippet, write down the exact result before running.
 4. Why should API credentials never be committed to a frontend repository?
 5. Run `npm.cmd run day35:js` and `npm.cmd run day35`; then `npm.cmd run check` and confirm it passes.
 
-**LeetCode:** 2621 Sleep — https://leetcode.com/problems/sleep/ (hint: NeetCode roadmap)
+**LeetCode:** 2621 Sleep — https://leetcode.com/problems/sleep/ (hint: NeetCode roadmap) See [LEETCODE_GUIDE.md](../LEETCODE_GUIDE.md) for how to approach it.
 
 ### Level 2 — Applied mini-projects
 
@@ -190,6 +216,7 @@ For each snippet, write down the exact result before running.
 2. Add a request-state helper and represent loading/success/error.
 3. Add a page parameter and a `hasMore` field to the returned contract.
 4. Type and validate a `Todo` response at runtime.
+5. **MDN lookup:** Open the [Map reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), find the `Map.prototype.get` and `Map.prototype.set` methods, and add a `clearCache()` method to your `ApiClient` that empties the in-memory cache. Comment on when clearing the cache matters.
 
 ### Level 3 — Creative synthesis
 
