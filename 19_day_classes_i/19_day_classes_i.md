@@ -1,10 +1,16 @@
 # Day 19: Classes and Instances — Blueprints and Objects
 
-[Day 18 <<](../18_day_error_handling/18_day_error_handling.md) | [Day 20 >>](../20_day_classes_ii/20_day_classes_ii.md)
+[← Previous lesson](../18_day_error_handling/18_day_error_handling.md) · [README](../README.md) · [Setup](../VS_CODE_SETUP.md) · [Day index](../DAY_INDEX.md) · [Next lesson →](../20_day_classes_ii/20_day_classes_ii.md)
 
 
+
+## Start here
+
+Read the [course README](../README.md), complete the [VS Code setup](../VS_CODE_SETUP.md), and use the [day index](../DAY_INDEX.md) to confirm where this lesson fits. Run the paired local starters before attempting [exercises](practice/exercises.md), then use [hints](practice/hints.md) and [solutions](practice/solutions.md) only after an honest attempt.
 
 ## Table of Contents
+
+- [Start here](#start-here)
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
@@ -280,6 +286,8 @@ Make one controlled mistake related to **Classes and Instances — Blueprints an
 Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
+
+Use [practice/exercises.md](practice/exercises.md) first, then [practice/hints.md](practice/hints.md), and finally [practice/solutions.md](practice/solutions.md).
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
 

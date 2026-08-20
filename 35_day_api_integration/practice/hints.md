@@ -1,10 +1,20 @@
-# Day 35 hints
+# Day 35 hints: Day 35: API Integration — One Boundary Owns HTTP Details
 
-Use only when you are stuck — the learning happens in the attempt.
+Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
-1. Store completed responses in a `Map` using the endpoint as the key.
-2. Model request state as a union with a `status` discriminator.
-3. Keep page and total data in the API response type; do not infer pagination from the current array.
-4. Parse as `unknown` and use a type guard for every required `Todo` property.
-5. The client returns `unknown`; feature code guards into domain types.
-6. A cache needs a key, an invalidation rule, and a stale-data decision.
+## Progressive hint route
+
+1. Start in the repository root and verify Node and npm versions.
+2. Run the unchanged starter before editing it; an unexplained setup failure is a different problem from a lesson failure.
+3. Say the input and expected output aloud. If you cannot name them, return to the worked example.
+4. Trace one value at a time. Write down who creates it, who reads it, and who is allowed to change it.
+5. Change only one input or rule so the cause of a different result remains visible.
+6. For boundary cases, choose the contract first: accept, reject, render an empty state, show loading, or show an error.
+7. In browser work, distinguish the DOM, event handler, JavaScript runtime, and Vite transformation step.
+8. In TypeScript work, read the first compiler error and repair the type or the value; do not weaken the compiler merely to make the red text disappear.
+9. A test should observe behavior or a public contract, not only a private implementation detail.
+10. Keep JavaScript and TypeScript examples behaviorally equivalent so the type layer does not hide the runtime idea.
+11. Use accessible labels, semantic elements, keyboard behavior, and visible failure states when the lesson touches UI.
+12. If you are stuck, compare your artifact with the expected behavior in the lesson and read only the matching solution checkpoint.
+
+The goal is to understand **Day 35: API Integration — One Boundary Owns HTTP Details**, not to copy a finished file.

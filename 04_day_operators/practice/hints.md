@@ -1,14 +1,20 @@
-# Day 4 hints
+# Day 4 hints: Day 4: Operators — Math, Truth, and Comparison
 
-Use these only when you are stuck — the learning happens in the attempt.
+Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
-1. `%` is remainder: `17 % 5` is 2 (5 goes into 17 three times, leaving 2).
-2. `**` is power: `2 ** 3` is 8.
-3. `===` requires same value *and* same type. `5 === '5'` is `false`; `5 == '5'` is `true` because `==` converts the string to a number first.
-4. `0 == false` is `true` and `'' == 0` is `true` — both are `==` conversions. This is why you always use `===`.
-5. Empty arrays and empty objects are *truthy*: `Boolean([])` is `true`, `Boolean({})` is `true`.
-6. `&&` needs both sides truthy; `||` needs at least one. `!` reverses a boolean.
-7. `n += 3` means `n = n + 3`.
-8. `8 % 2 === 0` is `true` (even); `7 % 2 === 0` is `false` (odd).
-9. In TypeScript, `number | null` needs an `if (value !== null)` check before using the value as a number — that narrowing is the feature.
-10. `Boolean(' ')` (a space) is `true` — only the empty string is falsy.
+## Progressive hint route
+
+1. Start in the repository root and verify Node and npm versions.
+2. Run the unchanged starter before editing it; an unexplained setup failure is a different problem from a lesson failure.
+3. Say the input and expected output aloud. If you cannot name them, return to the worked example.
+4. Trace one value at a time. Write down who creates it, who reads it, and who is allowed to change it.
+5. Change only one input or rule so the cause of a different result remains visible.
+6. For boundary cases, choose the contract first: accept, reject, render an empty state, show loading, or show an error.
+7. In browser work, distinguish the DOM, event handler, JavaScript runtime, and Vite transformation step.
+8. In TypeScript work, read the first compiler error and repair the type or the value; do not weaken the compiler merely to make the red text disappear.
+9. A test should observe behavior or a public contract, not only a private implementation detail.
+10. Keep JavaScript and TypeScript examples behaviorally equivalent so the type layer does not hide the runtime idea.
+11. Use accessible labels, semantic elements, keyboard behavior, and visible failure states when the lesson touches UI.
+12. If you are stuck, compare your artifact with the expected behavior in the lesson and read only the matching solution checkpoint.
+
+The goal is to understand **Day 4: Operators — Math, Truth, and Comparison**, not to copy a finished file.

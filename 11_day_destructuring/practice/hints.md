@@ -1,11 +1,20 @@
-# Day 11 hints
+# Day 11 hints: Day 11: Destructuring — Extracting Values Cleanly
 
-Use only when you are stuck — the learning happens in the attempt.
+Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
-1. Array destructuring follows positions. Leave an empty position between commas to skip the middle value: `[first, , last]`.
-2. Object renaming has the shape `{ sourceProperty: localVariable }`.
-3. Build the new object with spread first, then put `done: true` after it so the later property wins.
-4. Mark the property optional with `?`, then give it a default while destructuring.
-5. Rest comes last: `[winner, ...others]` or `{ name, ...rest }`.
-6. The swap trick: `[a, b] = [b, a]` — the right side builds a new array, the left assigns back.
-7. A default fires only on `undefined` — never on a supplied `0` or `''`.
+## Progressive hint route
+
+1. Start in the repository root and verify Node and npm versions.
+2. Run the unchanged starter before editing it; an unexplained setup failure is a different problem from a lesson failure.
+3. Say the input and expected output aloud. If you cannot name them, return to the worked example.
+4. Trace one value at a time. Write down who creates it, who reads it, and who is allowed to change it.
+5. Change only one input or rule so the cause of a different result remains visible.
+6. For boundary cases, choose the contract first: accept, reject, render an empty state, show loading, or show an error.
+7. In browser work, distinguish the DOM, event handler, JavaScript runtime, and Vite transformation step.
+8. In TypeScript work, read the first compiler error and repair the type or the value; do not weaken the compiler merely to make the red text disappear.
+9. A test should observe behavior or a public contract, not only a private implementation detail.
+10. Keep JavaScript and TypeScript examples behaviorally equivalent so the type layer does not hide the runtime idea.
+11. Use accessible labels, semantic elements, keyboard behavior, and visible failure states when the lesson touches UI.
+12. If you are stuck, compare your artifact with the expected behavior in the lesson and read only the matching solution checkpoint.
+
+The goal is to understand **Day 11: Destructuring — Extracting Values Cleanly**, not to copy a finished file.

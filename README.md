@@ -35,11 +35,12 @@ Each Node-based lesson has:
 DAY/lesson.md
 DAY/starter/js/main.js
 DAY/starter/ts/main.ts
+DAY/practice/exercises.md
 DAY/practice/hints.md
 DAY/practice/solutions.md
 ~~~
 
-Read the **Keywords and terms** table first, then follow the **Topics** in order. Predict the output, run JavaScript, run TypeScript, read the first example line by line, complete the prediction experiment, repair the controlled mistake, and only then attempt the practice before opening hints or solutions.
+Read the **Keywords and terms** table first, then follow the **Topics** in order. Predict the output, run JavaScript, run TypeScript, read the first example line by line, complete the prediction experiment, repair the controlled mistake, and only then attempt `practice/exercises.md` before opening `practice/hints.md` or `practice/solutions.md`. Use [DAY_INDEX.md](DAY_INDEX.md) to recover your place and [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md) to understand what completion means.
 
 ~~~powershell
 npm.cmd run day6:js
@@ -82,6 +83,7 @@ The roadmap is intentionally progressive. Do not skip the practice because a lat
 - [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md): what every lesson must teach and verify.
 - [LESSON_TEMPLATE.md](LESSON_TEMPLATE.md): the Keywords-and-Topics page structure, explainer sequence, and practice flow.
 - [CURRICULUM_GUIDE.md](CURRICULUM_GUIDE.md): the full day-by-day map.
+- [DAY_INDEX.md](DAY_INDEX.md): the canonical linked index for all 45 lessons.
 - [LEETCODE_GUIDE.md](LEETCODE_GUIDE.md): optional problem-solving track that teaches how LeetCode works and maps each day's skills to a problem.
 - [PORTFOLIO_TRACK.md](PORTFOLIO_TRACK.md): project quality and evidence checklist.
 - [VS_CODE_SETUP.md](VS_CODE_SETUP.md): clone, Node, TypeScript, Vite, and browser workflow.

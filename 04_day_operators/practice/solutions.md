@@ -1,138 +1,20 @@
-# Day 4 worked solutions
+# Day 4 solution guide: Day 4: Operators — Math, Truth, and Comparison
 
-## Level 1 — Mechanical
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-1. `17 % 5` → `2`
-2. `2 ** 3` → `8`
-3. `5 === '5'` → `false`; `5 == '5'` → `true`
-4. `0 == false` → `true`; `'' == 0` → `true` (both `==` conversions)
-5. `Boolean([])` → `true`; `Boolean({})` → `true`
-6. `true && false` → `false`; `true || false` → `true`
-7. `let n = 5; n += 3; n -= 2;` → `6`
-8. `8 % 2 === 0` → `true`; `7 % 2 === 0` → `false`
+## Review checkpoints
 
-## Level 2
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-1. Cart total:
-
-~~~js
-const price = 12
-const quantity = 3
-const discount = 5
-const total = price * quantity - discount
-console.log(total) // 31
-~~~
-
-2. Even/odd reporter:
-
-~~~js
-const numbers = [21, 22, 7, 8]
-for (const n of numbers) {
-  console.log(n, n % 2 === 0 ? 'even' : 'odd')
-}
-~~~
-
-3. Feature gate:
-
-~~~js
-const isLoggedIn = true
-const hasPaidPlan = false
-
-console.log(isLoggedIn && hasPaidPlan) // false — one is false
-console.log(isLoggedIn || hasPaidPlan) // true  — one is true
-console.log(!isLoggedIn)               // false — reverses true
-~~~
-
-4. Strict vs loose lab:
-
-~~~js
-console.log(5 === '5') // false — same digits, different types
-console.log(5 == '5')  // true  — string converted to number
-console.log(0 === false) // false — number vs boolean
-console.log(0 == false)  // true  — both convert to 0
-~~~
-
-5. Truthiness table:
-
-~~~js
-for (const value of [0, 1, '', ' ', null, undefined, NaN, [], {}]) {
-  console.log(value, Boolean(value))
-}
-// 0 false, 1 true, '' false, ' ' true, null false,
-// undefined false, NaN false, [] true, {} true
-~~~
-
-6. TypeScript narrowing:
-
-~~~ts
-let score: number | null = 87
-
-if (score !== null) {
-  console.log(score * 2) // 174 — TypeScript knows score is a number here
-}
-~~~
-
-## Level 3
-
-1. Free-shipping calculator:
-
-~~~js
-const price = 49.99
-const qualifiesForFreeShipping = price > 50
-
-console.log(qualifiesForFreeShipping ? 'Free shipping' : 'Paid shipping')
-~~~
-
-2. Safe access:
-
-~~~js
-const user = null
-// user.name // TypeError: Cannot read properties of null
-
-const name = user && user.name // short-circuits at null → null, no crash
-console.log(name) // null
-~~~
-
-3. Short-circuit proof:
-
-~~~js
-let ranRightSide = false
-
-false && (ranRightSide = true)  // right side skipped
-console.log(ranRightSide) // false — proves it never ran
-
-true || (ranRightSide = true)   // right side skipped
-console.log(ranRightSide) // false — still never ran
-~~~
-
-4. TypeScript mixed math, two fixes:
-
-~~~ts
-const price: number = 12
-
-// const mixedTotal = price + '12'
-// Error: Operator '+' cannot be applied to types 'number' and 'string'.
-
-const numericTotal = price + Number('12') // 24 — meant arithmetic
-const textualTotal = String(price) + '12' // '1212' — meant joining
-~~~
-
-5. The `0` trap:
-
-~~~js
-function answerSurvey(answer) {
-  // Wrong: truthiness rejects a legitimate 0
-  if (answer) {
-    return `answered ${answer}`
-  }
-  // Right: accept 0, reject the two kinds of "no answer"
-  if (answer !== null && answer !== undefined) {
-    return `answered ${answer}`
-  }
-  return 'no answer'
-}
-
-console.log(answerSurvey(0))          // answered 0
-console.log(answerSurvey(null))       // no answer
-console.log(answerSurvey(undefined))  // no answer
-~~~
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

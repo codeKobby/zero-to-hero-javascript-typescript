@@ -1,83 +1,20 @@
-# Day 24 worked solutions
+# Day 24 solution guide: Day 24: Selecting DOM Elements — Querying the Page
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. `getElementById` and `querySelector` can return `null`. `querySelectorAll` cannot.
-2. `querySelectorAll` — it returns a `NodeList` that may be empty but is never `null`.
-3. Optional chaining on a required element turns a miss into silent `undefined` — a wrongly spelled required selector fails without any signal.
-4. A `NodeList` is a collection, not an array, but it supports `for...of` and `forEach`, so no conversion is needed.
-5. An `HTMLInputElement` check is a runtime `instanceof` test that gives TypeScript evidence; an assertion only tells TypeScript to trust you.
-6. An `instanceof` narrow is a runtime check plus type evidence; `as HTMLInputElement` asserts without proving anything and lies silently if the HTML changes.
-7. Both starter pages render the output line; `npm run check` passes.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-function requireElement(selector: string): Element {
-  const element = document.querySelector(selector)
-  if (element === null) {
-    throw new Error('Required element not found: ' + selector)
-  }
-  return element
-}
-
-const title = requireElement('#page-title')
-console.log(title.textContent)
-
-const cards = document.querySelectorAll('.lesson-card')
-console.log(cards.length)
-
-const email = document.querySelector('input[type="email"]')
-if (email instanceof HTMLInputElement) {
-  console.log(email.value)
-}
-```
-
-The required helper is intentionally strict. A page that needs a title cannot function correctly if the title selector is wrong, so an early clear error is better than a hidden failure.
-
-## Level 3
-
-```ts
-// 1. The batch helper
-function requireElements(selector: string): NodeListOf<Element> {
-  const elements = document.querySelectorAll(selector)
-  if (elements.length === 0) {
-    throw new Error('Required elements not found: ' + selector)
-  }
-  return elements
-}
-// Throw when an empty group means the page is broken (e.g. a checkout list);
-// log and continue when the group is legitimately optional (e.g. notifications).
-
-// 2. The all-or-nothing loader
-function requireAll(selectors: string[]): Element[] {
-  const missing = selectors.filter(
-    (selector) => document.querySelector(selector) === null
-  )
-
-  if (missing.length > 0) {
-    throw new Error('Required elements not found: ' + missing.join(', '))
-  }
-
-  return selectors.map((selector) => document.querySelector(selector)!)
-}
-// One pass, one error naming every missing selector, so a page with three
-// broken selectors fails with one clear message instead of the first crash.
-
-// 3. The data-attribute contract
-const actions = document.querySelectorAll('[data-action]')
-for (const action of actions) {
-  console.log(action.getAttribute('data-action'))
-}
-// [data-action] survives class renames and CSS refactors, because it names the
-// element's role, not its appearance or position in the tree.
-
-// 4. The DOM memo
-// getElementById   -> Element | null   (one element or a miss)
-// querySelector    -> Element | null   (first match or a miss)
-// querySelectorAll -> NodeList         (a possibly-empty collection, never null)
-```
-
-Selecting is now one deliberate decision: which question, and what happens on a miss.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

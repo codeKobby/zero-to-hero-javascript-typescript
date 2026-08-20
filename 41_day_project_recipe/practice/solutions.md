@@ -1,57 +1,20 @@
-# Day 41 worked solutions
+# Day 41 solution guide: Day 41: Project — Recipe Book
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. `JSON.parse` returns a plain object that only looks like a recipe; `isRecipe` checks each field at runtime before state accepts it.
-2. A stored filtered list creates a second source of truth; deriving search from source state keeps one list authoritative.
-3. A delete button needs an accessible name so assistive tech announces it, and a handler must not trust arbitrary dataset values — it should verify before acting.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-The starter is a runnable create/read/search baseline. Add edit/delete/persistence milestones one at a time and record the evidence in your project README.
-
-```ts
-function loadRecipes(storage: Storage, key: string): Recipe[] {
-  const raw: unknown = JSON.parse(storage.getItem(key) ?? '[]')
-  if (Array.isArray(raw) && raw.every(isRecipe)) return raw
-  return []
-}
-```
-
-Persistence validates before returning. Delegated delete:
-
-```ts
-list.addEventListener('click', (event) => {
-  const button = (event.target as HTMLElement).closest('button')
-  if (!button || button.dataset.action !== 'delete') return
-  const id = button.dataset.id
-  if (typeof id !== 'string') return
-  const index = recipes.findIndex((recipe) => recipe.id === id)
-  if (index === -1) return
-  recipes.splice(index, 1)
-  render()
-})
-```
-
-Search stays derived:
-
-```ts
-function render(): void {
-  const query = searchInput.value.trim().toLowerCase()
-  const visible = recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(query) ||
-    recipe.ingredients.some((ingredient) => ingredient.toLowerCase().includes(query)))
-  // ...render `visible` with textContent
-}
-```
-
-## Level 3
-
-1. `loadRecipes` returns `Recipe[]` only after every item passes `isRecipe`; malformed items are dropped so bad storage cannot poison state.
-2. One delegated listener reads `dataset.action` and `dataset.id`, verifies them with guards, and dispatches to the right path.
-3. The stored list stays the single source of truth; a debounced input handler just re-reads it.
-4. Pure parse/filter/sort functions are testable with real values; a test proves behavior, while the compiler only proves declared structure.
-
-A recipe app is a small domain model with DOM, storage, and form effects at the edges — validate at every boundary, derive search from source state, and render with `textContent` so the app stays testable and safe.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

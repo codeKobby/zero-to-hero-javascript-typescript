@@ -1,81 +1,20 @@
-# Day 33 worked solutions
+# Day 33 solution guide: Day 33: Async and Await — Promise Syntax That Reads Sequentially
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. An async function always returns a Promise; a plain return value becomes fulfillment.
-2. `await` pauses only that function's continuation; other functions and events keep running.
-3. When the second operation needs the first result — the dependency makes them sequential.
-4. Independent operations still run sequentially if awaited one after another; `Promise.all` starts them together.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-type User = { id: number; name: string }
-
-function getUser(id: number): Promise<User> {
-  return Promise.resolve({ id, name: 'User ' + id })
-}
-
-// 1. Promise chain converted to async/await
-async function loadUserName(): Promise<string> {
-  const user = await getUser(1)
-  return user.name
-}
-
-// 2. safeLoad returns a value or null on failure
-async function safeLoad<T>(operation: Promise<T>): Promise<T | null> {
-  try {
-    return await operation
-  } catch (error: unknown) {
-    if (error instanceof Error) console.error(error.message)
-    return null
-  }
-}
-
-// 3. Sequential vs parallel
-const first = await getUser(1)
-const second = await getUser(first.id + 1) // depends on first
-
-const parallel = await Promise.all([getUser(2), getUser(3)])
-```
-
-`safeLoad` exposes failure in its return type. The caller must handle `null` instead of assuming every operation succeeds.
-
-## Level 3
-
-```ts
-// 1. The safe-load generic
-const maybeUser = await safeLoad(getUser(1))
-if (maybeUser) console.log('Loaded:', maybeUser.name)
-// Promise<T | null> tells the caller that failure is a normal return value,
-// not a thrown error the caller has to catch separately.
-
-// 2. The sequential-because
-async function postsForUser(): Promise<string[]> {
-  const user = await getUser(1)
-  return user ? [] : []
-}
-// The posts need the user's id first, so the second await cannot start
-// until the first resolves — that dependency forces a sequential policy.
-
-// 3. The parallel-map
-const ids = [1, 2, 3]
-const users = await Promise.all(ids.map((id) => getUser(id)))
-console.log(users.map((user) => user.name))
-// Every getUser starts before the first await; the results arrive in input
-// order because Promise.all maps by index, not completion order.
-
-// 4. The double-wrap
-async function a(): Promise<string> {
-  return await Promise.resolve('same')
-}
-async function b(): Promise<string> {
-  return Promise.resolve('same')
-}
-// Both fulfill with the same string. return await and return differ only
-// when the awaited promise rejects before the async function's own try/catch.
-```
-
-Async and await is now Promise syntax that reads sequentially — an async function always returns a `Promise<T>`, each `await` unwraps one promise, and independent operations still need `Promise.all` to run in parallel.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

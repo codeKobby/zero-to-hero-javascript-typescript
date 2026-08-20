@@ -1,70 +1,20 @@
-# Day 36 worked solutions
+# Day 36 solution guide: Day 36: TypeScript Types and Interfaces — Designing the Data Contract
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. `message` receives a `Response` union; `response.ok` is the discriminator that narrows which fields exist.
-2. `JSON.parse` returns `unknown`; the compiler cannot know what bytes were parsed, so a runtime guard is the only thing that proves shape.
-3. Use an interface when a shape is an object that other shapes extend; use a type alias for unions, tuples, primitives, and composition.
-4. `as User` tells the compiler to trust you; the runtime has no memory of that claim, so it cannot validate anything.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-interface Book {
-  id: number
-  title: string
-  author: string
-  publishedAt?: string
-}
-
-type LoadingState<T> =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'error'; message: string }
-
-function describeState(state: LoadingState<string>): string {
-  switch (state.status) {
-    case 'idle': return 'Not started'
-    case 'loading': return 'Loading'
-    case 'success': return state.data
-    case 'error': return state.message
-  }
-}
-```
-
-The JavaScript equivalent uses the same discriminator pattern but with no compiler: a typo like `state.dat` would only surface when that line runs. The compiler adds a check that happens before execution.
-
-## Level 3
-
-```ts
-// 1. The shape guard
-function isBook(value: unknown): value is Book {
-  return typeof value === 'object' &&
-    value !== null &&
-    'id' in value && typeof value.id === 'number' &&
-    'title' in value && typeof value.title === 'string' &&
-    'author' in value && typeof value.author === 'string'
-}
-// A type alias describes the shape; only this guard proves a real value.
-
-// 2. The extendable model
-interface Employee extends User {
-  department: string
-  salary: number
-}
-// Interface inheritance adds fields to a base shape without repeating them.
-
-// 3. The exhaustive state
-// Adding { status: 'cancelled'; reason: string } to LoadingState makes
-// every switch over state.status report a missing arm at compile time.
-
-// 4. The assertion trap
-// const maybe = JSON.parse(raw) as Book
-// The claim compiles; the moment the parsed object lacks 'title', every
-// later read of maybe.title silently returns undefined instead of failing.
-```
-
-TypeScript types and interfaces are a compile-time contract that describes shape, narrows unions through a discriminator, and vanishes at runtime — while runtime guards, not assertions, are the only thing that validates data crossing a boundary.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

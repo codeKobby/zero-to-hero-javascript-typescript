@@ -1,70 +1,20 @@
-# Day 37 worked solutions
+# Day 37 solution guide: Day 37: TypeScript Generics — One Function, Many Types
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. A type parameter is a placeholder that the caller fills: `T` becomes the concrete input type at each call site.
-2. `extends` names a shape requirement, not a parent class; any type with a `length` property satisfies `HasLength`.
-3. `keyof T` restricts `K` to keys that actually exist on `T`, so `object[key]` can never be a misspelled or missing property.
-4. A generic is less clear when every call site uses the same type; a plain annotation reads better and needs no placeholder.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-function first<T>(items: T[]): T | undefined {
-  return items[0]
-}
-
-function swap<A, B>(pair: [A, B]): [B, A] {
-  return [pair[1], pair[0]]
-}
-
-interface HasLength { length: number }
-function logLength<T extends HasLength>(value: T): void {
-  console.log(`Length: ${value.length}`)
-}
-
-logLength('hello')
-logLength([1, 2, 3])
-logLength({ length: 5, tag: 'box' })
-
-type Result<T, E> =
-  | { ok: true; value: T }
-  | { ok: false; error: E }
-
-function describe<T, E>(result: Result<T, E>): string {
-  return result.ok ? 'Ok: ' + String(result.value) : 'Error: ' + String(result.error)
-}
-```
-
-## Level 3
-
-```ts
-// 1. The identity promise
-// identity(42)    -> T is number,   return type is number
-// identity('go')  -> T is string,   return type is string
-// One runtime function, a per-call type relationship.
-
-// 2. The constraint audit
-// logLength(42) reports:
-// Argument of type 'number' is not assignable to parameter of type 'HasLength'.
-// The compiler checked the call before it ever ran.
-
-// 3. The repository trace
-// create(item: Product) receives a full Product and stores it;
-// getAll(): Product[] returns every stored Product in order.
-
-// 4. The JS constraint imitation
-// function logLength(value) {
-//   if (!value || typeof value.length === 'undefined') {
-//     throw new Error('Value must have a length property')
-//   }
-//   console.log('Length:', value.length)
-// }
-// The runtime check fires when the line executes; the compile-time check
-// fired while the file was open. The former protects a running program,
-// the latter protects the whole codebase.
-```
-
-Generics make one function preserve the relationship between input and output for every type, with `extends` and `keyof` constraining what the implementation may rely on — and with the emitted code still one ordinary JavaScript function.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

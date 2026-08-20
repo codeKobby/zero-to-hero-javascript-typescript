@@ -1,43 +1,20 @@
-# Day 43 practice reference
+# Day 43 solution guide: Day 43: Project — E-commerce Product List
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. A second cart-product list duplicates data, so a price change or a cart edit drifts the two lists apart; ids and quantities joined to products stay consistent.
-2. `sort` mutates the array it is called on; copying first (`.toSorted`, or spread-then-`sort`) preserves source order when it matters.
-3. An interface is erased at compile time; it checks declared structure, never what `JSON.parse` actually returns at runtime.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-Start with pure functions: `filterProducts(products, filters)`, `sortProducts(products, sort)`, and `cartTotal(products, cart)`. Test these with small arrays before connecting the DOM. Persist a versioned object such as `{ version: 1, items: [{ productId, quantity }] }`, then reject malformed data on load. The starter demonstrates the smallest safe slice; extend it feature by feature.
-
-```ts
-type Filters = { query: string; category: string; minRating: number; inStockOnly: boolean; maxPrice: number }
-
-function filterProducts(products: Product[], filters: Filters): Product[] {
-  const normalized = filters.query.trim().toLowerCase()
-  return products.filter(product =>
-    (!normalized || product.name.toLowerCase().includes(normalized)) &&
-    (filters.category === 'all' || product.category === filters.category) &&
-    product.rating >= filters.minRating &&
-    (!filters.inStockOnly || product.inStock) &&
-    product.price <= filters.maxPrice)
-}
-
-function sortProducts(products: Product[], sort: 'price' | 'rating'): Product[] {
-  const copy = [...products]
-  return sort === 'price'
-    ? copy.sort((a, b) => a.price - b.price)
-    : copy.sort((a, b) => b.rating - a.rating)
-}
-```
-
-## Level 3
-
-1. Filters as data compose: each control contributes one predicate, and `filterProducts` applies them together, so adding a control never changes the pipeline shape.
-2. The version field lets a loader reject stale cart formats; a future format bump is a one-line migration instead of silent corruption.
-3. Totals join cart rows to the product array at render time, so the price shown and the price totaled always come from the same source.
-4. The acceptance audit confirms filters compose, cart actions persist across refresh, data renders with `textContent`, and the JS and TS pages behave the same with a clean `npm.cmd run check`.
-
-An e-commerce list keeps products immutable, stores the cart as ids and quantities, derives every visible list and total at render time, and renders data with `textContent` so filters compose without synchronization bugs.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

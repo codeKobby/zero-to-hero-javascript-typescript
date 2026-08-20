@@ -1,57 +1,20 @@
-# Day 42 worked solutions
+# Day 42 solution guide: Day 42: Project — Discussion Forum
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. Recursion needs a base case so the function terminates, and hostile data needs a depth or size limit so a malicious tree cannot exhaust the call stack or memory.
-2. A sorted list stored beside source posts becomes a second source of truth; the two drift, so views go stale. Sorting at render time keeps one authoritative tree.
-3. Array indexes change when sorting reorders the array; stable ids survive reordering and persistence, so actions always target the right item.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-The starter demonstrates create, render, and like. Extend it with replies, sorting, persistence, and runtime validation as separate commits.
-
-```ts
-function sortPosts(posts: Post[], sortBy: ForumState['sortBy']): Post[] {
-  const copy = [...posts]
-  switch (sortBy) {
-    case 'newest': return copy.sort((a, b) => b.id.localeCompare(a.id))
-    case 'most-liked': return copy.sort((a, b) => b.likes - a.likes)
-    case 'most-commented': return copy.sort((a, b) => b.comments.length - a.comments.length)
-  }
-}
-```
-
-A recursive storage guard:
-
-```ts
-function isComment(value: unknown): value is Comment {
-  return typeof value === 'object' && value !== null &&
-    'id' in value && typeof value.id === 'string' &&
-    'content' in value && typeof value.content === 'string' &&
-    'replies' in value && Array.isArray(value.replies) &&
-    value.replies.every(isComment)
-}
-```
-
-A recursive like-by-id walk mutates the comment tree by stable id and stops at depth zero:
-
-```ts
-function likeComment(comments: Comment[], id: string): boolean {
-  for (const comment of comments) {
-    if (comment.id === id) { comment.likes += 1; return true }
-    if (likeComment(comment.replies, id)) return true
-  }
-  return false
-}
-```
-
-## Level 3
-
-1. A depth-limited renderer stops recursing at the limit, so a hostile tree is truncated instead of crashing the page.
-2. Changing the sort option recomputes the view from the source tree at render time, so the stored state never needs a second list.
-3. Recursive like-by-id mutates the comment tree wherever it lives; indexes would miss replies after a sort reordered the array.
-4. A recursive storage guard proves each loaded field at runtime; a test proves behavior on real values, which the compiler cannot.
-
-A forum is one recursive state tree — posts contain comment trees, actions mutate by stable id, views are derived at render time, and user content is never trusted as HTML.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

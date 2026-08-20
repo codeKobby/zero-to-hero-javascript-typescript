@@ -1,78 +1,20 @@
-# Day 34 worked solutions
+# Day 34 solution guide: Day 34: Fetch — Talking to a Server
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. `fetch` rejects only for a network-level failure; a 404 or 500 still resolves with a `Response`.
-2. `response.ok` is false for 404 and 500 responses, so it must be checked before trusting the body.
-3. `response.json` reads the body asynchronously; the parsed value is not available until it is awaited.
-4. `as User[]` changes only the compiler's belief; the network bytes are not inspected, so a malformed response still slips through.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-async function getJson(url: string): Promise<unknown> {
-  const response = await fetch(url)
-  if (!response.ok) throw new Error('HTTP ' + response.status)
-  return response.json()
-}
-
-async function getJsonWithTimeout(url: string, ms: number): Promise<unknown> {
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), ms)
-  try {
-    const response = await fetch(url, { signal: controller.signal })
-    if (!response.ok) throw new Error('HTTP ' + response.status)
-    return await response.json()
-  } finally {
-    clearTimeout(timer)
-  }
-}
-```
-
-Aborting is cooperative. The fetch must receive the signal, and the caller should decide how to present an `AbortError`.
-
-## Level 3
-
-```ts
-type User = { id: number; name: string }
-
-function isUser(value: unknown): value is User {
-  return typeof value === 'object' &&
-    value !== null &&
-    'id' in value && typeof value.id === 'number' &&
-    'name' in value && typeof value.name === 'string'
-}
-
-// 1. The one-boundary getter
-async function getUsers(): Promise<User[]> {
-  const data = await getJson('/api/users')
-  if (!Array.isArray(data) || !data.every(isUser)) {
-    throw new Error('Response did not match the User shape')
-  }
-  return data
-}
-// The caller receives a User[] or a thrown Error — the shape decision is
-// made once, at this boundary, instead of in every caller.
-
-// 2. The abort-comments
-// controller.abort() signals the fetch to stop listening for the response.
-// The fetch surfaces an AbortError, so the caller catches and presents it
-// as a timeout rather than as a server failure.
-
-// 3. The methods gallery
-// GET reads a resource, POST creates one, PUT/PATCH replace or update one,
-// DELETE removes one. The request body must be a string, so JSON goes
-// through JSON.stringify with a Content-Type of application/json.
-
-// 4. The assertion trap
-async function assertedUsers(): Promise<User[]> {
-  const data = await getJson('/api/users')
-  return data as User[] // compiles, but a malformed body is trusted anyway
-}
-// The guarded version checks shape at runtime and throws a readable error;
-// the assertion compiles either way, so only the guard protects the program.
-```
-
-Fetch is now a single Promise for an HTTP round trip — `response.ok` checked, body awaited, string bodies, and parsed JSON guarded at the runtime boundary rather than trusted through an assertion.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

@@ -1,79 +1,20 @@
-# Day 25 worked solutions
+# Day 25 solution guide: Day 25: Changing DOM Elements — Updating the Page
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. A created element is invisible until it is appended to a node already in the document.
-2. `textContent` treats a value as text; `innerHTML` parses it as markup, so user input could become executable HTML (XSS).
-3. `input.value` is the live, JavaScript-facing value; `getAttribute('value')` is the original markup attribute and misses what the user has typed.
-4. `classList` operates on the class set; `toggle` adds or removes one class while the others stay.
-5. It returns an unattached `HTMLLIElement` that is invisible until appended.
-6. Both starter pages render the output line; `npm run check` passes.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```ts
-function addPriorityTask(list: HTMLUListElement, label: string): HTMLLIElement {
-  const item = document.createElement('li')
-  item.textContent = label
-  item.dataset.priority = 'high'
-  item.classList.add('task', 'priority-high')
-  list.append(item)
-  return item
-}
-
-const task = addPriorityTask(list, 'Submit practice work')
-task.classList.toggle('is-complete')
-task.remove()
-```
-
-The task text is assigned with `textContent`, so it remains text even if the label contains characters that HTML would otherwise parse.
-
-## Level 3
-
-```ts
-// 1. The builder
-function createTaskItem(label: string, status: string): HTMLLIElement {
-  const item = document.createElement('li')
-  item.textContent = label
-  item.dataset.status = status
-  return item
-}
-
-function appendTask(list: HTMLUListElement, item: HTMLLIElement): void {
-  list.append(item)
-}
-// Build and attach are separate, so the configured element can be inspected
-// and tested before it ever touches the document.
-
-// 2. The status badge
-function setBadge(item: HTMLLIElement, status: 'open' | 'done'): void {
-  item.classList.toggle('is-open', status === 'open')
-  item.classList.toggle('is-done', status === 'done')
-  item.dataset.status = status
-}
-// The visible class and the data marker change together; the label text is
-// never part of the swap.
-
-// 3. The safe text audit
-// User text (input.value), stored text (localStorage), and API responses are
-// untrusted. They must always be assigned via textContent, never innerHTML:
-//   - list labels, messages, and titles
-//   - anything echoed back from form input
-//   - cached or fetched descriptions
-// innerHTML is only acceptable for trusted, reviewed markup, and even then a
-// sanitization strategy is required before it is rendered.
-
-// 4. The counter
-let clickCount = 0
-
-function incrementCounter(output: HTMLElement, by: number): void {
-  clickCount += by
-  output.textContent = String(clickCount)
-}
-// The memory value is the source of truth; the DOM text is a rendering of it.
-// Re-reading the text would invite parsing and stale-value bugs.
-```
-
-The mutation path is now one habit: build in memory, safe text, configured classes and data, attach, remove only what you own — and create the element type that actually owns the properties you need.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

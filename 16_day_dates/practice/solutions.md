@@ -1,135 +1,20 @@
-# Day 16 worked solutions
+# Day 16 solution guide: Day 16: Dates and Time — Moments and Durations
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. → `'1970-01-01T00:00:00.000Z'` — the epoch instant.
-2. → `0` — months are zero-based; January is `0`.
-3. → the number of milliseconds between that instant and the epoch.
-4. → `NaN` — the constructor produced an Invalid Date.
-5. `'2025-01-15'` is interpreted as **UTC** midnight; `'2025-01-15T00:00:00'` with no offset is interpreted as **local** time. That difference can shift the displayed day across a zone boundary.
-6. `36` hours: `(end - start) / (1000 * 60 * 60)`.
-7. A `Date` instance (or `null` for invalid input).
-8. `day16:js` and `day16` run; `npm run check` passes.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-```js
-// 1. isValidInstant
-function isValidInstant(text) {
-  return !Number.isNaN(new Date(text).getTime())
-}
-console.log(isValidInstant('2025-01-15T09:30:00Z')) // true
-console.log(isValidInstant('not a date'))           // false
-
-// 2. formatInAccra
-function formatInAccra(date) {
-  return new Intl.DateTimeFormat('en-GB', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'Africa/Accra'
-  }).format(date)
-}
-console.log(formatInAccra(new Date('2025-01-15T09:30:00Z')))
-
-// 3. hoursBetween — decision stated: signed (negative when end precedes start)
-function hoursBetween(start, end) {
-  const startDate = new Date(start)
-  const endDate = new Date(end)
-
-  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
-    return null
-  }
-
-  return (endDate.getTime() - startDate.getTime()) / 3_600_000
-}
-console.log(hoursBetween('2025-01-01T00:00:00Z', '2025-01-02T12:00:00Z')) // 36
-
-// 4. daysBetween — approximation for UTC instants only
-function daysBetween(start, end) {
-  const startDate = new Date(start)
-  const endDate = new Date(end)
-
-  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
-    return null
-  }
-
-  // Safe only when both instants are UTC and zone boundaries do not matter.
-  return Math.round((endDate.getTime() - startDate.getTime()) / 86_400_000)
-}
-console.log(daysBetween('2025-01-01T00:00:00Z', '2025-01-03T00:00:00Z')) // 2
-```
-
-```ts
-// 5. parseInstant in TypeScript
-function parseInstant(text: string): Date | null {
-  const date = new Date(text)
-  return Number.isNaN(date.getTime()) ? null : date
-}
-
-const launch = parseInstant('2025-01-15T09:30:00Z')
-if (launch !== null) {
-  console.log(launch.toISOString()) // 2025-01-15T09:30:00.000Z
-}
-```
-
-## Level 3
-
-```js
-// 1. The event poster
-function eventLabel(instant) {
-  return new Intl.DateTimeFormat('en-GB', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'Africa/Accra'
-  }).format(new Date(instant))
-}
-console.log(eventLabel('2025-01-15T09:30:00Z'))
-// Fixed zone chosen so the label is stable and testable, like the starter.
-
-// 2. The countdown
-function hoursUntil(instant) {
-  const target = new Date(instant)
-  if (Number.isNaN(target.getTime())) {
-    return null
-  }
-
-  const remaining = target.getTime() - Date.now()
-  return remaining > 0 ? Math.floor(remaining / 3_600_000) : 0
-}
-console.log(hoursUntil('2030-01-01T00:00:00Z')) // a large positive number
-
-// 3. The booking date (UTC day, not local day)
-function isWeekend(isoDate) {
-  const date = new Date(`${isoDate}T00:00:00Z`)
-  const day = date.getUTCDay() // UTC: the string was UTC midnight, so this is stable
-  return day === 0 || day === 6
-}
-console.log(isWeekend('2025-01-18')) // true (Saturday)
-console.log(isWeekend('2025-01-15')) // false (Wednesday)
-// The local getDay() would depend on the machine's time zone, so getUTCDay keeps
-// the answer independent of where the code runs.
-
-// 4. The safe formatter
-function formatInstant(text) {
-  const date = new Date(text)
-  if (Number.isNaN(date.getTime())) {
-    return 'Invalid date'
-  }
-
-  return new Intl.DateTimeFormat('en-GB', {
-    dateStyle: 'full',
-    timeStyle: 'short',
-    timeZone: 'Africa/Accra'
-  }).format(date)
-}
-console.log(formatInstant('2025-01-15T09:30:00Z'))
-console.log(formatInstant('not a date')) // Invalid date
-```
-
-This solution handles invalid timestamps, not every business rule. A booking application must also decide which date format it accepts, which time zone owns the appointment, and whether an end before a start is valid.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

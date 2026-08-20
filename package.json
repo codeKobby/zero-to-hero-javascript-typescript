@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "doctor": "node scripts/doctor.mjs",
     "links": "node scripts/check-links.mjs",
+    "course:check": "node scripts/check-lesson-structure.mjs",
     "postinstall": "node scripts/doctor.mjs",
     "check": "tsc --noEmit",
     "build": "tsc",

@@ -1,10 +1,16 @@
 # Day 32: Coordinating Promises — Waiting for Many Results
 
-[Day 31 <<](../31_day_promises_i/31_day_promises_i.md) | [Day 33 >>](../33_day_async_await/33_day_async_await.md)
+[← Previous lesson](../31_day_promises_i/31_day_promises_i.md) · [README](../README.md) · [Setup](../VS_CODE_SETUP.md) · [Day index](../DAY_INDEX.md) · [Next lesson →](../33_day_async_await/33_day_async_await.md)
 
 
+
+## Start here
+
+Read the [course README](../README.md), complete the [VS Code setup](../VS_CODE_SETUP.md), and use the [day index](../DAY_INDEX.md) to confirm where this lesson fits. Run the paired local starters before attempting [exercises](practice/exercises.md), then use [hints](practice/hints.md) and [solutions](practice/solutions.md) only after an honest attempt.
 
 ## Table of Contents
+
+- [Start here](#start-here)
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
@@ -281,6 +287,8 @@ Make one controlled mistake related to **Coordinating Promises — Waiting for M
 Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
+
+Use [practice/exercises.md](practice/exercises.md) first, then [practice/hints.md](practice/hints.md), and finally [practice/solutions.md](practice/solutions.md).
 
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).
 

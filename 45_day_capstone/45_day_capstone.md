@@ -1,10 +1,16 @@
 # Day 45: Capstone — Build and Defend Your Own Application
 
-[Day 44 <<](../44_day_project_countries/44_day_project_countries.md) | [Back to course](../readMe.md)
+[← Previous lesson](../44_day_project_countries/44_day_project_countries.md) · [README](../README.md) · [Setup](../VS_CODE_SETUP.md) · [Day index](../DAY_INDEX.md) · [Course index →](../DAY_INDEX.md)
 
 
+
+## Start here
+
+Read the [course README](../README.md), complete the [VS Code setup](../VS_CODE_SETUP.md), and use the [day index](../DAY_INDEX.md) to confirm where this lesson fits. Run the paired local starters before attempting [exercises](practice/exercises.md), then use [hints](practice/hints.md) and [solutions](practice/solutions.md) only after an honest attempt.
 
 ## Table of Contents
+
+- [Start here](#start-here)
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
@@ -195,6 +201,8 @@ Start with the nearest worked example. Change one value, predict the result, and
 
 ## Practice
 
+Use [practice/exercises.md](practice/exercises.md) first, then [practice/hints.md](practice/hints.md), and finally [practice/solutions.md](practice/solutions.md).
+
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md).\n- When the project meets the Definition of done checklist, log it in [PORTFOLIO_TRACK.md](../PORTFOLIO_TRACK.md).
 
 ### Level 1 — Mechanical (10-15 min)
@@ -245,6 +253,6 @@ Write, in your own words, a short answer to each:
 4. Which evidence checklist items did you meet, and where is the evidence for each?
 5. What trade-offs did another person's attempt to break your app reveal?
 
-Your answers are today's evidence. When you can write them, you are done — return to the [course home](../readMe.md) and review the portfolio and quality guides for what comes next.
+Your answers are today's evidence. When you can write them, you are done — return to the [course home](../README.md) and review the portfolio and quality guides for what comes next.
 
 **Day 45 complete.** A capstone is an assessment: write the README first, build one vertical slice in JavaScript, carry the same design into TypeScript with contracts at the boundaries, test the pure logic, deploy, and let another person break it so you can record the fixes.

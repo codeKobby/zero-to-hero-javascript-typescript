@@ -1,14 +1,20 @@
-# Day 6 hints
+# Day 6 hints: Day 6: Loops — Repeating Work with for and while
 
-Use only when you are stuck — the learning happens in the attempt.
+Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
-1. A counting `for` loop needs a start, a condition that stays true for the last number, and a change of one.
-2. In `for...of`, the variable after `const` is already the current array item — no index needed.
-3. In a `while` loop, name the line that changes the counter before you run it.
-4. Start a passing counter at 0. Add one only inside an `if` whose condition is `value >= 10`.
-5. `break` exits the whole loop; `continue` skips only this round and moves to the next.
-6. The last valid array index is `length - 1`, so use `< length`, never `<= length`.
-7. To find the first item that matches, check the condition with `if` and use `break` inside it.
-8. `score / scores.length` is a decimal; use `.toFixed(1)` when printing an average.
-9. To skip evens, `continue` when `number % 2 === 0`.
-10. TypeScript catches using the wrong *kind* of value (a string in a `number[]`); it never catches a wrong condition or a missing change line — you trace for those.
+## Progressive hint route
+
+1. Start in the repository root and verify Node and npm versions.
+2. Run the unchanged starter before editing it; an unexplained setup failure is a different problem from a lesson failure.
+3. Say the input and expected output aloud. If you cannot name them, return to the worked example.
+4. Trace one value at a time. Write down who creates it, who reads it, and who is allowed to change it.
+5. Change only one input or rule so the cause of a different result remains visible.
+6. For boundary cases, choose the contract first: accept, reject, render an empty state, show loading, or show an error.
+7. In browser work, distinguish the DOM, event handler, JavaScript runtime, and Vite transformation step.
+8. In TypeScript work, read the first compiler error and repair the type or the value; do not weaken the compiler merely to make the red text disappear.
+9. A test should observe behavior or a public contract, not only a private implementation detail.
+10. Keep JavaScript and TypeScript examples behaviorally equivalent so the type layer does not hide the runtime idea.
+11. Use accessible labels, semantic elements, keyboard behavior, and visible failure states when the lesson touches UI.
+12. If you are stuck, compare your artifact with the expected behavior in the lesson and read only the matching solution checkpoint.
+
+The goal is to understand **Day 6: Loops — Repeating Work with for and while**, not to copy a finished file.

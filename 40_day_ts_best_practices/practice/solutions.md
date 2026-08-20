@@ -1,65 +1,20 @@
-# Day 40 worked solutions
+# Day 40 solution guide: Day 40: TypeScript in a Maintainable Project — Safety in the Real World
 
-Read these only after a genuine attempt. Compare your reasoning, not just the syntax.
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-## Level 1
+## Review checkpoints
 
-1. The browser only ever sees JavaScript because types are erased at compile time; runtime validation of external data is therefore required even in a strict TypeScript project.
-2. `any` skips checking and lets an unverified value flow anywhere; `unknown` forces a narrowing guard before use, keeping the boundary visible and reviewable.
-3. An explicit return type at a boundary earns its place when a public function or a data model is shared; obvious local variables are better left to inference.
-4. A non-null assertion is a design smell because it claims a possibly-absent value is present without runtime evidence — the fix is a proper boundary or a guard.
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-## Level 2
-
-A refactor of an earlier starter keeps JS and TS acceptance criteria identical:
-
-```ts
-type LoadingState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: string }
-  | { status: 'error'; message: string }
-
-function parseTodo(value: unknown): { title: string; done: boolean } {
-  if (typeof value !== 'object' || value === null) throw new Error('Not an object')
-  const record = value as Record<string, unknown>
-  if (typeof record.title !== 'string' || typeof record.done !== 'boolean') {
-    throw new Error('Malformed todo')
-  }
-  return { title: record.title, done: record.done }
-}
-
-function describe(state: LoadingState): string {
-  switch (state.status) {
-    case 'idle': return 'Waiting...'
-    case 'loading': return 'Loading...'
-    case 'success': return `Got: ${state.data}`
-    case 'error': return `Error: ${state.message}`
-  }
-}
-```
-
-The domain type shapes the state, the `unknown` parser validates external data, and the pure functions keep behavior testable.
-
-## Level 3
-
-```ts
-// 1. The strict audit
-// Replace any with unknown + guards; replace non-null assertions with bounds checks.
-
-// 2. The boundary case
-function toMessage(value: unknown): string {
-  if (typeof value === 'string') return value
-  if (value instanceof Error) return value.message
-  return 'Unknown value'
-}
-
-// 3. The effect split
-// Domain logic stays in pure functions; DOM, storage, and network calls stay at the edges.
-
-// 4. The test case
-// A pure-function test proves behavior on real values;
-// the compiler proves structure on declared types. Neither replaces the other.
-```
-
-A maintainable project keeps the compiler strict, treats external data as `unknown` until a guard proves it, and uses tests and runtime validation for what the compiler cannot see — because the browser only ever runs JavaScript.
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.

@@ -1,130 +1,20 @@
-# Day 3 worked solutions
+# Day 3 solution guide: Day 3: Data Types — What a Value Is, and How to Ask
 
-## Level 1 — Mechanical
+Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
-1. `typeof 'Ada'` → `'string'`
-2. `typeof 42` → `'number'`
-3. `typeof true` → `'boolean'`
-4. `typeof undefined` → `'undefined'`
-5. `typeof null` → `'object'` (the historical bug)
-6. `typeof []` → `'object'`, `typeof {}` → `'object'`
-7. `'1' + 1` → `'11'`; `1 + '1'` → `'11'`
-8. `Number('5') + 5` → `10`
-9. `Array.isArray([])` → `true`; `Array.isArray({})` → `false`
+## Review checkpoints
 
-## Level 2
+1. The definition uses ordinary language and connects the concept to a concrete example.
+2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
+3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
+4. The trace names values in execution order rather than saying only that the framework “handles it.”
+5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
+6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
+7. The deliberate failure was reproduced and the violated assumption was named accurately.
+8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
+9. The focused assertion would fail if the important behavior disappeared.
+10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
+11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
+12. The review note records evidence, limitation, risk, and the next learning step.
 
-1-2. Seven primitives, each with a type check:
-
-~~~js
-const text = 'hello'   // string
-const score = 42       // number
-const answer = true    // boolean
-let notAssigned        // undefined
-const empty = null     // null
-const huge = 10n       // bigint
-const id = Symbol('id') // symbol
-
-console.log(typeof text, typeof score, typeof answer)
-console.log(typeof notAssigned)
-console.log(typeof empty)   // 'object' — the trap
-console.log(typeof huge, typeof id)
-~~~
-
-3. Shared reference:
-
-~~~js
-const colors = ['red']
-const copiedColors = colors
-copiedColors.push('blue')
-
-console.log(colors) // ['red', 'blue'] — same array, two names
-~~~
-
-4. undefined vs null:
-
-~~~js
-let notAssigned
-const intentionallyEmpty = null
-
-console.log(notAssigned)           // undefined
-console.log(intentionallyEmpty)    // null
-console.log(undefined === null)    // false
-~~~
-
-5. NaN:
-
-~~~js
-console.log(NaN === NaN)       // false
-console.log(Number.isNaN(NaN)) // true
-~~~
-
-6. TypeScript union:
-
-~~~ts
-let selectedUserName: string | null = null
-
-selectedUserName = 'Ada'
-if (selectedUserName !== null) {
-  console.log(selectedUserName.toUpperCase()) // ADA
-}
-~~~
-
-## Level 3
-
-1. Type report card:
-
-~~~js
-function describe(value) {
-  if (value === null) return 'null'
-  if (Array.isArray(value)) return 'array'
-  return typeof value
-}
-
-console.log(describe('Ada'))      // string
-console.log(describe(42))         // number
-console.log(describe(null))       // null
-console.log(describe([]))         // array
-console.log(describe({}))         // object
-~~~
-
-2. Form-arithmetic bug:
-
-~~~js
-const formInput = '5'          // arrives as text
-
-console.log(formInput + 5)     // '55' — wrong: string join
-console.log(Number(formInput) + 5) // 10 — right: explicit conversion
-~~~
-
-3. Login box story:
-
-~~~js
-let typedSoFar          // undefined: user has not typed yet
-let submittedEmpty = null // null: user submitted nothing
-
-console.log(typedSoFar)        // undefined
-console.log(submittedEmpty)    // null
-~~~
-
-4. TypeScript branch check:
-
-~~~ts
-let score: number | null = 87
-
-if (score !== null) {
-  console.log(score.toFixed(2)) // 87.00 — only safe here
-}
-~~~
-
-5. Decision tree:
-
-~~~js
-// string    -> typeof value === 'string'
-// number    -> typeof value === 'number'
-// boolean   -> typeof value === 'boolean'
-// undefined -> typeof value === 'undefined'
-// null      -> value === null            (typeof lies here)
-// array     -> Array.isArray(value)
-// object    -> typeof value === 'object' && value !== null && !Array.isArray(value)
-~~~
+If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.
