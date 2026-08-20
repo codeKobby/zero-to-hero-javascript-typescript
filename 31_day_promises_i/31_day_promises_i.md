@@ -2,12 +2,16 @@
 
 [Day 30 <<](../30_day_project_weather/30_day_project_weather.md) | [Day 32 >>](../32_day_promises_ii/32_day_promises_ii.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [A Promise represents one future outcome](#a-promise-represents-one-future-outcome)
   - [The executor runs immediately](#the-executor-runs-immediately)
@@ -20,10 +24,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -68,6 +77,28 @@ result
 ```
 
 The value arrives later, the error arrives later, and the program keeps running while it waits.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **A Promise represents one future outcome** | The lesson explains a promise represents one future outcome through runnable examples and practice. |
+| **The executor runs immediately** | The lesson explains the executor runs immediately through runnable examples and practice. |
+| **Consuming a Promise** | The lesson explains consuming a promise through runnable examples and practice. |
+| **Chaining passes returned values** | The lesson explains chaining passes returned values through runnable examples and practice. |
+| **Common mistakes table** | The lesson explains common mistakes table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [A Promise represents one future outcome](#a-promise-represents-one-future-outcome)
+- [The executor runs immediately](#the-executor-runs-immediately)
+- [Consuming a Promise](#consuming-a-promise)
+- [Chaining passes returned values](#chaining-passes-returned-values)
+- [Common mistakes table](#common-mistakes-table)
 
 ## JS runtime deep dive
 
@@ -216,6 +247,35 @@ Promises have a small core and a wide set of reference pages. Bookmark these and
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind `Promise<T>`
 - [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T` in `Promise<T>` and how fulfilled values flow
+
+## Read the first example line by line
+
+The first runnable example introduces **Promises — One Future Result**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const result = new Promise((resolve, reject) => {` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `  setTimeout(() => resolve('finished'), 100)` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 3 | `})` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `` | Blank line: it separates ideas for the reader. |
+| 5 | `result` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `  .then((value) => console.log(value))` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 7 | `  .catch((error) => console.error(error))` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 8 | `  .finally(() => console.log('cleanup'))` | Function syntax: this line defines reusable behavior or an arrow function. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Promises — One Future Result**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Promises — One Future Result**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

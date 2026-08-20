@@ -2,12 +2,16 @@
 
 [Day 36 <<](../36_day_ts_types/36_day_ts_types.md) | [Day 38 >>](../38_day_ts_utility_types/38_day_ts_utility_types.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [One function, many types](#one-function-many-types)
   - [The relationship is only a convention in JavaScript](#the-relationship-is-only-a-convention-in-javascript)
@@ -20,10 +24,16 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+  - [MDN](#mdn)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -76,6 +86,28 @@ const label = identity('ready')   // T is string; label is string
 ```
 
 The runtime JavaScript is still one function. The `<T>` relationship is removed after checking.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **One function, many types** | The lesson explains one function, many types through runnable examples and practice. |
+| **The relationship is only a convention in JavaScript** | The lesson explains the relationship is only a convention in javascript through runnable examples and practice. |
+| **Constraints explain what a generic may do** | The lesson explains constraints explain what a generic may do through runnable examples and practice. |
+| **Keys and repositories** | The lesson explains keys and repositories through runnable examples and practice. |
+| **Common mistakes table** | The lesson explains common mistakes table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [One function, many types](#one-function-many-types)
+- [The relationship is only a convention in JavaScript](#the-relationship-is-only-a-convention-in-javascript)
+- [Constraints explain what a generic may do](#constraints-explain-what-a-generic-may-do)
+- [Keys and repositories](#keys-and-repositories)
+- [Common mistakes table](#common-mistakes-table)
 
 ## JS runtime deep dive
 
@@ -186,6 +218,29 @@ The official handbook is the authority on every construct in this lesson — boo
 - [typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) — the runtime type check; generics are erased so there is no runtime equivalent
 - [in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in) — the runtime key lookup behind `keyof`-checked access
 - [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) — the runtime type behind `T[]` / `Array<T>` and the `length` constraint
+
+## Read the first example line by line
+
+The first runnable example introduces **TypeScript Generics — One Function, Many Types**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `function identity(value) { return value }` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `const answer = identity(42) // JavaScript gives no static promise about answer` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **TypeScript Generics — One Function, Many Types**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **TypeScript Generics — One Function, Many Types**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

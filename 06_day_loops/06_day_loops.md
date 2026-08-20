@@ -2,12 +2,16 @@
 
 [Day 5 <<](../05_day_control_flow/05_day_control_flow.md) | [Day 7 >>](../07_day_functions_i/07_day_functions_i.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [The loop model: start, check, work, change](#the-loop-model-start-check-work-change)
   - [Trace it by hand](#trace-it-by-hand)
@@ -24,10 +28,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -77,6 +86,27 @@ while (lives > 0) {
 It prints one line, then prints it again, then again — forever, because nothing ever changes `lives`. In a browser this freezes the tab; in Node it spins until the process is killed. No error message exists for this bug. The code is exactly as written, and the writer did not notice the missing progress line.
 
 This lesson gives you a four-step model that makes such a bug visible at a glance, plus a trace technique that checks a loop's correctness *before* you run it.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **loop** | A structure that repeats a block of code. |
+| **for** | A loop commonly used to visit items or ranges. |
+| **while** | A loop that continues while a condition remains true. |
+| **iteration** | One pass through a loop body. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [The loop model: start, check, work, change](#the-loop-model-start-check-work-change)
+- [Trace it by hand](#trace-it-by-hand)
+- [for loops: count when you need a position](#for-loops-count-when-you-need-a-position)
+- [Arrays and indexes](#arrays-and-indexes)
+- [for...of: use the item when you do not need its position](#forof-use-the-item-when-you-do-not-need-its-position)
 
 ## JS runtime deep dive
 
@@ -425,6 +455,32 @@ Day 6 makes repeating work safe, and MDN documents every loop. Bookmark these pa
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the array annotations behind `scores: number[]`
 - [TypeScript for the New Programmer](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html) — the why behind checking types before runtime
+
+## Read the first example line by line
+
+The first runnable example introduces **Loops — Repeating Work with for and while**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `let lives = 3` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `` | Blank line: it separates ideas for the reader. |
+| 3 | `while (lives > 0) {` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 4 | `  console.log('You have ' + lives + ' lives left.')` | Output call: the program displays the evaluated value in the console. |
+| 5 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Loops — Repeating Work with for and while**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Loops — Repeating Work with for and while**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

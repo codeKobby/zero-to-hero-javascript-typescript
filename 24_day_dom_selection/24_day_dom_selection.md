@@ -2,12 +2,16 @@
 
 [Day 23 <<](../23_day_web_storage/23_day_web_storage.md) | [Day 25 >>](../25_day_dom_manipulation/25_day_dom_manipulation.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [The DOM is the browser's object model of HTML](#the-dom-is-the-browsers-object-model-of-html)
   - [Run JavaScript and TypeScript deliberately](#run-javascript-and-typescript-deliberately)
@@ -21,10 +25,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -68,6 +77,28 @@ const cards = document.querySelectorAll('.lesson-card')
 ```
 
 Each method answers a different question, and each answer comes with its own null or emptiness rules. Today you learn to ask the right question and to handle "not found" on purpose.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **The DOM is the browser's object model of HTML** | The lesson explains the dom is the browser's object model of html through runnable examples and practice. |
+| **Run JavaScript and TypeScript deliberately** | The lesson explains run javascript and typescript deliberately through runnable examples and practice. |
+| **Query methods answer different questions** | The lesson explains query methods answer different questions through runnable examples and practice. |
+| **Handle a missing match intentionally** | The lesson explains handle a missing match intentionally through runnable examples and practice. |
+| **NodeLists are collections, not arrays** | The lesson explains nodelists are collections, not arrays through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [The DOM is the browser's object model of HTML](#the-dom-is-the-browsers-object-model-of-html)
+- [Run JavaScript and TypeScript deliberately](#run-javascript-and-typescript-deliberately)
+- [Query methods answer different questions](#query-methods-answer-different-questions)
+- [Handle a missing match intentionally](#handle-a-missing-match-intentionally)
+- [NodeLists are collections, not arrays](#nodelists-are-collections-not-arrays)
 
 ## JS runtime deep dive
 
@@ -224,6 +255,30 @@ Querying the page is a small slice of the DOM's surface. Bookmark these pages an
 ### TypeScript docs
 
 - [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `Element`, `NodeList`, and the narrowing you used today
+
+## Read the first example line by line
+
+The first runnable example introduces **Selecting DOM Elements — Querying the Page**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const title = document.getElementById('page-title')` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `const emailInput = document.querySelector('input[type="email"]')` | Declaration or assignment: the runtime creates or updates a named value. |
+| 3 | `const cards = document.querySelectorAll('.lesson-card')` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Selecting DOM Elements — Querying the Page**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Selecting DOM Elements — Querying the Page**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 39 <<](../39_day_ts_advanced_types/39_day_ts_advanced_types.md) | [Day 41 >>](../41_day_project_recipe/41_day_project_recipe.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [The browser only ever sees JavaScript](#the-browser-only-ever-sees-javascript)
   - [Runtime practices that work in both languages](#runtime-practices-that-work-in-both-languages)
@@ -20,10 +24,16 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+  - [MDN](#mdn)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -59,6 +69,26 @@ And you will be able to **explain**:
 ## The problem this solves
 
 A strict TypeScript project still ships plain JavaScript. If the discipline stops at the editor, malformed server data and real-world states still break the app at runtime. Day 40 combines compiler checks, runtime validation, tests, and clear boundaries so the shipped code behaves as well as the types suggest.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **The browser only ever sees JavaScript** | The lesson explains the browser only ever sees javascript through runnable examples and practice. |
+| **Runtime practices that work in both languages** | The lesson explains runtime practices that work in both languages through runnable examples and practice. |
+| **A discriminated state switch** | The lesson explains a discriminated state switch through runnable examples and practice. |
+| **Pitfalls table** | The lesson explains pitfalls table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [The browser only ever sees JavaScript](#the-browser-only-ever-sees-javascript)
+- [Runtime practices that work in both languages](#runtime-practices-that-work-in-both-languages)
+- [A discriminated state switch](#a-discriminated-state-switch)
+- [Pitfalls table](#pitfalls-table)
 
 ## JS runtime deep dive
 
@@ -203,6 +233,28 @@ The official handbook is the authority on every construct in this lesson — boo
 - [Nullish coalescing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) — the fallback that treats `0` and `''` as real values
 - [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — the boundary function `safeParse` wraps
 - [TypeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError) — what malformed data can throw when a guard is missing
+
+## Read the first example line by line
+
+The first runnable example introduces **TypeScript in a Maintainable Project — Safety in the Real World**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `var city = user?.address?.city ?? 'Unknown'` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **TypeScript in a Maintainable Project — Safety in the Real World**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **TypeScript in a Maintainable Project — Safety in the Real World**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

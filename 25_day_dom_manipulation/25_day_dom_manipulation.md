@@ -2,12 +2,16 @@
 
 [Day 24 <<](../24_day_dom_selection/24_day_dom_selection.md) | [Day 26 >>](../26_day_events_i/26_day_events_i.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [DOM changes are visible state changes](#dom-changes-are-visible-state-changes)
   - [Build text with textContent, not innerHTML](#build-text-with-textcontent-not-innerhtml)
@@ -21,10 +25,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -71,6 +80,28 @@ list.append(item)
 ```
 
 The rest of this lesson turns that into a readable, repeatable sequence and shows what can go wrong.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **DOM changes are visible state changes** | The lesson explains dom changes are visible state changes through runnable examples and practice. |
+| **Build text with textContent, not innerHTML** | The lesson explains build text with textcontent, not innerhtml through runnable examples and practice. |
+| **A readable element-building sequence** | The lesson explains a readable element-building sequence through runnable examples and practice. |
+| **Attributes, properties, classes, and data** | The lesson explains attributes, properties, classes, and data through runnable examples and practice. |
+| **Remove only the element you own** | The lesson explains remove only the element you own through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [DOM changes are visible state changes](#dom-changes-are-visible-state-changes)
+- [Build text with textContent, not innerHTML](#build-text-with-textcontent-not-innerhtml)
+- [A readable element-building sequence](#a-readable-element-building-sequence)
+- [Attributes, properties, classes, and data](#attributes-properties-classes-and-data)
+- [Remove only the element you own](#remove-only-the-element-you-own)
 
 ## JS runtime deep dive
 
@@ -215,6 +246,32 @@ Creating and changing elements is a small slice of the DOM's mutation surface. B
 
 - [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types `createElement` by tag name
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind the typed DOM values you read today
+
+## Read the first example line by line
+
+The first runnable example introduces **Changing DOM Elements — Updating the Page**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const item = document.createElement('li')` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `item.textContent = userProvidedText` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 3 | `item.dataset.status = 'open'` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `item.classList.add('task')` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 5 | `list.append(item)` | Function call: the runtime evaluates the arguments and invokes the operation. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Changing DOM Elements — Updating the Page**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Changing DOM Elements — Updating the Page**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

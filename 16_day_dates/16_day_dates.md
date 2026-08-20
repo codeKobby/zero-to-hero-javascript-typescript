@@ -2,12 +2,16 @@
 
 [Day 15 <<](../15_day_numbers/15_day_numbers.md) | [Day 17 >>](../17_day_regex/17_day_regex.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Start with the kind of time you mean](#start-with-the-kind-of-time-you-mean)
   - [Creating a Date](#creating-a-date)
@@ -22,10 +26,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -76,6 +85,28 @@ console.log(formatter.format(event))
 ```
 
 The fixed instant travels between systems unchanged; the formatter is the only place a human-facing string is produced. This split — **store instants, format for people at the boundary** — is the same discipline as Day 15's "format only at the display boundary," now applied to time.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **Start with the kind of time you mean** | The lesson explains start with the kind of time you mean through runnable examples and practice. |
+| **Creating a Date** | The lesson explains creating a date through runnable examples and practice. |
+| **Read local time or UTC time on purpose** | The lesson explains read local time or utc time on purpose through runnable examples and practice. |
+| **Subtraction measures durations** | The lesson explains subtraction measures durations through runnable examples and practice. |
+| **Format for people with Intl** | The lesson explains format for people with intl through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Start with the kind of time you mean](#start-with-the-kind-of-time-you-mean)
+- [Creating a Date](#creating-a-date)
+- [Read local time or UTC time on purpose](#read-local-time-or-utc-time-on-purpose)
+- [Subtraction measures durations](#subtraction-measures-durations)
+- [Format for people with Intl](#format-for-people-with-intl)
 
 ## JS runtime deep dive
 
@@ -264,6 +295,36 @@ Dates are a small API hiding a deep set of pitfalls. Bookmark these pages and re
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `Date` as a built-in object type
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `if (launch !== null)` protects the `toISOString` call
+
+## Read the first example line by line
+
+The first runnable example introduces **Dates and Time — Moments and Durations**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const event = new Date('2025-01-15T09:30:00Z')` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `` | Blank line: it separates ideas for the reader. |
+| 3 | `const formatter = new Intl.DateTimeFormat('en-GB', {` | Declaration or assignment: the runtime creates or updates a named value. |
+| 4 | `  dateStyle: 'full',` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 5 | `  timeStyle: 'short',` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `  timeZone: 'Africa/Accra'` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 7 | `})` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 8 | `` | Blank line: it separates ideas for the reader. |
+| 9 | `console.log(formatter.format(event))` | Output call: the program displays the evaluated value in the console. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Dates and Time — Moments and Durations**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Dates and Time — Moments and Durations**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

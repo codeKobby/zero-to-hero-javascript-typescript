@@ -2,12 +2,16 @@
 
 [Day 40 <<](../40_day_ts_best_practices/40_day_ts_best_practices.md) | [Day 42 >>](../42_day_project_forum/42_day_project_forum.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [The runnable slice](#the-runnable-slice)
   - [Validation, not assumptions](#validation-not-assumptions)
@@ -17,10 +21,15 @@
   - [What TypeScript cannot decide](#what-typescript-cannot-decide)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -57,6 +66,24 @@ And you will be able to **explain**:
 ## The problem this solves
 
 A recipes app needs create, read, update, delete, and search — and it must survive a page reload. The domain model is small, but every path touches the DOM, storage, and form input. Keeping domain logic pure and the effects at the edges makes each path testable and the project portfolio-ready.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **The runnable slice** | The lesson explains the runnable slice through runnable examples and practice. |
+| **Validation, not assumptions** | The lesson explains validation, not assumptions through runnable examples and practice. |
+| **Pitfalls table** | The lesson explains pitfalls table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [The runnable slice](#the-runnable-slice)
+- [Validation, not assumptions](#validation-not-assumptions)
+- [Pitfalls table](#pitfalls-table)
 
 ## JS runtime deep dive
 
@@ -150,6 +177,30 @@ The recipe app reads storage, validates shapes, searches the list, and renders w
 
 - [Using Type Predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — what `value is Recipe` tells the compiler, and what it still does not prove
 - [DOM Manipulation](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html) — how the compiler types the DOM reads in the starter
+
+## Read the first example line by line
+
+The first runnable example introduces **Project — Recipe Book**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const visible = recipes.filter((recipe) =>` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `  recipe.title.toLowerCase().includes(query) \|\|` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 3 | `  recipe.ingredients.some((ingredient) => ingredient.toLowerCase().includes(query)))` | Function syntax: this line defines reusable behavior or an arrow function. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Project — Recipe Book**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Project — Recipe Book**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

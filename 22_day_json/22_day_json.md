@@ -2,12 +2,16 @@
 
 [Day 21 <<](../21_day_modules/21_day_modules.md) | [Day 23 >>](../23_day_web_storage/23_day_web_storage.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [JSON is a transport format](#json-is-a-transport-format)
   - [Parse is not validate](#parse-is-not-validate)
@@ -21,10 +25,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -71,6 +80,28 @@ function isLearner(value) {
 ```
 
 Only after that check passes do you use the value as a learner.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **JSON is a transport format** | The lesson explains json is a transport format through runnable examples and practice. |
+| **Parse is not validate** | The lesson explains parse is not validate through runnable examples and practice. |
+| **Handle syntax errors at the boundary** | The lesson explains handle syntax errors at the boundary through runnable examples and practice. |
+| **Stringify creates text** | The lesson explains stringify creates text through runnable examples and practice. |
+| **Allowlist public data** | The lesson explains allowlist public data through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [JSON is a transport format](#json-is-a-transport-format)
+- [Parse is not validate](#parse-is-not-validate)
+- [Handle syntax errors at the boundary](#handle-syntax-errors-at-the-boundary)
+- [Stringify creates text](#stringify-creates-text)
+- [Allowlist public data](#allowlist-public-data)
 
 ## JS runtime deep dive
 
@@ -229,6 +260,33 @@ JSON has more surface than `parse` and `stringify` — bookmark the pages that m
 
 - [Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) — `value is Learner` predicates, the core of this lesson's trust boundary
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the checks that turn `unknown` into a usable shape
+
+## Read the first example line by line
+
+The first runnable example introduces **JSON and External Data — Shaping Untrusted Input**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `function isLearner(value) {` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `  return typeof value === 'object' &&` | Return statement: the function sends a result back to its caller. |
+| 3 | `    value !== null &&` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `    typeof value.name === 'string' &&` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 5 | `    typeof value.completedLessons === 'number'` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **JSON and External Data — Shaping Untrusted Input**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **JSON and External Data — Shaping Untrusted Input**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

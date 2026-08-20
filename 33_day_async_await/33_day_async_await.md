@@ -2,12 +2,16 @@
 
 [Day 32 <<](../32_day_promises_ii/32_day_promises_ii.md) | [Day 34 >>](../34_day_fetch_api/34_day_fetch_api.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [An async function always returns a Promise](#an-async-function-always-returns-a-promise)
   - [await unwraps one Promise at a time](#await-unwraps-one-promise-at-a-time)
@@ -21,10 +25,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -66,6 +75,28 @@ async function loadUser() {
 ```
 
 The chain's structure disappears; the steps read in the order they run.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **An async function always returns a Promise** | The lesson explains an async function always returns a promise through runnable examples and practice. |
+| **await unwraps one Promise at a time** | The lesson explains await unwraps one promise at a time through runnable examples and practice. |
+| **Handle failures around the operation that can fail** | The lesson explains handle failures around the operation that can fail through runnable examples and practice. |
+| **Sequential and parallel are different decisions** | The lesson explains sequential and parallel are different decisions through runnable examples and practice. |
+| **Async loops need an intentional policy** | The lesson explains async loops need an intentional policy through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [An async function always returns a Promise](#an-async-function-always-returns-a-promise)
+- [await unwraps one Promise at a time](#await-unwraps-one-promise-at-a-time)
+- [Handle failures around the operation that can fail](#handle-failures-around-the-operation-that-can-fail)
+- [Sequential and parallel are different decisions](#sequential-and-parallel-are-different-decisions)
+- [Async loops need an intentional policy](#async-loops-need-an-intentional-policy)
 
 ## JS runtime deep dive
 
@@ -225,6 +256,31 @@ Async/await wraps the Promise machinery you met yesterday. Bookmark these pages 
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — annotating the resolved return type of an async function
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — treating caught values as `unknown` before reading properties
+
+## Read the first example line by line
+
+The first runnable example introduces **Async and Await — Promise Syntax That Reads Sequentially**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `async function loadUser() {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 2 | `  const user = await getUser()` | Declaration or assignment: the runtime creates or updates a named value. |
+| 3 | `  return user.name` | Return statement: the function sends a result back to its caller. |
+| 4 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Async and Await — Promise Syntax That Reads Sequentially**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Async and Await — Promise Syntax That Reads Sequentially**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

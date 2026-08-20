@@ -2,12 +2,16 @@
 
 [Day 7 <<](../07_day_functions_i/07_day_functions_i.md) | [Day 9 >>](../09_day_objects/09_day_objects.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [A function can be a value](#a-function-can-be-a-value)
   - [What is a callback?](#what-is-a-callback)
@@ -22,10 +26,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -75,6 +84,27 @@ runTask(washDishes())        // bug: called already, string passed in
 `runTask(washDishes())` does not pass the recipe — it *runs* `washDishes` first and passes its returned string. Inside `runTask`, `task()` then tries to call a string, and the program crashes with `task is not a function`. The bug is invisible at the call site because the line *looks* right.
 
 The same invisible mistake hides behind the other big idea: a closure that does not close over what you think it does. This lesson makes both mistakes visible by giving you a precise runtime model of function values.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **callback** | A function supplied to another function to run later or conditionally. |
+| **higher-order function** | A function that receives or returns another function. |
+| **closure** | A function that retains access to surrounding variables. |
+| **side effect** | A change outside a function result, such as a log or mutation. |
+
+## Topics
+
+For this callbacks lesson, follow the sequence **What is a callback?**, **Why pass a function as a value?**, **What is a higher-order function?**, and **What is a closure?**.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [A function can be a value](#a-function-can-be-a-value)
+- [What is a callback?](#what-is-a-callback)
+- [The common callback mistake](#the-common-callback-mistake)
+- [Callbacks can receive data](#callbacks-can-receive-data)
+- [Returning a function](#returning-a-function)
 
 ## JS runtime deep dive
 
@@ -361,6 +391,34 @@ Day 8 turns functions into values, and MDN covers each idea. Bookmark these page
 
 - [More on Functions](https://www.typescriptlang.org/docs/handbook/2/functions.html) — writing callback types like `NumberOperation`
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the primitives behind the shapes you type
+
+## Read the first example line by line
+
+The first runnable example introduces **Functions II — Function Values, Callbacks, and Closures**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `function runTask(task) {` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `  console.log('Starting task')` | Output call: the program displays the evaluated value in the console. |
+| 3 | `  const result = task()      // intended: call the function` | Declaration or assignment: the runtime creates or updates a named value. |
+| 4 | `  console.log('Task result: ' + result)` | Output call: the program displays the evaluated value in the console. |
+| 5 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `` | Blank line: it separates ideas for the reader. |
+| 7 | `runTask(washDishes())        // bug: called already, string passed in` | Function call: the runtime evaluates the arguments and invokes the operation. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Functions II — Function Values, Callbacks, and Closures**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Functions II — Function Values, Callbacks, and Closures**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 12 <<](../12_day_hof_i/12_day_hof_i.md) | [Day 14 >>](../14_day_strings/14_day_strings.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Choose the question before choosing the method](#choose-the-question-before-choosing-the-method)
   - [includes: exact value present?](#includes-exact-value-present)
@@ -24,10 +28,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -83,6 +92,28 @@ Different questions need different answers:
 - "Show scores from low to high" — a **rearranged array**.
 
 Writing five different loops to answer five questions buries each answer in machinery. Each of these questions has a named method whose name *is* the question. This lesson maps question → method, and it flags the one method that behaves differently from the others: `sort` changes its source, so a safe program copies before it sorts.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **Choose the question before choosing the method** | The lesson explains choose the question before choosing the method through runnable examples and practice. |
+| **includes: exact value present?** | The lesson explains includes: exact value present? through runnable examples and practice. |
+| **some and every: yes-or-no questions** | The lesson explains some and every: yes-or-no questions through runnable examples and practice. |
+| **find: get the first matching item** | The lesson explains find: get the first matching item through runnable examples and practice. |
+| **findIndex: get the position of the first match** | The lesson explains findindex: get the position of the first match through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Choose the question before choosing the method](#choose-the-question-before-choosing-the-method)
+- [includes: exact value present?](#includes-exact-value-present)
+- [some and every: yes-or-no questions](#some-and-every-yes-or-no-questions)
+- [find: get the first matching item](#find-get-the-first-matching-item)
+- [findIndex: get the position of the first match](#findindex-get-the-position-of-the-first-match)
 
 ## JS runtime deep dive
 
@@ -341,6 +372,29 @@ Bookmark these pages and return as you grow:
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — typing arrays whose items can be found or missing.
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `undefined` check turns `number | undefined` into `number`.
+
+## Read the first example line by line
+
+The first runnable example introduces **Higher-Order Functions II — Array Questions and Safe Sorting**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const roles = ['reader', 'editor', 'admin']` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `const scores = [42, 78, 91, 49]` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Higher-Order Functions II — Array Questions and Safe Sorting**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Higher-Order Functions II — Array Questions and Safe Sorting**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

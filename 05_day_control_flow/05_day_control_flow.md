@@ -2,12 +2,16 @@
 
 [Day 4 <<](../04_day_operators/04_day_operators.md) | [Day 6 >>](../06_day_loops/06_day_loops.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Programs choose: if takes one path](#programs-choose-if-takes-one-path)
   - [Only the first true branch runs](#only-the-first-true-branch-runs)
@@ -25,10 +29,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -75,6 +84,27 @@ if (score >= 60) {
 ```
 
 The order is wrong, so the A branch is unreachable. No error is printed — the program just quietly hands out passes. That is the nature of control-flow bugs: the code runs exactly as written, and the writer is sure they meant what they wrote. This lesson builds the exact mental execution model — top to bottom, first true wins — that makes you see that bug at a glance instead of after an hour of debugging.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **condition** | A question whose result chooses a branch. |
+| **if** | A keyword that runs a block when its condition is true. |
+| **else** | A fallback block when earlier conditions are false. |
+| **switch** | A branching statement for matching one expression to cases. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Programs choose: if takes one path](#programs-choose-if-takes-one-path)
+- [Only the first true branch runs](#only-the-first-true-branch-runs)
+- [Order matters: specific before broad](#order-matters-specific-before-broad)
+- [Write conditions as questions](#write-conditions-as-questions)
+- [The ternary: choose one small value](#the-ternary-choose-one-small-value)
 
 ## JS runtime deep dive
 
@@ -413,6 +443,34 @@ Day 5 makes decisions exact, and MDN documents each tool. Bookmark these pages a
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations and literal unions behind today's `Plan`
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how TypeScript watches your branches and knows more inside each one
+
+## Read the first example line by line
+
+The first runnable example introduces **Control Flow — Making Decisions with if, else, and switch**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const score = 95` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `` | Blank line: it separates ideas for the reader. |
+| 3 | `if (score >= 60) {` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 4 | `  console.log('Pass')` | Output call: the program displays the evaluated value in the console. |
+| 5 | `} else if (score >= 90) {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 6 | `  console.log('A') // dead code — a 95 never gets here` | Output call: the program displays the evaluated value in the console. |
+| 7 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Control Flow — Making Decisions with if, else, and switch**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Control Flow — Making Decisions with if, else, and switch**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

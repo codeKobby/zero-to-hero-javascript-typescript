@@ -2,12 +2,16 @@
 
 [Day 14 <<](../14_day_strings/14_day_strings.md) | [Day 16 >>](../16_day_dates/16_day_dates.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [JavaScript has one ordinary number type](#javascript-has-one-ordinary-number-type)
   - [Convert input deliberately](#convert-input-deliberately)
@@ -22,10 +26,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -84,6 +93,28 @@ function readQuantity(text) {
 This function has **two** possible results: a number means valid input; `null` means no usable quantity. That is clearer than quietly turning bad data into zero — a zero quantity could silently cancel an order.
 
 The path is the theme of the day: **receive text → convert → reject bad data → calculate → format**. Skipping the reject step is how garbage becomes silent bugs.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **JavaScript has one ordinary number type** | The lesson explains javascript has one ordinary number type through runnable examples and practice. |
+| **Convert input deliberately** | The lesson explains convert input deliberately through runnable examples and practice. |
+| **Calculate with intention** | The lesson explains calculate with intention through runnable examples and practice. |
+| **Format only at the display boundary** | The lesson explains format only at the display boundary through runnable examples and practice. |
+| **The decimal precision trap** | The lesson explains the decimal precision trap through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [JavaScript has one ordinary number type](#javascript-has-one-ordinary-number-type)
+- [Convert input deliberately](#convert-input-deliberately)
+- [Calculate with intention](#calculate-with-intention)
+- [Format only at the display boundary](#format-only-at-the-display-boundary)
+- [The decimal precision trap](#the-decimal-precision-trap)
 
 ## JS runtime deep dive
 
@@ -314,6 +345,37 @@ This lesson walks the full numbers pipeline — convert, validate, calculate, fo
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `number`, `bigint`, and annotation basics
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the compiler narrows unions like `number | null` after a check
+
+## Read the first example line by line
+
+The first runnable example introduces **Numbers and Math — Parsing, Precision, and Calculation**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `function readQuantity(text) {` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `  const trimmed = text.trim()` | Declaration or assignment: the runtime creates or updates a named value. |
+| 3 | `  const quantity = Number(trimmed)` | Declaration or assignment: the runtime creates or updates a named value. |
+| 4 | `` | Blank line: it separates ideas for the reader. |
+| 5 | `  if (trimmed === '' \|\| !Number.isFinite(quantity)) {` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 6 | `    return null` | Return statement: the function sends a result back to its caller. |
+| 7 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 8 | `` | Blank line: it separates ideas for the reader. |
+| 9 | `  return quantity` | Return statement: the function sends a result back to its caller. |
+| 10 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Numbers and Math — Parsing, Precision, and Calculation**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Numbers and Math — Parsing, Precision, and Calculation**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

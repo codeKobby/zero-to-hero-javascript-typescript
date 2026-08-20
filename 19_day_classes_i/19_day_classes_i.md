@@ -2,12 +2,16 @@
 
 [Day 18 <<](../18_day_error_handling/18_day_error_handling.md) | [Day 20 >>](../20_day_classes_ii/20_day_classes_ii.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [A class is one way to create related objects](#a-class-is-one-way-to-create-related-objects)
   - [Read class code as an instance recipe](#read-class-code-as-an-instance-recipe)
@@ -20,10 +24,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -82,6 +91,28 @@ console.log(progress.summary())
 ```
 
 The class is the recipe; each `new` call bakes a separate instance with its own data.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **A class is one way to create related objects** | The lesson explains a class is one way to create related objects through runnable examples and practice. |
+| **Read class code as an instance recipe** | The lesson explains read class code as an instance recipe through runnable examples and practice. |
+| **Instance versus class** | The lesson explains instance versus class through runnable examples and practice. |
+| **Methods need the right receiver** | The lesson explains methods need the right receiver through runnable examples and practice. |
+| **Common mistakes table** | The lesson explains common mistakes table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [A class is one way to create related objects](#a-class-is-one-way-to-create-related-objects)
+- [Read class code as an instance recipe](#read-class-code-as-an-instance-recipe)
+- [Instance versus class](#instance-versus-class)
+- [Methods need the right receiver](#methods-need-the-right-receiver)
+- [Common mistakes table](#common-mistakes-table)
 
 ## JS runtime deep dive
 
@@ -212,6 +243,41 @@ Classes sit on top of a large language feature — bookmark the pages that match
 
 - [Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html) — TypeScript's field declarations, modifiers, and constructor typing
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — `instanceof` narrowing for class instances
+
+## Read the first example line by line
+
+The first runnable example introduces **Classes and Instances — Blueprints and Objects**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `class ReadingProgress {` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 2 | `  constructor(title, completedLessons) {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 3 | `    this.title = title` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `    this.completedLessons = completedLessons` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 5 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `` | Blank line: it separates ideas for the reader. |
+| 7 | `  completeNextLesson() {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 8 | `    this.completedLessons += 1` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 9 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 10 | `` | Blank line: it separates ideas for the reader. |
+| 11 | `  summary() {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 12 | `    return this.title + ': ' + this.completedLessons + ' lessons complete'` | Return statement: the function sends a result back to its caller. |
+| 13 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 14 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Classes and Instances — Blueprints and Objects**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Classes and Instances — Blueprints and Objects**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 10 <<](../10_day_arrays/10_day_arrays.md) | [Day 12 >>](../12_day_hof_i/12_day_hof_i.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [The long way first](#the-long-way-first)
   - [Object destructuring uses property names](#object-destructuring-uses-property-names)
@@ -24,10 +28,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -87,6 +96,28 @@ const { name, track } = learner
 ```
 
 Same result — two variables holding `'Mina'` and `'frontend'` — with the shape of the source written once. This is not a new feature of objects; it is assignment syntax that reads the object for you. And its partner, spread, solves the other half of the problem: *copying* an object or array so you can change it without mutating the original.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **The long way first** | The lesson explains the long way first through runnable examples and practice. |
+| **Object destructuring uses property names** | The lesson explains object destructuring uses property names through runnable examples and practice. |
+| **Array destructuring uses positions** | The lesson explains array destructuring uses positions through runnable examples and practice. |
+| **Defaults handle only undefined** | The lesson explains defaults handle only undefined through runnable examples and practice. |
+| **Rest gathers what remains** | The lesson explains rest gathers what remains through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [The long way first](#the-long-way-first)
+- [Object destructuring uses property names](#object-destructuring-uses-property-names)
+- [Array destructuring uses positions](#array-destructuring-uses-positions)
+- [Defaults handle only undefined](#defaults-handle-only-undefined)
+- [Rest gathers what remains](#rest-gathers-what-remains)
 
 ## JS runtime deep dive
 
@@ -354,6 +385,35 @@ Bookmark these pages and return as you grow:
 
 - [Variable Declarations](https://www.typescriptlang.org/docs/handbook/variable-declarations.html) — destructuring and rest in TypeScript, in depth.
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the source types your destructured variables are inferred from.
+
+## Read the first example line by line
+
+The first runnable example introduces **Destructuring — Extracting Values Cleanly**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const learner = {` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `  name: 'Mina',` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 3 | `  track: 'frontend',` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `  completedLessons: 11` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 5 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 6 | `` | Blank line: it separates ideas for the reader. |
+| 7 | `const name = learner.name` | Declaration or assignment: the runtime creates or updates a named value. |
+| 8 | `const track = learner.track` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Destructuring — Extracting Values Cleanly**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Destructuring — Extracting Values Cleanly**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

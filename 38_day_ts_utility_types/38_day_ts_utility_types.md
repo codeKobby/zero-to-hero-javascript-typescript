@@ -2,12 +2,16 @@
 
 [Day 37 <<](../37_day_ts_generics/37_day_ts_generics.md) | [Day 39 >>](../39_day_ts_advanced_types/39_day_ts_advanced_types.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Utility types transform, they do not execute](#utility-types-transform-they-do-not-execute)
   - [Read the transformation](#read-the-transformation)
@@ -19,10 +23,16 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+  - [MDN](#mdn)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -64,6 +74,26 @@ type Permissions = Record<'admin' | 'user', string[]>
 ```
 
 These types change what the compiler permits; they do not clone or freeze an object. In JavaScript, write explicit helpers such as `pick`, `omit`, and `Object.freeze` when runtime behavior is required.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **Utility types transform, they do not execute** | The lesson explains utility types transform, they do not execute through runnable examples and practice. |
+| **Read the transformation** | The lesson explains read the transformation through runnable examples and practice. |
+| **JS and TS side by side** | The lesson explains js and ts side by side through runnable examples and practice. |
+| **Pitfalls table** | The lesson explains pitfalls table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Utility types transform, they do not execute](#utility-types-transform-they-do-not-execute)
+- [Read the transformation](#read-the-transformation)
+- [JS and TS side by side](#js-and-ts-side-by-side)
+- [Pitfalls table](#pitfalls-table)
 
 ## JS runtime deep dive
 
@@ -171,6 +201,32 @@ The official handbook is the authority on every construct in this lesson — boo
 - [Object.fromEntries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries) — the helper behind the `pick` implementation
 - [Object.entries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) — reading an object's keys the way a runtime `omit` must
 - [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) — why a PATCH payload needs validation, not just a `Partial` type
+
+## Read the first example line by line
+
+The first runnable example introduces **TypeScript Utility Types — Transforming Shapes Without Rewriting Them**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `interface User { id: number; name: string; email: string; role: 'admin' \| 'user' }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 2 | `type UserUpdate = Partial<User>       // every field optional for a PATCH` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 3 | `type PublicUser = Pick<User, 'id' \| 'name'>` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `type UserWithoutId = Omit<User, 'id'>` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 5 | `type Permissions = Record<'admin' \| 'user', string[]>` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **TypeScript Utility Types — Transforming Shapes Without Rewriting Them**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **TypeScript Utility Types — Transforming Shapes Without Rewriting Them**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 2 <<](../02_day_variables/02_day_variables.md) | [Day 4 >>](../04_day_operators/04_day_operators.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [A type is a contract about meaning](#a-type-is-a-contract-about-meaning)
   - [The seven primitive types](#the-seven-primitive-types)
@@ -15,7 +19,7 @@
   - [Reference types: arrays and objects](#reference-types-arrays-and-objects)
   - [Two values for "nothing": undefined and null](#two-values-for-nothing-undefined-and-null)
   - [typeof and its two famous lies](#typeof-and-its-two-famous-lies)
-  - [The + trap: when operators change meaning](#the--trap-when-operators-change-meaning)
+  - [The + trap: when operators change meaning](#the-trap-when-operators-change-meaning)
   - [Common mistakes table](#common-mistakes-table)
 - [The TypeScript layer](#the-typescript-layer)
   - [Annotations say which type a name may hold](#annotations-say-which-type-a-name-may-hold)
@@ -25,10 +29,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -72,6 +81,28 @@ console.log('1' + '1') // '11'
 Same operator, same visible shape, different answer. The values look similar, but their **types** are different — and the runtime chose a different behavior for each. Now imagine the same thing happening inside real data: a form field that arrives as a string when your code expected a number, a missing value you treat as "empty string" when it is actually `null`. Each of those is a type problem wearing a disguise.
 
 This lesson gives you the vocabulary and the runtime picture to see through the disguise — and shows you how TypeScript makes the type of a value explicit instead of guessable.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **primitive** | A basic value such as a string, number, or Boolean. |
+| **object** | A value that groups properties and can have identity. |
+| **null** | An intentional empty value. |
+| **typeof** | An operator that reports a value category. |
+| **union type** | A TypeScript type that permits one of several alternatives. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [A type is a contract about meaning](#a-type-is-a-contract-about-meaning)
+- [The seven primitive types](#the-seven-primitive-types)
+- [The five types you will use daily](#the-five-types-you-will-use-daily)
+- [Reference types: arrays and objects](#reference-types-arrays-and-objects)
+- [Two values for "nothing": undefined and null](#two-values-for-nothing-undefined-and-null)
 
 ## JS runtime deep dive
 
@@ -408,6 +439,29 @@ Day 3 is about what a value is, and MDN has the vocabulary for all of it. Bookma
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind today's contracts
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `!== null` checks you wrote narrow a union to one type
+
+## Read the first example line by line
+
+The first runnable example introduces **Data Types — What a Value Is, and How to Ask**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `console.log(1 + 1)     // 2` | Output call: the program displays the evaluated value in the console. |
+| 2 | `console.log('1' + '1') // '11'` | Output call: the program displays the evaluated value in the console. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Data Types — What a Value Is, and How to Ask**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Data Types — What a Value Is, and How to Ask**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

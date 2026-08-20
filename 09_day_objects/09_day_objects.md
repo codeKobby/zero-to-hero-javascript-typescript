@@ -2,12 +2,16 @@
 
 [Day 8 <<](../08_day_functions_ii/08_day_functions_ii.md) | [Day 10 >>](../10_day_arrays/10_day_arrays.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [An object keeps related facts together](#an-object-keeps-related-facts-together)
   - [Read with dot or bracket notation](#read-with-dot-or-bracket-notation)
@@ -24,10 +28,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -85,6 +94,28 @@ const book = {
 ```
 
 Now one book can be passed to a function, stored in an array, or returned from a function. Objects are how real programs represent the entities they work with — a user, an order, a score — as single values with structure.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **An object keeps related facts together** | The lesson explains an object keeps related facts together through runnable examples and practice. |
+| **Read with dot or bracket notation** | The lesson explains read with dot or bracket notation through runnable examples and practice. |
+| **Add and update properties** | The lesson explains add and update properties through runnable examples and practice. |
+| **A const object can still change** | The lesson explains a const object can still change through runnable examples and practice. |
+| **Copy before changing when the original matters** | The lesson explains copy before changing when the original matters through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [An object keeps related facts together](#an-object-keeps-related-facts-together)
+- [Read with dot or bracket notation](#read-with-dot-or-bracket-notation)
+- [Add and update properties](#add-and-update-properties)
+- [A const object can still change](#a-const-object-can-still-change)
+- [Copy before changing when the original matters](#copy-before-changing-when-the-original-matters)
 
 ## JS runtime deep dive
 
@@ -371,6 +402,30 @@ Objects look simple and hide deep mechanics. Bookmark these pages and return as 
 - [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) — describing an object's shape, optional properties, and readonly fields
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — object type literals and type aliases
 - [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html) — optional properties and index signatures in detail
+
+## Read the first example line by line
+
+The first runnable example introduces **Objects — Related Data and Methods**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `let bookTitle = 'Dune'` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `let bookAuthor = 'Frank Herbert'` | Declaration or assignment: the runtime creates or updates a named value. |
+| 3 | `let bookYear = 1965` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Objects — Related Data and Methods**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Objects — Related Data and Methods**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

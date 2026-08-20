@@ -2,12 +2,16 @@
 
 [Day 34 <<](../34_day_fetch_api/34_day_fetch_api.md) | [Day 36 >>](../36_day_ts_types/36_day_ts_types.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [One boundary should own HTTP details](#one-boundary-should-own-http-details)
   - [The client returns unknown at the trust boundary](#the-client-returns-unknown-at-the-trust-boundary)
@@ -21,10 +25,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -71,6 +80,28 @@ class ApiClient {
 ```
 
 Feature code calls `api.get('/todos')` and receives a value to validate; it never repeats transport logic.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **One boundary should own HTTP details** | The lesson explains one boundary should own http details through runnable examples and practice. |
+| **The client returns unknown at the trust boundary** | The lesson explains the client returns unknown at the trust boundary through runnable examples and practice. |
+| **Loading, success, and error are state** | The lesson explains loading, success, and error are state through runnable examples and practice. |
+| **Cache only with a policy** | The lesson explains cache only with a policy through runnable examples and practice. |
+| **Pagination is a contract, not an inference** | The lesson explains pagination is a contract, not an inference through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [One boundary should own HTTP details](#one-boundary-should-own-http-details)
+- [The client returns unknown at the trust boundary](#the-client-returns-unknown-at-the-trust-boundary)
+- [Loading, success, and error are state](#loading-success-and-error-are-state)
+- [Cache only with a policy](#cache-only-with-a-policy)
+- [Pagination is a contract, not an inference](#pagination-is-a-contract-not-an-inference)
 
 ## JS runtime deep dive
 
@@ -193,6 +224,36 @@ An API layer composes the fetch rules you already know. Bookmark these pages and
 
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the discriminated-union narrowing behind `RequestState`
 - [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) — the `T` in `RequestState<T>` and `Promise<T>`
+
+## Read the first example line by line
+
+The first runnable example introduces **API Integration — One Boundary Owns HTTP Details**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `class ApiClient {` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 2 | `  constructor(private readonly baseUrl: string) {}` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 3 | `` | Blank line: it separates ideas for the reader. |
+| 4 | `  async get(endpoint: string): Promise<unknown> {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 5 | `    const response = await fetch(this.baseUrl + endpoint)` | Declaration or assignment: the runtime creates or updates a named value. |
+| 6 | `    if (!response.ok) throw new Error('HTTP ' + response.status)` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 7 | `    return response.json()` | Return statement: the function sends a result back to its caller. |
+| 8 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 9 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **API Integration — One Boundary Owns HTTP Details**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **API Integration — One Boundary Owns HTTP Details**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

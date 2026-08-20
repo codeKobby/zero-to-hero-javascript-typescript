@@ -2,20 +2,28 @@
 
 [Day 6 <<](../06_day_loops/06_day_loops.md) | [Day 8 >>](../08_day_functions_ii/08_day_functions_ii.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
+  - [What is a function?](#what-is-a-function)
   - [The function machine](#the-function-machine)
   - [Define versus call](#define-versus-call)
+  - [What are parameters and arguments?](#what-are-parameters-and-arguments)
   - [Parameters and arguments, traced step by step](#parameters-and-arguments-traced-step-by-step)
+  - [What does return do?](#what-does-return-do)
   - [Return versus console.log](#return-versus-consolelog)
   - [More than one input](#more-than-one-input)
   - [Default parameters](#default-parameters)
   - [Local scope: variables inside stay inside](#local-scope-variables-inside-stay-inside)
+  - [What types of functions can we write?](#what-types-of-functions-can-we-write)
   - [Two useful ways to write a function](#two-useful-ways-to-write-a-function)
   - [Common mistakes table](#common-mistakes-table)
 - [The TypeScript layer](#the-typescript-layer)
@@ -24,10 +32,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -79,7 +92,33 @@ The developer used `console.log` where they needed `return`. Nothing errored —
 
 This is the classic invisible function bug: the code is exactly as written, and the only clue is the output. This lesson gives you a precise model of what a call does — what goes in, what comes out — so you can tell from the result which step broke.
 
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **function** | A named or unnamed reusable block of behavior. |
+| **parameter** | A name that receives a value inside a function definition. |
+| **argument** | The value supplied when a function is called. |
+| **return** | The statement that sends a result back to the caller. |
+| **scope** | The region where a name can be accessed. |
+
+## Topics
+
+For this functions lesson, follow the sequence **What is a function?**, **Why are functions useful?**, **What are parameters and arguments?**, **What does return do?**, and **What types of functions can we write?**.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [What is a function?](#what-is-a-function)
+- [The function machine](#the-function-machine)
+- [Define versus call](#define-versus-call)
+- [What are parameters and arguments?](#what-are-parameters-and-arguments)
+- [Parameters and arguments, traced step by step](#parameters-and-arguments-traced-step-by-step)
+
 ## JS runtime deep dive
+
+### What is a function?
+
+A function is a reusable block that receives optional inputs, performs a defined job, and may return a result.
 
 ### The function machine
 
@@ -122,6 +161,10 @@ calculateTax(20) // call the function now
 
 You call a function by writing its name followed by parentheses. Forgetting the parentheses is a classic beginner bug: the code does not error, it just assigns a function value where you meant the result.
 
+### What are parameters and arguments?
+
+A parameter is the name inside the definition; an argument is the value supplied by the caller.
+
 ### Parameters and arguments, traced step by step
 
 ```js
@@ -153,6 +196,10 @@ console.log(makeGreeting('Grace')) // Hello, Grace!
 ```
 
 The recipe is the same. Only the input changes.
+
+### What does return do?
+
+`return` sends a value back to the caller. `console.log` displays a value; it does not automatically send that value back.
 
 ### Return versus console.log
 
@@ -230,6 +277,10 @@ console.log(calculateArea(4, 5)) // 20
 ```
 
 Local variables prevent unrelated parts of a program from accidentally changing each other's work.
+
+### What types of functions can we write?
+
+This lesson compares declarations and expressions, then explains when each form is useful.
 
 ### Two useful ways to write a function
 
@@ -376,6 +427,33 @@ Day 7 builds the function model, and MDN documents it end to end. Bookmark these
 
 - [More on Functions](https://www.typescriptlang.org/docs/handbook/2/functions.html) — the parameter and return annotations you wrote today
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the shapes behind `price: number, quantity: number`
+
+## Read the first example line by line
+
+The first runnable example introduces **Functions I — Inputs, Work, and Results**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `function calculateTax(price) {` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `  console.log(price * 0.15)` | Output call: the program displays the evaluated value in the console. |
+| 3 | `}` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 4 | `` | Blank line: it separates ideas for the reader. |
+| 5 | `const taxOnBook = calculateTax(20)` | Declaration or assignment: the runtime creates or updates a named value. |
+| 6 | `console.log(taxOnBook) // undefined` | Output call: the program displays the evaluated value in the console. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Functions I — Inputs, Work, and Results**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Functions I — Inputs, Work, and Results**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

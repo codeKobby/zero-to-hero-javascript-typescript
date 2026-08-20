@@ -2,17 +2,21 @@
 
 [Day 3 <<](../03_day_data_types/03_day_data_types.md) | [Day 5 >>](../05_day_control_flow/05_day_control_flow.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Operators are the verbs of a program](#operators-are-the-verbs-of-a-program)
   - [Arithmetic and assignment operators](#arithmetic-and-assignment-operators)
   - [Comparisons produce booleans](#comparisons-produce-booleans)
-  - [Strict vs loose equality: === means "exactly"](#strict-vs-loose-equality--means-exactly)
+  - [Strict vs loose equality: === means "exactly"](#strict-vs-loose-equality-means-exactly)
   - [Logical operators: and, or, not](#logical-operators-and-or-not)
   - [Short-circuiting: the runtime stops early](#short-circuiting-the-runtime-stops-early)
   - [Truthy and falsy: every value is a condition](#truthy-and-falsy-every-value-is-a-condition)
@@ -25,10 +29,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -70,6 +79,27 @@ if (count === false) { /* ... */ } // this never runs — and the why is invisib
 ```
 
 The first is a type problem disguised as arithmetic. The second is a *truthiness* problem: `0` is falsy, so `count === false` is false. Neither line shows a red error; both quietly do the wrong thing. This lesson is about reading those lines with full x-ray vision — knowing exactly what the runtime will do before you run it.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **operator** | A symbol or word that performs an operation on values. |
+| **comparison** | An operation that produces a Boolean answer. |
+| **truthy** | A value treated as true in a condition. |
+| **strict equality** | A comparison using both value and type. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Operators are the verbs of a program](#operators-are-the-verbs-of-a-program)
+- [Arithmetic and assignment operators](#arithmetic-and-assignment-operators)
+- [Comparisons produce booleans](#comparisons-produce-booleans)
+- [Strict vs loose equality: === means "exactly"](#strict-vs-loose-equality-means-exactly)
+- [Logical operators: and, or, not](#logical-operators-and-or-not)
 
 ## JS runtime deep dive
 
@@ -366,6 +396,30 @@ Day 4 makes operators predictable, and MDN documents every rule. Bookmark these 
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind today's numeric contracts
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how the `!== null` check narrows `number | null` to `number`
+
+## Read the first example line by line
+
+The first runnable example introduces **Operators — Math, Truth, and Comparison**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const formTotal = '5' + 5   // '55' — the string trap from Day 3` | Declaration or assignment: the runtime creates or updates a named value. |
+| 2 | `const count = 0` | Declaration or assignment: the runtime creates or updates a named value. |
+| 3 | `if (count === false) { /* ... */ } // this never runs — and the why is invisible` | Control-flow statement: the runtime decides whether or how this block runs. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Operators — Math, Truth, and Comparison**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Operators — Math, Truth, and Comparison**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 26 <<](../26_day_events_i/26_day_events_i.md) | [Day 28 >>](../28_day_functional_programming/28_day_functional_programming.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Event delegation solves dynamic lists](#event-delegation-solves-dynamic-lists)
   - [Form submission is a browser default](#form-submission-is-a-browser-default)
@@ -19,10 +23,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -66,6 +75,26 @@ list.addEventListener('click', (event) => {
 ```
 
 And a form must never navigate away before its data is read.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **Event delegation solves dynamic lists** | The lesson explains event delegation solves dynamic lists through runnable examples and practice. |
+| **Form submission is a browser default** | The lesson explains form submission is a browser default through runnable examples and practice. |
+| **Keyboard shortcuts must respect context** | The lesson explains keyboard shortcuts must respect context through runnable examples and practice. |
+| **Common mistakes table** | The lesson explains common mistakes table through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Event delegation solves dynamic lists](#event-delegation-solves-dynamic-lists)
+- [Form submission is a browser default](#form-submission-is-a-browser-default)
+- [Keyboard shortcuts must respect context](#keyboard-shortcuts-must-respect-context)
+- [Common mistakes table](#common-mistakes-table)
 
 ## JS runtime deep dive
 
@@ -217,6 +246,33 @@ Delegation and forms hang off a few foundational pages. Bookmark these and retur
 
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — the `typeof` checks that prove a `FormDataEntryValue` is text
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations behind the typed form object
+
+## Read the first example line by line
+
+The first runnable example introduces **Event Delegation and Forms — One Listener, Many Elements**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `list.addEventListener('click', (event) => {` | Function syntax: this line defines reusable behavior or an arrow function. |
+| 2 | `  if (!(event.target instanceof HTMLButtonElement)) return` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 3 | `  const item = event.target.closest('.task')` | Declaration or assignment: the runtime creates or updates a named value. |
+| 4 | `  if (!(item instanceof HTMLLIElement)) return` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 5 | `  item.remove()` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 6 | `})` | Expression or data declaration: identify the values, operators, and names before running it. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Event Delegation and Forms — One Listener, Many Elements**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Event Delegation and Forms — One Listener, Many Elements**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

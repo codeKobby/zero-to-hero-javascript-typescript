@@ -2,12 +2,16 @@
 
 [Day 13 <<](../13_day_hof_ii/13_day_hof_ii.md) | [Day 15 >>](../15_day_numbers/15_day_numbers.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [A string is ordered, indexed, and immutable](#a-string-is-ordered-indexed-and-immutable)
   - [Build readable messages with template literals](#build-readable-messages-with-template-literals)
@@ -22,10 +26,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -91,6 +100,28 @@ console.log(greeting)           // 'HELLO' — unchanged
 ```
 
 If you need the cleaned text later, you must **store the returned value**. This is the same discipline as `[...array]` copying from Day 11: operations produce values; capturing them is your job.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **A string is ordered, indexed, and immutable** | The lesson explains a string is ordered, indexed, and immutable through runnable examples and practice. |
+| **Build readable messages with template literals** | The lesson explains build readable messages with template literals through runnable examples and practice. |
+| **The everyday text toolkit** | The lesson explains the everyday text toolkit through runnable examples and practice. |
+| **Exact comparison needs a decision** | The lesson explains exact comparison needs a decision through runnable examples and practice. |
+| **Searching, slicing, and missing values** | The lesson explains searching, slicing, and missing values through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [A string is ordered, indexed, and immutable](#a-string-is-ordered-indexed-and-immutable)
+- [Build readable messages with template literals](#build-readable-messages-with-template-literals)
+- [The everyday text toolkit](#the-everyday-text-toolkit)
+- [Exact comparison needs a decision](#exact-comparison-needs-a-decision)
+- [Searching, slicing, and missing values](#searching-slicing-and-missing-values)
 
 ## JS runtime deep dive
 
@@ -274,6 +305,28 @@ Bookmark these pages and return as you grow:
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — strings as `string` and the methods you can call on them.
 - [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) — how `typeof` turns `unknown` into `string` before the methods run.
+
+## Read the first example line by line
+
+The first runnable example introduces **Strings — Text as a Value**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const rawTags = ' JavaScript, TypeScript, testing '` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Strings — Text as a Value**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Strings — Text as a Value**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

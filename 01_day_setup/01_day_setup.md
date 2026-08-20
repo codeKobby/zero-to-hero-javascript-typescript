@@ -2,12 +2,16 @@
 
 [Day 2 >>](../02_day_variables/02_day_variables.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Code is text, and a runtime turns it into behavior](#code-is-text-and-a-runtime-turns-it-into-behavior)
   - [The two runtimes you will use](#the-two-runtimes-you-will-use)
@@ -15,7 +19,7 @@
   - [Get the course onto your machine](#get-the-course-onto-your-machine)
   - [Your first program](#your-first-program)
   - [The browser console is the same runtime in your pocket](#the-browser-console-is-the-same-runtime-in-your-pocket)
-  - [console.log — the program speaks](#-consolelog--the-program-speaks)
+  - [console.log — the program speaks](#consolelog-the-program-speaks)
   - [Comments are for humans](#comments-are-for-humans)
   - [Arithmetic is the same anywhere](#arithmetic-is-the-same-anywhere)
   - [Set up your code editor](#set-up-your-code-editor)
@@ -29,10 +33,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -77,6 +86,27 @@ And you will be able to **explain**:
 Sit in front of an empty editor. Your cursor blinks on a blank line. Nothing you type does anything until you "run" the file. Where does the text go? What turns characters into behavior? Why is there a whole installation step before you can write your first program?
 
 That confusion is the problem this day solves. By the end you will be able to answer: *"I wrote text, and this specific tool read it and produced this output, and here is the path the text traveled."* That sentence is the difference between a beginner copying commands and a developer who understands what they are building on.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **runtime** | The program that reads JavaScript and produces behavior. |
+| **Node.js** | A JavaScript runtime that runs outside the browser. |
+| **console.log** | A function that writes a value to the console. |
+| **TypeScript** | A language layer that checks JavaScript before runtime. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Code is text, and a runtime turns it into behavior](#code-is-text-and-a-runtime-turns-it-into-behavior)
+- [The two runtimes you will use](#the-two-runtimes-you-will-use)
+- [Install Node.js](#install-nodejs)
+- [Get the course onto your machine](#get-the-course-onto-your-machine)
+- [Your first program](#your-first-program)
 
 ## JS runtime deep dive
 
@@ -552,6 +582,28 @@ Day 1 builds the machine model everything else hangs off, and MDN has the full p
 
 - [TypeScript for the New Programmer](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html) — why TypeScript exists and how it wraps JavaScript
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — the annotations you will start writing today
+
+## Read the first example line by line
+
+The first runnable example introduces **How Programs Run — the Machine Model, Node, and Your First Code**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `console.log('Hello, world!')` | Output call: the program displays the evaluated value in the console. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **How Programs Run — the Machine Model, Node, and Your First Code**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **How Programs Run — the Machine Model, Node, and Your First Code**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

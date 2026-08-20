@@ -2,15 +2,7 @@
 
 [Day 9 <<](../09_day_objects/09_day_objects.md) | [Day 11 >>](../11_day_destructuring/11_day_destructuring.md)
 
-## Table of Contents
-
-- [Why this lesson exists](#why-this-lesson-exists)
-- [Prerequisites](#prerequisites)
-- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
-- [The problem this solves](#the-problem-this-solves)
-- [JS runtime deep dive](#js-runtime-deep-dive)
-  - [An array is an ordered list](#an-array-is-an-ordered-list)
-  - [Indexes start at zero](#indexes-start-at-zero)
+zero](#indexes-start-at-zero)
   - [length and out-of-range access](#length-and-out-of-range-access)
   - [Add and remove items: mutating methods](#add-and-remove-items-mutating-methods)
   - [Copy before changing shared data](#copy-before-changing-shared-data)
@@ -28,6 +20,64 @@
   - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
   - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
   - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
+
+zero](#indexes-start-at-zero)
+  - [length and out-of-range access](#length-and-out-of-range-access)
+  - [Add and remove items: mutating methods](#add-and-remove-items-mutating-methods)
+  - [Copy before changing shared data](#copy-before-changing-shared-data)
+  - [Assignment does not copy](#assignment-does-not-copy)
+  - [Read the first or last item safely](#read-the-first-or-last-item-safely)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [An array of numbers is not an array of anything](#an-array-of-numbers-is-not-an-array-of-anything)
+  - [Why TypeScript cannot prove an index exists](#why-typescript-cannot-prove-an-index-exists)
+  - [Tuples: a short array with a fixed meaning per position](#tuples-a-short-array-with-a-fixed-meaning-per-position)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
+- [Finish line](#finish-line)
+- [Prove it](#prove-it)
+
+## Table of Contents
+
+- [Why this lesson exists](#why-this-lesson-exists)
+- [Prerequisites](#prerequisites)
+- [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
+- [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
+- [JS runtime deep dive](#js-runtime-deep-dive)
+  - [An array is an ordered list](#an-array-is-an-ordered-list)
+  - [Indexes start at zero](#indexes-start-at-zero)
+  - [length and out-of-range access](#length-and-out-of-range-access)
+  - [Add and remove items: mutating methods](#add-and-remove-items-mutating-methods)
+  - [Copy before changing shared data](#copy-before-changing-shared-data)
+  - [Assignment does not copy](#assignment-does-not-copy)
+  - [Read the first or last item safely](#read-the-first-or-last-item-safely)
+  - [Common mistakes table](#common-mistakes-table)
+- [The TypeScript layer](#the-typescript-layer)
+  - [An array of numbers is not an array of anything](#an-array-of-numbers-is-not-an-array-of-anything)
+  - [Why TypeScript cannot prove an index exists](#why-typescript-cannot-prove-an-index-exists)
+  - [Tuples: a short array with a fixed meaning per position](#tuples-a-short-array-with-a-fixed-meaning-per-position)
+  - [One compiler error, walked through](#one-compiler-error-walked-through)
+- [One-sentence mental model](#one-sentence-mental-model)
+- [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
+- [Practice](#practice)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -77,6 +127,28 @@ const scores = [88, 91, 76]
 ```
 
 One value that holds many ordered values. Now you can loop over them (Day 6), pass the whole list to a function (Day 7), and count them with `.length`. The array is how programs represent collections, and almost every API you will meet either takes one or returns one.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **An array is an ordered list** | The lesson explains an array is an ordered list through runnable examples and practice. |
+| **Indexes start at zero** | The lesson explains indexes start at zero through runnable examples and practice. |
+| **length and out-of-range access** | The lesson explains length and out-of-range access through runnable examples and practice. |
+| **Add and remove items: mutating methods** | The lesson explains add and remove items: mutating methods through runnable examples and practice. |
+| **Copy before changing shared data** | The lesson explains copy before changing shared data through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [An array is an ordered list](#an-array-is-an-ordered-list)
+- [Indexes start at zero](#indexes-start-at-zero)
+- [length and out-of-range access](#length-and-out-of-range-access)
+- [Add and remove items: mutating methods](#add-and-remove-items-mutating-methods)
+- [Copy before changing shared data](#copy-before-changing-shared-data)
 
 ## JS runtime deep dive
 
@@ -294,6 +366,28 @@ Bookmark these pages and return as you grow:
 
 - [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — arrays as `number[]` and `string[]`.
 - [Objects](https://www.typescriptlang.org/docs/handbook/2/objects.html) — array and tuple types in context.
+
+## Read the first example line by line
+
+The first runnable example introduces **Arrays — Ordered Collections and Array Methods**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `const score = 88` | Declaration or assignment: the runtime creates or updates a named value. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Arrays — Ordered Collections and Array Methods**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Arrays — Ordered Collections and Array Methods**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 

@@ -2,12 +2,16 @@
 
 [Day 19 <<](../19_day_classes_i/19_day_classes_i.md) | [Day 21 >>](../21_day_modules/21_day_modules.md)
 
+
+
 ## Table of Contents
 
 - [Why this lesson exists](#why-this-lesson-exists)
 - [Prerequisites](#prerequisites)
 - [What you'll be able to explain and do](#what-youll-be-able-to-explain-and-do)
 - [The problem this solves](#the-problem-this-solves)
+- [Keywords and terms](#keywords-and-terms)
+- [Topics](#topics)
 - [JS runtime deep dive](#js-runtime-deep-dive)
   - [Classes should protect meaningful rules](#classes-should-protect-meaningful-rules)
   - [JavaScript private fields are truly private](#javascript-private-fields-are-truly-private)
@@ -23,10 +27,15 @@
   - [One compiler error, walked through](#one-compiler-error-walked-through)
 - [One-sentence mental model](#one-sentence-mental-model)
 - [Learn more on MDN](#learn-more-on-mdn)
+  - [TypeScript docs](#typescript-docs)
+- [Read the first example line by line](#read-the-first-example-line-by-line)
+- [Prediction experiment](#prediction-experiment)
+- [Broken example and repair](#broken-example-and-repair)
+- [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
-  - [Level 1 — Mechanical (10-15 min)](#level-1--mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2--applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3--creative-synthesis)
+  - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
+  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
+  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -93,6 +102,28 @@ class BankAccount {
 ```
 
 Code outside the class can read `account.balanceInCents` through the getter, but it cannot assign `account.#balanceInCents`. The class is the only place allowed to change its private balance.
+
+## Keywords and terms
+
+| Keyword or term | Plain-English meaning |
+| --- | --- |
+| **Classes should protect meaningful rules** | The lesson explains classes should protect meaningful rules through runnable examples and practice. |
+| **JavaScript private fields are truly private** | The lesson explains javascript private fields are truly private through runnable examples and practice. |
+| **Getters are property-shaped methods** | The lesson explains getters are property-shaped methods through runnable examples and practice. |
+| **Keep money as integers while calculating** | The lesson explains keep money as integers while calculating through runnable examples and practice. |
+| **Prefer composition before inheritance** | The lesson explains prefer composition before inheritance through runnable examples and practice. |
+
+## Topics
+
+Read the topics in order: first understand the idea, then study the syntax, then compare a normal case with a boundary case, and finally complete the practice.
+
+The existing deep-dive sections are the main topic sequence for this lesson:
+
+- [Classes should protect meaningful rules](#classes-should-protect-meaningful-rules)
+- [JavaScript private fields are truly private](#javascript-private-fields-are-truly-private)
+- [Getters are property-shaped methods](#getters-are-property-shaped-methods)
+- [Keep money as integers while calculating](#keep-money-as-integers-while-calculating)
+- [Prefer composition before inheritance](#prefer-composition-before-inheritance)
 
 ## JS runtime deep dive
 
@@ -258,6 +289,41 @@ Class design touches several reference pages — bookmark the ones that match th
 
 - [Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html) — `private`, `protected`, `readonly`, and constructor shorthand
 - [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html) — `readonly` properties and how TypeScript models mutable object contents
+
+## Read the first example line by line
+
+The first runnable example introduces **Designing Classes — Contracts and Data Hiding**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+
+| Line | Code | What the runtime is doing |
+| ---: | --- | --- |
+| 1 | `class BankAccount {` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 2 | `  #balanceInCents` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 3 | `` | Blank line: it separates ideas for the reader. |
+| 4 | `  constructor(owner, initialBalanceInCents = 0) {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 5 | `    if (!Number.isInteger(initialBalanceInCents) \|\| initialBalanceInCents < 0) {` | Control-flow statement: the runtime decides whether or how this block runs. |
+| 6 | `      throw new Error('Initial balance must be zero or more whole cents')` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 7 | `    }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 8 | `` | Blank line: it separates ideas for the reader. |
+| 9 | `    this.owner = owner` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 10 | `    this.#balanceInCents = initialBalanceInCents` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 11 | `  }` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 12 | `` | Blank line: it separates ideas for the reader. |
+| 13 | `  get balanceInCents() {` | Function call: the runtime evaluates the arguments and invokes the operation. |
+| 14 | `    return this.#balanceInCents` | Return statement: the function sends a result back to its caller. |
+
+The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+
+## Prediction experiment
+
+Before changing the example, write a prediction. Test one normal input, one empty or missing input, and one boundary input relevant to **Designing Classes — Contracts and Data Hiding**. Record the input, your prediction, the observed output or error, and the rule you learned. Keep the failed prediction; it shows which mental model needs repair.
+
+## Broken example and repair
+
+Make one controlled mistake related to **Designing Classes — Contracts and Data Hiding**: misspell a name, use the wrong type, omit a return, call a function too early, or change one condition. Run it and capture the useful error or incorrect output. Explain the assumption that failed, then make the smallest repair and rerun the normal and boundary cases. Do not hide the error with a broad catch or delete the failing experiment.
+
+## Guided practice before independent work
+
+Start with the nearest worked example. Change one value, predict the result, and run it. Next, change one rule while keeping the input the same. Finally, write a small variation from a blank file and compare it with the example. Only after these three checkpoints should you begin the numbered or level-based practice below.
 
 ## Practice
 
