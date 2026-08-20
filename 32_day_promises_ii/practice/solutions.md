@@ -1,6 +1,6 @@
 # Day 32 solution guide: Day 32: Coordinating Promises — Waiting for Many Results
 
-Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
+Use this guide after attempting the numbered exercises in this lesson. It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
 ## Review checkpoints
 

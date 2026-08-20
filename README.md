@@ -35,12 +35,12 @@ Each Node-based lesson has:
 DAY/lesson.md
 DAY/starter/js/main.js
 DAY/starter/ts/main.ts
-DAY/practice/exercises.md
+DAY/the lesson’s numbered exercises
 DAY/practice/hints.md
 DAY/practice/solutions.md
 ~~~
 
-Read the **Keywords and terms** table first, then follow the **Topics** in order. Predict the output, run JavaScript, run TypeScript, read the first example line by line, complete the prediction experiment, repair the controlled mistake, and only then attempt `practice/exercises.md` before opening `practice/hints.md` or `practice/solutions.md`. Use [DAY_INDEX.md](DAY_INDEX.md) to recover your place and [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md) to understand what completion means.
+Read the **Keywords and terms** table first, then follow the **Topics** in order. Predict the output, run JavaScript, run TypeScript, read the first example line by line, complete the prediction experiment, repair the controlled mistake, and only then attempt the lesson’s numbered exercises before opening `practice/hints.md` or `practice/solutions.md`. Use [DAY_INDEX.md](DAY_INDEX.md) to recover your place and [COURSE_QUALITY_STANDARD.md](COURSE_QUALITY_STANDARD.md) to understand what completion means.
 
 ~~~powershell
 npm.cmd run day6:js

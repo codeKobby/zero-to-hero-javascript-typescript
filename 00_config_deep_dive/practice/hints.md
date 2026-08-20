@@ -1,6 +1,6 @@
 # Bonus hints: configuration files
 
-Use these hints after attempting the [exercises](exercises.md). Start with the [configuration deep dive](../CONFIG_DEEP_DIVE.md) and the [course README](../../README.md).
+Use these hints after attempting the the numbered exercises in this lesson. Start with the [configuration deep dive](../CONFIG_DEEP_DIVE.md) and the [course README](../../README.md).
 
 ## Progressive hint route
 

@@ -1,6 +1,6 @@
 # Day 5 solution guide: Day 5: Control Flow — Making Decisions with if, else, and switch
 
-Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
+Use this guide after attempting the numbered exercises in this lesson. It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
 ## Review checkpoints
 

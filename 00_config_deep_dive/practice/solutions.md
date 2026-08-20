@@ -1,6 +1,6 @@
 # Bonus solution guide: configuration files
 
-Use this guide after attempting the [exercises](exercises.md). Compare your reasoning and evidence rather than copying the wording.
+Use this guide after attempting the the numbered exercises in this lesson. Compare your reasoning and evidence rather than copying the wording.
 
 ## Review checkpoints
 

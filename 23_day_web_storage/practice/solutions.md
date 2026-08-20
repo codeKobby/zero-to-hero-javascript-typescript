@@ -1,6 +1,6 @@
 # Day 23 solution guide: Day 23: Web Storage — Keeping Data Between Visits
 
-Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
+Use this guide after attempting the numbered exercises in this lesson. It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
 ## Review checkpoints
 

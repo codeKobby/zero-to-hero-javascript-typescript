@@ -35,7 +35,7 @@ for (let index = 0; index < directories.length; index += 1) {
   for (const section of ['## Start here', '## Keywords and terms', '## Topics', '## Read the first example line by line', '## Prediction experiment', '## Broken example and repair', '## Guided practice before independent work']) {
     if (!text.includes(section)) failures.push(`${label}: missing ${section}`);
   }
-  for (const link of ['../README.md', '../VS_CODE_SETUP.md', '../DAY_INDEX.md', 'practice/exercises.md', 'practice/hints.md', 'practice/solutions.md']) {
+  for (const link of ['../README.md', '../VS_CODE_SETUP.md', '../DAY_INDEX.md', 'practice/hints.md', 'practice/solutions.md']) {
     if (!text.includes(link)) failures.push(`${label}: missing ${link}`);
   }
   if (!text.includes('Previous lesson') && !text.includes('Course overview')) failures.push(`${label}: missing previous navigation`);
@@ -49,8 +49,19 @@ for (let index = 0; index < directories.length; index += 1) {
     if (!headings.has(anchor[1])) failures.push(`${label}: broken TOC anchor #${anchor[1]}`);
   }
 
+  const practiceHeading = text.match(/^## Practice\s*$/im);
+  if (!practiceHeading) {
+    failures.push(`${label}: missing canonical Practice section`);
+  } else {
+    const practiceTail = text.slice(practiceHeading.index + practiceHeading[0].length);
+    const nextHeading = practiceTail.search(/^## /m);
+    const practiceSection = practiceTail.slice(0, nextHeading === -1 ? practiceTail.length : nextHeading);
+    if (numberedCount(practiceSection) < 12) failures.push(`${label}: fewer than 12 numbered exercises in Practice section`);
+  }
+
   const practice = path.join(root, directory, 'practice');
-  for (const file of ['exercises.md', 'hints.md', 'solutions.md']) {
+  if (fs.existsSync(path.join(practice, 'exercises.md'))) failures.push(`${label}: redundant practice/exercises.md remains`);
+  for (const file of ['hints.md', 'solutions.md']) {
     const practicePath = path.join(practice, file);
     const practiceLabel = path.relative(root, practicePath);
     if (!fs.existsSync(practicePath)) {
@@ -67,7 +78,7 @@ for (let index = 0; index < directories.length; index += 1) {
 const bonusDirectory = '00_config_deep_dive';
 const bonusLesson = path.join(root, bonusDirectory, 'CONFIG_DEEP_DIVE.md');
 if (!fs.existsSync(bonusLesson)) failures.push(`${bonusDirectory}: missing configuration guide`);
-for (const file of ['exercises.md', 'hints.md', 'solutions.md']) {
+for (const file of ['hints.md', 'solutions.md']) {
   const bonusPath = path.join(root, bonusDirectory, 'practice', file);
   const label = path.relative(root, bonusPath);
   if (!fs.existsSync(bonusPath)) {
@@ -90,4 +101,4 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log(`Lesson structure check passed for ${directories.length} JavaScript/TypeScript lessons with complete practice routes.`);
+console.log(`Lesson structure check passed for ${directories.length} JavaScript/TypeScript lessons with canonical in-lesson exercises and support routes.`);

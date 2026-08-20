@@ -1,6 +1,6 @@
 # Day 42 hints: Day 42: Project — Discussion Forum
 
-Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
+Use these hints after attempting the the numbered exercises in this lesson. If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
 ## Progressive hint route
 

@@ -1,6 +1,6 @@
 # Day 1 hints: Day 1: How Programs Run — the Machine Model, Node, and Your First Code
 
-Use these hints after attempting the [exercises](exercises.md). If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
+Use these hints after attempting the the numbered exercises in this lesson. If your environment is the problem, read the [course README](../../README.md), [VS Code setup](../../VS_CODE_SETUP.md), and [troubleshooting guide](../../TROUBLESHOOTING.md) before changing code.
 
 ## Progressive hint route
 

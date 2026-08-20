@@ -1,6 +1,6 @@
 # Day 45 solution guide: Day 45: Capstone — Build and Defend Your Own Application
 
-Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
+Use this guide after attempting the numbered exercises in this lesson. It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
 ## Review checkpoints
 

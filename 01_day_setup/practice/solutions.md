@@ -1,6 +1,6 @@
 # Day 1 solution guide: Day 1: How Programs Run — the Machine Model, Node, and Your First Code
 
-Use this guide after attempting [the exercises](exercises.md). It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
+Use this guide after attempting the numbered exercises in this lesson. It contains review checkpoints rather than a copied submission. A strong answer explains the decision, the runtime behavior, the TypeScript boundary, and the limitation.
 
 ## Review checkpoints
 
