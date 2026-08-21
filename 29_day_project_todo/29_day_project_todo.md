@@ -267,14 +267,31 @@ The todo app touches the DOM, storage, and events — each with a reference page
 
 ## Read the first example line by line
 
-The first runnable example introduces **The Todo Project — Bringing It Together**. Run it unchanged before editing it. Then read it line by line and write down what value exists after each declaration, which condition is tested, and what appears in the console.
+The first runnable example introduces **The Todo Project — Bringing It Together**. Open `starter/js/main.js`, run the JavaScript page unchanged, and keep the browser console open. This project is useful because the learner can follow one user action across several boundaries: DOM input, runtime validation, state update, safe rendering, storage, and focus.
 
-| Line | Code | What the runtime is doing |
+| Lines | Code or operation | What the runtime is doing |
 | ---: | --- | --- |
-| 1 | `type Todo = { id: string; text: string; completed: boolean; createdAt: number }` | Expression or data declaration: identify the values, operators, and names before running it. |
-| 2 | `type Filter = 'all' \| 'active' \| 'completed'` | Expression or data declaration: identify the values, operators, and names before running it. |
+| 2–6 | `state`, `form`, `input`, `list`, `count` | Creates the one source of truth and obtains the DOM elements that the application owns. |
+| 8–13 | `instanceof` checks | Verifies that the page contains the element types the program expects before event handlers run. |
+| 15–22 | `isTodo(value)` | Checks untrusted parsed data at runtime; the function returns `true` only for the required fields and types. |
+| 24–28 | `visibleTodos()` | Derives the displayed collection from `state.filter`; the filtered list is not stored as a second source of truth. |
+| 30–36 | `save()` | Serializes the todo array and catches blocked storage so the interface does not fail merely because persistence is unavailable. |
+| 38–47 | `load()` | Reads a possibly missing or malformed storage value, parses it, validates its shape, and falls back to an empty list. |
+| 49–69 | `render()` | Clears the old list, creates DOM nodes for the current visible records, writes user text with `textContent`, and updates the remaining count. |
+| 71–85 | submit handler | Prevents a page reload, trims the input, rejects blank text, appends a new todo immutably, persists, renders, and returns focus to the input. |
+| 87–96 | change handler | Finds the record associated with the changed checkbox, creates a new array with one `completed` value changed, persists, and renders. |
+| 98–106 | click handler | Uses event delegation to identify a Delete button, removes the matching record by ID, persists, and renders. |
+| 108–109 | `load(); render();` | Restores valid local data before the first visible render, so the browser starts from a known state. |
 
-The table is a starting point, not a substitute for running the example. Change one value only, predict the output, run it, and explain the difference.
+A first run should show an empty state. Add `Read the local policy`, then observe the new list item, the remaining count, and the value stored under `day29-todos`. Toggle the checkbox and delete the item. The important lesson is not that the app has many lines; it is that each line has an owner and a reason.
+
+### One submit action, traced
+
+Suppose the input contains `Read the local policy` and the user submits the form. The handler prevents the browser’s default navigation, trims the text, creates a record with a generated ID, appends it to `state.todos`, calls `save()`, calls `render()`, and restores focus. `render()` then creates a list item, sets the checkbox state, writes the label with `textContent`, and updates the count. If storage throws, the catch block preserves the in-memory UI; if the input is blank, the state never changes.
+
+The TypeScript starter should express the same runtime flow. Its types help the compiler describe `Todo`, DOM elements, and event targets, but TypeScript cannot prove that arbitrary JSON in `localStorage` is a valid `Todo`; the `isTodo` guard remains necessary at runtime.
+
+The table is a starting point, not a substitute for running the example. Change one operation only, predict the DOM and storage result, run it, and explain the difference.
 
 ## Prediction experiment
 
