@@ -6,7 +6,7 @@
 
 A 45-day, practice-first course for a complete beginner. JavaScript is the runtime language; TypeScript is taught beside it as a typed development layer. You will see what both versions do, why they differ, and when each trade-off matters.
 
-This course is designed to be cloned and run by other learners. The repository is the source of truth for commands, dependencies, examples, and checks.
+This course is designed to be cloned and run by other learners. The repository is the source of truth for commands, dependencies, examples, and checks. For the best interactive learning experience, install the public [code-buddy learning workflow](CODE_BUDDY.md).
 
 ## Start from a fresh clone
 
