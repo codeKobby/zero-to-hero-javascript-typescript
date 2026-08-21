@@ -2,7 +2,7 @@
 
 > **Start here:** read [README.md](README.md), complete [VS_CODE_SETUP.md](VS_CODE_SETUP.md), review [TROUBLESHOOTING.md](TROUBLESHOOTING.md), and then begin with Day 001.
 
-Each lesson links back to this index, the course README, setup guidance, and its own exercises, hints, and solutions.
+Each lesson links back to this index, the course README, setup guidance, its own in-lesson exercises, and the hints and solution checkpoints.
 
 | Day | Lesson |
 | ---: | --- |
@@ -51,9 +51,3 @@ Each lesson links back to this index, the course README, setup guidance, and its
 | 43 | [Project — E-commerce Product List](43_day_project_ecommerce/43_day_project_ecommerce.md) |
 | 44 | [Project — Country Explorer](44_day_project_countries/44_day_project_countries.md) |
 | 45 | [Capstone — Build and Defend Your Own Application](45_day_capstone/45_day_capstone.md) |
-
-## Bonus guides
-
-| Guide | Purpose |
-| --- | --- |
-| [Configuration files deep dive](00_config_deep_dive/CONFIG_DEEP_DIVE.md) | Understand `package.json`, `tsconfig.json`, npm scripts, local tools, and the browser transformation workflow |

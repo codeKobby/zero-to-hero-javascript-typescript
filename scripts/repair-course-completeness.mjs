@@ -28,18 +28,18 @@ Use these hints only after attempting the numbered exercises in [the lesson](../
 
 ## Progressive hint route
 
-1. Start in the repository root and verify Node and npm versions.
-2. Run the unchanged starter before editing it; an unexplained setup failure is a different problem from a lesson failure.
-3. Say the input and expected output aloud. If you cannot name them, return to the worked example.
-4. Trace one value at a time. Write down who creates it, who reads it, and who is allowed to change it.
-5. Change only one input or rule so the cause of a different result remains visible.
-6. For boundary cases, choose the contract first: accept, reject, render an empty state, show loading, or show an error.
-7. In browser work, distinguish the DOM, event handler, JavaScript runtime, and Vite transformation step.
-8. In TypeScript work, read the first compiler error and repair the type or the value; do not weaken the compiler merely to make the red text disappear.
-9. A test should observe behavior or a public contract, not only a private implementation detail.
-10. Keep JavaScript and TypeScript examples behaviorally equivalent so the type layer does not hide the runtime idea.
-11. Use accessible labels, semantic elements, keyboard behavior, and visible failure states when the lesson touches UI.
-12. If you are stuck, compare your artifact with the expected behavior in the lesson and read only the matching solution checkpoint.
+1. Open the folder named in the lesson and check that Node is available.
+2. Run the starter without changing it. Write down what appears.
+3. Write the input and expected output before writing code.
+4. Follow one value from where it starts to where it appears.
+5. Change one input. Keep the other lines the same.
+6. Try one empty or bad input. Decide whether the program should reject it or show an empty/error message.
+7. For browser work, say whether you are looking at the page, the event handler, or the JavaScript code.
+8. For TypeScript work, read the first compiler error and fix the value or type it names.
+9. Test what a user can see or what a function returns.
+10. Make the JavaScript and TypeScript versions do the same thing.
+11. Use a real label, heading, button, link, or visible error when the lesson uses a page.
+12. If stuck, return to the lesson’s smallest example and copy only the next small step.
 
 The goal is to understand **${title}**, not to copy a finished file.
 `;
@@ -52,18 +52,18 @@ Use this guide only after attempting the numbered exercises in [the lesson](../$
 
 ## Review checkpoints
 
-1. The definition uses ordinary language and connects the concept to a concrete example.
-2. The unchanged JavaScript starter ran from the correct directory and its output was recorded.
-3. The TypeScript starter or compiler check ran, and the learner identified a useful type boundary.
-4. The trace names values in execution order rather than saying only that the framework “handles it.”
-5. The normal change preserves the lesson's main rule and matches the prediction or explains the mismatch.
-6. The boundary case has deliberate visible behavior rather than a stray value, blank page, or swallowed rejection.
-7. The deliberate failure was reproduced and the violated assumption was named accurately.
-8. The repair is the smallest meaningful change and does not disable type checking or hide an error.
-9. The focused assertion would fail if the important behavior disappeared.
-10. The TypeScript version keeps the JavaScript runtime behavior while documenting a check or contract; it does not claim types validate external data.
-11. The local feature has a named boundary, synthetic fixture, accessible behavior where relevant, and a failure or empty state.
-12. The review note records evidence, limitation, risk, and the next learning step.
+1. The learner explained the new word in ordinary language.
+2. The JavaScript starter ran and its result was written down.
+3. The TypeScript starter or compiler check ran.
+4. The learner followed one value from input to output.
+5. The normal example still works after one small change.
+6. The empty or bad input has a clear result.
+7. The learner made and fixed the lesson’s deliberate mistake.
+8. The fix did not hide an error or turn off type checking.
+9. A check fails when the important visible result is removed.
+10. JavaScript and TypeScript show the same runtime behavior.
+11. The page has the needed label, heading, keyboard action, empty state, or error message.
+12. The note lists the changed files, command, result, and one thing not tested.
 
 If a checkpoint is missing, return to the lesson's execution trace and guided practice before moving on.
 `;

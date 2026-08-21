@@ -30,6 +30,14 @@ For every concept:
 - The lesson shows one runtime or design issue TypeScript cannot solve.
 - The browser workflow must compile TypeScript before it reaches the browser; no HTML page may pretend a browser executes .ts directly.
 
+## Plain-language teaching contract
+
+Assume the learner has never programmed before. Use short sentences, one idea at a time. Show the smallest result before introducing the technical name. Prefer “Run this function. It returns 5 because it adds 1.” over “Trace the value through the function boundary.” Keep the precise term, but explain it after the learner can see what it does.
+
+For each new idea, use this order: show a small example, say what appears, explain the important lines, ask one direct question, and give one small task. Do not make the learner infer the goal from words such as boundary, owner, evidence, fixture, or abstraction. Explain those words only after the concrete action is clear.
+
+Every exercise begins with one direct verb: **Answer**, **Run**, **Write**, **Add**, **Change**, **Fix**, **Build**, or **Explain**. Name the exact function, variable, file, input, output, or visible result. Avoid combining prediction, implementation, testing, review, and architecture into one item. A later review question may ask why the task works, but the first instruction must say exactly what to do.
+
 ## Teaching rules
 
 - Teach prerequisites before dependent concepts.
@@ -46,7 +54,8 @@ Exercises must state:
 
 - the input or starting state;
 - the expected output or acceptance criterion;
-- the concepts already available to solve it; and
+- the concepts already available to solve it;
+- one main action only, with advanced review vocabulary placed after the action; and
 - a progressive hint route.
 
 Solutions must explain the decision, not only show code. A learner should be able to compare their attempt and identify the smallest meaningful difference.
