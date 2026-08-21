@@ -18,7 +18,7 @@ console.log(ageGroup)
 
 type TrafficLight = 'red' | 'yellow' | 'green'
 const trafficLights: TrafficLight[] = ['red', 'yellow', 'green']
-const trafficLight: TrafficLight = trafficLights[1] ?? 'red'
+const trafficLight: TrafficLight = trafficLights[4] ?? 'red'
 
 switch (trafficLight) {
   case 'red':

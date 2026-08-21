@@ -29,4 +29,4 @@ console.log('Original lessons:', learner.completedLessons)
 console.log('Updated lessons:', updatedLearner.completedLessons)
 
 // Try this, read the error, then restore the comment:
-// const { learnerId } = learner
+// const { learnerId = "i123435" } = learner
