@@ -318,14 +318,14 @@ For each snippet, write down the exact result before running.
 2. Write `isProduct(value)` for `{ name: string, priceInCents: number }`.
 3. Write `toPublicProduct(product)` that returns only `name` and `priceInCents`.
 4. TypeScript: express `isProduct` as a type predicate, not as a type assertion.
-5. **MDN lookup:** Open the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify), find the `replacer` parameter, and use it to build `toPublicProfile` so it picks only `id` and `name` out of a full user object without a hand-written allowlist. Comment on whether the `replacer` approach is clearer or worse than the explicit function from the lesson.
+5. Read the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The array guard: write `isLearnerList(value)` that returns `true` only for an array whose every element passes `isLearner`. Use it after `tryParseJson`.
-2. The settings boundary: write `loadSettings()` that parses stored text, validates shape, and returns `{ ok: true, settings }` or `{ ok: false, settings: defaults }`. State why a shape guard belongs at this boundary.
-3. The redactor: write `toPublicUser(user)` returning only `id` and `name`, then a comment explaining why the server must still enforce access independently.
-4. The storage memo: write a comment block listing three JavaScript values JSON cannot preserve and how you would represent each in JSON instead.
+1. Write the array guard: write `isLearnerList(value)` that returns `true` only for an array whose every element passes `isLearner`. Use it after `tryParseJson`.
+2. Write the settings boundary: write `loadSettings()` that parses stored text, validates shape, and returns `{ ok: true, settings }` or `{ ok: false, settings: defaults }`. State why a shape guard belongs at this boundary.
+3. Write the redactor: write `toPublicUser(user)` returning only `id` and `name`, then a comment explaining why the server must still enforce access independently.
+4. Write the storage memo: write a comment block listing three JavaScript values JSON cannot preserve and how you would represent each in JSON instead.
 
 ## Finish line
 

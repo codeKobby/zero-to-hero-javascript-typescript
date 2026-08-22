@@ -463,15 +463,15 @@ For each snippet, write down the exact output before running.
 3. Add a `watched` property **without changing the original** — copy first, then set `watched: true` on the copy.
 4. Add a `describe()` method that uses `this` to return `'TITLE by DIRECTOR'`.
 5. Define a `Movie` interface in the TS starter matching your object, then intentionally give `year` a string value and read the error.
-6. **MDN lookup:** Open the [Object reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), find `Object.keys` (which returns an array of an object's own property names), and use it to write `printKeys(movie)` that logs each key of your `movie` object. Verify it lists `title`, `director`, and `year`, and comment on whether the order is guaranteed.
+6. Read the [Object reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. A to-do item: build `createTodo(text)` that returns `{ id, text, done }` where `id` increments each call (closure from Day 8) and `done` starts `false`. Add a `toggle()` method that flips `done` and returns the updated item.
-2. A product display: build a `product` object with `name`, `price`, and a `describe()` method; then write `formatPrice(product)` that reads `product.price` with dot notation and returns it as a string with a currency symbol.
-3. The checkout queue: write `checkout(cart)` that returns a **new** cart with `total` added, using spread to avoid mutating the original — and in a comment explain what would have happened without the spread.
-4. The key swap: write code that reads a property whose name is stored in a variable `key`, then in a comment predict what `object.key` would do instead and why.
-5. The this-mystery: write an object with a method that uses `this`, call it correctly, then in a comment write the line that extracts the method and breaks the connection — and explain the output change using the call-site rule from this lesson.
+1. Write a to-do item: build `createTodo(text)` that returns `{ id, text, done }` where `id` increments each call (closure from Day 8) and `done` starts `false`. Add a `toggle()` method that flips `done` and returns the updated item.
+2. Write a product display: build a `product` object with `name`, `price`, and a `describe()` method; then write `formatPrice(product)` that reads `product.price` with dot notation and returns it as a string with a currency symbol.
+3. Write the checkout queue: write `checkout(cart)` that returns a **new** cart with `total` added, using spread to avoid mutating the original — and in a comment explain what would have happened without the spread.
+4. Write the key swap: write code that reads a property whose name is stored in a variable `key`, then in a comment predict what `object.key` would do instead and why.
+5. Write the this-mystery: write an object with a method that uses `this`, call it correctly, then in a comment write the line that extracts the method and breaks the connection — and explain the output change using the call-site rule from this lesson.
 
 ## Finish line
 

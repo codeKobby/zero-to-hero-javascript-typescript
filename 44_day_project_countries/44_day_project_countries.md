@@ -247,14 +247,14 @@ Build the project in order, recording evidence for each milestone in your projec
 2. Add sort, population/area statistics, a detail view, and favorites.
 3. Add a two-country comparison and an empty/error state.
 4. Port each feature to TypeScript and add a type guard for the dataset.
-5. **MDN lookup:** Open the [Array.prototype.find reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find), find how it returns `undefined` when nothing matches, and add a detail view that shows the first country matching a clicked name. Comment on when `find` is the right tool compared with `filter`.
+5. Read the [Array.prototype.find reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The validated boundary: write a `isCountry` guard that checks the required fields before accepting a larger external dataset; comment on why the `Country` type alone is not enough.
-2. The composed search: write `searchCountries(countries, filters)` where search, region, and sort compose as data; comment on why statistics follow the filtered set.
-3. The copied sort: derive sorted views from copies and confirm the source array order never changes; comment on why that matters for later views.
-4. The acceptance audit: confirm search covers name, capital, and language; confirm region and sort compose; confirm favorites survive refresh only after validated hydration; confirm JS and TS behave the same with a clean `npm.cmd run check`.
+1. Write the validated boundary: write a `isCountry` guard that checks the required fields before accepting a larger external dataset; comment on why the `Country` type alone is not enough.
+2. Write the composed search: write `searchCountries(countries, filters)` where search, region, and sort compose as data; comment on why statistics follow the filtered set.
+3. Write the copied sort: derive sorted views from copies and confirm the source array order never changes; comment on why that matters for later views.
+4. Check search, filters, sorting, favorites after refresh, and the JavaScript/TypeScript check. Write down one result for each.
 
 ## Finish line
 

@@ -284,14 +284,14 @@ For each snippet, write down the exact result before running.
 2. Add a discriminated state to the same feature.
 3. Add an `unknown` parser that validates external data with a guard.
 4. Keep JS and TS acceptance criteria identical.
-5. **TypeScript docs lookup:** Open the handbook's [Narrowing page](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) and find the [using type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) section. Write an `isState(value: unknown): value is LoadingState` guard for your discriminated state, use it in the `safeParse` boundary, and comment on what your domain code may assume once the guard passes.
+5. Read [Narrowing page](https://www.typescriptlang.org/docs/handbook/2/narrowing.html). Make the small type change from this exercise. Run the type check and write one sentence about the compiler message.
 
 ### Level 3 — Creative synthesis
 
-1. The strict audit: review an earlier starter for `any`, non-null assertions, or implicit any; fix each by design.
-2. The boundary case: write a `toMessage` function that turns `unknown` runtime evidence into a string.
-3. The effect split: separate domain logic from DOM, storage, and network effects in one small feature.
-4. The test case: add a pure-function test for the domain logic and comment on what it proves that the compiler cannot.
+1. Write the strict audit: review an earlier starter for `any`, non-null assertions, or implicit any; fix each by design.
+2. Write the boundary case: write a `toMessage` function that turns `unknown` runtime evidence into a string.
+3. Write the effect split: separate domain logic from DOM, storage, and network effects in one small feature.
+4. Write the test case: add a pure-function test for the domain logic and comment on what it proves that the compiler cannot.
 
 ## Finish line
 

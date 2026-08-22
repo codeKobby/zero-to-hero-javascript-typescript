@@ -320,7 +320,7 @@ For each snippet, write down the exact result before running.
 3. Why are filters derived, not stored?
 4. Why does `JSON.parse` need both a catch and a shape check?
 5. Why is a browser refresh part of the acceptance test?
-6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm add, toggle, delete, filter, and refresh all work on both; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that add, toggle, delete, filter, and refresh all work on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -328,14 +328,14 @@ For each snippet, write down the exact result before running.
 2. Add a filter row of three buttons (All, Active, Completed) that sets `state.filter` and re-renders without duplicating todo data.
 3. Extend the save/load boundary: version the storage key as `day29-todos-v2` and migrate an old array when present.
 4. TypeScript: extend `isTodo` with a `note?: string` field and keep the type predicate honest.
-5. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `removeItem` and `length`, and add a "Clear completed" button that removes every completed todo from state *and* from storage using those methods. Comment on whether `clear()` would also be correct here and why.
+5. Read the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage). Store one value and remove only that value. Do not use `localStorage.clear()`.
 
 ### Level 3 — Creative synthesis
 
-1. The undo trail: keep the last three snapshots of `state.todos` and add an Undo button that restores the most recent one, with a comment on why snapshots must be copies.
-2. The testable core: extract add/toggle/delete/filter into pure functions that take state and return new state, then verify the same functions drive both the DOM and the TypeScript starter.
-3. The empty state: when `visibleTodos()` is empty, render a heading and message instead of a bare list, and comment on why the empty state is data-driven, not markup-driven.
-4. The health check: write a checklist of the four pitfalls (injection, duplicated filter state, unvalidated JSON, refresh) and mark where each is prevented in the starter files.
+1. Write the undo trail: keep the last three snapshots of `state.todos` and add an Undo button that restores the most recent one, with a comment on why snapshots must be copies.
+2. Write the testable core: extract add/toggle/delete/filter into pure functions that take state and return new state, then verify the same functions drive both the DOM and the TypeScript starter.
+3. Write the empty state: when `visibleTodos()` is empty, render a heading and message instead of a bare list, and comment on why the empty state is data-driven, not markup-driven.
+4. Write the health check: write a checklist of the four pitfalls (injection, duplicated filter state, unvalidated JSON, refresh) and mark where each is prevented in the starter files.
 
 ## Finish line
 

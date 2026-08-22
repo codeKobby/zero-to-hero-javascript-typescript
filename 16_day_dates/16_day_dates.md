@@ -360,15 +360,15 @@ For each snippet, write down the exact output before running.
 3. Write `hoursBetween(start, end)` given two ISO instant strings; decide whether the result should be signed or absolute and state your choice.
 4. Write `daysBetween(start, end)` that returns whole calendar days for two UTC instants, and add a comment noting when that approximation is safe.
 5. TypeScript: write `parseInstant` returning `Date | null` and make the caller handle both paths.
-6. **MDN lookup:** Open the [Date.now reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now), and use it to write `currentSeconds()` that returns the current Unix time in whole seconds. Verify it is close to `Math.floor(new Date().getTime() / 1000)`, then comment on why `Date.now()` exists at all if `getTime()` can do the same job.
+6. Read the [Date.now reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now). Copy a small `Date.now()` example into the starter. Compare it with `new Date().getTime()`.
 
 ### Level 3 — Creative synthesis
 
-1. The event poster: given an ISO instant, produce a short human label such as `'Wed, 15 Jan 2025, 09:30'` using `Intl.DateTimeFormat`. Pick a fixed `timeZone` and state why you chose it.
-2. The countdown: write `hoursUntil(instant)` that takes a future ISO instant and returns how many whole hours remain, or `0` for past input. Validate the input first.
-3. The booking date: write `isWeekend(isoDate)` that returns `true` when a date-only string such as `'2025-01-18'` falls on a Saturday or Sunday in UTC. Add a comment explaining why you read the UTC day, not the local day.
-4. The safe formatter: write `formatInstant(text)` that returns a formatted label for valid input and `'Invalid date'` for anything else. Combine validation with `Intl.DateTimeFormat`.
-5. The decision memo: write a comment block explaining, for your future self, (a) whether an appointment should be stored as an instant or a calendar date, and (b) which time zone owns it.
+1. Write the event poster: given an ISO instant, produce a short human label such as `'Wed, 15 Jan 2025, 09:30'` using `Intl.DateTimeFormat`. Pick a fixed `timeZone` and state why you chose it.
+2. Write the countdown: write `hoursUntil(instant)` that takes a future ISO instant and returns how many whole hours remain, or `0` for past input. Validate the input first.
+3. Write `isWeekend(isoDate)`. Return `true` for a Saturday or Sunday such as `'2025-01-18'`. Read the day in UTC.
+4. Write the safe formatter: write `formatInstant(text)` that returns a formatted label for valid input and `'Invalid date'` for anything else. Combine validation with `Intl.DateTimeFormat`.
+5. Write two short comments. Say when money should avoid decimal fractions. Say why `Math.random` is fine for a dice game but not for a password.
 
 ## Finish line
 

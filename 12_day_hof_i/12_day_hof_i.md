@@ -473,15 +473,15 @@ For each snippet, write down the exact output before running.
 4. Print each color in `['red', 'green', 'blue']` with `forEach`.
 5. TypeScript: type the source as `number[]` and the `map` result as `string[]` — convert `[42, 78, 91]` to `['Score: 42', 'Score: 78', 'Score: 91']`.
 6. Build `'Ada, Grace, Linus'` from the names array with `reduce` and initial value `''`. Explain why the string does not start with a comma.
-7. **MDN lookup:** on the [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) page, read the section about omitting the initial value, then write `sum(numbers)` with `reduce` using an explicit `0`, and in a comment note what would change — and what could break — if you left the initial value out.
+7. Read [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The pipeline: from products with `name` and `price`, filter prices below 20, map to names, then explain the value at each stage.
-2. The counter: use `reduce` to count passing scores. Start at `0`; add one only when a score is at least 50.
+1. Write the pipeline: from products with `name` and `price`, filter prices below 20, map to names, then explain the value at each stage.
+2. Write the counter: use `reduce` to count passing scores. Start at `0`; add one only when a score is at least 50.
 3. Implement `myMap` with a `for...of` loop. Call the callback once per item and push each result into a new array.
-4. The selector story: for each of these goals, name the one method — "double every number", "keep even numbers", "sum everything", "log each name" — then write one line for each.
-5. The trace proof: write a three-column trace (callback input, callback return, method result) for `[2, 5, 8].filter(n => n > 3).map(n => n * 10)` and compute the final array.
+4. Write the selector story: for each of these goals, name the one method — "double every number", "keep even numbers", "sum everything", "log each name" — then write one line for each.
+5. Write the trace proof: write a three-column trace (callback input, callback return, method result) for `[2, 5, 8].filter(n => n > 3).map(n => n * 10)` and compute the final array.
 
 ## Finish line
 

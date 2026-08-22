@@ -313,14 +313,14 @@ For each snippet, write down the exact result before running.
 2. Add a timeout with `AbortController`.
 3. POST a JSON body to a server you control and inspect the response status.
 4. Type a guard for the response shape instead of asserting it.
-5. **MDN lookup:** Open the [Response.json() reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Response/json), find what happens when the body is empty or invalid JSON, and write a `getJson` variant that catches that failure. Comment on why `response.json` is awaited and can itself reject.
+5. Read the [Response.json() reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Response/json). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The one-boundary getter: write `getUsers(): Promise<User[]>` that uses `getJson` plus the `isUser` guard and throws a readable error when the shape is wrong.
-2. The abort-comments: wrap a slow fetch in a timeout, and comment on exactly when the fetch stops and what the caller sees.
-3. The methods gallery: send GET, POST, PUT, and DELETE to endpoints you control, and comment on when each is correct.
-4. The assertion trap: write the `as User[]` version and the guarded version side by side, and comment on what a malformed server response does to each.
+1. Write the one-boundary getter: write `getUsers(): Promise<User[]>` that uses `getJson` plus the `isUser` guard and throws a readable error when the shape is wrong.
+2. Write the abort-comments: wrap a slow fetch in a timeout, and comment on exactly when the fetch stops and what the caller sees.
+3. Write the methods gallery: send GET, POST, PUT, and DELETE to endpoints you control, and comment on when each is correct.
+4. Write the assertion trap: write the `as User[]` version and the guarded version side by side, and comment on what a malformed server response does to each.
 
 ## Finish line
 

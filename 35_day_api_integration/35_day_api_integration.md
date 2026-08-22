@@ -285,14 +285,14 @@ For each snippet, write down the exact result before running.
 2. Add a request-state helper and represent loading/success/error.
 3. Add a page parameter and a `hasMore` field to the returned contract.
 4. Type and validate a `Todo` response at runtime.
-5. **MDN lookup:** Open the [Map reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), find the `Map.prototype.get` and `Map.prototype.set` methods, and add a `clearCache()` method to your `ApiClient` that empties the in-memory cache. Comment on when clearing the cache matters.
+5. Read the [Map reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). Use `Map.prototype.get` and `Map.prototype.set`, then add `clearCache()` to empty the cache.
 
 ### Level 3 — Creative synthesis
 
-1. The one-boundary refactor: move a hand-written `fetch` call into `ApiClient.get` and comment on what feature code gains.
-2. The stale-cache risk: add a cache with a freshness window, and comment on what happens when data changes before the window expires.
-3. The request-state gallery: render each of the four states for one endpoint, and comment on what each arm shows the user.
-4. The pagination contract: model a page response with page, size, total, and `hasMore`, and comment on why the array length alone is not enough.
+1. Write the one-boundary refactor: move a hand-written `fetch` call into `ApiClient.get` and comment on what feature code gains.
+2. Write the stale-cache risk: add a cache with a freshness window, and comment on what happens when data changes before the window expires.
+3. Write the request-state gallery: render each of the four states for one endpoint, and comment on what each arm shows the user.
+4. Write the pagination contract: model a page response with page, size, total, and `hasMore`, and comment on why the array length alone is not enough.
 
 ## Finish line
 

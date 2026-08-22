@@ -311,14 +311,14 @@ For each snippet, write down the exact result before running.
 2. Add an expiry timestamp to a cached value and delete it once expired.
 3. Write `isPreferences(value)` to validate persisted preferences before use.
 4. TypeScript: use a type guard after parsing instead of asserting parsed text is `Preferences`.
-5. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `key()` and `length`, and write a `clearByPrefix(prefix)` helper that removes every stored key starting with a prefix without calling `clear()`. Comment on why this is safer than `localStorage.clear()` when an app stores many kinds of data under one origin.
+5. Read the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage). Store one value and remove only that value. Do not use `localStorage.clear()`.
 
 ### Level 3 — Creative synthesis
 
-1. The versioned draft: store a draft under a key that includes a schema version (e.g. `'draft:v1'`), and on load, guard the shape before returning it. State why the version belongs in the key.
-2. The TTL cache: write `setWithTtl(storage, key, value, ttlMs)` and `getWithTtl(storage, key)` that return `null` for missing or expired entries and remove stale ones. Combine with a shape guard at read time.
-3. The safe boundary: write `loadPreferences(storage)` returning `{ ok: true, preferences }` or `{ ok: false }`, catching storage failures and shape failures separately.
-4. The threat memo: write a comment block listing three kinds of data that must never go into `localStorage` and the safer place for each.
+1. Write the versioned draft: store a draft under a key that includes a schema version (e.g. `'draft:v1'`), and on load, guard the shape before returning it. State why the version belongs in the key.
+2. Write the TTL cache: write `setWithTtl(storage, key, value, ttlMs)` and `getWithTtl(storage, key)` that return `null` for missing or expired entries and remove stale ones. Combine with a shape guard at read time.
+3. Write the safe boundary: write `loadPreferences(storage)` returning `{ ok: true, preferences }` or `{ ok: false }`, catching storage failures and shape failures separately.
+4. Write the threat memo: write a comment block listing three kinds of data that must never go into `localStorage` and the safer place for each.
 
 ## Finish line
 

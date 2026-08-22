@@ -492,7 +492,7 @@ For each snippet, write down which branch runs and what prints, before running.
 2. `if (0) { console.log('A') } else { console.log('B') }`
 3. `if (false && true) { console.log('A') } else if (true || false) { console.log('B') } else { console.log('C') }`
 4. `const n = 10; const s = n > 5 ? 'big' : 'small'; console.log(s)`
-5. A `switch` on `'a'` where the `'a'` case has no `break` and the `'b'` case prints — predict both lines.
+5. Write a `switch` on `'a'` where the `'a'` case has no `break` and the `'b'` case prints — predict both lines.
 6. `if (null) { console.log('A') } else { console.log('B') }`
 7. `if ('0') { console.log('A') } else { console.log('B') }` — `'0'` is a non-empty string; predict carefully.
 8. Run `npm.cmd run day5:js` and `npm.cmd run day5`; then `npm.cmd run check` and confirm it passes.
@@ -502,18 +502,18 @@ For each snippet, write down which branch runs and what prints, before running.
 1. Temperature classifier: classify a temperature as freezing (below 0), cold (below 10), warm (below 25), or hot — with the specific conditions in the correct order.
 2. Adult/minor: use a ternary to assign `'Adult'` or `'Minor'` from an age, and print it.
 3. Traffic light: write a `switch` that prints `Stop`, `Slow down`, or `Go` for red, yellow, green — with a `default` for unknown input.
-4. A weekend detector: write a `switch` that groups Saturday and Sunday into one `Weekend` case, with the fall-through commented as intentional.
+4. Write a weekend detector: write a `switch` that groups Saturday and Sunday into one `Weekend` case, with the fall-through commented as intentional.
 5. TypeScript union: define `type Plan = 'free' | 'pro' | 'enterprise'` and a `describePlan` function with a `switch` and a `default`.
 6. Grade reporter: use an `if`/`else if` chain for score ≥ 90 → A, ≥ 80 → B, ≥ 60 → Pass, else Fail — and trace what happens for scores 95, 85, 65, 40.
-7. **MDN lookup:** Open the [switch reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch), read how the `default` clause behaves, then write a `describeMonth(month)` function whose `switch` groups months by season with intentional fall-through and a `default` for unknown input. Test it with `'January'`, `'July'`, and `'Nope'`.
+7. Read the [switch reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. A login gate: `isLoggedIn`, `hasPaidPlan`, and `isAdmin` combine with `&&`/`||` in an `if`/`else` that prints one of three screens. Trace every combination you can think of.
-2. A pricing story: a ternary that chooses the price display, then a comment explaining why a ternary fits *here* but a full `if` is needed for the multi-step discount logic.
-3. A deliberate-fall-through report: write a `switch` on a day where weekdays share a body and weekends share a body, with comments explaining exactly which cases fall through and why that is safe.
+1. Write a login gate: `isLoggedIn`, `hasPaidPlan`, and `isAdmin` combine with `&&`/`||` in an `if`/`else` that prints one of three screens. Trace every combination you can think of.
+2. Write a pricing story: a ternary that chooses the price display, then a comment explaining why a ternary fits *here* but a full `if` is needed for the multi-step discount logic.
+3. Write a deliberate-fall-through report: write a `switch` on a day where weekdays share a body and weekends share a body, with comments explaining exactly which cases fall through and why that is safe.
 4. TypeScript challenge: take the `TrafficLight` union, write a `safetyMessage(light)` function that returns a message for each color with an exhaustive `switch`, and prove the invalid value `'blue'` is rejected by `npm run check`.
-5. A dead-code detector: write three `if` chains, one of which has an unreachable branch on purpose, then explain in comments exactly *why* that branch can never run — using the first-true rule.
+5. Write a dead-code detector: write three `if` chains, one of which has an unreachable branch on purpose, then explain in comments exactly *why* that branch can never run — using the first-true rule.
 
 ## Finish line
 

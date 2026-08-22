@@ -436,34 +436,32 @@ Attempt the exercises before opening [hints](practice/hints.md) or [solutions](p
 ### Level 1 — Mechanical (10-15 min)
 
 Predict the exact output (or the error) before running, then run and compare.
-
-1. `console.log(17 % 5)`
-2. `console.log(2 ** 3)`
-3. `console.log(5 === '5')` and `console.log(5 == '5')`
-4. `console.log(0 == false)` and `console.log('' == 0)`
-5. `console.log(Boolean([]))` and `console.log(Boolean({}))`
-6. `console.log(true && false)` and `console.log(true || false)`
-7. `let n = 5; n += 3; n -= 2; console.log(n)`
-8. `console.log(8 % 2 === 0)` and `console.log(7 % 2 === 0)`
-9. Run `npm.cmd run day4:js` and `npm.cmd run day4`; then `npm.cmd run check` and confirm it passes.
+1. What is Operators — Math, Truth, and Comparison? Answer in one sentence.
+2. `console.log(17 % 5)`
+3. `console.log(2 ** 3)`
+4. `console.log(5 === '5')` and `console.log(5 == '5')`
+5. `console.log(0 == false)` and `console.log('' == 0)`
+6. `console.log(Boolean([]))` and `console.log(Boolean({}))`
+7. `console.log(true && false)` and `console.log(true || false)`
+8. `let n = 5; n += 3; n -= 2; console.log(n)`
+9. `console.log(8 % 2 === 0)` and `console.log(7 % 2 === 0)`
+10. Run `npm.cmd run day4:js` and `npm.cmd run day4`; then `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
-
-1. A cart total: multiply a price by a quantity, apply a discount with `-`, and print the result using a `const`.
-2. An even/odd reporter: use `%` to print whether each of `21`, `22`, `7`, `8` is even or odd.
-3. A feature gate: create `isLoggedIn` and `hasPaidPlan` booleans, then log the result of `&&`, `||`, and `!` for them, each with a comment predicting the result first.
-4. A strict-vs-loose lab: log `5 === '5'`, `5 == '5'`, `0 === false`, and `0 == false`, and explain each result in a comment.
-5. A truthiness table: use `Boolean(...)` on `0`, `1`, `''`, `' '`, `null`, `undefined`, `NaN`, `[]`, `{}` and print the results.
-6. In TypeScript, create a `number | null` variable and use narrowing to safely double it inside an `if` check.
-7. **MDN lookup:** Open the [logical operators reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_operators), read how `||` returns the first truthy operand rather than a boolean, then write a `defaultName(name)` function that returns `name` or the string `'guest'` using `||`. Test it with `'Ada'`, `''`, and `null` and comment on the result for each.
+2. Write a cart total: multiply a price by a quantity, apply a discount with `-`, and print the result using a `const`.
+3. Write an even/odd reporter: use `%` to print whether each of `21`, `22`, `7`, `8` is even or odd.
+4. Write a feature gate: create `isLoggedIn` and `hasPaidPlan` booleans, then log the result of `&&`, `||`, and `!` for them, each with a comment predicting the result first.
+5. Write a strict-vs-loose lab: log `5 === '5'`, `5 == '5'`, `0 === false`, and `0 == false`, and explain each result in a comment.
+6. Write a truthiness table: use `Boolean(...)` on `0`, `1`, `''`, `' '`, `null`, `undefined`, `NaN`, `[]`, `{}` and print the results.
+7. In TypeScript, create a `number | null` variable and use narrowing to safely double it inside an `if` check.
+8. Read the [logical operators reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_operators). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
-
-1. A "free shipping" calculator: `price > 50` should give free shipping. Use a boolean variable, print "free" or "paid" based on it, and include the exact comparison you chose.
-2. A safe-access demo: create `const user = null` and show both the crash (`user.name`) and the safe pattern (`user && user.name`), each with a comment.
-3. A short-circuit sketch: write three lines that *prove* `&&` stops early — log a marker inside the skipped side and show it never prints.
-4. TypeScript challenge: deliberately mix `price` (number) with a string constant, read the compiler error, then fix it two ways (numeric and textual) with comments explaining each intent.
-5. A "do not trust truthiness" experiment: model a survey where `0` is a valid answer, show why `if (answer)` fails for it, and write the precise condition that accepts `0` but rejects "no answer" (`null`/`undefined`).
+2. Write a "free shipping" calculator: `price > 50` should give free shipping. Use a boolean variable, print "free" or "paid" based on it, and include the exact comparison you chose.
+3. Write a safe-access demo: create `const user = null` and show both the crash (`user.name`) and the safe pattern (`user && user.name`), each with a comment.
+4. Write a short-circuit sketch: write three lines that *prove* `&&` stops early — log a marker inside the skipped side and show it never prints.
+5. TypeScript challenge: deliberately mix `price` (number) with a string constant, read the compiler error, then fix it two ways (numeric and textual) with comments explaining each intent.
+6. Write a "do not trust truthiness" experiment: model a survey where `0` is a valid answer, show why `if (answer)` fails for it, and write the precise condition that accepts `0` but rejects "no answer" (`null`/`undefined`).
 
 ## Finish line
 

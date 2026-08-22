@@ -270,14 +270,14 @@ For each snippet, write down the exact result before running.
 2. Model a `LoadingState` discriminated union with idle, loading, success, and error.
 3. Write a function that handles every state and returns a readable string.
 4. Write the JavaScript equivalent and explain what the compiler adds.
-5. **TypeScript docs lookup:** Open the handbook section on [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions) and find the `never` exhaustive check. Add a `'pending'` status to your `LoadingState` union, then write a `switch` with an `exhaustive` branch — comment on what the compiler tells you when a case is missing.
+5. Read [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions). Make the small type change from this exercise. Run the type check and write one sentence about the compiler message.
 
 ### Level 3 — Creative synthesis
 
-1. The shape guard: implement `isBook(value: unknown): value is Book` and comment on what a type alias could not provide by itself.
-2. The extendable model: create `Employee extends User` and comment on when interface inheritance beats repeating fields.
-3. The exhaustive state: add a new status to `LoadingState` and comment on what the compiler tells you about every switch.
-4. The assertion trap: replace a runtime guard with `as Book` and comment on what breaks the moment the data does not match.
+1. Write the shape guard: implement `isBook(value: unknown): value is Book` and comment on what a type alias could not provide by itself.
+2. Write the extendable model: create `Employee extends User` and comment on when interface inheritance beats repeating fields.
+3. Write the exhaustive state: add a new status to `LoadingState` and comment on what the compiler tells you about every switch.
+4. Write the assertion trap: replace a runtime guard with `as Book` and comment on what breaks the moment the data does not match.
 
 ## Finish line
 

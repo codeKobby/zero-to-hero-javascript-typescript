@@ -360,11 +360,11 @@ For each snippet, write down the exact result before running.
 
 ### Level 3 — Creative synthesis
 
-1. The daily limit: extend `BankAccount` so a withdrawal above `dailyLimitInCents` throws a custom `DailyLimitError`, and show a caller catching it separately.
-2. The shared state guard: write a `TemperatureSensor` class with a private `#readingCelsius`, a getter, and a `record(celsius)` method that rejects non-finite values. Show that the reading is read-only from outside.
-3. The composition decision: build a small `Report` that takes an array of `BankAccount` instances and prints one line each. Explain in a comment why `Report` uses accounts rather than extending them.
-4. The custom error memo: write a comment block listing two cases where a custom error earns its class and two where a plain `Error` is enough.
-5. **MDN lookup:** Open the [private class features reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields), find the `#field in obj` check, and add a `hasBalance(account)` helper that reports whether an object carries the private `#balanceInCents` field. Comment on why `in` can detect a private field even though the field cannot be read from outside the class.
+1. Write the daily limit: extend `BankAccount` so a withdrawal above `dailyLimitInCents` throws a custom `DailyLimitError`, and show a caller catching it separately.
+2. Write the shared state guard: write a `TemperatureSensor` class with a private `#readingCelsius`, a getter, and a `record(celsius)` method that rejects non-finite values. Show that the reading is read-only from outside.
+3. Write the composition decision: build a small `Report` that takes an array of `BankAccount` instances and prints one line each. Explain in a comment why `Report` uses accounts rather than extending them.
+4. Write the custom error memo: write a comment block listing two cases where a custom error earns its class and two where a plain `Error` is enough.
+5. Read the [private class features reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields). Copy one small example into the starter. Run it and write down what it does.
 
 ## Finish line
 

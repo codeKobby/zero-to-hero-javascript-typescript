@@ -335,14 +335,14 @@ For each snippet, write down the exact result before running.
 2. Write `updateUser` that returns a new object and leaves its input unchanged.
 3. Build a pipe that trims, lowercases, and adds a prefix.
 4. TypeScript: type the functions without using `any`.
-5. **MDN lookup:** Open the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), find the `initialValue` parameter, and rewrite the `pipe` helper to pass an explicit initial value. Comment on what changes if the first pipeline step receives `undefined` instead of the input.
+5. Read the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The identity pipe: write `pipe` that runs with zero functions and returns the input unchanged; then comment on why that base case keeps `reduce` correct.
-2. The selective merge: write `updateProfile` that copies a nested `preferences` object only when `changes.preferences` exists, and comment on why shallow copy alone is not enough.
-3. The audited state: write a pure `toReadingList` that sorts a copy of an array instead of mutating it, with a comment on what breaks if the sort happens in place.
-4. The boundary memo: write a comment block listing three side effects (DOM, storage, network) and where each boundary belongs in a typical page.
+1. Write the identity pipe: write `pipe` that runs with zero functions and returns the input unchanged; then comment on why that base case keeps `reduce` correct.
+2. Write the selective merge: write `updateProfile` that copies a nested `preferences` object only when `changes.preferences` exists, and comment on why shallow copy alone is not enough.
+3. Write the audited state: write a pure `toReadingList` that sorts a copy of an array instead of mutating it, with a comment on what breaks if the sort happens in place.
+4. Write the boundary memo: write a comment block listing three side effects (DOM, storage, network) and where each boundary belongs in a typical page.
 
 ## Finish line
 

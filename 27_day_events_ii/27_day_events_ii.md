@@ -295,7 +295,7 @@ For each snippet, write down the exact result before running.
 3. Why is `preventDefault` separate from `stopPropagation`?
 4. Why can `FormData` contain `File` values?
 5. Why must the delegated handler guard `event.target` before `closest`?
-6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm a delegated task removal, a form submit, and the shortcut all update the page on both; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that a delegated task removal, a form submit, and the shortcut all update the page on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -303,14 +303,14 @@ For each snippet, write down the exact result before running.
 2. Handle form submit, prevent navigation, and display the submitted name.
 3. Add a `Cmd/Ctrl+S` shortcut that updates a status message.
 4. TypeScript: convert `FormData` entries into a validated `FormValues` object.
-5. **MDN lookup:** Open the [FormData reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/FormData), find the `getAll()` method, and add two checkboxes with the same `name` to a form; read them back with `getAll('tags')` and render each selected value. Comment on why `get` would only return the first one.
+5. Read the [FormData reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/FormData). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The selective delegate: one listener handles both a remove button and an edit button using `closest` and a `data-action` attribute, with a comment on why the action marker belongs in the markup.
-2. The validated form: read `name` and `email`, return `null` when either is missing or trimmed-empty, and render a message for each failure case instead of a single generic one.
+1. Write the selective delegate: one listener handles both a remove button and an edit button using `closest` and a `data-action` attribute, with a comment on why the action marker belongs in the markup.
+2. Write the validated form: read `name` and `email`, return `null` when either is missing or trimmed-empty, and render a message for each failure case instead of a single generic one.
 3. The scoped shortcut: register `keydown` only while a dialog is open, and remove the listener when it closes — with a comment on why a global, always-on shortcut is a hazard.
-4. The file-aware entry: write `readTextEntry(data, key)` that returns a string or `null`, handling the `File` case deliberately, and comment on why the `File` case cannot be assigned to a string.
+4. Write the file-aware entry: write `readTextEntry(data, key)` that returns a string or `null`, handling the `File` case deliberately, and comment on why the `File` case cannot be assigned to a string.
 
 ## Finish line
 

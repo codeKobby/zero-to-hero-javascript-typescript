@@ -272,14 +272,14 @@ For each snippet, write down the exact result before running.
 2. Implement `swap<A, B>` that returns a tuple with the arguments reversed.
 3. Implement a constrained `logLength` and call it with a string, an array, and a custom object.
 4. Implement a generic `Result<T, E>` union and a function that narrows it.
-5. **TypeScript docs lookup:** Open the handbook's [Generics page](https://www.typescriptlang.org/docs/handbook/2/generics.html) and find the [Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints) section. Write a generic `pluck<T, K extends keyof T>(object: T, key: K): T[K]` that returns one property, then constrain a second generic with `extends HasLength` and comment on what each `extends` restricts.
+5. Read [Generics page](https://www.typescriptlang.org/docs/handbook/2/generics.html). Make the small type change from this exercise. Run the type check and write one sentence about the compiler message.
 
 ### Level 3 — Creative synthesis
 
-1. The identity promise: call `identity` with a number, then a string, and comment on what the return type is in each case.
-2. The constraint audit: try `logLength(42)` and comment on what the compiler reports and why.
-3. The repository trace: implement `Repository<Product>` and comment on what `create` receives and what `getAll` returns.
-4. The JS constraint imitation: write a runtime check that throws when a value lacks `length`, and comment on when it runs compared with the compile-time check.
+1. Write the identity promise: call `identity` with a number, then a string, and comment on what the return type is in each case.
+2. Write the constraint audit: try `logLength(42)` and comment on what the compiler reports and why.
+3. Write the repository trace: implement `Repository<Product>` and comment on what `create` receives and what `getAll` returns.
+4. Write the JS constraint imitation: write a runtime check that throws when a value lacks `length`, and comment on when it runs compared with the compile-time check.
 
 ## Finish line
 

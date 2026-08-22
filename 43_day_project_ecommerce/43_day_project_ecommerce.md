@@ -250,14 +250,14 @@ Build the project in order, recording evidence for each milestone in your projec
 3. Persist a versioned cart in localStorage; reject malformed or stale data.
 4. Add accessible empty states, quantity controls, and keyboard-friendly focus.
 5. Make the TS version meet the same acceptance criteria, then test both pages.
-6. **MDN lookup:** Open the [Intl.NumberFormat reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat), find `formatToParts`, and add a price display that uses it to render each product price and the cart total with a currency symbol. Comment on why `format()` alone hides the parts that `formatToParts` exposes.
+6. Read the [Intl.NumberFormat reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The composed filter: write `filterProducts(products, filters)` where filters are data; comment on how search, category, stock, rating, and price compose.
-2. The versioned cart: persist `{ version: 1, items: [{ productId, quantity }] }` and reject malformed or stale data on load; comment on why the version field matters.
-3. The joined total: render cart totals by joining cart rows to products; comment on why product prices never drift.
-4. The acceptance audit: confirm search, category, stock, rating, price, and sort compose; confirm add, remove, quantity, total, and refresh persistence; confirm JS and TS behave the same with a clean `npm.cmd run check`.
+1. Write the composed filter: write `filterProducts(products, filters)` where filters are data; comment on how search, category, stock, rating, and price compose.
+2. Write the versioned cart: persist `{ version: 1, items: [{ productId, quantity }] }` and reject malformed or stale data on load; comment on why the version field matters.
+3. Write the joined total: render cart totals by joining cart rows to products; comment on why product prices never drift.
+4. Check search, filters, sorting, favorites after refresh, and the JavaScript/TypeScript check. Write down one result for each.
 
 ## Finish line
 

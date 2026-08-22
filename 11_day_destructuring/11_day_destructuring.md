@@ -450,15 +450,15 @@ For each snippet, write down the exact output before running.
 4. From a `learner` object, destructure `name` and use rest to collect the remaining properties into `progress`.
 5. TypeScript: define a `Task` type with an optional `assignee`. Destructure it with a fallback of `'unassigned'`.
 6. Write `printFirstTwo(scores)` that destructures the first two items in its parameter and logs them.
-7. **MDN lookup:** on the [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) page, read the "Assigning to new variable names" section, then write `extractTitle(book)` that destructures `title` into a variable named `bookTitle` and returns it.
+7. Read [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The swap: destructure two variables to **swap** their values without a third variable. (Hint: `[a, b] = [b, a]` — assignment without `const`.) Trace it and explain why it works.
-2. The config updater: write `updateSetting(settings, key, value)` that returns a **new** settings object with `[key]: value` applied, leaving the original untouched. Explain in a comment why the original is safe.
-3. The podium: from `['gold', 'silver', 'bronze', 'wood']`, destructure `gold`, `silver`, and `bronze` while dropping the rest into `others` — one line. Verify `others` is `['wood']`.
-4. The rest-must-be-last story: write the invalid pattern `const [...others, last] = [1, 2, 3]` in a comment, and in your own words explain the error before you run it.
-5. The default trap: destructure a default from `[10, 0]` expecting a fallback, observe the real result, and write a comment explaining exactly when defaults fire — using the rule from this lesson.
+1. Write the swap: destructure two variables to **swap** their values without a third variable. (Hint: `[a, b] = [b, a]` — assignment without `const`.) Trace it and explain why it works.
+2. Write the config updater: write `updateSetting(settings, key, value)` that returns a **new** settings object with `[key]: value` applied, leaving the original untouched. Explain in a comment why the original is safe.
+3. Write the podium: from `['gold', 'silver', 'bronze', 'wood']`, destructure `gold`, `silver`, and `bronze` while dropping the rest into `others` — one line. Verify `others` is `['wood']`.
+4. Write the rest-must-be-last story: write the invalid pattern `const [...others, last] = [1, 2, 3]` in a comment, and in your own words explain the error before you run it.
+5. Write the default trap: destructure a default from `[10, 0]` expecting a fallback, observe the real result, and write a comment explaining exactly when defaults fire — using the rule from this lesson.
 
 ## Finish line
 

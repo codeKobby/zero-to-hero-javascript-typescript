@@ -308,14 +308,14 @@ For each snippet, write down the exact result before running.
 2. Chain `getUser` to get a user's next lesson.
 3. Create a rejecting Promise and handle it with `catch`.
 4. Type every resolved value and narrow caught errors.
-5. **MDN lookup:** Open the [Promise.prototype.then reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then), find the `onRejected` second argument, and handle a rejecting promise with `then(onFulfilled, onRejected)` instead of a separate `catch`. Comment on how this differs from `.then(...).catch(...)`.
+5. Read the [Promise.prototype.then reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The always-finally: write a promise that resolves, one that rejects, and a shared `finally` cleanup that runs for both, with a comment on what `finally` receives.
-2. The string-to-number: write `getCounter(): Promise<number>` whose executor still works after the type mismatch in the walkthrough is fixed, and comment on why the runtime value must match the promised type.
-3. The forgotten return: write a chain where a `then` omits `return`, log what the next step receives, and comment on why the chain still compiles in TypeScript.
-4. The settle-once: write an executor that calls `resolve` twice and log the outcome, with a comment on why only the first settlement wins.
+1. Write the always-finally: write a promise that resolves, one that rejects, and a shared `finally` cleanup that runs for both, with a comment on what `finally` receives.
+2. Write the string-to-number: write `getCounter(): Promise<number>` whose executor still works after the type mismatch in the walkthrough is fixed, and comment on why the runtime value must match the promised type.
+3. Write the forgotten return: write a chain where a `then` omits `return`, log what the next step receives, and comment on why the chain still compiles in TypeScript.
+4. Write the settle-once: write an executor that calls `resolve` twice and log the outcome, with a comment on why only the first settlement wins.
 
 ## Finish line
 

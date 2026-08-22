@@ -478,35 +478,33 @@ Attempt the exercises before opening [hints](practice/hints.md) or [solutions](p
 ### Level 1 — Mechanical (10-15 min)
 
 For each, predict the exact output before running, then run and compare.
-
-1. `console.log(typeof 'Ada')`
-2. `console.log(typeof 42)`
-3. `console.log(typeof true)`
-4. `console.log(typeof undefined)`
-5. `console.log(typeof null)` — predict first, then let it surprise you
-6. `console.log(typeof [])` and `console.log(typeof {})`
-7. `console.log('1' + 1)` and `console.log(1 + '1')`
-8. `console.log(Number('5') + 5)`
-9. `console.log(Array.isArray([]))` and `console.log(Array.isArray({}))`
-10. Run `npm.cmd run day3:js` and `npm.cmd run day3`; then `npm.cmd run check` and confirm it passes.
+1. What is Data Types — What a Value Is, and How to Ask? Answer in one sentence.
+2. `console.log(typeof 'Ada')`
+3. `console.log(typeof 42)`
+4. `console.log(typeof true)`
+5. `console.log(typeof undefined)`
+6. `console.log(typeof null)` — predict first, then let it surprise you
+7. `console.log(typeof [])` and `console.log(typeof {})`
+8. `console.log('1' + 1)` and `console.log(1 + '1')`
+9. `console.log(Number('5') + 5)`
+10. `console.log(Array.isArray([]))` and `console.log(Array.isArray({}))`
+11. Run `npm.cmd run day3:js` and `npm.cmd run day3`; then `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
-
-1. Write a program that creates and logs one value of each of the seven primitive types, with a comment naming each type.
-2. Write a program that logs `typeof` for each of the seven values from exercise 1, and compare the output against your expectations.
-3. Write a program that demonstrates the shared-reference array behavior: create an array, copy the reference to a second name, change it through the second name, and log the first.
-4. Write a program that shows `undefined` and `null` as different values, using `console.log` and a comment explaining the difference in meaning.
-5. Write a program that uses `Number.isNaN` to check two expressions, one of which is `NaN`, and explains in a comment why `NaN === NaN` is false.
-6. In TypeScript, create a `string | null` variable, assign `null` to it, then safely print its length inside an `if` check.
-7. **MDN lookup:** Open the [typeof reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof), read how `typeof` reports a function, then log `typeof function named() {}`. Comment on why the result is not one of the seven primitive types.
+2. Write a program that creates and logs one value of each of the seven primitive types, with a comment naming each type.
+3. Write a program that logs `typeof` for each of the seven values from exercise 1, and compare the output against your expectations.
+4. Write a program that demonstrates the shared-reference array behavior: create an array, copy the reference to a second name, change it through the second name, and log the first.
+5. Write a program that shows `undefined` and `null` as different values, using `console.log` and a comment explaining the difference in meaning.
+6. Write a program that uses `Number.isNaN` to check two expressions, one of which is `NaN`, and explains in a comment why `NaN === NaN` is false.
+7. In TypeScript, create a `string | null` variable, assign `null` to it, then safely print its length inside an `if` check.
+8. Read the [typeof reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
-
-1. A "type report card": a single program that builds a small table of values and their true type — using `typeof` for primitives, `=== null` for null, and `Array.isArray` for arrays. Print all three categories.
-2. A form-arithmetic bug: simulate a form that delivers `'5'` as a string, then show the wrong way (`formInput + 5`) and the right way (`Number(formInput) + 5`) side by side, each with a comment.
-3. A `null` vs `undefined` story: write a mini-program modeling a login box — `undefined` when the user has not typed, `null` when they submitted empty — and log the difference with comments.
-4. TypeScript challenge: write a function-like experiment where a value is typed `number | null`, and demonstrate that the `.toFixed(2)` call only works inside the `!== null` branch — then explain why TypeScript demands the check.
-5. Write, in comments, a short "type decision tree" you would use when debugging: how to tell a string, a number, a boolean, an array, an object, `undefined`, and `null` apart — the exact operator or method you would use for each.
+2. Write a "type report card": a single program that builds a small table of values and their true type — using `typeof` for primitives, `=== null` for null, and `Array.isArray` for arrays. Print all three categories.
+3. Write a form-arithmetic bug: simulate a form that delivers `'5'` as a string, then show the wrong way (`formInput + 5`) and the right way (`Number(formInput) + 5`) side by side, each with a comment.
+4. Write a `null` vs `undefined` story: write a mini-program modeling a login box — `undefined` when the user has not typed, `null` when they submitted empty — and log the difference with comments.
+5. TypeScript challenge: write a function-like experiment where a value is typed `number | null`, and demonstrate that the `.toFixed(2)` call only works inside the `!== null` branch — then explain why TypeScript demands the check.
+6. Write, in comments, a short "type decision tree" you would use when debugging: how to tell a string, a number, a boolean, an array, an object, `undefined`, and `null` apart — the exact operator or method you would use for each.
 
 ## Finish line
 

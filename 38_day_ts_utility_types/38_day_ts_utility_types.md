@@ -258,14 +258,14 @@ For each snippet, write down the exact result before running.
 2. Create a public projection with `Pick<User, 'id' | 'name'>`.
 3. Create a permissions dictionary with `Record<'admin' | 'user', string[]>`.
 4. Reimplement the same operations in JavaScript with `pick`, `omit`, and `Object.freeze`, and write down which guarantees exist only in the editor.
-5. **TypeScript docs lookup:** Open the handbook's [Utility Types page](https://www.typescriptlang.org/docs/handbook/utility-types.html) and find the [Required&lt;T&gt;](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype) entry. Write a `complete(draft: Partial<User>): Required<User>` helper that fills in every optional field, then comment on what the compiler guarantees once the function returns.
+5. Read [Utility Types page](https://www.typescriptlang.org/docs/handbook/utility-types.html). Make the small type change from this exercise. Run the type check and write one sentence about the compiler message.
 
 ### Level 3 — Creative synthesis
 
-1. The update contract: write `applyUpdate(user, patch)` and comment on what fields `patch` may legally carry.
-2. The projection audit: expose only `id` and `name` publicly and comment on what leaving `email` in would risk.
-3. The readonly boundary: block assignment on a config object and comment on where `Object.freeze` is still needed.
-4. The shallow trap: nest an object under a readonly view and comment on what still mutates.
+1. Write the update contract: write `applyUpdate(user, patch)` and comment on what fields `patch` may legally carry.
+2. Write the projection audit: expose only `id` and `name` publicly and comment on what leaving `email` in would risk.
+3. Write the readonly boundary: block assignment on a config object and comment on where `Object.freeze` is still needed.
+4. Write the shallow trap: nest an object under a readonly view and comment on what still mutates.
 
 ## Finish line
 

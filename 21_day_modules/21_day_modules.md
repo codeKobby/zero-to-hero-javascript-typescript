@@ -307,14 +307,14 @@ For each snippet, write down the exact result before running.
 2. Import both functions into a main file and call them.
 3. Add one non-exported helper. Confirm another module cannot import it.
 4. TypeScript: export a `Product` type and a `formatProduct` function that accepts it.
-5. **MDN lookup:** Open the [export statement reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export), find default exports, and convert one named export in your math module to a default export. Update the import in the main file, then comment on when a default export is clearer and when it hides where a name came from.
+5. Read the [export statement reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). Copy one export example into the starter. Update the import and explain when a default export is useful.
 
 ### Level 3 — Creative synthesis
 
-1. The string utils module: create `strings.ts` exporting `capitalize`, `slugify`, and a `type StringCase` type; keep one private helper; import them from a main file.
-2. The counter module: create `counter.ts` exporting `createCounter` that returns an object with `increment` and `read`; import and use two counters from a main file.
-3. The config boundary: create `config.ts` that exports a frozen object `CONFIG` and a `getConfig()` function; in a comment, state why the function is the safer public surface.
-4. The module memo: write a comment block listing what belongs in a module's public surface versus what should stay private, for a module you would actually build.
+1. Write the string utils module: create `strings.ts` exporting `capitalize`, `slugify`, and a `type StringCase` type; keep one private helper; import them from a main file.
+2. Write the counter module: create `counter.ts` exporting `createCounter` that returns an object with `increment` and `read`; import and use two counters from a main file.
+3. Write the config boundary: create `config.ts` that exports a frozen object `CONFIG` and a `getConfig()` function; in a comment, state why the function is the safer public surface.
+4. Write the module memo: write a comment block listing what belongs in a module's public surface versus what should stay private, for a module you would actually build.
 
 ## Finish line
 

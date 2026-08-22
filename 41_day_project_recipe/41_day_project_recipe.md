@@ -233,14 +233,14 @@ Build the project in order, recording evidence for each milestone in your projec
 4. Add delete and edit paths through delegated events.
 5. Add debounced search and JSON export/import.
 6. Extract pure functions and add tests before calling the project portfolio-ready.
-7. **MDN lookup:** Open the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify), find the `replacer` and `space` arguments, and add a JSON export feature that uses both to pretty-print the saved recipes. Comment on what `space` does and why the exported text is safe to paste into another app.
+7. Read the [JSON.stringify reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The storage audit: write a `loadRecipes` function that returns `Recipe[]` only after every item passes `isRecipe`; comment on what happens to malformed items.
-2. The delegated case: handle delete and edit in one delegated listener; comment on how the handler learns which recipe to act on.
-3. The derive case: keep the stored list as the single source of truth; comment on how a debounced input reads from it.
-4. The effect split: separate parse, filter, and sort into pure functions; comment on what a test proves that the compiler cannot.
+1. Write the storage audit: write a `loadRecipes` function that returns `Recipe[]` only after every item passes `isRecipe`; comment on what happens to malformed items.
+2. Write the delegated case: handle delete and edit in one delegated listener; comment on how the handler learns which recipe to act on.
+3. Write the derive case: keep the stored list as the single source of truth; comment on how a debounced input reads from it.
+4. Write the effect split: separate parse, filter, and sort into pure functions; comment on what a test proves that the compiler cannot.
 
 ## Finish line
 

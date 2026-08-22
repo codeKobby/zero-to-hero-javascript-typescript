@@ -457,15 +457,15 @@ For each snippet, write down the exact output before running.
 4. Write `createGreeting(greeting)` that returns a function receiving a `name`. Test `createGreeting('Welcome')('Ada')` → `'Welcome, Ada!'`.
 5. Predict then verify the output of two independent counters from one `createCounter`.
 6. Write `calculateTotal(price, applyDiscount)` where `applyDiscount` is a callback that receives `price` and returns the new price.
-7. **MDN lookup:** Open [Array.prototype.map on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), read how it calls its callback for every element, then use `[1, 2, 3].map(...)` with an arrow callback that doubles each number so the result is `[2, 4, 6]`. Comment on who calls the callback and when.
+7. Read [Array.prototype.map on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. A score keeper: build `createScoreKeeper()` that returns an object with `add(points)` and `getScore()` methods, both closed over a private `score`. (Objects arrive in Day 9 — return `{ add, getScore }`.)
-2. An operation pipeline: write `chain(value, op1, op2)` that runs `op1(value)` then `op2` on the result. Test `chain(5, n => n * 2, n => n + 1)` → 11.
-3. The private-state argument: write `createBankAccount(balance)` returning `deposit(amount)` and `withdraw(amount)` that each return the new balance, and in a comment explain why the balance cannot be read directly from outside — using the closure model.
-4. The counter factory: write `createCounter(start)` that lets you choose the starting value, and explain in a comment why each call gets its own independent count.
-5. The timing story: write `runTask` and call it with a callback *without* parentheses, then in a comment rewrite the line the wrong way and explain exactly what breaks and why.
+1. Write a score keeper: build `createScoreKeeper()` that returns an object with `add(points)` and `getScore()` methods, both closed over a private `score`. (Objects arrive in Day 9 — return `{ add, getScore }`.)
+2. Write an operation pipeline: write `chain(value, op1, op2)` that runs `op1(value)` then `op2` on the result. Test `chain(5, n => n * 2, n => n + 1)` → 11.
+3. Write the private-state argument: write `createBankAccount(balance)` returning `deposit(amount)` and `withdraw(amount)` that each return the new balance, and in a comment explain why the balance cannot be read directly from outside — using the closure model.
+4. Write the counter factory: write `createCounter(start)` that lets you choose the starting value, and explain in a comment why each call gets its own independent count.
+5. Write the timing story: write `runTask` and call it with a callback *without* parentheses, then in a comment rewrite the line the wrong way and explain exactly what breaks and why.
 
 ## Finish line
 

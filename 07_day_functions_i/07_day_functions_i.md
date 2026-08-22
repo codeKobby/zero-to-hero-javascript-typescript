@@ -492,15 +492,15 @@ For each snippet, write down the value each variable receives, before running.
 4. Write `calculateDiscount(price, percent)` that returns the discounted price. Test with `(80, 25)`; expected 60.
 5. Write `lastChar(text)` that returns the final character of a string. Test `lastChar('Ada')`; expected `'a'`. (Hint: `text[text.length - 1]`.)
 6. Convert `calculateDiscount` to an arrow function and confirm the same result.
-7. **MDN lookup:** Open the [arrow functions reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), read how the concise body returns implicitly, then rewrite `calculateDiscount(price, percent)` from exercise 4 as a one-line arrow function and confirm `(80, 25)` still returns `60`. Comment on why braces would require a `return`.
+7. Read the [arrow functions reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. A receipt: write `calculateReceipt(subtotal)` that returns an object `{ subtotal, tax, total }` where `tax` is 15% of the subtotal. (Objects arrive in Day 9 — the syntax is `{ key: value }`.)
-2. A temperature converter: write `toCelsius(fahrenheit)` and `toFahrenheit(celsius)` using the real formulas. Then write `describeTemperature(celsius)` that returns `'cold'`, `'warm'`, or `'hot'` using the Day 5 rules.
-3. A validator with a default: write `createMessage(name, greeting = 'Hello')` that returns a message, then in a comment explain what happens if a caller passes `''` as the greeting and why the default does not apply.
-4. The scope story: write a function with a local variable, call it, then in a comment predict what happens if you try to `console.log` that local variable outside the function — then prove it with a commented-out line.
-5. The `undefined` hunt: write three short functions, one of which returns `undefined` on purpose (no `return`), and in a comment explain how you would spot the mistake from the caller's output — using the Day 7 model, not trial and error.
+1. Write a receipt: write `calculateReceipt(subtotal)` that returns an object `{ subtotal, tax, total }` where `tax` is 15% of the subtotal. (Objects arrive in Day 9 — the syntax is `{ key: value }`.)
+2. Write a temperature converter: write `toCelsius(fahrenheit)` and `toFahrenheit(celsius)` using the real formulas. Then write `describeTemperature(celsius)` that returns `'cold'`, `'warm'`, or `'hot'` using the Day 5 rules.
+3. Write a validator with a default: write `createMessage(name, greeting = 'Hello')` that returns a message, then in a comment explain what happens if a caller passes `''` as the greeting and why the default does not apply.
+4. Write a scope example: write a function with a local variable, call it, then in a comment predict what happens if you try to `console.log` that local variable outside the function — then prove it with a commented-out line.
+5. Write the `undefined` hunt: write three short functions, one of which returns `undefined` on purpose (no `return`), and in a comment explain how you would spot the mistake from the caller's output — using the Day 7 model, not trial and error.
 
 ## Finish line
 

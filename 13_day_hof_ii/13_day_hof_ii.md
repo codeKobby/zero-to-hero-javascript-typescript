@@ -433,15 +433,15 @@ For each snippet, write down the exact output before running.
 4. Locate the first word longer than five letters with `find`.
 5. TypeScript: define a `Product` interface with `name` and `price`. Use `find` to locate a product and handle `Product | undefined` before reading its `name`.
 6. Sort `[15, 3, 40, 8]` from smallest to largest **without changing the original**; confirm the original stays `[15, 3, 40, 8]`.
-7. **MDN lookup:** on the [toSorted()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted) page, read how it returns a sorted copy, then write `sortedCopy(items)` that uses `toSorted` with a numeric comparator — and in a comment note how it differs from the `[...items].sort(...)` approach in this lesson.
+7. Read [toSorted()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The duplicate finder: find the first duplicate in a number array. Hint: for each value, compare its first and current index.
-2. The search: write `searchProducts(products, text)` that returns products whose names contain the supplied text. Return an empty array when nothing matches.
-3. The question card: for each goal, name the one method — "is X present", "any failing score", "all adults", "first admin object", "index of Mina", "prices low to high" — then write one line for each.
-4. The empty-array story: write a short paragraph explaining why `[].some(...)` is `false` and `[].every(...)` is `true`, and name one UI situation where that distinction would matter.
-5. The safe sort: write a `sortCopy(items, comparator)` helper that returns a sorted copy and never mutates `items`. Show the original unchanged after calling it.
+1. Write the duplicate finder: find the first duplicate in a number array. Hint: for each value, compare its first and current index.
+2. Write the search: write `searchProducts(products, text)` that returns products whose names contain the supplied text. Return an empty array when nothing matches.
+3. Write one small example for each goal: find a value, find a failing score, check all adults, find the first admin, find Mina, and sort prices.
+4. Write the empty-array story: write a short paragraph explaining why `[].some(...)` is `false` and `[].every(...)` is `true`, and name one UI situation where that distinction would matter.
+5. Write the safe sort: write a `sortCopy(items, comparator)` helper that returns a sorted copy and never mutates `items`. Show the original unchanged after calling it.
 
 ## Finish line
 

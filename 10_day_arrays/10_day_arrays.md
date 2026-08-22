@@ -426,15 +426,15 @@ For each snippet, write down the exact output before running.
 4. In TypeScript, make a `string[]` and intentionally `push` a number — read the error, then comment the line back out.
 5. Define a `Point` tuple type `[number, number]` and create one coordinate.
 6. Write a function `firstItem(items)` that returns the first item using `at(0)`.
-7. **MDN lookup:** on the [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) reference, read the `slice` page, then write `copyOf(items)` that returns a copy of `items` using `slice` instead of spread — and in a comment note the one difference from `[...items]`.
+7. Read [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. A runner-up list: write `pushIfUnique(items, value)` that pushes `value` only if it is not already in `items`, and returns the new length. (Hint: use `items.includes(value)`.)
-2. The queue: write `enqueue(items, value)` that pushes and returns the new length, and `dequeue(items)` that shifts and returns the removed item — both mutating on purpose.
-3. The unchanged copy: write `addItem(items, value)` that returns a **new** array with `value` appended, leaving `items` untouched, and in a comment explain why a caller's array stays safe.
-4. The safe average: write `average(numbers)` that returns the mean, but first checks the array is not empty and explains (in a comment) why an empty array would otherwise produce `NaN`.
-5. The tuple story: define a `Coordinate` tuple and a `Location` object for the same data, then in a comment explain when you would pick the tuple and when the object.
+1. Write a runner-up list: write `pushIfUnique(items, value)` that pushes `value` only if it is not already in `items`, and returns the new length. (Hint: use `items.includes(value)`.)
+2. Write the queue: write `enqueue(items, value)` that pushes and returns the new length, and `dequeue(items)` that shifts and returns the removed item — both mutating on purpose.
+3. Write the unchanged copy: write `addItem(items, value)` that returns a **new** array with `value` appended, leaving `items` untouched, and in a comment explain why a caller's array stays safe.
+4. Write the safe average: write `average(numbers)` that returns the mean, but first checks the array is not empty and explains (in a comment) why an empty array would otherwise produce `NaN`.
+5. Write the tuple story: define a `Coordinate` tuple and a `Location` object for the same data, then in a comment explain when you would pick the tuple and when the object.
 
 ## Finish line
 

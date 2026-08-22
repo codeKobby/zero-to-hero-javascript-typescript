@@ -293,7 +293,7 @@ For each snippet, write down the exact result before running.
 3. Why are favorites validated after parsing?
 4. Why do API keys not belong in browser source or committed `.env` files?
 5. Why is mock data not permission to skip failure states?
-6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm loading, a known city, an unknown city, favorites, and refresh all behave on both; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that loading, a known city, an unknown city, favorites, and refresh all behave on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -301,14 +301,14 @@ For each snippet, write down the exact result before running.
 2. Sort favorites alphabetically in the render without mutating the stored array.
 3. TypeScript: replace the mock `getWeather` signature with one that returns `Promise<Weather>` from a small async helper, and add a comment on what changes if a real `fetch` replaces it.
 4. Persist the last successful search in a second storage key and restore it on load.
-5. **MDN lookup:** Open the [Promise reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), find the `finally()` method, and add it to the `search` flow so a status message is always restored after either outcome. Comment on why `finally` runs for both success and error.
+5. Read the [Promise reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The stale-result guard: add a `searchId` that increments per search and let the result apply only when it still matches, with a comment on why timing wins are a runtime concern TypeScript cannot solve.
-2. The validated fetch: write `isWeather(value: unknown): value is Weather` and a comment block describing where it runs if the mock is swapped for `fetch`.
-3. The empty state: when `state.current` is `null` and status is `idle`, render a hint instead of a blank region, and comment on why the empty state is driven by state, not by the DOM.
-4. The failure log: keep the last error message in state and render it distinctly from a generic "could not load", with a comment on what a server would need to include for the message to be user-safe.
+1. Write the stale-result guard: add a `searchId` that increments per search and let the result apply only when it still matches, with a comment on why timing wins are a runtime concern TypeScript cannot solve.
+2. Write the validated fetch: write `isWeather(value: unknown): value is Weather` and a comment block describing where it runs if the mock is swapped for `fetch`.
+3. Write the empty state: when `state.current` is `null` and status is `idle`, render a hint instead of a blank region, and comment on why the empty state is driven by state, not by the DOM.
+4. Keep the last error in state and show it separately from “could not load”. Write one sentence about a safe server error message.
 
 ## Finish line
 

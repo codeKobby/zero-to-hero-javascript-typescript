@@ -314,11 +314,11 @@ For each snippet, write down the exact result before running.
 
 ### Level 3 — Creative synthesis
 
-1. The counter: write a `CourseProgress` class with `title`, `totalLessons`, and `completedLessons`. Add `completeLesson()`, `percentComplete()` (a number from 0-100), and `status()` returning `'In progress'`, `'Complete'`, or `'Not started'`.
-2. The clock: write a `Stopwatch` class with `elapsedSeconds`, `start()`, `tick()`, and `reset()`. Add a `label()` method. State the rule for what happens when `tick` runs before `start`.
-3. The catalog: build an array of three `ReadingProgress` instances and log each `summary()`. Show that mapping over them works like any object array.
-4. The decision memo: write a comment block comparing a class to a plain object-plus-function for the same `ReadingProgress` idea, and state when you would choose each.
-5. **MDN lookup:** Open the [class reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), find `static` methods and public class fields, and add a `static create(title, completedLessons)` factory plus a static counter that tracks how many `ReadingProgress` instances were created. Comment on why the counter is shared across all instances rather than stored per-instance.
+1. Write the counter: write a `CourseProgress` class with `title`, `totalLessons`, and `completedLessons`. Add `completeLesson()`, `percentComplete()` (a number from 0-100), and `status()` returning `'In progress'`, `'Complete'`, or `'Not started'`.
+2. Write the clock: write a `Stopwatch` class with `elapsedSeconds`, `start()`, `tick()`, and `reset()`. Add a `label()` method. State the rule for what happens when `tick` runs before `start`.
+3. Write the catalog: build an array of three `ReadingProgress` instances and log each `summary()`. Show that mapping over them works like any object array.
+4. Write two short comments. Say when money should avoid decimal fractions. Say why `Math.random` is fine for a dice game but not for a password.
+5. Read the [class reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). Copy one small example into the starter. Run it and write down what it does.
 
 ## Finish line
 

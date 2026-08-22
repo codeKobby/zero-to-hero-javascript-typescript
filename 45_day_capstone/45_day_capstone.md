@@ -223,14 +223,14 @@ Build the capstone in order, recording evidence for each milestone in your proje
 3. Port the slice to `starter/ts` with interfaces, generics or utility types where they improve the design, and runtime validation for external data.
 4. Add tests for pure functions and manually test keyboard, mobile, refresh, empty, and failure states.
 5. Deploy and ask another person to break it. Record fixes and trade-offs in the README.
-6. **MDN lookup:** Open the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage), find `removeItem` and `clear`, and add a "Reset plan" button that clears the stored plan and resets state to the defaults. Comment on which method fits resetting the whole plan and why.
+6. Read the [Storage reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage). Store one value and remove only that value. Do not use `localStorage.clear()`.
 
 ### Level 3 — Creative synthesis
 
-1. The defending author: open the [review rubric](practice/solutions.md) as a checklist and write a short defense of each criterion for your app; comment on which criteria were hardest to meet.
-2. The same-design port: keep JS and TS acceptance criteria identical; comment on what changed in the port and what stayed the same.
-3. The vertical slice: explain why one slice beats a wide but shallow scaffold; comment on how features attach only once the slice is reliable.
-4. The evidence audit: confirm the evidence checklist end-to-end — a user completes the primary task, `check` passes strict, both languages match criteria, rendering is safe and accessible, state has one source of truth with validated persistence, and the README has a live link, screenshots, setup, known limits, and next steps.
+1. Write the defending author: open the [review rubric](practice/solutions.md) as a checklist and write a short defense of each criterion for your app; comment on which criteria were hardest to meet.
+2. Write the same-design port: keep JS and TS acceptance criteria identical; comment on what changed in the port and what stayed the same.
+3. Write the vertical slice: explain why one slice beats a wide but shallow scaffold; comment on how features attach only once the slice is reliable.
+4. Check the main user task, the strict check, safe rendering, state updates, and the README. Write down what passed and what you did not test.
 
 ## Finish line
 

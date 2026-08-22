@@ -414,15 +414,15 @@ For each snippet, write down the exact output before running.
 4. Write `rollDie()` and run it a few times, confirming the range with a comment.
 5. TypeScript: write `readPercentage` with precise types — `string` in, `number | null` out. Do not use `any`.
 6. Write `nearlyEqual(a, b)` and verify it returns `true` for `0.1 + 0.2` versus `0.3`.
-7. **MDN lookup:** Open the [Math reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math), find `Math.trunc` (which removes the fractional part without rounding), and use it to write `wholePart(value)` that returns the integer part of a number. Verify it works for `3.9`, `-3.9`, and `0.5`, and comment on how it differs from `Math.round`.
+7. Read the [Math reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The range reader: write `randomInteger(minimum, maximum)` that includes **both** endpoints. State what should happen if `minimum` is greater than `maximum`, and implement your decision.
-2. The validator: write `readNonNegative(text)` that returns a non-negative number or `null`. Compare your empty-input handling with `readQuantity` from the lesson.
-3. The safe total: write `totalInCents(priceText, quantityText)` that multiplies a parsed price by a parsed quantity, working entirely in cents, and returns `null` if either input is invalid.
-4. The display helper: write `formatPrice(price)` using `toLocaleString` with the `'USD'` currency, and `formatPercent(value)` with the `'percent'` style. Call both on the same value.
-5. The decision memo: write a comment block explaining, for your own future self, (a) why money math avoids decimal fractions, and (b) why `Math.random` is fine for a dice game but not for a password.
+1. Write the range reader: write `randomInteger(minimum, maximum)` that includes **both** endpoints. State what should happen if `minimum` is greater than `maximum`, and implement your decision.
+2. Write the validator: write `readNonNegative(text)` that returns a non-negative number or `null`. Compare your empty-input handling with `readQuantity` from the lesson.
+3. Write the safe total: write `totalInCents(priceText, quantityText)` that multiplies a parsed price by a parsed quantity, working entirely in cents, and returns `null` if either input is invalid.
+4. Write the display helper: write `formatPrice(price)` using `toLocaleString` with the `'USD'` currency, and `formatPercent(value)` with the `'percent'` style. Call both on the same value.
+5. Write two short comments. Say when money should avoid decimal fractions. Say why `Math.random` is fine for a dice game but not for a password.
 
 ## Finish line
 

@@ -238,14 +238,14 @@ Build the project in order, recording evidence for each milestone in your projec
 3. Add newest/most-liked/most-commented sorting as pure functions.
 4. Add a current-user simulation, persistence, and malformed-storage recovery.
 5. Add character counts, keyboard/focus behavior, and a README with evidence.
-6. **MDN lookup:** Open the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), find the callback signature and the initial value, and use it to count the total comments across all posts in one pass. Comment on what the initial value accomplishes and why it is required here.
+6. Read the [Array.prototype.reduce reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The recursion case: write a function that renders a comment tree and stops at a depth limit; comment on why the limit matters for hostile data.
-2. The derived view: keep `posts` as the single source of truth and compute each sort at render time; comment on what changes when the sort option changes.
-3. The stable id: update a reply's likes by id through a recursive walk; comment on why indexes would break after sorting.
-4. The storage guard: validate a loaded post tree recursively; comment on what a test proves that the compiler cannot.
+1. Write the recursion case: write a function that renders a comment tree and stops at a depth limit; comment on why the limit matters for hostile data.
+2. Write the derived view: keep `posts` as the single source of truth and compute each sort at render time; comment on what changes when the sort option changes.
+3. Write the stable id: update a reply's likes by id through a recursive walk; comment on why indexes would break after sorting.
+4. Write the storage guard: validate a loaded post tree recursively; comment on what a test proves that the compiler cannot.
 
 ## Finish line
 

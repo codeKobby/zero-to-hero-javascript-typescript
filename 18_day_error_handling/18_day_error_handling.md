@@ -380,14 +380,14 @@ For each snippet, write down the exact result before running.
 3. Call `divide` inside `try/catch` and show a safe user-facing message (no user input repeated).
 4. Write `readConfig(text)` that returns `{ ok: true, config }` for valid JSON, or `{ ok: false, reason }` otherwise — and state the `reason` in a user-safe way.
 5. TypeScript: handle a caught `unknown` error with `instanceof Error` — no assertion.
-6. **MDN lookup:** Open the [Error reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error), find the `name` and `stack` properties, and add a custom `ConfigError` class that you throw in `readConfig`. Catch it and log `error.name` and the stack separately from the user-facing message, then comment on why `stack` belongs in developer logs rather than visible text.
+6. Read the [Error reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error). Copy a small `Error` example into the starter. Print `error.name` and the user-facing message separately.
 
 ### Level 3 — Creative synthesis
 
-1. The JSON shape guard: write `asPort(text)` that returns `{ ok: true, port: number }` only when `text` is valid JSON that parses to an object whose `port` is a finite number — otherwise `{ ok: false }`. Combine `try/catch` with shape validation.
-2. The safe average: write `average(numbers)` that throws a clear error for an empty array, and a caller that shows a safe message.
-3. The retry memo: write `parseWithSummary(text)` that returns a discriminated union `{ ok: true; value } | { ok: false; message: string }`, where the failure message is short and safe. Compare it with the plain `{ ok, value }` shape from the lesson.
-4. The decision table: write a comment block listing, for your future self, three cases where you would return a failure value and three where you would throw.
+1. Write `asPort(text)`. Return `{ ok: true, port }` only for valid JSON with a finite numeric port. Return `{ ok: false }` for every other value.
+2. Write the safe average: write `average(numbers)` that throws a clear error for an empty array, and a caller that shows a safe message.
+3. Write `parseWithSummary(text)`. Return either `{ ok: true, value }` or `{ ok: false, message }`. Keep the failure message short and safe.
+4. Write the decision table: write a comment block listing, for your future self, three cases where you would return a failure value and three where you would throw.
 
 ## Finish line
 

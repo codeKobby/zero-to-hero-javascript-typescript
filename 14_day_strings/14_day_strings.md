@@ -365,15 +365,15 @@ For each snippet, write down the exact output before running.
 4. Write `isYes(answer)` that accepts `' YES '`, `'yes'`, and `'Yes'` but rejects anything else.
 5. TypeScript: write `asDisplayName(value: unknown)` that returns a trimmed non-empty string or `'Anonymous'` for every other case.
 6. Build `'lesson'` from `'lesson-notes.md'` using `slice`, without hard-coding the number `6` — use `indexOf('-')`.
-7. **MDN lookup:** on the [replaceAll()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll) page, read how it replaces every occurrence, then write `dashToUnderscore(text)` that turns `'one-two'` into `'one_two'` — and in a comment note the difference from `replace`.
+7. Read [replaceAll()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll). Copy one small example into the starter, run it, and write one sentence about what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The tag cleaner: write `cleanTags(raw)` that turns `'  JS , TS, testing '` into `['js', 'ts', 'testing']` in one pipeline, and explain which method does what at each stage.
-2. The username: write `usernameFrom(email)` that takes `'mina@example.com'` and returns `'mina'`. Decide and state what happens with the `@` part.
-3. The anagram check: write `sameLetters(a, b)` that returns `true` when two words use the same letters regardless of case and order. Hint: split, sort, join.
-4. The summary: write `summarize(text, max)` that returns the first `max` characters plus `'...'` when the text was cut, and the full text otherwise.
-5. The title case: write `titleCase(phrase)` that returns `'zero to hero'` as `'Zero To Hero'`. State the rule you chose for small words like `'to'`.
+1. Write the tag cleaner: write `cleanTags(raw)` that turns `'  JS , TS, testing '` into `['js', 'ts', 'testing']` in one pipeline, and explain which method does what at each stage.
+2. Write the username: write `usernameFrom(email)` that takes `'mina@example.com'` and returns `'mina'`. Decide and state what happens with the `@` part.
+3. Write the anagram check: write `sameLetters(a, b)` that returns `true` when two words use the same letters regardless of case and order. Hint: split, sort, join.
+4. Write the summary: write `summarize(text, max)` that returns the first `max` characters plus `'...'` when the text was cut, and the full text otherwise.
+5. Write the title case: write `titleCase(phrase)` that returns `'zero to hero'` as `'Zero To Hero'`. State the rule you chose for small words like `'to'`.
 
 ## Finish line
 

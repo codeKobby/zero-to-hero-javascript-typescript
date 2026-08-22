@@ -618,37 +618,35 @@ Use the numbered exercises in this lesson first, then [practice/hints.md](practi
 Attempt the exercises before opening [hints](practice/hints.md) or [solutions](practice/solutions.md). The solutions explain *decisions*, not just code.
 
 ### Level 1 — Mechanical (10-15 min)
-
-1. Run `node -v` and `npm -v` in a terminal. Write down both outputs.
-2. Run this course's JavaScript starter with `npm.cmd run day1:js`, and the TypeScript starter with `npm.cmd run day1`.
-3. Open `01_day_setup/starter/js/main.js`. Change the sample name to your own and run it again.
-4. Open `01_day_setup/starter/ts/main.ts`. Change the sample name to your own and run it again.
-5. In the browser console, run `console.log('I can type here')`.
-6. In the browser console, compute `2 + 3 * 4`. Write down the result and why it is that number (operator order).
-7. In the browser console, deliberately write `console.log('unclosed)` and read the error message out loud.
-8. Fix the unclosed quote and confirm the line runs.
-9. Run a program that prints `Hello` and `World` as two separate arguments to `console.log`.
-10. Predict the output of `console.log(3 % 2)`, then run it to confirm.
+1. What is How Programs Run — the Machine Model, Node, and Your First Code? Answer in one sentence.
+2. Run `node -v` and `npm -v` in a terminal. Write down both outputs.
+3. Run this course's JavaScript starter with `npm.cmd run day1:js`, and the TypeScript starter with `npm.cmd run day1`.
+4. Open `01_day_setup/starter/js/main.js`. Change the sample name to your own and run it again.
+5. Open `01_day_setup/starter/ts/main.ts`. Change the sample name to your own and run it again.
+6. In the browser console, run `console.log('I can type here')`.
+7. In the browser console, compute `2 + 3 * 4`. Write down the result and why it is that number (operator order).
+8. In the browser console, deliberately write `console.log('unclosed)` and read the error message out loud.
+9. Fix the unclosed quote and confirm the line runs.
+10. Run a program that prints `Hello` and `World` as two separate arguments to `console.log`.
+11. Predict the output of `console.log(3 % 2)`, then run it to confirm.
 
 ### Level 2 — Applied mini-projects
-
-1. Write `hello.js` with your name inside `console.log`, and run it with `node hello.js`.
-2. Write a file that prints three facts about you, one per `console.log` line, and run it with Node.
-3. Write a file that declares two numbers and prints their sum, product, and quotient on separate lines.
-4. In the browser console, print `Welcome` with three separate arguments and one number argument mixed in. Check the spacing.
-5. Create a folder for the course, put a `.js` file in it, and run it from the terminal by path.
-6. Write a file that uses a single-line comment and a multi-line comment, then a `console.log`. Run it and confirm the comments do not print.
-7. Run `npm.cmd run check` on an unchanged starter and confirm it passes silently. Then break one type annotation, run check again, and read the error.
-8. Find the file `01_day_setup/starter/ts/my-first-ts.ts`. Read it, run it, and add one more line of your own.
-9. **MDN lookup:** Open the [console reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/console), find `console.table`, and use it to print the results of `3 ** 2`, `2 ** 10`, and `10 ** 3` in a small table. Comment on how the table output differs from `console.log`.
+2. Write `hello.js` with your name inside `console.log`, and run it with `node hello.js`.
+3. Write a file that prints three facts about you, one per `console.log` line, and run it with Node.
+4. Write a file that declares two numbers and prints their sum, product, and quotient on separate lines.
+5. In the browser console, print `Welcome` with three separate arguments and one number argument mixed in. Check the spacing.
+6. Create a folder for the course, put a `.js` file in it, and run it from the terminal by path.
+7. Write a file that uses a single-line comment and a multi-line comment, then a `console.log`. Run it and confirm the comments do not print.
+8. Run `npm.cmd run check` on an unchanged starter and confirm it passes silently. Then break one type annotation, run check again, and read the error.
+9. Find the file `01_day_setup/starter/ts/my-first-ts.ts`. Read it, run it, and add one more line of your own.
+10. Read the [console reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/console). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
-
-1. Write a program that prints the result of `3 ** 2`, `2 ** 10`, and `10 ** 3` — but before running it, write down your predictions and then explain any surprise.
-2. Write a program that prints a receipt: three item names, three prices, and a total that you compute with `+` inside `console.log`.
-3. Write a program that prints the same sentence three times using single quotes, double quotes, and backticks, with a comment above each explaining the one difference between them.
-4. In the browser console, explore the `console` object: type `console` and press Enter, then click to expand it. List three methods you see besides `log`, and write a sentence about what each seems to do.
-5. Write a short paragraph in a file comment explaining, in your own words, the path a TypeScript file travels from keyboard to screen. Then run the Day 1 TypeScript starter to confirm the path still works.
+2. Write a program that prints the result of `3 ** 2`, `2 ** 10`, and `10 ** 3` — but before running it, write down your predictions and then explain any surprise.
+3. Write a program that prints a receipt: three item names, three prices, and a total that you compute with `+` inside `console.log`.
+4. Write a program that prints the same sentence three times using single quotes, double quotes, and backticks, with a comment above each explaining the one difference between them.
+5. In the browser console, explore the `console` object: type `console` and press Enter, then click to expand it. List three methods you see besides `log`, and write a sentence about what each seems to do.
+6. Write a short paragraph in a file comment explaining, in your own words, the path a TypeScript file travels from keyboard to screen. Then run the Day 1 TypeScript starter to confirm the path still works.
 
 ## Finish line
 

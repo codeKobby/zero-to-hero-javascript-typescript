@@ -312,14 +312,14 @@ For each snippet, write down the exact result before running.
 2. Write `safeLoad` that returns a value or `null` on failure.
 3. Compare sequential and parallel local operations.
 4. Type the functions and narrow caught errors.
-5. **MDN lookup:** Open the [await reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await), find the note about awaiting non-Promise values, and write an async function that `await`s a plain string before returning it. Comment on what `await` returns when the value is already a string.
+5. Read the [await reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The safe-load generic: write `safeLoad<T>(operation: Promise<T>): Promise<T | null>` and comment on what the return type promises the caller.
-2. The sequential-because: log two dependent operations and comment on why they cannot run in parallel.
-3. The parallel-map: map an array of ids to `loadUser` calls, run them with `Promise.all`, and comment on the order the results arrive in.
-4. The double-wrap: write an async function that `return await`s a Promise and one that `return`s it directly, and comment on whether the outcomes differ.
+1. Write the safe-load generic: write `safeLoad<T>(operation: Promise<T>): Promise<T | null>` and comment on what the return type promises the caller.
+2. Write the sequential-because: log two dependent operations and comment on why they cannot run in parallel.
+3. Write the parallel-map: map an array of ids to `loadUser` calls, run them with `Promise.all`, and comment on the order the results arrive in.
+4. Write the double-wrap: write an async function that `return await`s a Promise and one that `return`s it directly, and comment on whether the outcomes differ.
 
 ## Finish line
 

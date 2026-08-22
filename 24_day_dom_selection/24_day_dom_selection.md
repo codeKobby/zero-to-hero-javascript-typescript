@@ -302,7 +302,7 @@ For each snippet, write down the exact result before running.
 4. Why is `querySelectorAll` not tested against `null`?
 5. Is a `NodeList` an array? What does it support?
 6. Why is an `HTMLInputElement` check stronger than a type assertion?
-7. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm the output line appears on both; then run `npm.cmd run check` and confirm it passes.
+7. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that the output line appears on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -310,14 +310,14 @@ For each snippet, write down the exact result before running.
 2. Count all elements with the `lesson-card` class.
 3. Select the email input and read its value only after proving it is an `HTMLInputElement`.
 4. Add a required-element helper that throws a clear error for a missing required selector.
-5. **MDN lookup:** Open the [NodeList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/NodeList), find the `entries()` (or `keys()`/`values()`) method, and iterate the lesson cards using one of those instead of `forEach`. Comment on what makes `for...of` over a `NodeList` work without `Array.from`.
+5. Read the [NodeList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/NodeList). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The batch helper: write `requireElements(selector)` that returns a `NodeList` and throws if it is empty. State when an empty group should throw versus log.
-2. The all-or-nothing loader: write `requireAll(selectors)` that checks every required selector in one pass and throws a single error listing every missing one.
-3. The data-attribute contract: rewrite a selector that relies on a fragile class or deep path using a meaningful `data-*` attribute, and comment on why that is more stable.
-4. The DOM memo: write a comment block listing the three query methods and the exact null/emptiness rule for each.
+1. Write the batch helper: write `requireElements(selector)` that returns a `NodeList` and throws if it is empty. State when an empty group should throw versus log.
+2. Write the all-or-nothing loader: write `requireAll(selectors)` that checks every required selector in one pass and throws a single error listing every missing one.
+3. Write the data-attribute contract: rewrite a selector that relies on a fragile class or deep path using a meaningful `data-*` attribute, and comment on why that is more stable.
+4. Write the DOM memo: write a comment block listing the three query methods and the exact null/emptiness rule for each.
 
 ## Finish line
 

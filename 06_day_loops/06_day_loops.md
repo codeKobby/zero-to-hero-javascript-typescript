@@ -497,36 +497,34 @@ Attempt the exercises before opening [hints](practice/hints.md) or [solutions](p
 ### Level 1 — Mechanical (10-15 min)
 
 For each snippet, write down the exact output before running.
-
-1. `for (let index = 0; index < 3; index = index + 1) { console.log(index) }`
-2. `for (let index = 2; index < 5; index = index + 1) { console.log(index) }`
-3. `for (let number = 1; number <= 5; number = number + 1) { console.log(number) }`
-4. `for (let index = 5; index >= 1; index = index - 1) { console.log(index) }` — note the change subtracts.
-5. `let count = 3; while (count > 0) { console.log(count); count = count - 1 }`
-6. `for (const color of ['red', 'yellow', 'green']) { console.log('Light: ' + color) }`
-7. `for (let number = 1; number <= 5; number = number + 1) { if (number === 3) { continue }; console.log(number) }`
-8. `for (let guess = 1; guess <= 5; guess = guess + 1) { if (guess === 3) { console.log('Found'); break }; console.log(guess) }`
-9. Draw the four-step trace table for exercise 1. Label the round where the check becomes false.
-10. Run `npm.cmd run day6:js` and `npm.cmd run day6`; then `npm.cmd run check` and confirm it passes.
+1. What is Loops — Repeating Work with for and while? Answer in one sentence.
+2. `for (let index = 0; index < 3; index = index + 1) { console.log(index) }`
+3. `for (let index = 2; index < 5; index = index + 1) { console.log(index) }`
+4. `for (let number = 1; number <= 5; number = number + 1) { console.log(number) }`
+5. `for (let index = 5; index >= 1; index = index - 1) { console.log(index) }` — note the change subtracts.
+6. `let count = 3; while (count > 0) { console.log(count); count = count - 1 }`
+7. `for (const color of ['red', 'yellow', 'green']) { console.log('Light: ' + color) }`
+8. `for (let number = 1; number <= 5; number = number + 1) { if (number === 3) { continue }; console.log(number) }`
+9. `for (let guess = 1; guess <= 5; guess = guess + 1) { if (guess === 3) { console.log('Found'); break }; console.log(guess) }`
+10. Draw the four-step trace table for exercise 1. Label the round where the check becomes false.
+11. Run `npm.cmd run day6:js` and `npm.cmd run day6`; then `npm.cmd run check` and confirm it passes.
 
 ### Level 2 — Applied mini-projects
-
-1. Print the numbers 1 through 5 with a `for` loop. Expected: 1, 2, 3, 4, 5 on separate lines.
-2. Use `for...of` to print each color in `['red', 'yellow', 'green']`.
-3. Start with `let count = 3` and use `while` to print 3, 2, 1, then `'Lift off!'`.
-4. Given `[12, 7, 20, 4]`, use a loop to count how many values are at least 10. Expected answer: 2.
-5. Find the first score below 50 in `[82, 91, 47, 76, 40]`, printing each score you check and stopping as soon as you find the low one.
-6. Print only the odd numbers from 1 through 10 using `continue` on the evens.
-7. **MDN lookup:** Open the [for...of reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of), read how it iterates strings as well as arrays, then use it to print each character of `'Ada'` on its own line. Comment on why no index is needed.
+2. Print the numbers 1 through 5 with a `for` loop. Expected: 1, 2, 3, 4, 5 on separate lines.
+3. Use `for...of` to print each color in `['red', 'yellow', 'green']`.
+4. Start with `let count = 3` and use `while` to print 3, 2, 1, then `'Lift off!'`.
+5. Given `[12, 7, 20, 4]`, use a loop to count how many values are at least 10. Expected answer: 2.
+6. Find the first score below 50 in `[82, 91, 47, 76, 40]`, printing each score you check and stopping as soon as you find the low one.
+7. Print only the odd numbers from 1 through 10 using `continue` on the evens.
+8. Read the [for...of reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
-
-1. Write a loop that builds the string `'0 1 2 3 4 '` by appending each number plus a space — no `console.log` inside the loop body except the final result.
-2. A countdown with a message: print 5, 4, 3, 2, 1 and `'Lift off!'`, using a `while` loop whose progress line you can name in one sentence.
-3. An average: use `for...of` to sum `[88, 91, 76, 84, 95]`, then print the average to one decimal place. Watch out: `total / scores.length` is a decimal, not an integer.
-4. A boundary-crossing detector: walk `[12, 7, 20, 4]` and print `'first value >= 10 at index N'` the moment it appears — use `break`, and trace why the later items never print.
-5. Trace the bug: write a `while` loop that forgets its progress line, put a comment directly above it that says exactly which of the four steps is missing, then (without running the infinite version) rewrite it correctly.
-6. TypeScript challenge: type the scores array as `number[]`, add the string push, run `npm.cmd run check`, read the error, fix it, and confirm the check passes again.
+2. Write a loop that builds the string `'0 1 2 3 4 '` by appending each number plus a space — no `console.log` inside the loop body except the final result.
+3. Write a countdown with a message: print 5, 4, 3, 2, 1 and `'Lift off!'`, using a `while` loop whose progress line you can name in one sentence.
+4. Write an average: use `for...of` to sum `[88, 91, 76, 84, 95]`, then print the average to one decimal place. Watch out: `total / scores.length` is a decimal, not an integer.
+5. Write a boundary-crossing detector: walk `[12, 7, 20, 4]` and print `'first value >= 10 at index N'` the moment it appears — use `break`, and trace why the later items never print.
+6. Trace the bug: write a `while` loop that forgets its progress line, put a comment directly above it that says exactly which of the four steps is missing, then (without running the infinite version) rewrite it correctly.
+7. TypeScript challenge: type the scores array as `number[]`, add the string push, run `npm.cmd run check`, read the error, fix it, and confirm the check passes again.
 
 ## Finish line
 

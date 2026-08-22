@@ -310,14 +310,14 @@ For each snippet, write down the exact result before running.
 2. Use `allSettled` to report one success and one failure.
 3. Build a timeout wrapper and explain why it does not cancel the original Promise.
 4. Type the result branches and narrow `AggregateError` or `Error` safely.
-5. **MDN lookup:** Open the [Promise.any reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any), find what happens when every promise rejects, and catch that case to read the error's `errors` property. Comment on why `race` would reject with the first failure instead of an `AggregateError`.
+5. Read the [Promise.any reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any). Copy a small `Error` example into the starter. Print `error.name` and the user-facing message separately.
 
 ### Level 3 — Creative synthesis
 
-1. The partial dashboard: fetch two values where one always rejects, and report the successful one without the whole dashboard failing.
-2. The timeout-comments: wrap an operation in `withTimeout`, and comment on exactly which promise wins and why the original still runs.
-3. The race-vs-any compare: run the same two operations under `race` and under `any`, and comment on why the outcomes differ.
-4. The input-order proof: start a slow and a fast promise, log the `all` result, and comment on why it is not the finish order.
+1. Write the partial dashboard: fetch two values where one always rejects, and report the successful one without the whole dashboard failing.
+2. Write the timeout-comments: wrap an operation in `withTimeout`, and comment on exactly which promise wins and why the original still runs.
+3. Write the race-vs-any compare: run the same two operations under `race` and under `any`, and comment on why the outcomes differ.
+4. Write the input-order proof: start a slow and a fast promise, log the `all` result, and comment on why it is not the finish order.
 
 ## Finish line
 

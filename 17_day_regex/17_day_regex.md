@@ -366,15 +366,15 @@ For each snippet, write down the exact result before running.
 3. Write `collapseSpaces(text)` that converts `'Ada   Lovelace'` to `'Ada Lovelace'`, then `trim`s the result.
 4. Write `firstTag(text)` that returns the first hashtag without the `#`, or `null` when there is none.
 5. TypeScript: write `parseCourseCode(value)` that returns `{ subject, number }` or `null`, matching the lesson.
-6. **MDN lookup:** Open the [RegExp reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), find `lastIndex` and the `y` (sticky) flag, and write a small loop that uses `exec` with the `g` flag to extract every hashtag from a string, capturing the group without the `#`. Comment on how `lastIndex` moves across calls and why a fresh `RegExp` or `matchAll` is the safer choice for repeated extraction.
+6. Read the [RegExp reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). Copy a small `RegExp` example into the starter. Run it twice and write down what `lastIndex` does.
 
 ### Level 3 — Creative synthesis
 
-1. The slug reader: write `isSlug(value)` that returns `true` for lowercase letters, digits, and hyphens only — `'my-course-101'` yes, `'My Course!'` no.
-2. The tag counter: write `countTags(text)` that returns the number of `#tag` occurrences using `matchAll`.
-3. The redactor: write `redactCards(text)` that replaces every group of 16 digits (or 4-4-4-4) with `'****'`. State the pattern rule you chose.
-4. The initials from a name: write `initials(fullName)` using a regex that captures the first letter of each word, handling `'Ada   Lovelace'` correctly. Compare it with the Day 14 `split` approach.
-5. The decision memo: write a comment block explaining, for your future self, (a) when to reach for a regex and when to use `includes`/`startsWith`, and (b) why a regex alone is never a full email validator.
+1. Write the slug reader: write `isSlug(value)` that returns `true` for lowercase letters, digits, and hyphens only — `'my-course-101'` yes, `'My Course!'` no.
+2. Write the tag counter: write `countTags(text)` that returns the number of `#tag` occurrences using `matchAll`.
+3. Write the redactor: write `redactCards(text)` that replaces every group of 16 digits (or 4-4-4-4) with `'****'`. State the pattern rule you chose.
+4. Write the initials from a name: write `initials(fullName)` using a regex that captures the first letter of each word, handling `'Ada   Lovelace'` correctly. Compare it with the Day 14 `split` approach.
+5. Write two short comments. Say when money should avoid decimal fractions. Say why `Math.random` is fine for a dice game but not for a password.
 
 ## Finish line
 

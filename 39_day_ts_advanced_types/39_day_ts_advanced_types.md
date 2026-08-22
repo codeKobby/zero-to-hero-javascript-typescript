@@ -266,14 +266,14 @@ For each snippet, write down the exact result before running.
 2. Create an `EventName` helper that turns `'click'` into `'onClick'`.
 3. Create a route-parameter type that extracts every `:name` segment.
 4. Add a JavaScript runtime parser for the route so you can distinguish compile-time and runtime work.
-5. **TypeScript docs lookup:** Open the handbook's [Template Literal Types page](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) and find the [Intrinsic String Manipulation Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html#intrinsic-string-manipulation-types) section. Build an `EventName<Name extends string>` helper that prefixes `on` to any `'click'`-style literal, then comment on what the compiler reports when you pass a plain `string` instead of a literal.
+5. Read [Template Literal Types page](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html). Make the small type change from this exercise. Run the type check and write one sentence about the compiler message.
 
 ### Level 3 — Creative synthesis
 
-1. The conditional audit: write `IsString<T>` and check it against a string, a number, and a union; comment on each result.
-2. The infer extractor: use `ReturnOf` on a function and a non-function, and comment on what `never` means for the false branch.
-3. The mapped modifier: write `Mutable<T>` from a `Readonly<T>` view and comment on what `-readonly` does at compile time.
-4. The runtime parser: parse a pathname in JavaScript and comment on which guarantee the type adds and which it cannot.
+1. Write the conditional audit: write `IsString<T>` and check it against a string, a number, and a union; comment on each result.
+2. Write the infer extractor: use `ReturnOf` on a function and a non-function, and comment on what `never` means for the false branch.
+3. Write the mapped modifier: write `Mutable<T>` from a `Readonly<T>` view and comment on what `-readonly` does at compile time.
+4. Write the runtime parser: parse a pathname in JavaScript and comment on which guarantee the type adds and which it cannot.
 
 ## Finish line
 

@@ -294,7 +294,7 @@ For each snippet, write down the exact result before running.
 3. When should you use `input.value` rather than `getAttribute('value')`?
 4. Why does `classList.toggle` preserve other classes?
 5. What does `document.createElement('li')` return before it is appended?
-6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm the output line appears on both; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that the output line appears on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -302,14 +302,14 @@ For each snippet, write down the exact result before running.
 2. Add a `data-priority` attribute and a priority class.
 3. Toggle an `is-complete` class without deleting the other classes.
 4. Remove the list item only after you hold a direct reference to it.
-5. **MDN lookup:** Open the [classList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList), find the `replace()` method on `DOMTokenList`, and swap a `pending` class for a `done` class on a list item using `classList.replace()`. Comment on why `replace` is safer than removing one class and adding another in two separate calls.
+5. Read the [classList reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The builder: write `createTaskItem(label, status)` returning a fully configured but unattached `li`, and a separate `appendTask(list, item)` that attaches it. State why separating build and attach makes the flow testable.
-2. The status badge: write `setBadge(item, status)` that swaps the visible class and the `data-status` marker together using `classList` — never touching the label's `textContent`.
-3. The safe text audit: write a comment block listing every place a value from `input.value`, storage, or an API must be assigned with `textContent`, and why `innerHTML` is never acceptable there.
-4. The counter: write `incrementCounter(output, by)` that updates `output.textContent` from a number stored in memory (not from re-reading the text), and comment on why the memory value is the source of truth.
+1. Write the builder: write `createTaskItem(label, status)` returning a fully configured but unattached `li`, and a separate `appendTask(list, item)` that attaches it. State why separating build and attach makes the flow testable.
+2. Write the status badge: write `setBadge(item, status)` that swaps the visible class and the `data-status` marker together using `classList` — never touching the label's `textContent`.
+3. Write the safe text audit: write a comment block listing every place a value from `input.value`, storage, or an API must be assigned with `textContent`, and why `innerHTML` is never acceptable there.
+4. Write the counter: write `incrementCounter(output, by)` that updates `output.textContent` from a number stored in memory (not from re-reading the text), and comment on why the memory value is the source of truth.
 
 ## Finish line
 

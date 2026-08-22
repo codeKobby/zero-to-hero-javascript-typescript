@@ -321,7 +321,7 @@ For each snippet, write down the exact result before running.
 3. What does `preventDefault` stop, and what does it not stop?
 4. Why does listener removal require the same function reference?
 5. What does `debounce` actually postpone — and what does it not do?
-6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`); confirm a click and a pause after typing both update the output on both; then run `npm.cmd run check` and confirm it passes.
+6. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that a click and a pause after typing both update the output on both. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 
@@ -329,14 +329,14 @@ For each snippet, write down the exact result before running.
 2. Add an input handler that displays the current value.
 3. Write `debounce` and use it to update a status after 300 milliseconds of quiet.
 4. Remove a named listener and explain why an inline replacement does not work.
-5. **MDN lookup:** Open the [Event reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event), find the `bubbles` property, and register a handler on a child button that logs whether its `click` event bubbles to the parent container. Comment on what bubbling means for the delegated-listener pattern in the next lesson.
+5. Read the [Event reference on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
 
-1. The one-shot: register a listener with `{ once: true }` for a first-click action, and comment on when a one-shot listener beats manual removal.
-2. The form owner: write a submit handler that reads values from `form.elements`, prevents the default navigation, and renders a safe summary with `textContent`. State where `preventDefault` belongs.
-3. The grouped lifecycle: register three listeners with one `AbortController` signal and abort them together, with a comment on when the group should be aborted.
-4. The event memo: write a comment block listing `target` vs `currentTarget`, `preventDefault` vs `stopPropagation`, and the same-reference rule for removal.
+1. Write the one-shot: register a listener with `{ once: true }` for a first-click action, and comment on when a one-shot listener beats manual removal.
+2. Write the form owner: write a submit handler that reads values from `form.elements`, prevents the default navigation, and renders a safe summary with `textContent`. State where `preventDefault` belongs.
+3. Write the grouped lifecycle: register three listeners with one `AbortController` signal and abort them together, with a comment on when the group should be aborted.
+4. Write the event memo: write a comment block listing `target` vs `currentTarget`, `preventDefault` vs `stopPropagation`, and the same-reference rule for removal.
 
 ## Finish line
 
