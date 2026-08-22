@@ -42,8 +42,8 @@ Read the [course README](../README.md), complete the [VS Code setup](../VS_CODE_
 - [Guided practice before independent work](#guided-practice-before-independent-work)
 - [Practice](#practice)
   - [Level 1 — Mechanical (10-15 min)](#level-1-mechanical-10-15-min)
-  - [Level 2 — Applied mini-projects](#level-2-applied-mini-projects)
-  - [Level 3 — Creative synthesis](#level-3-creative-synthesis)
+  - [Level 2 — Build small programs](#level-2-build-small-programs)
+  - [Level 3 — Use the idea in a small project](#level-3-use-the-idea-in-a-small-project)
 - [Finish line](#finish-line)
 - [Prove it](#prove-it)
 
@@ -523,23 +523,23 @@ For each snippet, **write down the exact output before running it**, then run an
 9. `console.log(i)` then `let i = 4` — predict, then run
 10. Run `npm.cmd run day2:js` and `npm.cmd run day2`; then `npm.cmd run check` and confirm it passes.
 
-### Level 2 — Applied mini-projects
+### Level 2 — Build small programs
 
-1. A score tracker: start at 0, add 3 for a win, subtract 1 for a penalty, add 2 for a bonus. Print after each change. Use `let` for the score and `const` for the point values.
-2. A "profile card" in code: store name, age, country, city, and `isStudent` with the right keyword for each, and print them on one line.
-3. Write a program that swaps two values. Store `a = 1`, `b = 2`, and make them end up `a = 2`, `b = 1` using a third temporary variable.
-4. Write a program that shows the difference between `undefined` and `ReferenceError` by printing one of each. Add a comment explaining the distinction.
-5. Write a program that demonstrates `const` allowing array contents to change but forbidding reassignment. Both behaviors in one file, each with a comment.
-6. Write a program that prints the result of `counter = counter + 1` three times, and explain in a comment why `=` is assignment, not math equality.
-7. **MDN lookup:** Open the [let reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let), find the section on the temporal dead zone, and write a three-line snippet that reads a `let` variable *before* its declaration. Run it, capture the exact error, and add a comment explaining what the error is really saying.
+1. Make a score counter. Start at `0`, add `3`, subtract `1`, and add `2`. Print the score after each change.
+2. Make a profile. Store a name, age, country, city, and `isStudent`. Print all five values.
+3. Swap two values. Start with `a = 1` and `b = 2`. Finish with `a = 2` and `b = 1`.
+4. Print one `undefined` value. Then read a name that was never declared. What is different about the two results?
+5. Make `const colors = ['red']`. Add `'blue'` with `push`. Then try to assign a new array and record the error.
+6. Start `counter` at `0`. Add `1` three times. Print the number after each addition.
+7. Open the [MDN `let` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let). Read about the temporal dead zone. Read a `let` variable before its declaration and write down the exact error.
 
-### Level 3 — Creative synthesis
+### Level 3 — Use the idea in a small project
 
-1. Temperature converter: store a temperature in Celsius as `const`, convert it to Fahrenheit (`c * 9/5 + 32`), print both. Then explain which name had to be `const` and why.
-2. A tiny "receipt": store three item names and prices, then compute a total. Use the right keyword for every value and defend each choice in comments.
-3. Predict-and-verify experiment: write five snippets where you are *sure* of the output, run them, and for any you got wrong, rewrite your mental rule in one sentence.
-4. TypeScript challenge: write a `let` variable typed as `string | undefined`, assign it, then log it. Uncomment the bad-assignment exercise in the starter, run `npm run check`, read the error, and write what the error text tells you.
-5. Write a short paragraph in comments explaining, in your own words, what hoisting actually does — without the phrase "moved to the top." Then demonstrate the three behaviors (`var` undefined, `let` TDZ, `const` TDZ) in one file.
+1. Store `20` degrees Celsius in a `const` variable. Convert it to Fahrenheit and print both values.
+2. Store three item prices. Add them and print the receipt total.
+3. Write five tiny snippets. Predict each result before you run it. Correct one prediction that was wrong.
+4. In TypeScript, declare `let name: string | undefined`. Assign a string and print it. Then make one bad assignment and run the type check.
+5. Write one short comment explaining why `var`, `let`, and `const` behave differently before their declaration.
 
 ## Finish line
 
