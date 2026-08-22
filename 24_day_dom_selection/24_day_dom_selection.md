@@ -302,7 +302,7 @@ For each snippet, write down the exact result before running.
 4. Why is `querySelectorAll` not tested against `null`?
 5. Is a `NodeList` an array? What does it support?
 6. Why is an `HTMLInputElement` check stronger than a type assertion?
-7. Open the JavaScript starter (`starter/index.html`) directly in your browser and serve the TypeScript page (`npm.cmd run dev`, then `starter/index.ts.html`). Check that the output line appears on both. Run `npm.cmd run check`.
+7. Open the JavaScript starter and run it. Serve the TypeScript page. Check one click and one pause. Run `npm.cmd run check`.
 
 ### Level 2 — Applied mini-projects
 

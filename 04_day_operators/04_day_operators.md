@@ -461,7 +461,7 @@ Predict the exact output (or the error) before running, then run and compare.
 3. Write a safe-access demo: create `const user = null` and show both the crash (`user.name`) and the safe pattern (`user && user.name`), each with a comment.
 4. Write a short-circuit sketch: write three lines that *prove* `&&` stops early — log a marker inside the skipped side and show it never prints.
 5. TypeScript challenge: deliberately mix `price` (number) with a string constant, read the compiler error, then fix it two ways (numeric and textual) with comments explaining each intent.
-6. Write a "do not trust truthiness" experiment: model a survey where `0` is a valid answer, show why `if (answer)` fails for it, and write the precise condition that accepts `0` but rejects "no answer" (`null`/`undefined`).
+6. Show why `if (answer)` rejects a valid `0`. Write a condition that accepts `0` but rejects `null` and `undefined`.
 
 ## Finish line
 

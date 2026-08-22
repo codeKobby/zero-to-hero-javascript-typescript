@@ -523,7 +523,7 @@ For each snippet, write down the exact output before running.
 3. Write a countdown with a message: print 5, 4, 3, 2, 1 and `'Lift off!'`, using a `while` loop whose progress line you can name in one sentence.
 4. Write an average: use `for...of` to sum `[88, 91, 76, 84, 95]`, then print the average to one decimal place. Watch out: `total / scores.length` is a decimal, not an integer.
 5. Write a boundary-crossing detector: walk `[12, 7, 20, 4]` and print `'first value >= 10 at index N'` the moment it appears — use `break`, and trace why the later items never print.
-6. Trace the bug: write a `while` loop that forgets its progress line, put a comment directly above it that says exactly which of the four steps is missing, then (without running the infinite version) rewrite it correctly.
+6. Write a `while` loop without its progress line. Name the missing step in a comment. Fix the loop without running the broken version.
 7. TypeScript challenge: type the scores array as `number[]`, add the string push, run `npm.cmd run check`, read the error, fix it, and confirm the check passes again.
 
 ## Finish line

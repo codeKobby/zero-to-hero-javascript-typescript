@@ -500,11 +500,11 @@ For each, predict the exact output before running, then run and compare.
 8. Read the [typeof reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof). Copy one small example into the starter. Run it and write down what it does.
 
 ### Level 3 — Creative synthesis
-2. Write a "type report card": a single program that builds a small table of values and their true type — using `typeof` for primitives, `=== null` for null, and `Array.isArray` for arrays. Print all three categories.
+2. Write a type report card. Check a string, number, boolean, array, object, `undefined`, and `null`.
 3. Write a form-arithmetic bug: simulate a form that delivers `'5'` as a string, then show the wrong way (`formInput + 5`) and the right way (`Number(formInput) + 5`) side by side, each with a comment.
 4. Write a `null` vs `undefined` story: write a mini-program modeling a login box — `undefined` when the user has not typed, `null` when they submitted empty — and log the difference with comments.
 5. TypeScript challenge: write a function-like experiment where a value is typed `number | null`, and demonstrate that the `.toFixed(2)` call only works inside the `!== null` branch — then explain why TypeScript demands the check.
-6. Write, in comments, a short "type decision tree" you would use when debugging: how to tell a string, a number, a boolean, an array, an object, `undefined`, and `null` apart — the exact operator or method you would use for each.
+6. Write a short type table. For a string, number, boolean, array, object, `undefined`, and `null`, list the check you would use.
 
 ## Finish line
 

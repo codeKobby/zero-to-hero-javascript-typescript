@@ -498,9 +498,9 @@ For each snippet, write down the value each variable receives, before running.
 
 1. Write a receipt: write `calculateReceipt(subtotal)` that returns an object `{ subtotal, tax, total }` where `tax` is 15% of the subtotal. (Objects arrive in Day 9 — the syntax is `{ key: value }`.)
 2. Write a temperature converter: write `toCelsius(fahrenheit)` and `toFahrenheit(celsius)` using the real formulas. Then write `describeTemperature(celsius)` that returns `'cold'`, `'warm'`, or `'hot'` using the Day 5 rules.
-3. Write a validator with a default: write `createMessage(name, greeting = 'Hello')` that returns a message, then in a comment explain what happens if a caller passes `''` as the greeting and why the default does not apply.
-4. Write a scope example: write a function with a local variable, call it, then in a comment predict what happens if you try to `console.log` that local variable outside the function — then prove it with a commented-out line.
-5. Write the `undefined` hunt: write three short functions, one of which returns `undefined` on purpose (no `return`), and in a comment explain how you would spot the mistake from the caller's output — using the Day 7 model, not trial and error.
+3. Write `createMessage(name, greeting = 'Hello')`. Call it with `''` and explain why the default is not used.
+4. Write a function with a local variable. Call it. Predict what happens when code outside the function reads that variable.
+5. Write three functions. Make one return `undefined`. Print all three results and identify the undefined one.
 
 ## Finish line
 

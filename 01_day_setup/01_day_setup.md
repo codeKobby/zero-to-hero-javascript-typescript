@@ -645,8 +645,8 @@ Attempt the exercises before opening [hints](practice/hints.md) or [solutions](p
 2. Write a program that prints the result of `3 ** 2`, `2 ** 10`, and `10 ** 3` — but before running it, write down your predictions and then explain any surprise.
 3. Write a program that prints a receipt: three item names, three prices, and a total that you compute with `+` inside `console.log`.
 4. Write a program that prints the same sentence three times using single quotes, double quotes, and backticks, with a comment above each explaining the one difference between them.
-5. In the browser console, explore the `console` object: type `console` and press Enter, then click to expand it. List three methods you see besides `log`, and write a sentence about what each seems to do.
-6. Write a short paragraph in a file comment explaining, in your own words, the path a TypeScript file travels from keyboard to screen. Then run the Day 1 TypeScript starter to confirm the path still works.
+5. In the browser console, type `console` and press Enter. List three methods besides `log`. For each method, write one thing it might do.
+6. In a comment, write the path from a TypeScript file to the screen. Then run the Day 1 TypeScript starter.
 
 ## Finish line
 

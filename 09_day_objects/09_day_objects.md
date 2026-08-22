@@ -467,11 +467,11 @@ For each snippet, write down the exact output before running.
 
 ### Level 3 — Creative synthesis
 
-1. Write a to-do item: build `createTodo(text)` that returns `{ id, text, done }` where `id` increments each call (closure from Day 8) and `done` starts `false`. Add a `toggle()` method that flips `done` and returns the updated item.
+1. Write `createTodo(text)` with an ID, text, and `done: false`. Add `toggle()` to change `done`.
 2. Write a product display: build a `product` object with `name`, `price`, and a `describe()` method; then write `formatPrice(product)` that reads `product.price` with dot notation and returns it as a string with a currency symbol.
 3. Write the checkout queue: write `checkout(cart)` that returns a **new** cart with `total` added, using spread to avoid mutating the original — and in a comment explain what would have happened without the spread.
 4. Write the key swap: write code that reads a property whose name is stored in a variable `key`, then in a comment predict what `object.key` would do instead and why.
-5. Write the this-mystery: write an object with a method that uses `this`, call it correctly, then in a comment write the line that extracts the method and breaks the connection — and explain the output change using the call-site rule from this lesson.
+5. Write an object method that uses `this`. Call it correctly. Then extract the method and write down the new result.
 
 ## Finish line
 
